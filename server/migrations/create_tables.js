@@ -3,89 +3,75 @@
  * @returns { Promise<voId> }
  */
 exports.up = function (knex) {
-  return knex.schema
+  return (
+    knex.schema
+      // https:// intelshare.intelink.gov/sites/354RANS/JESTR// api/web/siteusers
+      // https:// intelshare.intelink.gov/sites/354RANS/JESTR/api/Web/GetUserById(566)
+      .createTable('Users', (table) => {
+        table.increments('Id').primary();
+        table.string('LoginName').notNullable(); // "i:0e.t|fedvis|joseph.w.hartsfield"
+        table.string('Title').notNullable(); // "Hartsfield Joseph DOD - joseph.w.hartsfield"
+        table.string('Password').nullable(); // TODO: Setting to nullable for now
+        table.string('Email').nullable(); // "first.last@us.af.mil"
+        table.boolean('IsSiteAdmin').defaultTo(false); // Site Collection Admin Rights
+        table.boolean('IsApprover').defaultTo(false); // Member of Approver Group
+        table.boolean('IsOwner').defaultTo(false); // Member of Owner Group
+      })
 
-    .createTable("Users", (table) => {
-      table.increments("Id").primary();
-      table.string("Username").notNullable();
-      table.string("Password").nullable(); // Setting to nullable for now
-      table.string("Email").nullable();
-      table.boolean("IsSiteAdmin").defaultTo(false);
-    })
+      // https:// intelshare.intelink.gov/sites/354RANS/JESTR/api/web/lists/GetByTitle('Master%20threat%20list')/items
+      .createTable('Assets', (table) => {
+        table.increments('Id').primary();
+        table.text('Serial').nullable(); // "x1y2z3"
+        table.text('Equipment').nullable(); // "xxy-123"
+        table.text('Threat').nullable(); // ""
+        table.text('ThreatType').nullable(); // ""
+        table.text('SystemInformation').nullable(); // "some string"
+        table.text('StatusDate').nullable();
+        table.text('Status').nullable(); // RED ||AMBER || GREEN || NA
+        table.datetime('ETIC').nullable(); // 2022-11-02T19:44:06Z
+        table.text('Remarks').nullable(); // "some string"
+        table.boolean('Schedulable').nullable(); // true/false
+        table.boolean('Operational').nullable(); // true/false
+        table.text('Range').nullable(); // 2202 || 2205 || 2211 || ?other?
+        table.text('SiteLocation').nullable(); // "string ex Charlie Batt"
+        table.text('Latitude').nullable(); // "N64 37.220",
+        table.text('Longitude').nullable(); // "W146 39.160",
+        table.text('Elevation').nullable(); // 2000
+        table.text('Accuracy').nullable(); // UNK / +/- 2m
+        table.text('CoordSource').nullable(); // "some text: GARMIN GPX 55I"
+        table.datetime('CoordRecordedDate').nullable(); // 2022-11-02T19:44:06Z
+        table
+          .datetime('created', { useTz: false, precision: 3 })
+          .defaultTo(knex.fn.now());
+        table
+          .datetime('modified', { useTz: false, precision: 3 })
+          .defaultTo(knex.fn.now());
+        table.integer('AuthorId').unsigned().notNullable();
+        table.foreign('AuthorId').references('Id').inTable('Users');
+        table.integer('EditorId').unsigned().notNullable();
+        table.foreign('EditorId').references('Id').inTable('Users');
+      })
 
-    .createTable("Groups", (table) => {
-      table.increments("Id").primary();
-      table.string("Title").notNullable();
-    })
-
-    .createTable("user_groups", (table) => {
-      table.increments("Id").primary();
-      table.integer("users_Id").unsigned().notNullable();
-      // table.foreign('entry_Id').references('Id').inTable('users');
-      table.integer("groups_Id").unsigned().notNullable();
-      // table.foreign('tag_Id').references('Id').inTable('users');
-    })
-
-    .createTable("Assets", (table) => {
-      table.increments("Id").primary();
-      table.string("Title").notNullable();
-      table.text("Serial").notNullable();
-      table.text("System_x0020_Type").notNullable();
-      table.text("Equipment").notNullable();
-      table.text("Threat").notNullable();
-      table.text("Status").notNullable();
-      table.text("Status_x0020_change_x0020_date").notNullable();
-      table.text("ETIC").notNullable();
-      table.text("Remarks").notNullable();
-      table.text("Information").notNullable();
-      table.text("Equip_x002f_Threat").notNullable();
-      table.text("Schedulable").notNullable();
-      table.boolean("Availability").notNullable();
-      table.boolean("Operational").notNullable();
-      table.text("Range").notNullable(); // 2202 || 2205 || 2211 || ?other?
-      table.text("Latitude").notNullable();
-      table.text("Longitude").notNullable();
-      table.text("Bullseye").notNullable();
-      table.text("Elevation").notNullable();
-      table.text("Accuracy").notNullable();
-      table.text("Lon_x0020_DD").notNullable();
-      table.text("Lat_x0020_DD").notNullable();
-      table.text("Coord_x0020_Source").notNullable();
-      table.text("Coord_x0020_Recorded_x0020_Date").notNullable();
-      table.text("Notes").notNullable();
-      table.text("Site_x0020_Location").notNullable();
-      table
-        .datetime("created", { useTz: false, precision: 3 })
-        .defaultTo(knex.fn.now());
-      table
-        .datetime("modified", { useTz: false, precision: 3 })
-        .defaultTo(knex.fn.now());
-      table.integer("author_Id").unsigned().notNullable();
-      table.foreign("author_Id").references("Id").inTable("users");
-      table.integer("editor_Id").unsigned().notNullable();
-      table.foreign("editor_Id").references("Id").inTable("users");
-    })
-
-    .createTable("Schedule", (table) => {
-      table.increments("Id").primary();
-      table.text("Title").primary();
-      table.text("location").primary();
-      table.text("eventdate").primary();
-      table.text("end_date").primary();
-      table.text("description").primary();
-      table.text("range").primary();
-      table.text("contact_x0020_dsn").primary();
-      table.text("contact_x0020_name").primary();
-      table.text("threat_x0020_type").primary();
-      table.text("threat_x002f_equipment").primary();
-      table.text("notes").primary();
-      table.text("status").primary();
-      table.text("threat_x0020_window").primary();
-      table.integer("author_Id").unsigned().notNullable();
-      table.foreign("author_Id").references("Id").inTable("users");
-      table.integer("editor_Id").unsigned().notNullable();
-      table.foreign("editor_Id").references("Id").inTable("users");
-    });
+      // https:// intelshare.intelink.gov/sites/354RANS/JESTR/api/web/lists/GetByTitle('Range%20Scheduler')/items
+      .createTable('Reservations', (table) => {
+        table.increments('Id').primary();
+        table.text('Squadron').nullable(); // "VMGR-152"
+        table.text('ContactDSN').nullable(); // "123-456-7890"
+        table.text('Range').nullable(); // 2202 || 2205 || 2211 || ?other?
+        table.text('SiteLocation').nullable(); // Charlie batt
+        table.text('Threat').nullable(); // SA-3
+        table.text('Equipment').nullable(); // T-2
+        table.text('ThreatType').nullable(); // Manned / unmanned/ etc
+        table.text('EndDate').nullable(); // "2021-05-18T19:00:00Z"
+        table.text('EventDate').nullable(); //"2021-05-18T21:00:00Z"
+        table.text('Notes').nullable(); //"some info"
+        table.text('Status').nullable().defaultTo('Pending'); // Pending || Rejected || Approved
+        table.integer('AuthorId').unsigned().notNullable();
+        table.foreign('AuthorId').references('Id').inTable('Users');
+        table.integer('EditorId').unsigned().notNullable();
+        table.foreign('EditorId').references('Id').inTable('Users');
+      })
+  );
 };
 
 /**
@@ -95,9 +81,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("schedule")
-    .dropTableIfExists("assets")
-    .dropTableIfExists("user_groups")
-    .dropTableIfExists("groups")
-    .dropTableIfExists("users")
+    .dropTableIfExists('Reservations')
+    .dropTableIfExists('Assets')
+    .dropTableIfExists('Users');
 };
