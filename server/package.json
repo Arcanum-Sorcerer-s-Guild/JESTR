@@ -1,19 +1,31 @@
 {
-  "name": "sp-server",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run && node index.js",
+    "dev": "nodemon index.js",
+    "clean-db": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "faker": "^6.6.6",
+    "nodemon": "^2.0.22"
+  },
   "dependencies": {
-    "bootstrap": "^5.2.3",
+    "bcrypt": "^5.1.0",
+    "connect-session-knex": "^3.0.1",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "path-to-regexp": "^6.2.1",
-    "react-bootstrap": "^2.7.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "knex": "^2.4.2",
+    "knex-paginate": "^3.1.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.10.0"
   }
 }
