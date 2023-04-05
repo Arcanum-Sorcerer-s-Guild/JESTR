@@ -46,7 +46,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
         `${lName} ${fName} DOD - ` + `${fName}.${mInit}.${lName}`.toLowerCase(), //"Hartsfield Joseph DOD - joseph.w.hartsfield"
       Email: `${fName}.${lName}@us.af.mil`,
       Password: `$2b$10$qyiSpOOIm0blmZJgLbjW7eJGkFgP2KfvC4rnpzszDcD8v.marxR2C`, //password
-
     });
   });
 
@@ -80,7 +79,9 @@ const generateAssets = (numAssets = globalNumAssets) => {
       Longitude: faker.address.longitude(66, 65, 6), // "W146 39.160"= '';
       Elevation: randomIncRange(3500, 4500), // 2000
       Accuracy: `+/- ${randomIncRange(3, 8)}`, // UNK / +/- 2m
-      CoordSource: ['GARMIN GPX 55I', 'Arcanum', 'Sorcery', 'Magic'][randomIncRange(0, 3)], // "some text: GARMIN GPX 55I"
+      CoordSource: ['GARMIN GPX 55I', 'Arcanum', 'Sorcery', 'Magic'][
+        randomIncRange(0, 3)
+      ], // "some text: GARMIN GPX 55I"
       CoordRecordedDate: generateFakeDate('2020-03-01', '2020-08-01'), // 2022-11-02T19:44:06Z
       created: generateFakeDate('2023-03-01', '2023-3-20'),
       modified: generateFakeDate('2023-08-01', '2023-10-01'),
@@ -105,13 +106,15 @@ const generateReservations = (
   const reservations = [];
   while (reservations.length < numReservations) {
     const asset = assets[randomIncRange(0, assets.length - 1)];
+
     const { squadron, contactDSN } =
       squadronsInfo[randomIncRange(0, squadronsInfo.length - 1)];
-    const status = randomIncRange(1, 100);
 
     const startDate = new Date(
       generateFakeDate(globalDateRangeStart, globalDateRangeEnd)
     );
+    
+    const status = randomIncRange(1, 100);
 
     reservations.push({
       Squadron: squadron, // "VMGR-152"

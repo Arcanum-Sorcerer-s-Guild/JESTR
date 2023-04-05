@@ -26,9 +26,15 @@ exports.up = function (knex) {
         table.text('Threat').nullable(); // ""
         table.text('ThreatType').nullable(); // ""
         table.text('SystemInformation').nullable(); // "some string"
-        table.text('StatusDate').nullable();
+        table
+          .datetime('StatusDate', { useTz: false, precision: 0 })
+          .defaultTo(knex.fn.now());
+        // table.text('StatusDate').nullable();
         table.text('Status').nullable(); // RED ||AMBER || GREEN || NA
-        table.datetime('ETIC').nullable(); // 2022-11-02T19:44:06Z
+        table
+          .datetime('ETIC', { useTz: false, precision: 0 })
+          .defaultTo(knex.fn.now()); // 2022-11-02T19:44:06Z
+        // table.datetime('ETIC').nullable(); // 2022-11-02T19:44:06Z
         table.text('Remarks').nullable(); // "some string"
         table.boolean('Schedulable').nullable(); // true/false
         table.boolean('Operational').nullable(); // true/false
@@ -39,12 +45,15 @@ exports.up = function (knex) {
         table.text('Elevation').nullable(); // 2000
         table.text('Accuracy').nullable(); // UNK / +/- 2m
         table.text('CoordSource').nullable(); // "some text: GARMIN GPX 55I"
-        table.datetime('CoordRecordedDate').nullable(); // 2022-11-02T19:44:06Z
         table
-          .datetime('created', { useTz: false, precision: 3 })
+          .datetime('CoordRecordedDate', { useTz: false, precision: 0 })
+          .defaultTo(knex.fn.now()); // 2022-11-02T19:44:06Z
+        // table.datetime('CoordRecordedDate').nullable(); // 2022-11-02T19:44:06Z
+        table
+          .datetime('created', { useTz: false, precision: 0 })
           .defaultTo(knex.fn.now());
         table
-          .datetime('modified', { useTz: false, precision: 3 })
+          .datetime('modified', { useTz: false, precision: 0 })
           .defaultTo(knex.fn.now());
         table.integer('AuthorId').unsigned().notNullable();
         table.foreign('AuthorId').references('Id').inTable('Users');
@@ -62,8 +71,14 @@ exports.up = function (knex) {
         table.text('Threat').nullable(); // SA-3
         table.text('Equipment').nullable(); // T-2
         table.text('ThreatType').nullable(); // Manned / unmanned/ etc
-        table.text('EndDate').nullable(); // "2021-05-18T19:00:00Z"
-        table.text('EventDate').nullable(); //"2021-05-18T21:00:00Z"
+        table
+          .datetime('EventDate', { useTz: false, precision: 0 })
+          .defaultTo(knex.fn.now()); //"2021-05-18T21:00:00Z"
+        // table.text('EventDate').nullable(); //"2021-05-18T21:00:00Z"
+        table
+          .datetime('EndDate', { useTz: false, precision: 0 })
+          .defaultTo(knex.fn.now()); // "2021-05-18T19:00:00Z"
+        // table.text('EndDate').nullable(); // "2021-05-18T19:00:00Z"
         table.text('Notes').nullable(); //"some info"
         table.text('Status').nullable().defaultTo('Pending'); // Pending || Rejected || Approved
         table.integer('AuthorId').unsigned().notNullable();
