@@ -5,8 +5,8 @@
 exports.up = function (knex) {
   return (
     knex.schema
-      // https:// intelshare.intelink.gov/sites/354RANS/JESTR// api/web/siteusers
-      // https:// intelshare.intelink.gov/sites/354RANS/JESTR/api/Web/GetUserById(566)
+      // /_api/web/siteusers
+      // /_api/Web/GetUserById(566)
       .createTable('Users', (table) => {
         table.increments('Id').primary();
         table.string('LoginName').notNullable(); // "i:0e.t|fedvis|joseph.w.hartsfield"
@@ -18,7 +18,7 @@ exports.up = function (knex) {
         table.boolean('IsOwner').defaultTo(false); // Member of Owner Group
       })
 
-      // https:// intelshare.intelink.gov/sites/354RANS/JESTR/api/web/lists/GetByTitle('Master%20threat%20list')/items
+      // /_api/web/lists/GetByTitle('Master%20threat%20list')/items
       .createTable('Assets', (table) => {
         table.increments('Id').primary();
         table.text('Serial').nullable(); // "x1y2z3"
@@ -52,7 +52,7 @@ exports.up = function (knex) {
         table.foreign('EditorId').references('Id').inTable('Users');
       })
 
-      // https:// intelshare.intelink.gov/sites/354RANS/JESTR/api/web/lists/GetByTitle('Range%20Scheduler')/items
+      // /_api/web/lists/GetByTitle('Range%20Scheduler')/items
       .createTable('Reservations', (table) => {
         table.increments('Id').primary();
         table.text('Squadron').nullable(); // "VMGR-152"
