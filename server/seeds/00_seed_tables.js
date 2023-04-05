@@ -7,7 +7,9 @@ const globalNumReservations = 400;
 const globalDateRangeStart = '2023-01-01';
 const globalDateRangeEnd = '2023-05-01';
 
-function randomInRange(min, max) {
+function randomIncRange(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max) + 1;
   return Math.floor(Math.random() * (max - min) + min);
 }
 
