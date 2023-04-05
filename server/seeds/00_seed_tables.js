@@ -93,13 +93,7 @@ const generateAssets = (numAssets = globalNumAssets) => {
   const assets = [];
   while (assets.length < numAssets) {
     assets.push({
-      Serial: `${faker.random.alpha()}${randomIncRange(
-        1,
-        10
-      )}${faker.random.alpha()}${faker.random.alpha()}${randomIncRange(
-        50,
-        300
-      )}`, // "x1y2z3"
+      Serial: faker.random.alphaNumeric(8), // "vx1y2z34"
       Equipment: `SA-${randomIncRange(1, 300)}`, // "xxy-123"
       Threat: `XM-${randomIncRange(1, 300)}`, // ""
       ThreatType: ['Manned', 'Unmanned'][randomIncRange(0, 1)],
