@@ -33,6 +33,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Joseph.Hartsfield@us.af.mil',
       Password: '$2b$10$UsKeiH3WcXiiSExAkVRz8OemrorThLhg6tqLh98jKVmZUtWp5NpcW', // password is first name all lowercase
       IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|jacob.s.steward',
@@ -40,6 +42,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Jacob.Steward@us.af.mil',
       Password: '$2b$10$ueciUEIX/XVp/T9s/GR4jOygLJsclVsSTdCybQKgnSA7xkmTgOPoK', // password is first name all lowercase
       IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|david.b.bonilla',
@@ -47,6 +51,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'David.Bonilla@us.af.mil',
       Password: '$2b$10$bQdHtPZNYyu3tMhQKpPGu.pIGTpLI/ls4DBL54t9raxsHpcdzsyZG', // password is first name all lowercase
       IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|jason.m.martin',
@@ -54,6 +60,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Jason.Martin@us.af.mil',
       Password: '$2b$10$bPdTDVkvqG7MVEHuN9Mtz.3ogQYpS7VExp7WT1oJYWLNRdBOXjNtK', // password is first name all lowercase
       IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|kyle.h.hackett',
@@ -61,6 +69,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Kyle.Hackett@us.af.mil',
       Password: '$2b$10$MgXcQaRN7NR3/hJO4aRt1em6Yq1jyHtuPEJeYc7tKDr89apkw5N6y', // password is first name all lowercase
       IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|brandon.r.roques',
@@ -68,6 +78,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Brandon.Roques@us.af.mil',
       Password: '$2b$10$SmPj0Ry74xDBjSyv06x7R.3lc/adNdbKJiIethrqAh9t923tJKJSO', // password is first name all lowercase
       IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
     }
   ]
 
