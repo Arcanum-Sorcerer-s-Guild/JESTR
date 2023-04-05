@@ -1,7 +1,11 @@
 const { faker } = require("@faker-js/faker");
 const knex = require("knex")(require("../knexfile.js")["development"]);
 
-const numUsers = 100;
+const globalNumUsers = 100;
+const globalNumAssets = 60;
+const globalNumReservations = 400;
+const globalDateRangeStart = '2023-01-01';
+const globalDateRangeEnd = '2023-05-01';
 
 function randomInRange(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
