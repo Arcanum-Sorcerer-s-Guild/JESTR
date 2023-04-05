@@ -113,7 +113,11 @@ const generateReservations = (
     const startDate = new Date(
       generateFakeDate(globalDateRangeStart, globalDateRangeEnd)
     );
-    
+
+    // Offset endState from startDate by +2 hours
+    const endDate = new Date(startDate);
+    endDate.setHours(endDate.getHours() + 2);
+
     const status = randomIncRange(1, 100);
 
     reservations.push({
@@ -124,8 +128,8 @@ const generateReservations = (
       Threat: asset.Threat, // SA-3 **Pulled
       Equipment: asset.Threat, // T-2 **Pulled
       ThreatType: asset.ThreatType, // Manned / unmanned/ etc  **Pulled
-      EndDate: startDate, // TODO: Add 2 hours to startDate "2021-05-18T19:00:00Z"
-      EventDate: startDate, // TODO: Format correct string: "2021-05-18T21:00:00Z"
+      EventDate: startDate, //  "2021-05-18T17:00:00Z"
+      EndDate: endDate, // "2021-05-18T19:00:00Z"
       Notes: faker.hacker.phrase(), //"some info"
       Status: status <= 5 ? 'Pending' : status <= 20 ? 'Rejected' : 'Approved', // Pending || Rejected || Approved
       AuthorId: randomIncRange(1, numUsers), // foreign key to Users table
