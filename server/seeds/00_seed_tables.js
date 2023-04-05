@@ -31,37 +31,43 @@ const generateUsers = (numUsers = globalNumUsers) => {
       LoginName: 'i:0e.t|fedvis|joseph.w.hartsfield',
       Title: 'Hartsfield Joseph DOD - joseph.w.hartsfield',
       Email: 'Joseph.Hartsfield@us.af.mil',
-      Password: '$2b$10$UsKeiH3WcXiiSExAkVRz8OemrorThLhg6tqLh98jKVmZUtWp5NpcW' // password is first name all lowercase
+      Password: '$2b$10$UsKeiH3WcXiiSExAkVRz8OemrorThLhg6tqLh98jKVmZUtWp5NpcW', // password is first name all lowercase
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|jacob.s.steward',
       Title: 'Steward Jacob DOD - jacob.s.steward',
       Email: 'Jacob.Steward@us.af.mil',
-      Password: '$2b$10$ueciUEIX/XVp/T9s/GR4jOygLJsclVsSTdCybQKgnSA7xkmTgOPoK' // password is first name all lowercase
+      Password: '$2b$10$ueciUEIX/XVp/T9s/GR4jOygLJsclVsSTdCybQKgnSA7xkmTgOPoK', // password is first name all lowercase
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|david.b.bonilla',
       Title: 'Bonilla David DOD - david.b.bonilla',
       Email: 'David.Bonilla@us.af.mil',
-      Password: '$2b$10$bQdHtPZNYyu3tMhQKpPGu.pIGTpLI/ls4DBL54t9raxsHpcdzsyZG' // password is first name all lowercase
+      Password: '$2b$10$bQdHtPZNYyu3tMhQKpPGu.pIGTpLI/ls4DBL54t9raxsHpcdzsyZG', // password is first name all lowercase
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|jason.m.martin',
       Title: 'Martin Jason DOD - jason.m.martin',
       Email: 'Jason.Martin@us.af.mil',
-      Password: '$2b$10$bPdTDVkvqG7MVEHuN9Mtz.3ogQYpS7VExp7WT1oJYWLNRdBOXjNtK' // password is first name all lowercase
+      Password: '$2b$10$bPdTDVkvqG7MVEHuN9Mtz.3ogQYpS7VExp7WT1oJYWLNRdBOXjNtK', // password is first name all lowercase
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|kyle.h.hackett',
       Title: 'Hackett Kyle DOD - kyle.h.hackett',
       Email: 'Kyle.Hackett@us.af.mil',
-      Password: '$2b$10$MgXcQaRN7NR3/hJO4aRt1em6Yq1jyHtuPEJeYc7tKDr89apkw5N6y' // password is first name all lowercase
+      Password: '$2b$10$MgXcQaRN7NR3/hJO4aRt1em6Yq1jyHtuPEJeYc7tKDr89apkw5N6y', // password is first name all lowercase
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|brandon.r.roques',
       Title: 'Roques Brandon DOD - brandon.r.roques',
       Email: 'Brandon.Roques@us.af.mil',
-      Password: '$2b$10$SmPj0Ry74xDBjSyv06x7R.3lc/adNdbKJiIethrqAh9t923tJKJSO' // password is first name all lowercase
+      Password: '$2b$10$SmPj0Ry74xDBjSyv06x7R.3lc/adNdbKJiIethrqAh9t923tJKJSO', // password is first name all lowercase
+      IsSiteAdmin: true,
     }
   ]
 
