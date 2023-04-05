@@ -1,0 +1,19 @@
+{
+  "name": "sp-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "path-to-regexp": "^6.2.1",
+    "react-bootstrap": "^2.7.2"
+  }
+}
