@@ -14,10 +14,10 @@ function randomIncRange(min, max) {
 }
 
 const generateFakeDate = (
-  sDate = globalDateRangeStart,
-  eDate = globalDateRangeEnd
+  startDate = globalDateRangeStart,
+  endDate = globalDateRangeEnd
 ) => {
-  return faker.date.between(`${sDate}T00:00:00.00Z`, `${eDate}T00:00:00.00Z`);
+  return faker.date.between(`${startDate}T00:00:00.00Z`, `${endDate}T00:00:00.00Z`);
 };
 
 const generateUsers = (numUsers = globalNumUsers) => {
