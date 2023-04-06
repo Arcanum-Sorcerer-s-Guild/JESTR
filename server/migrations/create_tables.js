@@ -5,15 +5,15 @@
 exports.up = function (knex) {
   return knex.schema
 
-    .createTable("users", (table) => {
+    .createTable("Users", (table) => {
       table.increments("Id").primary();
       table.string("Username").notNullable();
-      table.string("Password").notNullable();
+      table.string("Password").nullable(); // Setting to nullable for now
       table.string("Email").nullable();
       table.boolean("IsSiteAdmin").defaultTo(false);
     })
 
-    .createTable("groups", (table) => {
+    .createTable("Groups", (table) => {
       table.increments("Id").primary();
       table.string("Title").notNullable();
     })
@@ -26,7 +26,7 @@ exports.up = function (knex) {
       // table.foreign('tag_Id').references('Id').inTable('users');
     })
 
-    .createTable("assets", (table) => {
+    .createTable("Assets", (table) => {
       table.increments("Id").primary();
       table.string("Title").notNullable();
       table.text("Serial").notNullable();
@@ -42,7 +42,7 @@ exports.up = function (knex) {
       table.text("Schedulable").notNullable();
       table.boolean("Availability").notNullable();
       table.boolean("Operational").notNullable();
-      table.text("Range").notNullable(); // 2202 || 2205 || 2211
+      table.text("Range").notNullable(); // 2202 || 2205 || 2211 || ?other?
       table.text("Latitude").notNullable();
       table.text("Longitude").notNullable();
       table.text("Bullseye").notNullable();
@@ -66,7 +66,7 @@ exports.up = function (knex) {
       table.foreign("editor_Id").references("Id").inTable("users");
     })
 
-    .createTable("schedule", (table) => {
+    .createTable("Schedule", (table) => {
       table.increments("Id").primary();
       table.text("Title").primary();
       table.text("location").primary();
