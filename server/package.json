@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run && node index.js",
-    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run && nodemon index.js",
     "clean-db": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
