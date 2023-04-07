@@ -7,7 +7,7 @@ const KnexSessionStore = require("connect-session-knex")(session);
 const knex = require("./db/dbConnections.js");
 const app = express();
 
-const { getUserByUsername, createUser } = require("./db/controllers/users.js");
+const { getUserByLoginName, createUser } = require("./db/controllers/users.js");
 // const { login } = require("./db/controllers/login.js");
 const {
   getListItem,
