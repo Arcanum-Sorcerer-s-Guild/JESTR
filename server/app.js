@@ -227,6 +227,8 @@ app.get(
 // Post List Item
 //http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items
 //http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items
+
+// TODO - Need to check to see if user can edit assets with user authentication
 app.post(
   "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items",
   (req, res) => {
@@ -248,6 +250,7 @@ app.post(
 // Post List Item
 //http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(1)
 //http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
+// TODO - Need to check to see if user can edit assets with user authentication
 app.post(
   "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
   (req, res) => {
@@ -270,6 +273,7 @@ app.post(
 );
 
 //http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
+// TODO - Need to check to see if user can delete assets with user authentication
 app.delete("/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)", (req, res) => {
   if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
 
@@ -286,7 +290,6 @@ app.delete("/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)", (r
       })
     })
 })
-
 
 module.exports = app;
 
