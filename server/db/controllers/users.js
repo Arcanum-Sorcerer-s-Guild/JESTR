@@ -4,20 +4,21 @@ const getUserByLoginName = async (LoginName) => {
   return await knex("Users").where("LoginName", "ilike", LoginName);
 };
 
-const createUser = async (LoginName, hashedPassword, IsOwner) => {
-  console.log("creating user:", { LoginName, hashedPassword, IsOwner });
+const getUserByEmail = async (email) => {
+  return await knex("Users").where("Email", "ilike", email);
+};
+
+const createUser = async (user) => {
+  console.log("creating user:", user);
   return await knex("Users")
     .insert([
-      {
-        LoginName: LoginName,
-        Password: hashedPassword,
-        IsOwner: IsOwner,
-      },
+      user,
     ])
     .returning("*");
 };
 
 module.exports = {
   getUserByLoginName,
-  createUser
+  getUserByEmail,
+  createUser,
 };

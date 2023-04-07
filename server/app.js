@@ -1,212 +1,84 @@
-const express = require("express");
-require("dotenv").config();
-const morgan = require("morgan");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
-const session = require("express-session");
-const KnexSessionStore = require("connect-session-knex")(session);
-const knex = require("./db/dbConnections.js");
-const app = express();
+const express = require('express');
+require('dotenv').config();
+const morgan = require('morgan');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
 
-const { getUserByLoginName, createUser } = require("./db/controllers/users.js");
-// const { login } = require("./db/controllers/login.js");
+const knex = require('./db/dbConnections.js');
 const {
   getListItem,
   postListItem,
   deleteListItem,
-} = require("./db/controllers/lists.js");
+} = require('./db/controllers/lists.js');
+
+const session = require('express-session');
+const KnexSessionStore = require('connect-session-knex')(session);
+const store = new KnexSessionStore({
+  knex,
+  tablename: 'sessions',
+});
+
+const app = express();
 
 // Global config from Environment
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
-const SESSION_SECRET = process.env.SESSION_SECRET || "6f646a6c6e6775306d7a68686d64637"
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
+const SESSION_SECRET =
+  process.env.SESSION_SECRET || '6f646a6c6e6775306d7a68686d64637';
 
-app.use(morgan("tiny"));
+// express app configuration
+app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: CLIENT_URL,
-    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", "DELETE"],
+    methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD', 'DELETE'],
     credentials: true,
   })
 );
-const store = new KnexSessionStore({
-  knex,
-  tablename: "sessions",
-});
 app.use(
   session({
     store: store,
-    name: "connect.sid",
+    name: 'connect.sid',
     secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
     cookie: {
       secure: false,
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24, // in milliseconds: ms * s * m * h = 1 day
     },
   })
 );
 
 const errorMessage =
-  "The data you are looking for could not be found. Please try again";
+  'The data you are looking for could not be found. Please try again';
 
-// register new user
-app.post("/register", async (req, res) => {
-  const { LoginName, Password, IsOwner } = req.body;
+const userRouter = require('./routes/user.route.js');
+app.use('/user', userRouter);
 
-  // reject missing LoginName or missing Password
-  if (LoginName === "" || Password === "") {
-    console.log("undefined user or pass");
-    return res.status(401).json({
-      error: "undefined user or pass",
-    });
-  }
-
-  // reject duplicate LoginName
-  const duplicate = await getUserByLoginName(LoginName);
-  if (duplicate.length > 0) {
-    console.log("duplicate LoginName of id:", duplicate[0].id);
-    return res.status(401).json({
-      error: "LoginName already taken...",
-    });
-  }
-
-  try {
-    // hash Password and insert user into database
-    const hashedPassword = bcrypt.hashSync(Password, 10);
-    const data = await createUser(LoginName, hashedPassword, IsOwner);
-    const user = data[0];
-
-    // create session cookie
-    req.session.user = {
-      userId: user.id,
-      LoginName: user.LoginName,
-      IsOwner: user.IsOwner,
-    };
-
-    // send user object to front end for cookie
-    res.status(200);
-    return res.json(req.session.user);
-  } catch (err) {
-    console.log(err);
-    return res.status(403).json({
-      error: err,
-    });
-  }
-});
-// login existing user
-app.post("/login", async (req, res) => {
-  const { LoginName, Password } = req.body;
-
-  // reject missing LoginName or missing Password
-  if (LoginName == undefined || Password == undefined) {
-    console.log("undefined user or pass");
-    return res.status(401).json({
-      error: "Missing LoginName or Password",
-    });
-  }
-
-  try {
-    // search db for user
-    const data = await getUserByLoginName(LoginName);
-
-    // reject if user not found
-    if (data.length === 0) {
-      console.log("user not found");
-      return res.status(401).json({
-        error: "User not found",
-      });
-    }
-    const user = data[0];
-    console.log("user:", user);
-
-    // compare Password hashes and reject if incorrect
-    const matches = bcrypt.compareSync(Password, user.Password);
-    if (!matches) {
-      console.log("incorrect LoginName or Password");
-      return res.status(401).json({
-        error: "Incorrect LoginName or Password",
-      });
-    }
-
-    // create session cookie
-    req.session.user = {
-      userId: user.id,
-      LoginName: user.LoginName,
-      IsOwner: user.IsOwner,
-    };
-
-    // send user object to front end for cookie
-    res.status(200);
-    return res.json(req.session.user);
-  } catch (err) {
-    console.error(err);
-    return res.status(401).json({
-      error: err,
-    });
-  }
-});
-
-// logout user
-app.post("/logout", async (req, res) => {
-  try {
-    await req.session.destroy();
-    console.log("logout successful");
-    res.clearCookie("connect.sid");
-    return res.status(401).json({
-      error: "logout successful",
-    });
-  } catch (err) {
-    console.error(err);
-    return res.sendStatus(500);
-  }
-});
-
-// send user details to front end
-app.post("/fetch-user", async (req, res) => {
-  if (req.sessionID && req.session.user) {
-    res.status(200);
-    return res.json(req.session.user);
-  }
-  return res.sendStatus(403);
-});
-
-// app.get("/users", (req, res) => {
-//   res.status(200).json(getUsers());
-// });
-
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   console.log(app);
-  res.status(200).json("server running");
+  res.status(200).json('server running');
 });
 
-app.get("/test", (req, res) => {
-  let status = {
-    status: "success",
-  };
-  res.status(200).json(status);
-});
 
 // Get All Items
 //http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items
 //http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items
-app.get(
-  "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items",
-  (req, res) => {
-    console.log(req.params.listTitle);
-    getListItem(req.params.listTitle)
-      .then((data) => {
-        res.status(200).json(data);
-      })
-      .catch((err) => {
-        res.status(500).json({
-          error: err,
-        });
-      })
-  });
+app.get("/_api/web/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
+  console.log(req.params.listTitle);
+  getListItem(req.params.listTitle)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
+});
 
 // Get Single Items
 // http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(1)
@@ -224,31 +96,32 @@ app.get(
         res.status(500).json({
           error: err,
         });
-      })
-  });
+      });
+  }
+);
 
 // Post List Item
 //http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items
 //http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items
 
 // TODO - Need to check to see if user can edit assets with user authentication
-app.post(
-  "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items",
-  (req, res) => {
-    if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
+app.post("/_api/web/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ message: 'unauthorized' });
+  }
 
-    const listLocation = req.params.listTitle;
-    const [payload] = req.body;
-    postListItem(listLocation, { ...payload, EditorId: req.session.user.userId })
-      .then((data) => {
-        res.status(200).json(data);
-      })
-      .catch((err) => {
-        res.status(500).json({
-          error: err,
-        })
+  const listLocation = req.params.listTitle;
+  const [payload] = req.body;
+  postListItem(listLocation, { ...payload, EditorId: req.session.user.userId })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
       });
-  });
+    });
+});
 
 // Update List Item
 //http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(1)
@@ -257,42 +130,57 @@ app.post(
 app.put(
   "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
   (req, res) => {
-    if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
+    if (!req.session.user) {
+      return res.status(401).json({ message: 'unauthorized' });
+    }
 
     const listLocation = req.params.listTitle;
     const [payload] = req.body;
     const itemId = req.params.itemId;
 
-    postListItem(listLocation, { ...payload, AuthorId: req.session.user.userId, EditorId: req.session.user.userId }, itemId)
+    postListItem(
+      listLocation,
+      {
+        ...payload,
+        AuthorId: req.session.user.userId,
+        EditorId: req.session.user.userId,
+      },
+      itemId
+    )
       .then((data) => {
         res.status(200).json(data);
       })
       .catch((err) => {
         res.status(500).json({
           error: err,
-        })
+        });
       });
   }
 );
 
 //http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
 // TODO - Need to check to see if user can delete assets with user authentication
-app.delete("/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)", (req, res) => {
-  if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
+app.delete(
+  "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
+  (req, res) => {
+    if (!req.session.user) {
+      return res.status(401).json({ message: 'unauthorized' });
+    }
 
-  const listLocation = req.params.listTitle;
-  const itemId = req.params.itemId;
+    const listLocation = req.params.listTitle;
+    const itemId = req.params.itemId;
 
-  deleteListItem(listLocation, itemId)
-    .then((data) => {
-      res.status(200).json(data);
-    })
-    .catch((err) => {
-      res.status(500).json({
-        error: err,
+    deleteListItem(listLocation, itemId)
+      .then((data) => {
+        res.status(200).json(data);
       })
-    })
-})
+      .catch((err) => {
+        res.status(500).json({
+          error: err,
+        });
+      });
+  }
+);
 
 module.exports = app;
 
