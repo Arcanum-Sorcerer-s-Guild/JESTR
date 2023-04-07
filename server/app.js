@@ -247,11 +247,11 @@ app.post(
       });
   });
 
-// Post List Item
+// Update List Item
 //http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(1)
 //http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
 // TODO - Need to check to see if user can edit assets with user authentication
-app.post(
+app.put(
   "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
   (req, res) => {
     if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
