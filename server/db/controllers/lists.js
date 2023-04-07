@@ -8,16 +8,16 @@ const getListItem = async (listName, id) => {
   }
 };
 
-const postListItem = async (listName, [payload], id) => {
+const postListItem = async (listName, payload, id) => {
   if (id) {
-    return await knex(listName).where("Id", "=", id).update({...payload, AuthorId: 1,EditorId: 1 }, "*");
+    return await knex(listName).where("Id", "=", id).update(payload, "*");
   } else {
     return await knex(listName).insert({...payload, AuthorId: 1,EditorId: 1 }, "*");
   }
 };
 
-const deleteListItem = async (listName) => {
-  return knex(listName).where("id", "=", id).del();
+const deleteListItem = async (listName, id) => {
+  return knex(listName).where("Id", "=", id).del();
 };
 
 module.exports = {
