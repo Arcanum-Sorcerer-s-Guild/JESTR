@@ -7,6 +7,7 @@ const PORT = process.env.SERVER_PORT || 3000;
 //   const list = req.params;
 // res.status(200).json(list);
 // });
+// TODO: get rid of this commented code, Joseph?
 
 app.listen(PORT, () => {
   console.log(`
