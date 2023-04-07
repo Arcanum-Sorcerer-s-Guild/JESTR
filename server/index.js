@@ -11,7 +11,7 @@ const port = process.env.SERVER_PORT || 3000;
 app.listen(port, () => {
   console.log(`
   SP tester running on:
+  http://localhost:${port}/_api/web/lists/GetByTitle('Assets')/items
   http://localhost:${port}/_api/web/lists/GetByTitle('Reservations')/items
-  http://localhost:${port}/_api/web/lists/GetByTitle('Threats')/items
   `);
 });

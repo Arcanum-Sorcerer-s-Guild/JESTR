@@ -1,23 +1,23 @@
 const knex = require("../dbConnections.js");
 
-const getUserByUsername = async (username) => {
-  return await knex("users").where("username", "ilike", username);
+const getUserByLoginName = async (LoginName) => {
+  return await knex("Users").where("LoginName", "ilike", LoginName);
 };
 
-const createUser = async (username, hashedPassword, isAdmin) => {
-  console.log("creating user:", { username, hashedPassword, isAdmin });
-  return await knex("users")
+const createUser = async (LoginName, hashedPassword, IsOwner) => {
+  console.log("creating user:", { LoginName, hashedPassword, IsOwner });
+  return await knex("Users")
     .insert([
       {
-        username: username,
-        password: hashedPassword,
-        is_admin: isAdmin,
+        LoginName: LoginName,
+        Password: hashedPassword,
+        IsOwner: IsOwner,
       },
     ])
     .returning("*");
 };
 
 module.exports = {
-  getUserByUsername,
+  getUserByLoginName,
   createUser
 };
