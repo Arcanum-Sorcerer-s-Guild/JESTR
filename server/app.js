@@ -230,9 +230,11 @@ app.get(
 app.post(
   "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items",
   (req, res) => {
+    if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
+
     const listLocation = req.params.listTitle;
-    const payload = req.body;
-    postListItem(listLocation, payload)
+    const [payload] = req.body;
+    postListItem(listLocation, { ...payload, EditorId: req.session.user.userId })
       .then((data) => {
         res.status(200).json(data);
       })
@@ -243,13 +245,19 @@ app.post(
       });
   });
 
+// Post List Item
+//http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(1)
+//http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
 app.post(
   "/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
   (req, res) => {
+    if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
+
     const listLocation = req.params.listTitle;
-    const payload = req.body;
+    const [payload] = req.body;
     const itemId = req.params.itemId;
-    postListItem(listLocation, payload, itemId)
+
+    postListItem(listLocation, { ...payload, AuthorId: req.session.user.userId, EditorId: req.session.user.userId }, itemId)
       .then((data) => {
         res.status(200).json(data);
       })
@@ -260,6 +268,26 @@ app.post(
       });
   }
 );
+
+//http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
+app.delete("/_api/web/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)", (req, res) => {
+  if (!req.session.user) { return res.status(401).json({ message: "unauthorized" }) }
+
+  const listLocation = req.params.listTitle;
+  const itemId = req.params.itemId;
+
+  deleteListItem(listLocation, itemId)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      })
+    })
+})
+
+
 module.exports = app;
 
 // payload tests
