@@ -97,9 +97,7 @@ app.post("/login", async (req, res) => {
   const { LoginName, Password } = req.body;
 
   // reject missing LoginName or missing Password
-  console.log(" Line 101 || app.js || ALERT this log should be here... this is to login without a Password if null");
-  // if (LoginName == undefined || Password == undefined) {
-  if (LoginName == undefined) {
+  if (LoginName == undefined || Password == undefined) {
     console.log("undefined user or pass");
     return res.status(401).json({
       error: "Missing LoginName or Password",
