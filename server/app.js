@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const morgan = require("morgan");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -15,12 +16,16 @@ const {
   deleteListItem,
 } = require("./db/controllers/lists.js");
 
+// Global config from Environment
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const SESSION_SECRET = process.env.SESSION_SECRET || "6f646a6c6e6775306d7a68686d64637"
+
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: CLIENT_URL,
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", "DELETE"],
     credentials: true,
   })
@@ -33,7 +38,7 @@ app.use(
   session({
     store: store,
     name: "connect.sid",
-    secret: process.env.SESSION_SECRET || "6f646a6c6e6775306d7a68686d64637",
+    secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
     cookie: {
