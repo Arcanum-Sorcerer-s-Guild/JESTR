@@ -26,7 +26,6 @@ router.post('/register', async (req, res) => {
     });
   }
 
-  // TODO: abstract this out into a utility file to share with seed?
   const newUser = {
     LoginName:
       `i:0e.t|fedvis|${firstName}.${middleName[0]}.${lastName}`.toLowerCase(), // i:0e.t|fedvis|joseph.w.hartsfield
