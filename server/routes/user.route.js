@@ -159,7 +159,7 @@ router.post('/logout', async (req, res) => {
 
 // TODO: test with frontend
 // send user details to front end
-router.post('/details', async (req, res) => {
+router.get('/details', async (req, res) => {
   if (req.sessionID && req.session.user) {
     res.status(200);
     return res.json(req.session.user);
