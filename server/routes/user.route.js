@@ -12,12 +12,11 @@ router.post('/register', async (req, res) => {
   const { firstName, middleName, lastName, password } = req.body;
 
   // reject missing user registration info
-  const invalidFields = [undefined, null, ''];
   if (
-    invalidFields.includes(firstName) ||
-    invalidFields.includes(middleName) ||
-    invalidFields.includes(lastName) ||
-    invalidFields.includes(password)
+    !firstName ||
+    !middleName ||
+    !lastName ||
+    !password
   ) {
     const errorMessage = 'missing user registration info';
     console.log(errorMessage);
@@ -83,8 +82,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   // reject missing login info
-  const invalidFields = [undefined, null, ''];
-  if (invalidFields.includes(email) || invalidFields.includes(password)) {
+  if (!email || !password) {
     const errorMessage = 'missing login info';
     console.log(errorMessage);
     return res.status(401).json({

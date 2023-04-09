@@ -19,6 +19,36 @@ const encapsulateLikeSharepoint = (results) => {
   }
 };
 
+const formatSharepointUser = (results) => {
+  example = {
+    __metadata: {
+      id: 'https://intelshare.intelink.gov/sites/354RANS/JESTR/_api/Web/GetUserById(1)',
+      uri: 'https://intelshare.intelink.gov/sites/354RANS/JESTR/_api/Web/GetUserById(1)',
+      type: 'SP.User',
+    },
+    Groups: {
+      __deferred: {
+        uri: 'https://intelshare.intelink.gov/sites/354RANS/JESTR/_api/Web/GetUserById(1)/Groups',
+      },
+    },
+    Id: 1,
+    IsHiddenInUI: false,
+    LoginName: 'i:0e.t|fedvis|joseph.w.hartsfield',
+    Title: 'Hartsfield Joseph DOD - joseph.w.hartsfield',
+    PrincipalType: 1,
+    Email: 'joseph.hartsfield@us.af.mil',
+    IsShareByEmailGuestUser: false,
+    IsSiteAdmin: true,
+    UserId: {
+      __metadata: {
+        type: 'SP.UserIdInfo',
+      },
+      NameId: 'joseph.w.hartsfield',
+      NameIdIssuer: 'TrustedProvider:fedvis',
+    },
+  };
+}
+
 // Get All Items in List
 // http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items
 // http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items
@@ -143,5 +173,17 @@ router.delete(
       });
   }
 );
+
+// Return user by id
+
+router.get('/GetUserById\\(:userId\\)', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ message: 'unauthorized' });
+  }
+
+
+
+  
+});
 
 module.exports = router;
