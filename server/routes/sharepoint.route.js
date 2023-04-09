@@ -28,7 +28,13 @@ router.get("/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)", (req, res) => {
   const itemId = req.params.itemId;
   db.getListItem(listLocation, itemId)
     .then((data) => {
-      res.status(200).json(data);
+      if (data.length > 0) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).json({
+          error: 'item not found',
+        })
+      }
     })
     .catch((err) => {
       res.status(500).json({
