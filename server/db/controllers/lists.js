@@ -1,10 +1,10 @@
-const knex = require("../dbConnections.js");
+const knex = require('../dbConnections.js');
 
-const getListItem = async (listName, id) => {
-  if (id) {
-    return await knex(listName).select("*").where("Id", "=", id)
+const getListItem = async (listName, itemId) => {
+  if (itemId) {
+    return await knex(listName).select('*').where('Id', '=', itemId);
   } else {
-    return await knex(listName).select("*").where("Id", ">", 0);
+    return await knex(listName).select('*').where('Id', '>', 0);
   }
 };
 
@@ -20,12 +20,13 @@ const updateListItem = async (listName, payload, itemId) => {
   }
 };
 
-const deleteListItem = async (listName, id) => {
-  return knex(listName).where("Id", "=", id).del();
+const deleteListItem = async (listName, itemId) => {
+  return knex(listName).where('Id', '=', itemId).del();
 };
 
 module.exports = {
   getListItem,
-  postListItem,
-  deleteListItem
+  createListItem,
+  deleteListItem,
+  updateListItem,
 };
