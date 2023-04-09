@@ -48,9 +48,10 @@ router.post("/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
   }
 
   const listLocation = req.params.listTitle;
-  const [payload] = req.body;
-  db.postListItem(listLocation, {
+  // Deconstruct req.body into payload and remove Id, AuthorId, EditorId
+  const [{ Id, AuthorId, EditorId, ...payload }] = req.body;
     ...payload,
+    AuthorId: req.session.user.userId,
     EditorId: req.session.user.userId,
   })
     .then((data) => {
@@ -73,14 +74,14 @@ router.put("/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)", (req, res) => {
   }
 
   const listLocation = req.params.listTitle;
-  const [payload] = req.body;
   const itemId = req.params.itemId;
+  // Deconstruct req.body into payload and remove Id, AuthorId, EditorId
+  const [{ Id, AuthorId, EditorId, ...payload }] = req.body;
 
   db.postListItem(
     listLocation,
     {
       ...payload,
-      AuthorId: req.session.user.userId,
       EditorId: req.session.user.userId,
     },
     itemId
