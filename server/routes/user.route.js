@@ -138,7 +138,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// TODO: test with frontend
 // Logout user
 router.post('/logout', async (req, res) => {
   if (!req.session.user) {
@@ -157,7 +156,6 @@ router.post('/logout', async (req, res) => {
   }
 });
 
-// TODO: test with frontend
 // send user details to front end
 router.get('/details', async (req, res) => {
   if (req.sessionID && req.session.user) {
