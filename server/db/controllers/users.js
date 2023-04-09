@@ -1,7 +1,7 @@
 const knex = require("../dbConnections.js");
 
 const getUserById = async (userId) => {
-  return await knex("Users").where("Id", "like", userId);
+  return await knex("Users").where("Id", "=", userId);
 };
 
 const getUserByEmail = async (email) => {
