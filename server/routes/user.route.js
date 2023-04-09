@@ -57,7 +57,7 @@ router.post('/register', async (req, res) => {
 
     // create session cookie
     req.session.user = {
-      userId: user.Id,
+      Id: user.Id,
       LoginName: user.LoginName,
       Title: user.Title,
       Email: user.Email,
@@ -116,7 +116,7 @@ router.post('/login', async (req, res) => {
 
     // create session cookie
     req.session.user = {
-      userId: user.Id,
+      Id: user.Id,
       LoginName: user.LoginName,
       Title: user.Title,
       Email: user.Email,
