@@ -58,7 +58,7 @@ router.post('/register', async (req, res) => {
 
     // create session cookie
     req.session.user = {
-      userId: user.id,
+      userId: user.Id,
       LoginName: user.LoginName,
       Title: user.Title,
       Email: user.Email,
@@ -119,7 +119,7 @@ router.post('/login', async (req, res) => {
     // TODO: abstract this out into a helper function?
     // create session cookie
     req.session.user = {
-      userId: user.id,
+      userId: user.Id,
       LoginName: user.LoginName,
       Title: user.Title,
       Email: user.Email,
