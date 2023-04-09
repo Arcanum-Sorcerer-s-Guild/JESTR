@@ -116,7 +116,6 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // TODO: abstract this out into a helper function?
     // create session cookie
     req.session.user = {
       userId: user.Id,
