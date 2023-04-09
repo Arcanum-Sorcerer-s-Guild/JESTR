@@ -56,6 +56,7 @@ router.post("/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
   const listLocation = req.params.listTitle;
   // Deconstruct req.body into payload and remove Id, AuthorId, EditorId
   const [{ Id, AuthorId, EditorId, ...payload }] = req.body;
+  db.createListItem(listLocation, {
     ...payload,
     AuthorId: req.session.user.userId,
     EditorId: req.session.user.userId,
@@ -84,7 +85,7 @@ router.put("/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)", (req, res) => {
   // Deconstruct req.body into payload and remove Id, AuthorId, EditorId
   const [{ Id, AuthorId, EditorId, ...payload }] = req.body;
 
-  db.postListItem(
+  db.updateListItem(
     listLocation,
     {
       ...payload,

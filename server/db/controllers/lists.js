@@ -8,11 +8,15 @@ const getListItem = async (listName, id) => {
   }
 };
 
-const postListItem = async (listName, payload, id) => {
-  if (id) {
-    return await knex(listName).where("Id", "=", id).update(payload, "*");
+const createListItem = async (listName, payload) => {
+  return await knex(listName).insert(payload, '*');
+};
+
+const updateListItem = async (listName, payload, itemId) => {
+  if (itemId) {
+    return await knex(listName).where('Id', '=', itemId).update(payload, '*');
   } else {
-    return await knex(listName).insert({...payload, AuthorId: 1,EditorId: 1 }, "*");
+    throw new Error('itemId is required');
   }
 };
 
