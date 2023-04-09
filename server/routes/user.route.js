@@ -143,6 +143,9 @@ router.post('/login', async (req, res) => {
 // TODO: test with frontend
 // Logout user
 router.post('/logout', async (req, res) => {
+  if (!req.session.user) {
+    return res.sendStatus(204);
+  }
   try {
     await req.session.destroy();
     console.log('logout successful');
