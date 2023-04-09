@@ -148,8 +148,8 @@ router.post('/logout', async (req, res) => {
     await req.session.destroy();
     console.log('logout successful');
     res.clearCookie('connect.sid');
-    return res.status(401).json({
-      error: 'logout successful',
+    return res.status(200).json({
+      message: 'logout successful',
     });
   } catch (err) {
     console.error(err);
