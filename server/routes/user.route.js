@@ -39,10 +39,10 @@ router.post('/register', async (req, res) => {
   };
 
   // reject duplicate LoginName
-  const existing = await db.getUserByLoginName(newUser.LoginName);
+  const existing = await db.getUserByEmail(newUser.Email);
   if (existing.length > 0) {
     console.log(
-      `duplicate LoginName ${newUser.LoginName} of id:`,
+      `duplicate Email ${newUser.Email} of id:`,
       existing[0].Id
     );
     return res.status(401).json({
