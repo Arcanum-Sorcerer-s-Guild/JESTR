@@ -79,7 +79,7 @@ router.get(
       .getListItem(listLocation, itemId)
       .then((data) => {
         if (data.length > 0) {
-          res.status(200).json(encapsulateLikeSharepoint(data));
+          res.status(200).json(encapsulateLikeSharepoint(data[0]));
         } else {
           res.status(404).json({
             error: 'item not found',
@@ -108,11 +108,11 @@ router.post("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
   dbLists
     .createListItem(listLocation, {
       ...payload,
-      AuthorId: req.session.user.userId,
-      EditorId: req.session.user.userId,
+      AuthorId: req.session.user.Id,
+      EditorId: req.session.user.Id,
     })
     .then((data) => {
-      res.status(200).json(encapsulateLikeSharepoint(data));
+      res.status(200).json(encapsulateLikeSharepoint(data[0]));
     })
     .catch((err) => {
       res.status(500).json({
@@ -141,12 +141,12 @@ router.put(
         listLocation,
         {
           ...payload,
-          EditorId: req.session.user.userId,
+          EditorId: req.session.user.Id,
         },
         itemId
       )
       .then((data) => {
-        res.status(200).json(encapsulateLikeSharepoint(data));
+        res.status(200).json(encapsulateLikeSharepoint(data[0]));
       })
       .catch((err) => {
         res.status(500).json({
@@ -171,7 +171,7 @@ router.delete(
     dbLists
       .deleteListItem(listLocation, itemId)
       .then((data) => {
-        res.status(200).json(encapsulateLikeSharepoint(data));
+        res.sendStatus(204);
       })
       .catch((err) => {
         res.status(500).json({
@@ -193,10 +193,10 @@ router.get('/CurrentUser', async (req, res) => {
     const [user] = await dbUsers.getUserById(req.session.user.Id);
     console.log(user);
     const sharepointUser = formatSharepointUser(user);
-    const encapsulatedSharepointUser = encapsulateLikeSharepoint(sharepointUser);
+    const encapsulatedSharepointUser =
+      encapsulateLikeSharepoint(sharepointUser);
     res.status(200).json(encapsulatedSharepointUser);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json({
       error: err,
     });
