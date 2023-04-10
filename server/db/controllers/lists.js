@@ -1,27 +1,32 @@
-const knex = require("../dbConnections.js");
+const knex = require('../dbConnections.js');
 
-const getListItem = async (listName, id) => {
-  if (id) {
-    return await knex(listName).select("*").where("Id", "=", id)
+const getListItem = async (listName, itemId) => {
+  if (itemId) {
+    return await knex(listName).select('*').where('Id', '=', itemId);
   } else {
-    return await knex(listName).select("*").where("Id", ">", 0);
+    return await knex(listName).select('*').where('Id', '>', 0);
   }
 };
 
-const postListItem = async (listName, payload, id) => {
-  if (id) {
-    return await knex(listName).where("Id", "=", id).update(payload, "*");
+const createListItem = async (listName, payload) => {
+  return await knex(listName).insert(payload, '*');
+};
+
+const updateListItem = async (listName, payload, itemId) => {
+  if (itemId) {
+    return await knex(listName).where('Id', '=', itemId).update(payload, '*');
   } else {
-    return await knex(listName).insert({...payload, AuthorId: 1,EditorId: 1 }, "*");
+    throw new Error('itemId is required');
   }
 };
 
-const deleteListItem = async (listName, id) => {
-  return knex(listName).where("Id", "=", id).del();
+const deleteListItem = async (listName, itemId) => {
+  return knex(listName).where('Id', '=', itemId).del();
 };
 
 module.exports = {
   getListItem,
-  postListItem,
-  deleteListItem
+  createListItem,
+  deleteListItem,
+  updateListItem,
 };

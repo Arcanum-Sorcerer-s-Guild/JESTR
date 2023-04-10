@@ -56,7 +56,7 @@ const userRouter = require('./routes/user.route.js');
 app.use('/user', userRouter);
 
 const sharepointRouter = require('./routes/sharepoint.route.js');
-app.use('/_api/web/lists', sharepointRouter);
+app.use('/_api/web', sharepointRouter);
 
 app.get('/', (req, res) => {
   console.log(app);

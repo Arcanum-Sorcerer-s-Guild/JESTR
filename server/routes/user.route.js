@@ -12,12 +12,11 @@ router.post('/register', async (req, res) => {
   const { firstName, middleName, lastName, password } = req.body;
 
   // reject missing user registration info
-  const invalidFields = [undefined, null, ''];
   if (
-    invalidFields.includes(firstName) ||
-    invalidFields.includes(middleName) ||
-    invalidFields.includes(lastName) ||
-    invalidFields.includes(password)
+    !firstName ||
+    !middleName ||
+    !lastName ||
+    !password
   ) {
     const errorMessage = 'missing user registration info';
     console.log(errorMessage);
@@ -26,7 +25,6 @@ router.post('/register', async (req, res) => {
     });
   }
 
-  // TODO: abstract this out into a utility file to share with seed?
   const newUser = {
     LoginName:
       `i:0e.t|fedvis|${firstName}.${middleName[0]}.${lastName}`.toLowerCase(), // i:0e.t|fedvis|joseph.w.hartsfield
@@ -41,10 +39,10 @@ router.post('/register', async (req, res) => {
   };
 
   // reject duplicate LoginName
-  const existing = await db.getUserByLoginName(newUser.LoginName);
+  const existing = await db.getUserByEmail(newUser.Email);
   if (existing.length > 0) {
     console.log(
-      `duplicate LoginName ${newUser.LoginName} of id:`,
+      `duplicate Email ${newUser.Email} of id:`,
       existing[0].Id
     );
     return res.status(401).json({
@@ -59,7 +57,7 @@ router.post('/register', async (req, res) => {
 
     // create session cookie
     req.session.user = {
-      userId: user.id,
+      Id: user.Id,
       LoginName: user.LoginName,
       Title: user.Title,
       Email: user.Email,
@@ -84,8 +82,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   // reject missing login info
-  const invalidFields = [undefined, null, ''];
-  if (invalidFields.includes(email) || invalidFields.includes(password)) {
+  if (!email || !password) {
     const errorMessage = 'missing login info';
     console.log(errorMessage);
     return res.status(401).json({
@@ -117,10 +114,9 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // TODO: abstract this out into a helper function?
     // create session cookie
     req.session.user = {
-      userId: user.id,
+      Id: user.Id,
       LoginName: user.LoginName,
       Title: user.Title,
       Email: user.Email,
@@ -140,15 +136,17 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// TODO: test with frontend
 // Logout user
 router.post('/logout', async (req, res) => {
+  if (!req.session.user) {
+    return res.sendStatus(204);
+  }
   try {
     await req.session.destroy();
     console.log('logout successful');
     res.clearCookie('connect.sid');
-    return res.status(401).json({
-      error: 'logout successful',
+    return res.status(200).json({
+      message: 'logout successful',
     });
   } catch (err) {
     console.error(err);
@@ -156,9 +154,8 @@ router.post('/logout', async (req, res) => {
   }
 });
 
-// TODO: test with frontend
 // send user details to front end
-router.post('/details', async (req, res) => {
+router.get('/details', async (req, res) => {
   if (req.sessionID && req.session.user) {
     res.status(200);
     return res.json(req.session.user);

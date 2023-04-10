@@ -11,7 +11,7 @@ exports.up = function (knex) {
         table.increments('Id').primary();
         table.string('LoginName').notNullable(); // "i:0e.t|fedvis|joseph.w.hartsfield"
         table.string('Title').notNullable(); // "Hartsfield Joseph DOD - joseph.w.hartsfield"
-        table.string('Password').nullable(); // TODO: Setting to nullable for now
+        table.string('Password').notNullable(); // hashed password
         table.string('Email').nullable(); // "first.last@us.af.mil"
         table.boolean('IsSiteAdmin').defaultTo(false); // Site Collection Admin Rights
         table.boolean('IsApprover').defaultTo(false); // Member of Approver Group
