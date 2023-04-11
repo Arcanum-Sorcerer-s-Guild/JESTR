@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 
 
@@ -6,6 +7,10 @@ const Login = () => {
   const {userData, setUserdata} = React.useContext(Context)
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(userData.Id) navigate('/Home')
+  },[])
   // useEffect(() => {
   //   fetch(`http://localhost:3001/user/login`, {
   //     method: "POST",
@@ -33,8 +38,11 @@ const Login = () => {
   })
   .then(response => response.json())
   .then(data => {
-    if("Id" in data) setUserdata(data)
-    else alert("Login failed. Please try again")
+    if("Id" in data) {
+      setUserdata(data)
+      // alert('Login Successful')
+      navigate('/Home')
+    } else alert("Login failed. Please try again")
   })
   }
   return (

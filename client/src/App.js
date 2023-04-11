@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 export const Context = React.createContext();
 
 function App() {
-  const [userData, setUserdata] = useState([]);
+  const [userData, setUserdata] = useState({});
   return (<>
   <Context.Provider value={{userData, setUserdata}}>
   <NavBar />
