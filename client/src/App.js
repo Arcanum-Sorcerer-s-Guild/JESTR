@@ -12,9 +12,13 @@ import Asset from './Asset/Asset.js'
 
 
 import {Routes, Route, UseNavigate} from 'react-router-dom'
+import React, { useState } from 'react';
+export const Context = React.createContext();
 
 function App() {
+  const [userData, setUserdata] = useState({});
   return (<>
+  <Context.Provider value={{userData, setUserdata}}>
   <NavBar />
   <Routes>  
         <Route path = "/Login" element={<Login/>}/>
@@ -27,6 +31,7 @@ function App() {
         <Route path = "/AllAssets" element={<AllAssets/>}/>
         <Route path = "/Asset/:id" element={<Asset/>}/>
   </Routes>
+  </Context.Provider>
   </>);
 }
 
