@@ -20,7 +20,7 @@ const vaporwaveColors = {
 }
 
 module.exports = {
-  content: [],
+  content: ["./src/**/*.{html,js}"],
   theme: {
     screens: {
       sm: '480px',
@@ -66,7 +66,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require('@tailwindcss/line-clamp'),
     require('@tailwindcss/aspect-ratio'),
   ],
 }
