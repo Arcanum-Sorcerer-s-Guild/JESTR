@@ -22,7 +22,6 @@ const Login = () => {
   // })
   // .then(response => response.json())
   // .then(data => {
-
   // })
   // },[])
   const login = () => {
@@ -48,7 +47,7 @@ const Login = () => {
   return (
   <>
     <h1>Login</h1>
-    <input type='text' onChange={(e) => setEmail(e.target.value)} placeholder='email' /> <br />
+    <input type='email' onChange={(e) => setEmail(e.target.value)} placeholder='email' /> <br />
     <input type='password' onChange={(e) => setPassword(e.target.value)} placeholder='password' /> <br />
     <button type='submit' onClick={login}>submit</button>
   </>
