@@ -103,7 +103,6 @@ router.post('/login', async (req, res) => {
       });
     }
     const user = data[0];
-    console.log('user:', user);
 
     // compare Password hashes and reject if incorrect
     const matches = bcrypt.compareSync(password, user.Password);

@@ -80,7 +80,16 @@ const generateUsers = (numUsers = globalNumUsers) => {
       IsSiteAdmin: true,
       IsOwner: true,
       IsApprover: true,
-    }
+    },
+    {
+      LoginName: 'i:0e.t|fedvis|first.m.last', // test user
+      Title: 'Last First DOD - first.m.last',
+      Email: 'First.Last@us.af.mil',
+      Password: '$2b$10$mpB1umV1L4B6BExRvfGfG.sZsgM8Ac0I0PbaNGZnymd0410Nx8iC2', // password is first name all lowercase
+      IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
+    },
   ]
 
   const names = new Set();
@@ -124,8 +133,8 @@ const generateAssets = (numAssets = globalNumAssets) => {
       Operational: randomIncRange(1, 100) < 2 ? false : true, // true/false
       Range: [2202, 2205, 2211][randomIncRange(0, 2)], // 2202 || 2205 || 2211 || ?other?
       SiteLocation: `${faker.music.genre()}-${randomIncRange(1, 10)}`, // "string ex Charlie Batt"
-      Latitude: faker.address.latitude(-145, -148, 6), // "N64 37.220"= '';
-      Longitude: faker.address.longitude(66, 65, 6), // "W146 39.160"= '';
+      Latitude: faker.address.latitude(66, 65, 6), // "N64 37.220"= '';
+      Longitude: faker.address.longitude(-145, -148, 6), // "W146 39.160"= '';
       Elevation: randomIncRange(3500, 4500), // 2000
       Accuracy: `+/- ${randomIncRange(3, 8)}`, // UNK / +/- 2m
       CoordSource: ['GARMIN GPX 55I', 'Arcanum', 'Sorcery', 'Magic'][
