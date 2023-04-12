@@ -7,16 +7,25 @@ import { Context } from '../App';
 // Provides functionality for all assets
 const AllAssets = () => {
 
-  // Tracks user info and current total items
+  // Tracks user info, current total items, and displayed asset info
   const { userData, setUserdata } = React.useContext(Context);
-  const [currItems, setCurrItems] = useState([]);
+  const [currAssets, setCurrAssets] = useState([]);
+  const columnHeaders = [
+    { name: 'Site Location' },
+    { name: 'Range' },
+    { name: 'Coordinates' },
+    { name: 'Bullseye' },
+    { name: 'Elevation' },
+    { name: 'Serial' },
+    { name: 'Threat (Equipment)' }
+  ];
 
   // Helper function to update the list of all assets
   async function updateInventory() {
     // Retrieves all database assets
     fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`)
       .then((res) => res.json())
-      .then((items) => setCurrItems(items.d.results));
+      .then((items) => setCurrAssets(items.d.results));
   }
 
   // Helper function to convert coordinates from the DD format to the DMS format
@@ -31,25 +40,29 @@ const AllAssets = () => {
 
   // On page load, updates the list of all assets
   useEffect(() => {
-    // Gets all items from the database
     updateInventory();
   }, []);
 
   // Formats the list of all assets
   return (
     <div>
+      {console.log(userData)}
       <h1>AllAssets</h1>
+      {userData.IsApprover ?
+        <button type="button">Add Asset</button> :
+        <div></div>
+      }
       <div>
-        {currItems.map((item) => {
+        {currAssets.map((asset) => {
           return (
-            <div>
-              <div>Site Name: {item.SiteLocation}</div>
-              <div>Range: {item.Range}</div>
-              <div>Lat,Lon: {formatLatLong(item.Latitude, item.Longitude)}</div>
-              <div>Bullseye: {item.Range}</div>
-              <div>Elevation: {item.Elevation}</div>
-              <div>Serial: {item.Serial}</div>
-              <div>Equipment/Threat: {item.Equipment} / {item.Threat}</div>
+            <div key={asset.Id}>
+              <div>Site Location: {asset.SiteLocation}</div>
+              <div>Range: {asset.Range}</div>
+              <div>Coordinates: {formatLatLong(asset.Latitude, asset.Longitude)}</div>
+              <div>Bullseye: {asset.Range}</div>
+              <div>Elevation: {asset.Elevation}</div>
+              <div>Serial: {asset.Serial}</div>
+              <div>Threat (Equipment): {asset.Equipment} ({asset.Threat})</div>
               <br/>
             </div>
           );
