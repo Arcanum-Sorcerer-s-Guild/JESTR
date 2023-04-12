@@ -29,8 +29,9 @@ const Register = () => {
     if("Id" in data) {
       setUserdata(data)
       // alert('Login Successful')
-      navigate('/Home')
-    } else alert("Login failed. Please try again")
+      navigate('/')
+    } else if(password1 !== password2) alert("Passwords don't match")
+    else if (data.message === "LoginName already taken...") alert ("Login name already taken")
   })
   }
   return (

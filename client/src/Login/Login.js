@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    if(userData.Id) navigate('/Home')
+    if(userData.Id) navigate('/')
   },[])
   // useEffect(() => {
   //   fetch(`http://localhost:3001/user/login`, {
@@ -40,7 +40,7 @@ const Login = () => {
     if("Id" in data) {
       setUserdata(data)
       // alert('Login Successful')
-      navigate('/Home')
+      navigate('/')
     } else alert("Login failed. Please try again")
   })
   }
