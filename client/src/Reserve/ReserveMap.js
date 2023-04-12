@@ -26,36 +26,17 @@ let styles = {
   }),
 };
 
-const samGeoObject = {
-	type: 'Feature',
-	geometry: {
-		'type': 'Point',
-		'coordinates': [-146.44166473513687, 64.31714411488758]
-	},
-	'properties': {
-		'name': 'Test Object'
-	}
-
-	}
-const samGeoObject2 = {
-	type: 'Feature',
-	geometry: {
-		'type': 'Point',
-		'coordinates': [-147.44166473513687, 65.31714411488758]
-	},
-	'properties': {
-		'name': 'Test Object'
-	}
-
-	}
-
-  
-
-
 const ReserveMap = (props) => {
+  let {assetList} = props 
+  const [center, setCenter] = useState([
+    -146.44166473513687, 64.31714411488758,
+  ]);
+  const [zoom, setZoom] = useState(8);
+  const [geoArray,setGeoArray] = useState([])
+  const [selectedAssets] = useState([])
+  const [toggle,setToggle] = useState(false)
 
-   let {assetList} = props 
-   const [geoArray,setGeoArray] = useState([])
+
   useEffect(()=>{
     setGeoArray(assetList.map((asset)=> {
       return({
@@ -71,15 +52,21 @@ const ReserveMap = (props) => {
     }))
   },[assetList])
 
+  const handleChange = (asset) => {
+    if (selectedAssets.includes(asset)) {
+      const index = selectedAssets.indexOf(asset)
+      selectedAssets.splice(index,1)
+    } else {
+      selectedAssets.push(asset)
+    }
+    setToggle(!toggle)
+  }
 
-  const [center, setCenter] = useState([
-    -146.44166473513687, 64.31714411488758,
-  ]);
-  const [zoom, setZoom] = useState(8);
+
+
 
   return (
     <div>
-      {console.log(geoArray)}
       <Map center={fromLonLat(center)} zoom={zoom}>
         <Layers>
           <TileLayer
@@ -89,17 +76,17 @@ const ReserveMap = (props) => {
             zIndex={0}
           />
 
-          {geoArray.length > 0 ? geoArray.map( geoObject => {
+          {geoArray.length > 0 
+          ? geoArray.map( (geoObject,index) => {
             return(
-            <VectorLayer
-							source={vector({ features: new GeoJSON().readFeatures(geoObject, {featureProjection: get('EPSG:3857') }) })}
-							/>)
-            })
+              selectedAssets.includes(geoObject.properties.name) 
+              ? <VectorLayer 
+							  source={vector({ features: new GeoJSON().readFeatures(geoObject, {featureProjection: get('EPSG:3857') }) })}
+                /> 
+              : <></>
+              )
+          })
           : <></>}
-
-					{/* <VectorLayer
-							source={vector({ features: new GeoJSON().readFeatures(samGeoObject, {featureProjection: get('EPSG:3857') }) })}
-							/> */}
 
           <KMLVectorLayer zIndex={99} />
         </Layers>
@@ -107,6 +94,10 @@ const ReserveMap = (props) => {
           <FullScreenControl />
         </Controls>
       </Map>
+      <div>
+        {geoArray.length > 0 ? geoArray.map((asset,index)=><div key={index}>{asset.properties.name}<input type="checkbox" onChange={()=>handleChange(asset.properties.name)}/></div>) : <></>}
+        
+      </div>
     </div>
   );
 };
