@@ -10,7 +10,6 @@ import Reservation from './Reservation/Reservation.js';
 import AllReservations from './AllReservations/AllReservations.js';
 import AllAssets from './AllAssets/AllAssets.js';
 import Asset from './Asset/Asset.js';
-import MapExample from './Map/MapExample'
 
 import { Routes, Route, UseNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
@@ -37,7 +36,6 @@ function App() {
           <Route path="/Reservation/:id" element={<Reservation />} />
           <Route path="/AllAssets" element={<AllAssets />} />
           <Route path="/Asset/:id" element={<Asset />} />
-          <Route path = "/Map" element={<MapExample/>} />
   </Routes>
       </Context.Provider>
     </div>

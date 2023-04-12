@@ -1,5 +1,5 @@
 import {useContext, useEffect} from 'react';
-import MapContext from './MapContext';
+import MapContext from '../MapContext';
 import OLVectorLayer from 'ol/layer/Vector';
 // import VectorSource from 'ol/source/Vector.js'
 

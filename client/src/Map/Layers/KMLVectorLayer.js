@@ -1,6 +1,6 @@
 import KML from 'ol/format/KML.js'
 import {useContext, useEffect} from 'react';
-import MapContext from './MapContext';
+import MapContext from '../MapContext';
 import VectorSource from 'ol/source/Vector.js'
 import OLVectorLayer from 'ol/layer/Vector';
 import VectorLayer from 'ol/layer/Vector';
