@@ -49,8 +49,28 @@ const samGeoObject2 = {
 
 	}
 
+  
 
-const ReserveMap = () => {
+
+const ReserveMap = (props) => {
+
+   let {assetList} = props 
+   const [geoArray,setGeoArray] = useState([])
+  useEffect(()=>{
+    setGeoArray(assetList.map((asset)=> {
+      return({
+        type:'Feature',
+        geometry: {
+          'type': 'Point',
+          'coordinates': [asset.Latitude, asset.Longitude]
+        },
+        'properties': {
+          'name': asset.Serial
+        }
+      })
+    }))
+  },[assetList])
+
 
   const [center, setCenter] = useState([
     -146.44166473513687, 64.31714411488758,
@@ -59,6 +79,7 @@ const ReserveMap = () => {
 
   return (
     <div>
+      {console.log(geoArray)}
       <Map center={fromLonLat(center)} zoom={zoom}>
         <Layers>
           <TileLayer
@@ -67,9 +88,18 @@ const ReserveMap = () => {
             })}
             zIndex={0}
           />
-					<VectorLayer
+
+          {geoArray.length > 0 ? geoArray.map( geoObject => {
+            return(
+            <VectorLayer
+							source={vector({ features: new GeoJSON().readFeatures(geoObject, {featureProjection: get('EPSG:3857') }) })}
+							/>)
+            })
+          : <></>}
+
+					{/* <VectorLayer
 							source={vector({ features: new GeoJSON().readFeatures(samGeoObject, {featureProjection: get('EPSG:3857') }) })}
-							/>
+							/> */}
 
           <KMLVectorLayer zIndex={99} />
         </Layers>
