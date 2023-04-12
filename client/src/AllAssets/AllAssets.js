@@ -52,3 +52,4 @@ const AllAssets = () => {
 };
 
 export default AllAssets;
+
