@@ -17,9 +17,13 @@ export const Context = React.createContext();
 
 function App() {
   const [userData, setUserdata] = useState({});
+
+  const userUrl = "http://localhost:3001/user"
+  const listUrl = "http://localhost:3001/_api/web/lists"
+
   return (
-    <>
-      <Context.Provider value={{ userData, setUserdata }}>
+    <div className="flex flex-col w-full">
+      <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
         <Routes>
           <Route path="/Login" element={<Login />} />
@@ -34,7 +38,7 @@ function App() {
           <Route path="/Asset/:id" element={<Asset />} />
         </Routes>
       </Context.Provider>
-    </>
+    </div>
   );
 }
 
