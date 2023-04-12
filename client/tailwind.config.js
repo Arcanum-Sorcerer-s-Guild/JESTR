@@ -1,11 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 
 const vaporwaveColors = {
+  'future1:': '#111111',
+  'future2:': '#222222',
   'primary': '#FF6EC7',
   'secondary': '#A74FFF',
   'tertiary': '#00E1FF',
   'accent': '#FFD0FF',
   'background': '#14002E',
+  'background1': '#1a1a2e',
+  'background2': '#0f0c29',
   'text': '#FFFFFF',
   'blue': '#1fb6ff',
   'purple': '#7e5bef',

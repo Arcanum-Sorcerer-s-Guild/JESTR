@@ -11,10 +11,11 @@ import AllAssets from './AllAssets/AllAssets.js'
 import Asset from './Asset/Asset.js'
 
 
-import {Routes, Route, UseNavigate} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 
 function App() {
-  return (<>
+  return (
+    <div className="">
   <NavBar />
   <Routes>  
         <Route path = "/Login" element={<Login/>}/>
@@ -27,7 +28,7 @@ function App() {
         <Route path = "/AllAssets" element={<AllAssets/>}/>
         <Route path = "/Asset/:id" element={<Asset/>}/>
   </Routes>
-  </>);
+  </div>);
 }
 
 export default App;
