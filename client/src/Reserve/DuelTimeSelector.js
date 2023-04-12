@@ -8,14 +8,12 @@ function TimeSelector() {
 
   useEffect(() => {
     const vulNum = timeList.length > 0 ? timeList[timeList.length-1].name.split("-")[1]: 0
-    // console.log(timeList[timeList.length-1].name.split("-")[1]);
     setName(`VUL-${parseInt(vulNum) +1}`);
   }, [timeList]);
 
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
     setEndTime(event.target.value);
-
   }
 
   const handleEndTimeChange = (event) => {

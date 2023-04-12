@@ -175,7 +175,7 @@ const generateReservations = (
       Range: asset.Range, // 2202 || 2205 || 2211 || ?other? **Pulled
       SiteLocation: asset.SiteLocation, // Charlie batt  **Pulled
       Threat: asset.Threat, // SA-3 **Pulled
-      Equipment: asset.Threat, // T-2 **Pulled
+      Equipment: asset.Equipment, // T-2 **Pulled
       ThreatType: asset.ThreatType, // Manned / unmanned/ etc  **Pulled
       EventDate: startDate, //  "2021-05-18T17:00:00Z"
       EndDate: endDate, // "2021-05-18T19:00:00Z"
