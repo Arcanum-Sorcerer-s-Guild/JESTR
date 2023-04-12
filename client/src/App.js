@@ -12,23 +12,28 @@ import AllAssets from './AllAssets/AllAssets.js';
 import Asset from './Asset/Asset.js';
 
 import { Routes, Route, UseNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+export const Context = React.createContext();
 
 function App() {
+  const [userData, setUserdata] = useState({});
   return (
     <>
-      <NavBar />
-      <Routes>
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
-        {/* <Route path = "/Users" element={<Users/>}/> */}
-        <Route path="/Home" element={<Home />} />
-        <Route path="/MP" element={<MP />} />
-        <Route path="/Reserve" element={<Reserve />} />
-        <Route path="/AllReservations" element={<AllReservations />} />
-        <Route path="/Reservation/:id" element={<Reservation />} />
-        <Route path="/AllAssets" element={<AllAssets />} />
-        <Route path="/Asset/:id" element={<Asset />} />
-      </Routes>
+      <Context.Provider value={{ userData, setUserdata }}>
+        <NavBar />
+        <Routes>
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          {/* <Route path = "/Users" element={<Users/>}/> */}
+          <Route path="/Home" element={<Home />} />
+          <Route path="/MP" element={<MP />} />
+          <Route path="/Reserve" element={<Reserve />} />
+          <Route path="/AllReservations" element={<AllReservations />} />
+          <Route path="/Reservation/:id" element={<Reservation />} />
+          <Route path="/AllAssets" element={<AllAssets />} />
+          <Route path="/Asset/:id" element={<Asset />} />
+        </Routes>
+      </Context.Provider>
     </>
   );
 }
