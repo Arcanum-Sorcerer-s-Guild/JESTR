@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 
 const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context)
+  const navigate = useNavigate();
   const navLinks = [
     { name: '', to: '/', text: 'Home', icon: '' },
     { name: 'MP', to: '/', text: 'Mission Planning', icon: '' },
@@ -42,7 +43,10 @@ const NavBar = () => {
     .then(data => {
       if (data.message === "logout successful") {
         setUserdata({})
-        alert("Logout successful")}
+        alert("Logout successful")
+        navigate('/Login')
+      
+      }
   })}
 
   let loggedIn = (
