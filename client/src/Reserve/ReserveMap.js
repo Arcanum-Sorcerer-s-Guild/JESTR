@@ -43,7 +43,7 @@ const ReserveMap = (props) => {
         type:'Feature',
         geometry: {
           'type': 'Point',
-          'coordinates': [asset.Latitude, asset.Longitude]
+          'coordinates': [asset.Longitude, asset.Latitude]
         },
         'properties': {
           'name': asset.Serial
