@@ -52,14 +52,16 @@ const ReserveMap = (props) => {
     }))
   },[assetList])
 
-  const handleChange = (asset) => {
-    if (selectedAssets.includes(asset)) {
-      const index = selectedAssets.indexOf(asset)
+  const handleChange = (assetName,assetCoordinates) => {
+    if (selectedAssets.includes(assetName)) {
+      const index = selectedAssets.indexOf(assetName)
       selectedAssets.splice(index,1)
     } else {
-      selectedAssets.push(asset)
+      selectedAssets.push(assetName)
     }
     setToggle(!toggle)
+    setZoom(10)
+    setCenter(assetCoordinates)
   }
 
 
@@ -80,9 +82,11 @@ const ReserveMap = (props) => {
           ? geoArray.map( (geoObject,index) => {
             return(
               selectedAssets.includes(geoObject.properties.name) 
-              ? <VectorLayer 
+              ? <><VectorLayer 
 							  source={vector({ features: new GeoJSON().readFeatures(geoObject, {featureProjection: get('EPSG:3857') }) })}
                 /> 
+                
+                </>
               : <></>
               )
           })
@@ -95,7 +99,7 @@ const ReserveMap = (props) => {
         </Controls>
       </Map>
       <div>
-        {geoArray.length > 0 ? geoArray.map((asset,index)=><div key={index}>{asset.properties.name}<input type="checkbox" onChange={()=>handleChange(asset.properties.name)}/></div>) : <></>}
+        {geoArray.length > 0 ? geoArray.map((asset,index)=><div key={index}>{asset.properties.name}<input type="checkbox" onChange={()=>handleChange(asset.properties.name,asset.geometry.coordinates)}/></div>) : <></>}
         
       </div>
     </div>
