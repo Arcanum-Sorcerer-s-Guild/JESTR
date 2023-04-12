@@ -33,9 +33,9 @@ module.exports = {
         sans: ['Graphik', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
       },
-      borderRadius: {
-        '4xl': '2rem',
-      },
+      // borderRadius: {
+      //   '4xl': '2rem',
+      // },
       aspectRatio: {
         auto: 'auto',
         square: '1 / 1',
