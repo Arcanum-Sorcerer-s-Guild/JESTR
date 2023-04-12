@@ -58,10 +58,11 @@ const ReserveMap = (props) => {
       selectedAssets.splice(index,1)
     } else {
       selectedAssets.push(assetName)
+      setZoom(10)
+      setCenter(assetCoordinates)
     }
     setToggle(!toggle)
-    setZoom(10)
-    setCenter(assetCoordinates)
+
   }
 
 
