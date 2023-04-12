@@ -36,7 +36,7 @@ function App() {
           <Route path="/Reservation/:id" element={<Reservation />} />
           <Route path="/AllAssets" element={<AllAssets />} />
           <Route path="/Asset/:id" element={<Asset />} />
-  </Routes>
+        </Routes>
       </Context.Provider>
     </div>
   );
