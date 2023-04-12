@@ -62,8 +62,7 @@ const NavBar = () => {
 
   return (
     <>
-    {console.log(userData)}
-      <div className="bg-blue flex items-center justify-between flex-wrap p-4 shadow-md">
+      <div className=" bg-gunmetal text-text flex items-center justify-between flex-wrap p-4 shadow-md">
         <div className="flex items-center flex-shrink-0 text-text mr-6">
           <span className="font-semibold text-xl tracking-tight">JEST</span>
         </div>
