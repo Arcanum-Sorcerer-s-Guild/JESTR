@@ -32,7 +32,6 @@ export const data = {
 }
 
 const Home = () => {
-
   return (<>
     <h1>Awesomeness</h1>
     <div>
