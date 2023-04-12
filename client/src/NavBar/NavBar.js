@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Context } from '../App';
 
 const NavBar = () => {
+  const { userData, setUserdata } = React.useContext(Context)
   const navLinks = [
-    { name: 'Home', to: '/', text: 'Home', icon: '' },
+    { name: '', to: '/', text: 'Home', icon: '' },
     { name: 'MP', to: '/', text: 'Mission Planning', icon: '' },
     { name: 'Asset', to: '/', text: 'Asset', icon: '' },
     { name: 'AllAssets', to: '/', text: 'All Assets', icon: '' },
@@ -12,17 +14,34 @@ const NavBar = () => {
     { name: 'AllReservations', to: '/', text: 'All Reservations', icon: '' },
   ];
 
-  let loginLink = (
+  let notLoggedIn = (
+    <>
     <Link
       to="Login"
       className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
     >
       <span>Login</span>
     </Link>
+       <Link
+       to="Register"
+       className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+     >
+       <span onClick={() => setUserdata({})}>Register</span>
+     </Link>
+     </>
   );
 
+  let loggedIn = (
+    <Link
+    to="Login"
+    className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+  >
+    <span onClick={() => setUserdata({})}>Signout</span>
+  </Link>
+  )
+
   //Conditional Login button
-  // if(user.username) {
+  // if(!("Id in userData")) {
   //   loginLink = (
   //     <Link
   //       to="Login"
@@ -59,7 +78,7 @@ const NavBar = () => {
               </Link>
             ))}
           </div>
-          <div>{loginLink}</div>
+          {"Id" in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>
       </div>
     </>

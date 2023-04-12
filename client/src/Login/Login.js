@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    if(userData.Id) navigate('/Home')
+    if(userData.Id) navigate('/')
   },[])
   // useEffect(() => {
   //   fetch(`http://localhost:3001/user/login`, {
@@ -22,7 +22,6 @@ const Login = () => {
   // })
   // .then(response => response.json())
   // .then(data => {
-
   // })
   // },[])
   const login = () => {
@@ -41,14 +40,14 @@ const Login = () => {
     if("Id" in data) {
       setUserdata(data)
       // alert('Login Successful')
-      navigate('/Home')
+      navigate('/')
     } else alert("Login failed. Please try again")
   })
   }
   return (
   <>
     <h1>Login</h1>
-    <input type='text' onChange={(e) => setEmail(e.target.value)} placeholder='email' /> <br />
+    <input type='email' onChange={(e) => setEmail(e.target.value)} placeholder='email' /> <br />
     <input type='password' onChange={(e) => setPassword(e.target.value)} placeholder='password' /> <br />
     <button type='submit' onClick={login}>submit</button>
   </>
