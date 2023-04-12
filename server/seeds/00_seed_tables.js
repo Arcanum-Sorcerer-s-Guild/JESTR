@@ -80,7 +80,16 @@ const generateUsers = (numUsers = globalNumUsers) => {
       IsSiteAdmin: true,
       IsOwner: true,
       IsApprover: true,
-    }
+    },
+    {
+      LoginName: 'i:0e.t|fedvis|first.m.last', // test user
+      Title: 'Last First DOD - first.m.last',
+      Email: 'First.Last@us.af.mil',
+      Password: '$2b$10$mpB1umV1L4B6BExRvfGfG.sZsgM8Ac0I0PbaNGZnymd0410Nx8iC2', // password is first name all lowercase
+      IsSiteAdmin: true,
+      IsOwner: true,
+      IsApprover: true,
+    },
   ]
 
   const names = new Set();
