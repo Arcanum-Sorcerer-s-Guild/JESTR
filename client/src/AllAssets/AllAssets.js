@@ -15,14 +15,14 @@ const AllAssets = () => {
   const [currAssets, setCurrAssets] = useState([]);
   const [sortField, setSortField] = useState("");
   const columns = [
-    { label: 'Site Location', accessor: "SiteLocation" },
-    { label: 'Range', accessor: "Range" },
-    { label: 'Latitude', accessor: "Latitude" },
-    { label: 'Longitude', accessor: "Longitude" },
-    { label: 'Elevation', accessor: "Elevation" },
-    { label: 'Serial', accessor: "Serial" },
-    { label: 'Threat', accessor: "Threat" },
-    { label: 'Equipment', accessor: "Equipment" }
+    { label: 'Site Location', accessor: "SiteLocation", sortable: true },
+    { label: 'Range', accessor: "Range", sortable: true },
+    { label: 'Latitude', accessor: "Latitude", sortable: true },
+    { label: 'Longitude', accessor: "Longitude", sortable: true },
+    { label: 'Elevation', accessor: "Elevation", sortable: true },
+    { label: 'Serial', accessor: "Serial", sortable: true },
+    { label: 'Threat', accessor: "Threat", sortable: true },
+    { label: 'Equipment', accessor: "Equipment", sortable: true }
   ];
 
   // Helper function to update the list of all assets
@@ -39,7 +39,19 @@ const AllAssets = () => {
   }, []);
 
   const handleSorting = (sortField, sortOrder) => {
-    console.log(sortField, sortOrder)
+    if (sortField) {
+      const sorted = [...currAssets].sort((a, b) => {
+        if (a[sortField] === null) return 1;
+        if (b[sortField] === null) return -1;
+        if (a[sortField] === null && b[sortField] === null) return 0;
+        return (
+          a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+            numeric: true,
+          }) * (sortOrder === "asc" ? 1 : -1)
+        );
+      });
+      setCurrAssets(sorted);
+    }
   };
 
   // Formats the list of all assets
