@@ -46,7 +46,6 @@ const NavBar = () => {
     .then(data => {
       if (data.message === "logout successful") {
         setUserdata({})
-        alert("Logout successful")
         navigate('/Login')
       
       }
