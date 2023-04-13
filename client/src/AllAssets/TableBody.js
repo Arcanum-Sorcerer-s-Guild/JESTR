@@ -1,21 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
+import { AssetsContext } from './AllAssets';
 
 const TableBody = ({ columns }) => {
-  const [currAssets, setCurrAssets] = useState([]);
+  const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
 
-  // On page load, updates the list of all assets
-  useEffect(() => {
-    updateInventory()
-  }, []);
-
-  // Helper function to update the list of all assets
-  const updateInventory = async () => {
-    // Retrieves all database assets
-    fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`)
-      .then((res) => res.json())
-      .then((items) => setCurrAssets(items.d.results));
-  }
 
   // Helper function to convert coordinates from the DD format to the DMS format
   const convertDDtoDMS = (coord) => {
