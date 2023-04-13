@@ -11,6 +11,8 @@ const AdminStats = () => {
   const [successReservationData, setSuccessReservationData] = useState();
   const { listUrl } = useContext(Context);
   const [lists, setLists] = useState([]);
+  const [showSpanInput, setShowSpanInput] = useState(false)
+  const [dateMessage, setDateMessage] = useState('All reservations on: ')
   const [dateRange, setDateRange] = useState({
     start: DateTime.local(),
     end: DateTime.local(),
@@ -40,10 +42,11 @@ const AdminStats = () => {
 
   useEffect(() => {
     if (lists.length > 0) {
+
       let reservations = lists.filter(
         (reservation) =>
-          reservation.date.toFormat('MMM dd, yyyy') >= dateRange.start.toFormat('MMM dd, yyyy') &&
-          reservation.date.toFormat('MMM dd, yyyy') <= dateRange.end.toFormat('MMM dd, yyyy')
+          reservation.date.startOf('day') >= dateRange.start.startOf('day') &&
+          reservation.date.startOf('day') <= dateRange.end.startOf('day')
       );
 
       setSuccessReservationData({
@@ -87,6 +90,30 @@ const AdminStats = () => {
     console.log(dateRange)
   }
 
+  const dateSpanChange = (e) => {
+    console.log(e.target.name)
+    if (e.target.name === 'day') {
+      setDateRange({start:dateRange.start,end:dateRange.start})
+      setDateMessage('All reservations on: ')
+      setShowSpanInput(false)
+    }
+    if (e.target.name === 'week') {
+      setDateRange({start:dateRange.start,end:dateRange.start.plus({day:7})})
+      setDateMessage('All reservations a week from: ')
+      setShowSpanInput(false)
+    }
+    if (e.target.name === 'year') {
+      setDateRange({start:dateRange.start,end:dateRange.start.plus({year:1})})
+      setDateMessage('All reservations a year from: ')
+      setShowSpanInput(false)
+    }
+    if (e.target.name === 'span') {
+      setDateMessage('All reservations between: ')
+      setShowSpanInput(true)
+    }
+
+  }
+
   return (
     <>
       <h1 className="text-center text-4xl mb-5">Reservation Statistics</h1>
@@ -99,31 +126,40 @@ const AdminStats = () => {
             <button
               type="button"
               className="inline-block rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
+              name="day"
+              onClick={(e)=>dateSpanChange(e)}
             >
               Day
             </button>
             <button
               type="button"
               className="inline-block rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
+              name="week"
+              onClick={(e)=>dateSpanChange(e)}
             >
               Week
             </button>
             <button
               type="button"
               className="inline-block rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
+              name="year"
+              onClick={(e)=>dateSpanChange(e)}
             >
               Year
             </button>
             <button
               type="button"
               className="inline-block rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
+              name="span"
+              onClick={(e)=>dateSpanChange(e)}
             >
               Span
             </button>
           </div>
           <div>
+            {dateMessage}
             <input name="start" type="date" defaultValue={dateRange.start.toFormat('yyyy-MM-dd')} onChange={(e)=>dateInputChange(e)}/>
-            <input name="end" type="date" defaultValue={dateRange.end.toFormat('yyyy-MM-dd')} min={dateRange.start.toFormat('yyyy-MM-dd')} onChange={(e)=>dateInputChange(e)}/>
+            <input className={showSpanInput ? `visible` : `invisible`}name="end" type="date" defaultValue={dateRange.start.toFormat('yyyy-MM-dd')} min={dateRange.start.toFormat('yyyy-MM-dd')} onChange={(e)=>dateInputChange(e)}/>
           </div>
 
       </div>
