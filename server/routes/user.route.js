@@ -12,12 +12,7 @@ router.post('/register', async (req, res) => {
   const { firstName, middleName, lastName, password } = req.body;
 
   // reject missing user registration info
-  if (
-    !firstName ||
-    !middleName ||
-    !lastName ||
-    !password
-  ) {
+  if (!firstName || !middleName || !lastName || !password) {
     const errorMessage = 'missing user registration info';
     console.log(errorMessage);
     return res.status(401).json({
@@ -40,10 +35,7 @@ router.post('/register', async (req, res) => {
   // reject duplicate LoginName
   const existing = await db.getUserByEmail(newUser.Email);
   if (existing.length > 0) {
-    console.log(
-      `duplicate Email ${newUser.Email} of id:`,
-      existing[0].Id
-    );
+    console.log(`duplicate Email ${newUser.Email} of id:`, existing[0].Id);
     return res.status(401).json({
       message: 'LoginName already taken...',
     });
@@ -152,11 +144,11 @@ router.post('/logout', async (req, res) => {
 
 // send user details to front end
 router.get('/details', async (req, res) => {
-  if (req.sessionID && req.session.user) {
-    res.status(200);
-    return res.json(req.session.user);
+  if (!req.session.user) {
+    return res.sendStatus(401);
   }
-  return res.sendStatus(403);
+  res.status(200);
+  return res.json(req.session.user);
 });
 
 module.exports = router;
