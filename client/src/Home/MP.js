@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../App';
 
+//dependencies packages
+import DateObject from 'react-date-object';
+
 //icons
 import { FaSortUp, FaSortDown } from 'react-icons/fa';
 
@@ -21,86 +24,87 @@ const MP = () => {
     fetch(`${listUrl}/GetByTitle('Reservations')/items`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.d.results[0].AuthorId);
-        setLists(data.d.results);
+        console.log(data.d.results);
+        const filtered = data.d.results.filter((event) => {
+          return (
+            event.EventDate >= '2023-03-07' && event.EventDate <= '2023-03-08'
+          );
+        });
+        setLists(filtered);
       });
   }, []);
 
-  console.log('lists', lists);
-
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-        <h3 className="font-semibold">MP board</h3>
+    <>
+      <div className="text-text p-2 text-center bg-tertiary">
+        <input type="text" placeholder="Search..." />
       </div>
-      <div className="mt-2 flex flex-col">
-        <div className="my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
-          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-light/100">
-                <thead className="bg-gray-light/50 text-gray/100">
-                  <tr>
-                    {headers.map((header, i) => (
-                      <th
-                        key={i}
-                        className="px-6 py-2 text-center text-xs font-medium uppercase tracking-wider"
-                      >
-                        {header.name}
-                        <span>
-                          {header.isSorted ? (
-                            header.isSortedDesc ? (
-                              <FaSortUp />
-                            ) : (
-                              <FaSortDown />
-                            )
+      <div>
+        <div className="flex gap-6">
+          <div className="today">
+            <div className="text-text text-center bg-pink/50">{Date()}</div>
+            <table className="text-text bg-blue text-left">
+              <thead>
+                <tr>
+                  {headers.map((header, i) => (
+                    <th key={i}>
+                      {header.name}
+                      <span>
+                        {header.isSorted ? (
+                          header.isSortedDesc ? (
+                            <FaSortUp />
                           ) : (
-                            ''
-                          )}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="bg-text divide-y divide-gray-light/100 text-semibold">
-                  {lists.map((list, i) => (
-                    <tr
-                      key={i}
-                      className="even:bg-secondary/50 odd:bg-tertiary/50"
-                    >
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
-                        {list.SiteLocation}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                            <FaSortDown />
+                          )
+                        ) : (
+                          ''
+                        )}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {lists.map((list, i) => {
+                  let EventDate = new DateObject(list.EventDate).format(
+                    'YYYY-MM-DD HH:MM'
+                  );
+                  let EndDate = new DateObject(list.EndDate).format('HH:MM');
+
+                  return (
+                    <tr key={i}>
+                      <td>{list.SiteLocation}</td>
+                      <td>
                         {list.Threat} ({list.Equipment})
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
-                        {list.Squadron}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
-                        {list.EventDate}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
-                        {list.EndDate}
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm text-center ${
-                          list.Status === 'Approved' ? 'bg-green text-text' :
-                          list.Status === 'Pending' ? 'bg-blue text-text' :
-                          list.Status === 'Rejected' ? 'bg-orange text-text' :
-                          ''
-                        }`}
-                      >
-                        {list.Status}
+                      <td>{list.Squadron}</td>
+                      <td>{EventDate}z</td>
+                      <td>{EndDate}z</td>
+                      <td>
+                        <span
+                          className={`${
+                            list.Status === 'Approved'
+                              ? 'bg-green/50 text-text'
+                              : list.Status === 'Pending'
+                              ? 'bg-purple/50 text-text'
+                              : list.Status === 'Rejected'
+                              ? 'bg-pink/50 text-text'
+                              : ''
+                          }`}
+                        >
+                          {list.Status}
+                        </span>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
+          <div className="text-text">tomorrow</div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
