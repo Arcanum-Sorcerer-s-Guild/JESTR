@@ -4,7 +4,7 @@ import { AssetsContext } from './AllAssets';
 
 const TableHead = ({ columns, handleSorting }) => {
   const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
-  const [sortField, setSortField] = useState("");
+  const [sortField, setSortField] = useState("SiteLocation");
   const [order, setOrder] = useState("asc");
 
   const handleSortingChange = (accessor) => {
