@@ -13,15 +13,33 @@ import Asset from './Asset/Asset.js';
 import AdminStats from './AdminStats/AdminStats.js'
 
 import { Routes, Route, UseNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 export const Context = React.createContext();
 
 function App() {
   const [userData, setUserdata] = useState({});
-  console.log(userData)
 
   const userUrl = "http://localhost:3001/user"
   const listUrl = "http://localhost:3001/_api/web/lists"
+  
+  useEffect(()=>{
+    let reqOpts = {
+      method: "GET",
+      "Access-Control-Allow-Origin": "*",
+      credentials: "include",
+    }  
+
+    fetch(`http://localhost:3001/user/details`,reqOpts)
+    .then((res) => { 
+      if (!res.ok) throw new Error(res.statusText);
+      return(res.json())
+      })
+    .then(data => {
+      setUserdata(data)
+    })  
+    .catch(err=>console.log(err))
+  },[]) 
+
 
   return (
     <div className="flex flex-col w-full">
