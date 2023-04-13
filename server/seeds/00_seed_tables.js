@@ -129,8 +129,8 @@ const generateAssets = (numAssets = globalNumAssets) => {
       Status: ['RED', 'AMBER', 'GREEN', 'NA'][randomIncRange(0, 3)], // RED ||AMBER || GREEN || NA
       ETIC: generateFakeDate('2023-03-01', '2024-3-20'), // 2022-11-02T19:44:06Z
       Remarks: faker.hacker.phrase(), // "some string"
-      Schedulable: randomIncRange(1, 100) < 2 ? false : true, // true/false
-      Operational: randomIncRange(1, 100) < 2 ? false : true, // true/false
+      Schedulable: randomIncRange(1, 100) < 20 ? false : true, // true/false
+      Operational: randomIncRange(1, 100) < 40 ? false : true, // true/false
       Range: [2202, 2205, 2211][randomIncRange(0, 2)], // 2202 || 2205 || 2211 || ?other?
       SiteLocation: `${faker.music.genre()}-${randomIncRange(1, 10)}`, // "string ex Charlie Batt"
       Latitude: faker.address.latitude(66, 65, 6), // "N64 37.220"= '';
