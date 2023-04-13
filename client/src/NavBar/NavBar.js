@@ -29,8 +29,11 @@ const NavBar = () => {
      >
        <span onClick={() => setUserdata({})}>Register</span>
      </Link>
+
      </>
   );
+
+
   const signOut = () => {
     fetch('http://localhost:3001/user/logout', {
       method: "POST",
@@ -80,6 +83,7 @@ const NavBar = () => {
 
   return (
     <>
+      {console.log(userData)}
       <div className=" bg-gunmetal text-text flex items-center justify-between flex-wrap p-4 shadow-md">
         <div className="flex items-center flex-shrink-0 text-text mr-6">
           <span className="font-semibold text-xl tracking-tight">JEST</span>
@@ -95,6 +99,7 @@ const NavBar = () => {
                 {link.text}
               </Link>
             ))}
+            <Link className={`${userData.IsSiteAdmin === true ? "" : "hidden"}`} to='/Admin'>Admin</Link>
           </div>
           {"Id" in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>

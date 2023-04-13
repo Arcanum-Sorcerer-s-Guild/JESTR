@@ -10,6 +10,7 @@ import Reservation from './Reservation/Reservation.js';
 import AllReservations from './AllReservations/AllReservations.js';
 import AllAssets from './AllAssets/AllAssets.js';
 import Asset from './Asset/Asset.js';
+import AdminStats from './AdminStats/AdminStats.js'
 
 import { Routes, Route, UseNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
@@ -17,6 +18,7 @@ export const Context = React.createContext();
 
 function App() {
   const [userData, setUserdata] = useState({});
+  console.log(userData)
 
   const userUrl = "http://localhost:3001/user"
   const listUrl = "http://localhost:3001/_api/web/lists"
@@ -36,6 +38,7 @@ function App() {
           <Route path="/Reservation/:id" element={<Reservation />} />
           <Route path="/AllAssets" element={<AllAssets />} />
           <Route path="/Asset/:id" element={<Asset />} />
+          <Route path="/Admin" element={<AdminStats/>}/>
         </Routes>
       </Context.Provider>
     </div>
