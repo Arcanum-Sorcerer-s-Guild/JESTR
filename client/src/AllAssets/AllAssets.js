@@ -1,7 +1,9 @@
 // Get needed dependencies only
 import React, { useState, useEffect } from 'react';
 import { Context } from '../App';
-
+import TableBody from "./TableBody";
+import TableHead from "./TableHead";
+// export const LocalContext = React.createContext();
 
 
 // Provides functionality for all assets
@@ -10,18 +12,20 @@ const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
   const { userData, setUserdata } = React.useContext(Context);
   const [currAssets, setCurrAssets] = useState([]);
-  const columnHeaders = [
-    { name: 'Site Location' },
-    { name: 'Range' },
-    { name: 'Coordinates' },
-    { name: 'Bullseye' },
-    { name: 'Elevation' },
-    { name: 'Serial' },
-    { name: 'Threat (Equipment)' }
+  const [sortField, setSortField] = useState("");
+  const columns = [
+    { name: 'Site Location', accessor: "SiteLocation" },
+    { name: 'Range', accessor: "Range" },
+    { name: 'Latitude', accessor: "Latitude" },
+    { name: 'Longitude', accessor: "Longitude" },
+    { name: 'Elevation', accessor: "Elevation" },
+    { name: 'Serial', accessor: "Serial" },
+    { name: 'Threat', accessor: "Threat" },
+    { name: 'Equipment', accessor: "Equipment" }
   ];
 
   // Helper function to update the list of all assets
-  async function updateInventory() {
+  const updateInventory = async () => {
     // Retrieves all database assets
     fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`)
       .then((res) => res.json())
@@ -29,17 +33,35 @@ const AllAssets = () => {
   }
 
   // Helper function to convert coordinates from the DD format to the DMS format
-  function convertDDtoDMS(coord) {
+  const convertDDtoDMS = (coord) => {
     return `${Math.trunc(Math.abs(coord))}\u00B0${Math.trunc(Math.abs(coord)%1*60)}'${((Math.abs(coord)%1*60)%1*60).toFixed(2)}"`;
   }
 
   // Helper function to display both latitude and longitude in a
-  function formatLatLong(lat, long) {
+  const formatLatLong = (lat, long) => {
     return `${lat<0 ? "S": "N"}${convertDDtoDMS(lat)}, ${long<0 ? "W": "E"}${convertDDtoDMS(long)}`;
   }
 
-  // Helper function to display all assets by a particular value
-  function sortTable() {
+  // Helper function to display all assets in a sorted order
+  const handleSortingChange = (column) => {
+    console.log(column)
+    setSortField(column)
+    console.log(sortField)
+    console.log(currAssets[0])
+
+    // if (sortField === columnHeaders[0].name)
+    //   [...userData].sort((a,b) => a.SiteLocation < b.SiteLocation ? -1 : 1)
+    // if (sortField === columnHeaders[1].name)
+    //   [...userData].sort((a,b) => a.Range < b.Range ? -1 : 1)
+    // if (sortField === columnHeaders[4].name)
+    //   [...userData].sort((a,b) => a.Elevation < b.Elevation ? -1 : 1)
+    // if (sortField === columnHeaders[5].name)
+    //   [...userData].sort((a,b) => a.Serial < b.Serial ? -1 : 1)
+    // if (sortField === columnHeaders[6].name)
+    //   [...userData].sort((a,b) => a.Threat < b.Threat ? -1 : 1)
+    // let data1 = [...userData].sort((a,b) => {
+    //   if(a.column < b.column)
+    // })
 
   }
 
@@ -48,10 +70,17 @@ const AllAssets = () => {
     updateInventory();
   }, []);
 
+  // updateInventory()
+
   // Formats the list of all assets
   return (
     <div className="max-w-6xl mx-auto">
-      {console.log(currAssets)}
+      {userData.IsOwner ?
+        <div className="mt-4 rounded-md shadow-md bg-purple text-text text-center max-w-2x1">
+          <button type="button" className="font-semibold">Add Asset</button>
+        </div>:
+        <></>
+      }
       <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
           <h3 className="font-semibold">All Assets</h3>
       </div>
@@ -62,12 +91,12 @@ const AllAssets = () => {
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
                   <table className="min-w-full divide-y divide-gray-light/100">
-                    <thead className="bg-gray-light/50 text-gray/100">
+                    {/* <thead className="bg-gray-light/50 text-gray/100">
                       <tr>
                         {columnHeaders.map((header, i) => (
                           <th
                             key={i}
-                            className='px-6 py-2 text-center text-xs font-medium uppercase tracking-wider'
+                            className='px-6 py-2 text-center text-xs font-medium uppercase tracking-wider' onClick={() => handleSortingChange(header.name)}
                           >
                             {header.name}
                           </th>
@@ -86,7 +115,9 @@ const AllAssets = () => {
                           <td className="text-left text-xs">{asset.Equipment} ({asset.Threat})</td>
                         </tr>
                       ))}
-                    </tbody>
+                    </tbody> */}
+                    <TableHead columns={columns}/>
+                    <TableBody columns={columns}/>
                   </table>
                 </div>
               </div>
@@ -97,7 +128,7 @@ const AllAssets = () => {
     </div>
 
 
-
+// tableData={currAssets}
 
 
 
