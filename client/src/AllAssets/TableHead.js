@@ -39,3 +39,4 @@ const TableHead = ({ columns, handleSorting }) => {
 };
 
 export default TableHead;
+
