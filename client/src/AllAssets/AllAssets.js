@@ -4,7 +4,7 @@ import { Context } from '../App';
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 export const AssetsContext = React.createContext();
-// export const LocalContext = React.createContext();
+
 
 
 // Provides functionality for all assets
@@ -34,6 +34,7 @@ const AllAssets = () => {
       .then(handleSorting("SiteLocation", "asc"));
   }
 
+  // Helper function to handle sorting when an asset column header is clicked
   const handleSorting = (sortField, sortOrder) => {
     if (sortField) {
       const sorted = [...currAssets].sort((a, b) => {
@@ -75,31 +76,6 @@ const AllAssets = () => {
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
                     <table className="min-w-full divide-y divide-gray-light/100">
-                      {/* <thead className="bg-gray-light/50 text-gray/100">
-                        <tr>
-                          {columnHeaders.map((header, i) => (
-                            <th
-                              key={i}
-                              className='px-6 py-2 text-center text-xs font-medium uppercase tracking-wider' onClick={() => handleSortingChange(header.name)}
-                            >
-                              {header.name}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody className="bg-text divide-y divide-y-gray/75">
-                        {currAssets.map((asset, i) => (
-                          <tr key={i}>
-                            <td className="text-left text-xs">{asset.SiteLocation}</td>
-                            <td className="text-left text-xs">{asset.Range}</td>
-                            <td className="text-left text-xs">{formatLatLong(asset.Latitude, asset.Longitude)}</td>
-                            <td className="text-left text-xs">{asset.Range}</td>
-                            <td className="text-left text-xs">{asset.Elevation}</td>
-                            <td className="text-left text-xs">{asset.Serial}</td>
-                            <td className="text-left text-xs">{asset.Equipment} ({asset.Threat})</td>
-                          </tr>
-                        ))}
-                      </tbody> */}
                       <TableHead {...{ columns, handleSorting }}/>
                       <TableBody {...{ columns }}/>
                     </table>
@@ -111,12 +87,6 @@ const AllAssets = () => {
         </div>
       </AssetsContext.Provider>
     </div>
-
-
-// tableData={currAssets}
-
-
-
   );
 };
 

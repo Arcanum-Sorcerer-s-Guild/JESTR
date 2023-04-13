@@ -24,14 +24,16 @@ const TableHead = ({ columns, handleSorting }) => {
     <thead>
       <tr>
         {columns.map(({ label, accessor, sortable }) => {
-          const cl = sortable
-          ? sortField === accessor && order === "asc"
-            ? "up"
-            : sortField === accessor && order === "desc"
-            ? "down"
-            : "default"
-          : "";
-          return <th key={accessor} onClick={sortable ? () => handleSortingChange(accessor) : null} className={cl}>{label}</th>;
+          return <th key={accessor} onClick={sortable ? () => handleSortingChange(accessor) : null} className="">
+              {label}
+              {sortable
+                ? sortField === accessor && order === "asc"
+                  ? <img src="../../images/up_arrow.png" alt="up" className="flex"/>
+                  : sortField === accessor && order === "desc"
+                  ? <img src="../../images/down_arrow.png" alt="down" className="flex"/>
+                  : <img src="../../images/default.png" alt="default" className="flex"/>
+                : ""}
+            </th>;
         })}
       </tr>
     </thead>
