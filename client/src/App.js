@@ -22,7 +22,7 @@ function App() {
   const listUrl = 'http://localhost:3001/_api/web/lists';
 
   return (
-    <div className="bg-gunmetal">
+    <div className="">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
         <div className=''>
