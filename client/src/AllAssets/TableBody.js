@@ -1,9 +1,11 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AssetsContext } from './AllAssets';
 
 const TableBody = ({ columns }) => {
   const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
+  const navigate = useNavigate();
 
 
   // Helper function to convert coordinates from the DD format to the DMS format
@@ -14,11 +16,9 @@ const TableBody = ({ columns }) => {
   return (
     <tbody>
       {currAssets.map((data) => {
-        console.log(data)
         return (
-          <tr key={data.id}>
+          <tr key={data.id} >
           {columns.map(({ accessor }) => {
-            console.log(accessor)
             const tData = data[accessor] ? ((accessor === "Latitude" || accessor === "Longitude") ? convertDDtoDMS(data[accessor]) : data[accessor]) : "——";
             return <td key={accessor}>{tData}</td>;
           })}

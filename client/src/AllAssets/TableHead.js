@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AssetsContext } from './AllAssets';
 
 const TableHead = ({ columns, handleSorting }) => {
@@ -14,6 +14,11 @@ const TableHead = ({ columns, handleSorting }) => {
     setOrder(sortOrder);
     handleSorting(accessor, sortOrder);
   };
+
+  // On page load, updates the list of all assets
+  useEffect(() => {
+    handleSortingChange("SiteLocation");
+  }, []);
 
   return (
     <thead>

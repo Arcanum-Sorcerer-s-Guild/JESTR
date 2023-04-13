@@ -30,13 +30,9 @@ const AllAssets = () => {
     // Retrieves all database assets
     fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`)
       .then((res) => res.json())
-      .then((items) => setCurrAssets(items.d.results));
+      .then((items) => setCurrAssets(items.d.results))
+      .then(handleSorting("SiteLocation", "asc"));
   }
-
-  // On page load, updates the list of all assets
-  useEffect(() => {
-    updateInventory();
-  }, []);
 
   const handleSorting = (sortField, sortOrder) => {
     if (sortField) {
@@ -53,6 +49,11 @@ const AllAssets = () => {
       setCurrAssets(sorted);
     }
   };
+
+  // On page load, updates the list of all assets
+  useEffect(() => {
+    updateInventory();
+  }, []);
 
   // Formats the list of all assets
   return (
