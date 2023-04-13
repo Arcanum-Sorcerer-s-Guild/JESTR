@@ -172,4 +172,23 @@ router.get('/CurrentUser', async (req, res) => {
   }
 });
 
+// Return Date of earliest Reservation
+// http://localhost:3001/_api/web/EarliestReservationDate
+router.get('/EarliestReservationDate', async (req, res) => {
+  const permitted = helper.checkPermissions(req, {
+    needLoggedIn: true,
+  });
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
+  try {
+    const earliestReservationDate = await dbLists.getEarliestReservationDate();
+    res.status(200).json(earliestReservationDate[0]);
+  } catch (err) {
+    res.status(500).json({
+      error: err,
+    });
+  }
+});
+
 module.exports = router;
