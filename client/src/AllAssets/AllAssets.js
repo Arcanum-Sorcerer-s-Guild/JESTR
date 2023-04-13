@@ -38,6 +38,11 @@ const AllAssets = () => {
     return `${lat<0 ? "S": "N"}${convertDDtoDMS(lat)}, ${long<0 ? "W": "E"}${convertDDtoDMS(long)}`;
   }
 
+  // Helper function to display all assets by a particular value
+  function sortTable() {
+
+  }
+
   // On page load, updates the list of all assets
   useEffect(() => {
     updateInventory();
@@ -46,6 +51,7 @@ const AllAssets = () => {
   // Formats the list of all assets
   return (
     <div className="max-w-6xl mx-auto">
+      {console.log(currAssets)}
       <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
           <h3 className="font-semibold">All Assets</h3>
       </div>
@@ -99,30 +105,6 @@ const AllAssets = () => {
 };
 
 
-{/* <div>
-{console.log(userData)}
-<h1>AllAssets</h1>
-{userData.IsApprover ?
-  <button type="button">Add Asset</button> :
-  <div></div>
-}
-<div>
-  {currAssets.map((asset) => {
-    return (
-      <div key={asset.Id}>
-        <div>Site Location: {asset.SiteLocation}</div>
-        <div>Range: {asset.Range}</div>
-        <div>Coordinates: {formatLatLong(asset.Latitude, asset.Longitude)}</div>
-        <div>Bullseye: {asset.Range}</div>
-        <div>Elevation: {asset.Elevation}</div>
-        <div>Serial: {asset.Serial}</div>
-        <div>Threat (Equipment): {asset.Equipment} ({asset.Threat})</div>
-        <br/>
-      </div>
-    );
-  })}
-</div>
-</div> */}
 
 // Exports AllAssets for usability
 export default AllAssets;
