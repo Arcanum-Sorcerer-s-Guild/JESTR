@@ -6,6 +6,11 @@ const dbUsers = require('../db/controllers/users.js');
 
 console.log('sharepoint route loaded');
 
+/**
+ * Encapsulates an array or object in a Sharepoint-like data format.
+ * @param results The array or object to encapsulate.
+ * @returns {Object} A new object in Sharepoint-like format, with the encapsulated data under the 'd' key. If 'results' is an array, the encapsulated data is wrapped in a 'results' key.
+ */
 const encapsulateLikeSharepoint = (results) => {
   if (Array.isArray(results)) {
     return {
@@ -20,6 +25,11 @@ const encapsulateLikeSharepoint = (results) => {
   }
 };
 
+/**
+ * Formats a user object to to a SharePoint-specific structure.
+ * @param {Object} user - The user object to format.
+ * @returns {Object} The formatted user object.
+ */
 const formatSharepointUser = (user) => {
   userData = {
     __metadata: {
