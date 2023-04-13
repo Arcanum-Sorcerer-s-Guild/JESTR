@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 
 const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context)
-  
+  const navigate = useNavigate();
   const navLinks = [
     { name: '', to: '/', text: 'Home', icon: '' },
     { name: 'MP', to: '/', text: 'Mission Planning', icon: '' },
@@ -31,13 +31,29 @@ const NavBar = () => {
      </Link>
      </>
   );
+  const signOut = () => {
+    fetch('http://localhost:3001/user/logout', {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      credentials: "include",
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message === "logout successful") {
+        setUserdata({})
+        navigate('/Login')
+      
+      }
+  })}
 
   let loggedIn = (
     <Link
     to="Login"
     className="block mt-4 lg:inline-block lg:mt-0  hover:text-green p-2 text-sm"
   >
-    <span onClick={() => setUserdata({})}>Sign Out</span>
+    <span onClick={signOut}>Signout</span>
   </Link>
   )
 
@@ -67,3 +83,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
