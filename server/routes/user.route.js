@@ -29,7 +29,6 @@ router.post('/register', async (req, res) => {
     Email: `${firstName}.${lastName}@us.af.mil`, // first.last@us.af.mil
     Password: bcrypt.hashSync(password, 10), // password
     IsSiteAdmin: req.body.IsSiteAdmin || false,
-    IsOwner: req.body.IsOwner || false,
     IsApprover: req.body.IsApprover || false,
   };
 
@@ -55,7 +54,6 @@ router.post('/register', async (req, res) => {
       Email: user.Email,
       IsSiteAdmin: user.IsSiteAdmin,
       IsApprover: user.IsApprover,
-      IsOwner: user.IsOwner,
     };
 
     // send user object to front end for cookie
@@ -113,7 +111,6 @@ router.post('/login', async (req, res) => {
       Email: user.Email,
       IsSiteAdmin: user.IsSiteAdmin,
       IsApprover: user.IsApprover,
-      IsOwner: user.IsOwner,
     };
 
     // send user object to front end for cookie
@@ -147,11 +144,11 @@ router.post('/logout', async (req, res) => {
 
 // send user details to front end
 router.get('/details', async (req, res) => {
-  if (req.sessionID && req.session.user) {
-    res.status(200);
-    return res.json(req.session.user);
+  if (!req.session.user) {
+    return res.sendStatus(401);
   }
-  return res.sendStatus(403);
+  res.status(200);
+  return res.json(req.session.user);
 });
 
 module.exports = router;

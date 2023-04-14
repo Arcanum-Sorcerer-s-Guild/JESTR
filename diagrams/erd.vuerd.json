@@ -206,36 +206,13 @@
               "widthDefault": 60
             },
             "id": "d6afb6ba-c5fd-4ef2-859f-521a2998491a"
-          },
-          {
-            "name": "IsOwner",
-            "comment": "",
-            "dataType": "boolean",
-            "default": "false",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": false
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": false,
-              "pfk": false,
-              "widthName": 60,
-              "widthComment": 60,
-              "widthDataType": 60,
-              "widthDefault": 60
-            },
-            "id": "31eb1bc8-92fe-4e89-85ce-2b68735b95b0"
           }
         ],
         "ui": {
-          "active": false,
+          "active": true,
           "left": 645.3334,
           "top": 131.2218,
-          "zIndex": 50,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -803,7 +780,7 @@
           "active": false,
           "left": 1167.7775,
           "top": 62.0004,
-          "zIndex": 40,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1141,7 +1118,7 @@
           "active": false,
           "left": 112.4446,
           "top": 120.7779,
-          "zIndex": 62,
+          "zIndex": 3,
           "widthName": 77.8671875,
           "widthComment": 60
         },
@@ -1164,7 +1141,7 @@
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
           "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 1003.69423984375,
-          "y": 189.4718,
+          "y": 184.3468,
           "direction": "right"
         },
         "end": {
@@ -1186,7 +1163,7 @@
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
           "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 1003.69423984375,
-          "y": 305.97180000000003,
+          "y": 290.59680000000003,
           "direction": "right"
         },
         "end": {
@@ -1208,7 +1185,7 @@
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
           "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 645.3334,
-          "y": 189.4718,
+          "y": 184.3468,
           "direction": "left"
         },
         "end": {
@@ -1230,7 +1207,7 @@
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
           "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 645.3334,
-          "y": 305.97180000000003,
+          "y": 290.59680000000003,
           "direction": "left"
         },
         "end": {

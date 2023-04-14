@@ -15,7 +15,6 @@ exports.up = function (knex) {
         table.string('Email').nullable(); // "first.last@us.af.mil"
         table.boolean('IsSiteAdmin').defaultTo(false); // Site Collection Admin Rights
         table.boolean('IsApprover').defaultTo(false); // Member of Approver Group
-        table.boolean('IsOwner').defaultTo(false); // Member of Owner Group
       })
 
       // /_api/web/lists/GetByTitle('Master%20threat%20list')/items

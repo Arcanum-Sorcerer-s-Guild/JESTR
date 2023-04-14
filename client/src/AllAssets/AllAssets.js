@@ -56,8 +56,8 @@ const AllAssets = () => {
   // Formats the list of all assets
   return (
     <div className="max-w-6xl mx-auto">
-      <AssetsContext.Provider value={{ currAssets, setCurrAssets }}>
-        {userData.IsOwner ? (
+      <AssetsContext.Provider value={{currAssets, setCurrAssets}}>
+        {userData.IsSiteAdmin ? (
           <div className="mt-4 rounded-md shadow-md bg-purple text-text text-center max-w-2x1">
             <button type="button" className="font-semibold">
               Add Asset
