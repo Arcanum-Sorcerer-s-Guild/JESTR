@@ -164,7 +164,7 @@ router.get('/list', async (req, res) => {
   const userList = await db.getAllUsers();
 
   res.status(200).json(userList);
-})
+});
 
 // Get specific user
 router.get('/:userId', async (req, res) => {
