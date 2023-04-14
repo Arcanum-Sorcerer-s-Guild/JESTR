@@ -1,10 +1,9 @@
 const { faker } = require('@faker-js/faker');
 const bcrypt = require('bcrypt');
-const knex = require('knex')(require('../knexfile.js')['development']);
 
 const globalNumUsers = 100;
 const globalNumAssets = 60;
-const globalNumReservations = 400;
+const globalNumReservations = 1000;
 const globalDateRangeStart = '2023-01-01';
 const globalDateRangeEnd = '2023-05-01';
 
