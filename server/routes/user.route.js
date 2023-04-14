@@ -169,7 +169,11 @@ router.get('/list', async (req, res) => {
 
 // Get specific user
 router.get('/:userId', async (req, res) => {
-  let permitted = helper.checkPermissions(req, ['Site Admin']);
+  let permitted = helper.checkPermissions(
+    req,
+    ['Site Admin', 'Author'],
+    req.params.userId
+  );
   if (typeof permitted === 'number') {
     return res.sendStatus(permitted);
   }
