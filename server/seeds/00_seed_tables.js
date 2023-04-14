@@ -33,7 +33,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Joseph.Hartsfield@us.af.mil',
       Password: '$2b$10$UsKeiH3WcXiiSExAkVRz8OemrorThLhg6tqLh98jKVmZUtWp5NpcW', // password is first name all lowercase
       IsSiteAdmin: true,
-      IsOwner: true,
       IsApprover: true,
     },
     {
@@ -42,7 +41,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Jacob.Steward@us.af.mil',
       Password: '$2b$10$ueciUEIX/XVp/T9s/GR4jOygLJsclVsSTdCybQKgnSA7xkmTgOPoK', // password is first name all lowercase
       IsSiteAdmin: true,
-      IsOwner: true,
       IsApprover: true,
     },
     {
@@ -51,7 +49,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'David.Bonilla@us.af.mil',
       Password: '$2b$10$bQdHtPZNYyu3tMhQKpPGu.pIGTpLI/ls4DBL54t9raxsHpcdzsyZG', // password is first name all lowercase
       IsSiteAdmin: true,
-      IsOwner: true,
       IsApprover: true,
     },
     {
@@ -60,7 +57,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Jason.Martin@us.af.mil',
       Password: '$2b$10$bPdTDVkvqG7MVEHuN9Mtz.3ogQYpS7VExp7WT1oJYWLNRdBOXjNtK', // password is first name all lowercase
       IsSiteAdmin: true,
-      IsOwner: true,
       IsApprover: true,
     },
     {
@@ -69,7 +65,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Kyle.Hackett@us.af.mil',
       Password: '$2b$10$MgXcQaRN7NR3/hJO4aRt1em6Yq1jyHtuPEJeYc7tKDr89apkw5N6y', // password is first name all lowercase
       IsSiteAdmin: true,
-      IsOwner: true,
       IsApprover: true,
     },
     {
@@ -78,7 +73,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Brandon.Roques@us.af.mil',
       Password: '$2b$10$SmPj0Ry74xDBjSyv06x7R.3lc/adNdbKJiIethrqAh9t923tJKJSO', // password is first name all lowercase
       IsSiteAdmin: true,
-      IsOwner: true,
       IsApprover: true,
     },
     {
@@ -87,7 +81,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'First.Last@us.af.mil',
       Password: '$2b$10$mpB1umV1L4B6BExRvfGfG.sZsgM8Ac0I0PbaNGZnymd0410Nx8iC2', // password is first name all lowercase
       IsSiteAdmin: true,
-      IsOwner: true,
       IsApprover: true,
     },
   ]
@@ -129,8 +122,8 @@ const generateAssets = (numAssets = globalNumAssets) => {
       Status: ['RED', 'AMBER', 'GREEN', 'NA'][randomIncRange(0, 3)], // RED ||AMBER || GREEN || NA
       ETIC: generateFakeDate('2023-03-01', '2024-3-20'), // 2022-11-02T19:44:06Z
       Remarks: faker.hacker.phrase(), // "some string"
-      Schedulable: randomIncRange(1, 100) < 2 ? false : true, // true/false
-      Operational: randomIncRange(1, 100) < 2 ? false : true, // true/false
+      Schedulable: randomIncRange(1, 100) < 20 ? false : true, // true/false
+      Operational: randomIncRange(1, 100) < 40 ? false : true, // true/false
       Range: [2202, 2205, 2211][randomIncRange(0, 2)], // 2202 || 2205 || 2211 || ?other?
       SiteLocation: `${faker.music.genre()}-${randomIncRange(1, 10)}`, // "string ex Charlie Batt"
       Latitude: faker.address.latitude(66, 65, 6), // "N64 37.220"= '';
@@ -184,7 +177,7 @@ const generateReservations = (
       Range: asset.Range, // 2202 || 2205 || 2211 || ?other? **Pulled
       SiteLocation: asset.SiteLocation, // Charlie batt  **Pulled
       Threat: asset.Threat, // SA-3 **Pulled
-      Equipment: asset.Threat, // T-2 **Pulled
+      Equipment: asset.Equipment, // T-2 **Pulled
       ThreatType: asset.ThreatType, // Manned / unmanned/ etc  **Pulled
       EventDate: startDate, //  "2021-05-18T17:00:00Z"
       EndDate: endDate, // "2021-05-18T19:00:00Z"

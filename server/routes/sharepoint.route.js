@@ -4,61 +4,24 @@ const router = express.Router();
 const dbLists = require('../db/controllers/lists.js');
 const dbUsers = require('../db/controllers/users.js');
 
+const helper = require('../utils/helper.util.js');
+
 console.log('sharepoint route loaded');
-
-const encapsulateLikeSharepoint = (results) => {
-  if (Array.isArray(results)) {
-    return {
-      d: {
-        results: results,
-      },
-    };
-  } else {
-    return {
-      d: results,
-    };
-  }
-};
-
-const formatSharepointUser = (user) => {
-  userData = {
-    __metadata: {
-      id: `https://intelshare.intelink.gov/sites/354RANS/JESTR/_api/Web/GetUserById(${user.Id})`,
-      uri: `https://intelshare.intelink.gov/sites/354RANS/JESTR/_api/Web/GetUserById(${user.Id})`,
-      type: 'SP.User',
-    },
-    Groups: {
-      __deferred: {
-        uri: `https://intelshare.intelink.gov/sites/354RANS/JESTR/_api/Web/GetUserById(${user.Id})/Groups`,
-      },
-    },
-    Id: user.Id,
-    IsHiddenInUI: false,
-    LoginName: user.LoginName,
-    Title: user.Title,
-    PrincipalType: 1,
-    Email: user.Email,
-    IsShareByEmailGuestUser: false,
-    IsSiteAdmin: user.IsSiteAdmin,
-    UserId: {
-      __metadata: {
-        type: 'SP.UserIdInfo',
-      },
-      NameId: user.LoginName.split('|').at(-1),
-      NameIdIssuer: 'TrustedProvider:fedvis',
-    },
-  };
-  return userData;
-};
 
 // Get All Items in List
 // http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items
 // http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items
 router.get("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
+  const permitted = helper.checkPermissions(req, {
+    needLoggedIn: true,
+  });
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
   dbLists
     .getListItem(req.params.listTitle)
     .then((data) => {
-      res.status(200).json(encapsulateLikeSharepoint(data));
+      res.status(200).json(helper.encapsulateLikeSharepoint(data));
     })
     .catch((err) => {
       res.status(500).json({
@@ -73,13 +36,19 @@ router.get("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
 router.get(
   "/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
   (req, res) => {
+    const permitted = helper.checkPermissions(req, {
+      needLoggedIn: true,
+    });
+    if (typeof permitted === 'number') {
+      return res.sendStatus(permitted);
+    }
     const listLocation = req.params.listTitle;
     const itemId = req.params.itemId;
     dbLists
       .getListItem(listLocation, itemId)
       .then((data) => {
         if (data.length > 0) {
-          res.status(200).json(encapsulateLikeSharepoint(data[0]));
+          res.status(200).json(helper.encapsulateLikeSharepoint(data[0]));
         } else {
           res.status(404).json({
             error: 'item not found',
@@ -112,7 +81,7 @@ router.post("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
       EditorId: req.session.user.Id,
     })
     .then((data) => {
-      res.status(200).json(encapsulateLikeSharepoint(data[0]));
+      res.status(200).json(helper.encapsulateLikeSharepoint(data[0]));
     })
     .catch((err) => {
       res.status(500).json({
@@ -146,7 +115,7 @@ router.put(
         itemId
       )
       .then((data) => {
-        res.status(200).json(encapsulateLikeSharepoint(data[0]));
+        res.status(200).json(helper.encapsulateLikeSharepoint(data[0]));
       })
       .catch((err) => {
         res.status(500).json({
@@ -192,9 +161,9 @@ router.get('/CurrentUser', async (req, res) => {
     console.log('SP getting user by ID: ', req.session.user.Id);
     const [user] = await dbUsers.getUserById(req.session.user.Id);
     console.log(user);
-    const sharepointUser = formatSharepointUser(user);
+    const sharepointUser = helper.formatSharepointUser(user);
     const encapsulatedSharepointUser =
-      encapsulateLikeSharepoint(sharepointUser);
+      helper.encapsulateLikeSharepoint(sharepointUser);
     res.status(200).json(encapsulatedSharepointUser);
   } catch (err) {
     res.status(500).json({
