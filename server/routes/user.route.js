@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 
 const db = require('../db/controllers/users.js');
 
+const helper = require('../utils/helper.util.js');
+
 console.log('user route loaded');
 
 // Register a new user
@@ -126,8 +128,9 @@ router.post('/login', async (req, res) => {
 
 // Logout user
 router.post('/logout', async (req, res) => {
-  if (!req.session.user) {
-    return res.sendStatus(204);
+  let permitted = helper.checkPermissions(req, ['User']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
   }
   try {
     await req.session.destroy();
@@ -144,11 +147,11 @@ router.post('/logout', async (req, res) => {
 
 // send user details to front end
 router.get('/details', async (req, res) => {
-  if (!req.session.user) {
-    return res.sendStatus(401);
+  let permitted = helper.checkPermissions(req, ['User']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
   }
-  res.status(200);
-  return res.json(req.session.user);
+  return res.status(200).json(req.session.user);
 });
 
 module.exports = router;
