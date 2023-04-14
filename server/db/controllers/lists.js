@@ -8,10 +8,6 @@ const getListItem = async (listName, itemId) => {
   }
 };
 
-const getEarliestReservationDate = async () => {
-  return await knex('Reservations').min('EventDate', {as: 'EarliestReservationDate'});
-};
-
 const createListItem = async (listName, payload) => {
   return await knex(listName).insert(payload, '*');
 };
@@ -33,5 +29,4 @@ module.exports = {
   createListItem,
   deleteListItem,
   updateListItem,
-  getEarliestReservationDate,
 };

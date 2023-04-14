@@ -52,6 +52,9 @@ app.use('/user', userRouter);
 const sharepointRouter = require('./routes/sharepoint.route.js');
 app.use('/_api/web', sharepointRouter);
 
+const metricsRouter = require('./routes/metrics.route.js');
+app.use('/metrics', metricsRouter);
+
 app.get('/', (req, res) => {
   console.log(app);
   res.status(200).json('server running');
