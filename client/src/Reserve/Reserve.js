@@ -8,11 +8,10 @@ import UserForm from './UserForm';
 import ListTable from './ListTable';
 import { json } from 'react-router-dom';
 
-
 const columns = [
   {
-    Header: "",
-    accessor: "Select",
+    Header: 'Add Info',
+    accessor: 'Select',
     Cell: ({ row }) => (
       <div
         {...row.getToggleRowExpandedProps({
@@ -21,96 +20,76 @@ const columns = [
           },
         })}
       >
-        {row.isExpanded ? "-" : "+"}
+        {row.isExpanded ? ' 👇 ' : ' 👉 '}
       </div>
     ),
   },
   {
-    Header: "Equipment",
-    accessor: "Equipment",
+    Header: 'Equipment',
+    accessor: 'Equipment',
   },
   {
-    Header: "Threat",
-    accessor: "Threat",
+    Header: 'Serial',
+    accessor: 'Serial',
   },
   {
-    Header: "ThreatType",
-    accessor: "ThreatType",
+    Header: 'Threat',
+    accessor: 'Threat',
   },
   {
-    Header: "SystemInformation",
-    accessor: "SystemInformation",
+    Header: 'ThreatType',
+    accessor: 'ThreatType',
   },
   {
-    Header: "StatusDate",
-    accessor: "StatusDate",
+    Header: 'SiteLocation',
+    accessor: 'SiteLocation',
   },
   {
-    Header: "Status",
-    accessor: "Status",
+    Header: 'Range',
+    accessor: 'Range',
   },
   {
-    Header: "Remarks",
-    accessor: "Remarks",
+    Header: 'Latitude',
+    accessor: 'Latitude',
   },
   {
-    Header: "Schedulable",
-    accessor: "Schedulable",
+    Header: 'Longitude',
+    accessor: 'Longitude',
   },
   {
-    Header: "Serial",
-    accessor: "Serial",
+    Header: 'Elevation',
+    accessor: 'Elevation',
   },
-  {
-    Header: "SiteLocation",
-    accessor: "SiteLocation",
-  },
-  {
-    Header: "Latitude",
-    accessor: "Latitude",
-  },
-  {
-    Header: "Longitude",
-    accessor: "Longitude",
-  },
-  {
-    Header: "Elevation",
-    accessor: "Elevation",
-  },
-  {
-    Header: "Accuracy",
-    accessor: "Accuracy",
-  },
-  {
-    Header: "CoordSource",
-    accessor: "CoordSource",
-  },
-  {
-    Header: "CoordRecordedDate",
-    accessor: "CoordRecordedDate",
-  },
-  {
-    Header: "created",
-    accessor: "created",
-  },
-  {
-    Header: "modified",
-    accessor: "modified",
-  },
-  {
-    Header: "AuthorId",
-    accessor: "AuthorId",
-  },
-  {
-    Header: "EditorId",
-    accessor: "EditorId",
-  }
-]
+
+];
+
+function SubRowComponent({ data }) {
+  return (
+    <div>
+      <p>Additional information for {data.Equipment}</p>
+      <ul>
+        <li>SystemInformation: {data.SystemInformation}</li>
+        <li>StatusDate: {data.StatusDate}</li>
+        <li>Status: {data.Status}</li>
+        <li>Remarks: {data.Remarks}</li>
+        <li>Schedulable: {data.Schedulable}</li>
+        <li>Serial: {data.Serial}</li>
+        <li>Status: {data.Status}</li>
+        <li>Status: {data.Status}</li>
+        <li>Coord Accuracy: {data.Accuracy}</li>
+        <li>CoordSource: {data.CoordSource}</li>
+        <li>CoordRecordedDate: {data.CoordRecordedDate}</li>
+        {/* <li>created: {data.created} | modified: {data.modified} | AuthorId: {data.created} | EditorId: {data.EditorId}</li> */}
+      </ul>
+    </div>
+  );
+}
+
 const Reserve = () => {
   const { listUrl } = useContext(Context);
   const [lists, setLists] = useState([]);
   const [selected, setSelected] = useState([]);
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items`)
@@ -120,38 +99,38 @@ const Reserve = () => {
       });
   }, []);
 
-
   const [userForm, setUserForm] = React.useState({
     name: '',
     dsn: '',
     week: '',
-    squadron: ''
-  })
+    squadron: '',
+  });
 
   //TODO
   const sendForm = () => {
-    console.log(userForm)
-  }
+    console.log(userForm);
+  };
 
   useEffect(() => {
-    fetch("http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items")
-      .then(res => res.json())
-      .then(data => setData(data.d.results))
-  }, [])
+    fetch(`${listUrl}/GetByTitle('Assets')/items`)
+      .then((res) => res.json())
+      .then((data) => setData(data.d.results));
+  }, []);
 
   return (
     <>
-      <ReserveMap assetList={lists} />
+    {/* {JSON.stringify(selected)} */}
+      <ReserveMap assetList={selected} />
       <ListTable
         data={data}
         columns={columns}
         selected={selected}
         setSelected={setSelected}
+        SubRowComponent={SubRowComponent}
       />
       <div className="flex">
         <UserForm setUserForm={setUserForm} />
         <TimeSelector />
-
       </div>
 
       {JSON.stringify(selected)}

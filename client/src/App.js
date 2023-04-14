@@ -18,8 +18,8 @@ export const Context = React.createContext();
 function App() {
   const [userData, setUserdata] = useState({});
 
-  const userUrl = "http://localhost:3001/user"
-  const listUrl = "http://localhost:3001/_api/web/lists"
+  const userUrl = 'http://localhost:3001/user';
+  const listUrl = 'http://localhost:3001/_api/web/lists';
 
   return (
     <div className="flex flex-col w-full">

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 
 const NavBar = () => {
-  const { userData, setUserdata } = React.useContext(Context)
+  const { userData, setUserdata } = React.useContext(Context);
   const navigate = useNavigate();
   const navLinks = [
     { name: '', to: '/', text: 'Home', icon: '' },
@@ -17,45 +17,45 @@ const NavBar = () => {
 
   let notLoggedIn = (
     <>
+      <Link
+        to="Login"
+        className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+      >
+        <span>Login</span>
+      </Link>
+      <Link
+        to="Register"
+        className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+      >
+        <span onClick={() => setUserdata({})}>Register</span>
+      </Link>
+    </>
+  );
+  const signOut = () => {
+    fetch('http://localhost:3001/user/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === 'logout successful') {
+          setUserdata({});
+          navigate('/Login');
+        }
+      });
+  };
+
+  let loggedIn = (
     <Link
       to="Login"
       className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
     >
-      <span>Login</span>
+      <span onClick={signOut}>Signout</span>
     </Link>
-       <Link
-       to="Register"
-       className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
-     >
-       <span onClick={() => setUserdata({})}>Register</span>
-     </Link>
-     </>
   );
-  const signOut = () => {
-    fetch('http://localhost:3001/user/logout', {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      credentials: "include",
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message === "logout successful") {
-        setUserdata({})
-        navigate('/Login')
-      
-      }
-  })}
-
-  let loggedIn = (
-    <Link
-    to="Login"
-    className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
-  >
-    <span onClick={signOut}>Signout</span>
-  </Link>
-  )
 
   //Conditional Login button
   // if(!("Id in userData")) {
@@ -95,7 +95,7 @@ const NavBar = () => {
               </Link>
             ))}
           </div>
-          {"Id" in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
+          {'Id' in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>
       </div>
     </>
@@ -103,4 +103,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-

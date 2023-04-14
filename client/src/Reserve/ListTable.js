@@ -1,41 +1,117 @@
-import React, { Fragment, useState } from 'react';
+import { set } from 'ol/transform';
+import React, { useMemo, useState, Fragment, useEffect } from 'react';
 import { useTable, useExpanded } from 'react-table';
 
-function ListTable({ data, columns, selected, setSelected }) {
-  console.log(data)
+function Table({ data, columns, selected, setSelected, SubRowComponent }) {
   const [expandedRows, setExpandedRows] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+  const [checked, setChecked] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state: { expanded },
-  } = useTable(
-    {
-      data,
-      columns,
-      initialState: { expanded: expandedRows },
-      // Define a function to handle row selection
-      getRowProps: (row) => ({
-        onClick: () => {
-          setSelected([...selected, row.original]);
-        },
-      }),
-    },
-    useExpanded // Use the useExpanded hook to enable expanded rows
+  useEffect(() => {
+    setSelected(selectedItems.map(data => data.original));
+  }, [selectedItems]);
+
+  const toggleRowSelection = (row) => {
+    if (checked.includes(row.id)) {
+      setChecked(checked.filter((value) => value !== row.id));
+      setSelectedItems(selectedItems.filter((value) => value.id !== row.id));
+    } else {
+      setChecked([...checked, row.id]);
+      setSelectedItems([
+        ...selectedItems,
+        { id: row.id, original: row.original },
+      ]);
+    }
+  };
+
+  const toggleRowExpansion = (id) => {
+    if (expandedRows.includes(id)) {
+      setExpandedRows(expandedRows.filter((value) => value !== id));
+    } else {
+      setExpandedRows([...expandedRows, id]);
+    }
+  };
+
+  const toggleSelectAll = () => {
+
+    if (selectAll) {
+      setChecked([]);
+      setSelectedItems([])
+      setSelectAll(false);
+    } else {
+      setChecked([...rows.map((row) => row.id)]);
+      setSelectedItems([...rows.map((row) => {
+        return { id: row.id, original: row.original }
+      })])
+      setSelectAll(true);
+    }
+
+  };
+
+  const selectionColumn = useMemo(
+    () => ({
+      Header: () => (
+        <div>
+          <input
+            type="checkbox"
+            checked={selectAll}
+            onChange={toggleSelectAll}
+            id="select-all-checkbox"
+          />
+          <label htmlFor="select-all-checkbox" />
+        </div>
+      ),
+      id: 'selection',
+      disableSortBy: true,
+      disableFilters: true,
+      Cell: ({ row }) => (
+        <div>
+          <input
+            type="checkbox"
+            checked={checked.includes(row.id)}
+            onChange={() => toggleRowSelection(row)}
+            id={`row-${row.id}-checkbox`}
+          />
+          <label htmlFor={`row-${row.id}-checkbox`} />
+        </div>
+      ),
+    }),
+    [data, checked, selectAll]
   );
 
-  // Define a function to handle expanding/collapsing rows
-  const handleRowExpansion = (row) => {
-    const isExpanded = expanded.includes(row.Id);
-    setExpandedRows(
-      isExpanded
-        ? expanded.filter((Id) => Id !== row.Id)
-        : [...expandedRows, row.Id]
+  const expansionColumn = useMemo(
+    () => ({
+      Header: '',
+      id: 'expansion',
+      disableSortBy: true,
+      disableFilters: true,
+      Cell: ({ row }) => (
+        <div>
+          {row.canExpand ? (
+            <button onClick={() => toggleRowExpansion(row.id)}>
+              {expandedRows.includes(row.id) ? 'Hide' : 'Show'}
+            </button>
+          ) : null}
+        </div>
+      ),
+    }),
+    [expandedRows]
+  );
+
+  const tableColumns = useMemo(
+    () => [selectionColumn, ...columns, expansionColumn],
+    [columns, expansionColumn, selectionColumn]
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns: tableColumns,
+        data,
+      },
+      useExpanded
     );
-  };
 
   return (
     <table {...getTableProps()}>
@@ -52,33 +128,19 @@ function ListTable({ data, columns, selected, setSelected }) {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <Fragment>
+            <Fragment key={row.getRowProps().key}>
               <tr {...row.getRowProps()}>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={selected.includes(row.original)}
-                    onChange={() =>
-                      setSelected((prevSelected) =>
-                        prevSelected.filter(
-                          (item) => item !== row.original
-                        )
-                      )
-                    }
-                  />
-                </td>
                 {row.cells.map((cell) => (
                   <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 ))}
               </tr>
-              {/* Render an expanded row for this row if it is expanded */}
-              {row.isExpanded && (
+              {row.isExpanded ? (
                 <tr>
-                  <td colSpan={columns.length} onClick={() => handleRowExpansion(row)}>
-                    {row.original.Status}
+                  <td colSpan={tableColumns.length + 1}>
+                    <SubRowComponent data={row.original} />
                   </td>
                 </tr>
-              )}
+              ) : null}
             </Fragment>
           );
         })}
@@ -86,5 +148,4 @@ function ListTable({ data, columns, selected, setSelected }) {
     </table>
   );
 }
-
-export default ListTable;
+export default Table;
