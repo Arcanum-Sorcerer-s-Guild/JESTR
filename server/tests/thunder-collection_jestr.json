@@ -1,193 +1,332 @@
 {
-  "client": "Thunder Client",
-  "collectionName": "jestr",
-  "dateExported": "2023-04-12T14:43:07.574Z",
-  "version": "1.1",
-  "folders": [],
-  "requests": [
+  "info": {
+    "name": "jestr",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": ""
+  },
+  "item": [
     {
-      "_id": "b599e621-db78-475b-82b5-2d75faa12d21",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
       "name": "user/register",
-      "url": "localhost:3001/user/register",
-      "method": "POST",
-      "sortNum": 6250,
-      "created": "2023-04-09T16:34:27.449Z",
-      "modified": "2023-04-09T21:13:01.412Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"firstName\": \"First1\",\n  \"middleName\": \"Middle1\",\n  \"lastName\": \"Last1\",\n  \"password\": \"pass1\"\n}",
-        "form": []
-      },
-      "tests": []
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "localhost:3001/user/register",
+          "path": ["user", "register"],
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\n  \"firstName\": \"First1\",\n  \"middleName\": \"Middle1\",\n  \"lastName\": \"Last1\",\n  \"password\": \"pass1\"\n}"
+        }
+      }
     },
     {
-      "_id": "7aca9bb7-57a9-46cc-9b50-72c3d0831e12",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
       "name": "user/login",
-      "url": "localhost:3001/user/login",
-      "method": "POST",
-      "sortNum": 12500,
-      "created": "2023-04-09T16:33:28.202Z",
-      "modified": "2023-04-09T17:38:06.816Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"email\": \"first1.last1@us.af.mil\",\n  \"password\": \"pass1\"\n}",
-        "form": []
-      },
-      "tests": []
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "localhost:3001/user/login",
+          "path": ["user", "login"],
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\n  \"email\": \"test.user@us.af.mil\",\n  \"password\": \"test\"\n}"
+        }
+      }
     },
     {
-      "_id": "e32f65bd-3fa1-4ed0-b87b-fc316f0c7f10",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
       "name": "user/logout",
-      "url": "localhost:3001/user/logout",
-      "method": "POST",
-      "sortNum": 15000,
-      "created": "2023-04-09T17:21:06.663Z",
-      "modified": "2023-04-09T17:37:23.761Z",
-      "headers": [],
-      "params": [],
-      "tests": []
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "localhost:3001/user/logout",
+          "path": ["user", "logout"],
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
     },
     {
-      "_id": "1d012de3-0f80-4126-adfd-513b40f88f70",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
       "name": "user/details",
-      "url": "localhost:3001/user/details",
-      "method": "GET",
-      "sortNum": 17500,
-      "created": "2023-04-09T17:38:23.918Z",
-      "modified": "2023-04-09T17:38:46.670Z",
-      "headers": [],
-      "params": [],
-      "tests": []
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "localhost:3001/user/details",
+          "path": ["user", "details"],
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
     },
     {
-      "_id": "730c29e4-21b6-4809-804b-4e9419cdc3d3",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
+      "name": "user/list",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "localhost:3001/user/list",
+          "path": ["user", "list"],
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
+    },
+    {
+      "name": "user/:userId",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "localhost:3001/user/1",
+          "path": ["user", "1"],
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
+    },
+    {
+      "name": "user/:userId Update",
+      "request": {
+        "method": "PUT",
+        "url": {
+          "raw": "localhost:3001/user/9",
+          "path": ["user", "9"],
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\n  \"IsSiteAdmin\": false,\n  \"IsApprover\": true\n}"
+        }
+      }
+    },
+    {
       "name": "Get All Items in List",
-      "url": "localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
-      "method": "GET",
-      "sortNum": 20000,
-      "created": "2023-04-09T16:33:41.384Z",
-      "modified": "2023-04-09T16:33:41.384Z",
-      "headers": [],
-      "params": [],
-      "tests": []
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
+          "path": [
+            "_api",
+            "web",
+            "lists",
+            "GetByTitle('Reservations')",
+            "items"
+          ],
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
     },
     {
-      "_id": "ba3db952-fce8-40e0-aed0-1d948563e55b",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
       "name": "Get Item from List",
-      "url": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(45)",
-      "method": "GET",
-      "sortNum": 30000,
-      "created": "2023-04-09T16:33:56.919Z",
-      "modified": "2023-04-10T18:54:14.011Z",
-      "headers": [],
-      "params": [],
-      "tests": []
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(40)",
+          "path": [
+            "_api",
+            "web",
+            "lists",
+            "GetByTitle('Reservations')",
+            "items(40)"
+          ],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
     },
     {
-      "_id": "9badd06d-028a-4cdc-8053-dd82de368657",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
+      "name": "Get Earliest Reservation",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3001/metrics/EarliestReservationDate",
+          "path": ["metrics", "EarliestReservationDate"],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
+    },
+    {
       "name": "Create new Asset",
-      "url": "http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items",
-      "method": "POST",
-      "sortNum": 35000,
-      "created": "2023-04-09T16:38:11.821Z",
-      "modified": "2023-04-10T20:03:20.141Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "[\n  {\n    \"Serial\": \"x1y2z3\",\n    \"Equipment\": \"SA-20\",\n    \"Threat\": \"XM-15\",\n    \"ThreatType\": \"Manned\",\n    \"SystemInformation\": \"some string\",\n    \"StatusDate\": \"2022-11-02T19:44:06Z\",\n    \"Status\": \"GREEN\",\n    \"ETIC\": \"2022-11-02T19:44:06Z\",\n    \"Remarks\": \"some string\",\n    \"Schedulable\": true,\n    \"Operational\": true,\n    \"Range\": 2205,\n    \"SiteLocation\": \"string ex Charlie Batt\",\n    \"Latitude\": \"37.220\",\n    \"Longitude\": \"123.456\",\n    \"Elevation\": 2000,\n    \"Accuracy\": \"+/- 2m\",\n    \"CoordSource\": \"GARMIN GPX 55I\",\n    \"CoordRecordedDate\": \"2022-11-02T19:44:06Z\"\n  }\n]",
-        "form": []
-      },
-      "tests": []
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items",
+          "path": ["_api", "web", "lists", "GetByTitle('Assets')", "items"],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "[\n  {\n    \"Serial\": \"x1y2z3\",\n    \"Equipment\": \"SA-20\",\n    \"Threat\": \"XM-15\",\n    \"ThreatType\": \"Manned\",\n    \"SystemInformation\": \"some string\",\n    \"StatusDate\": \"2022-11-02T19:44:06Z\",\n    \"Status\": \"GREEN\",\n    \"ETIC\": \"2022-11-02T19:44:06Z\",\n    \"Remarks\": \"some string\",\n    \"Schedulable\": true,\n    \"Operational\": true,\n    \"Range\": 2205,\n    \"SiteLocation\": \"string ex Charlie Batt\",\n    \"Latitude\": \"37.220\",\n    \"Longitude\": \"123.456\",\n    \"Elevation\": 2000,\n    \"Accuracy\": \"+/- 2m\",\n    \"CoordSource\": \"GARMIN GPX 55I\",\n    \"CoordRecordedDate\": \"2022-11-02T19:44:06Z\"\n  }\n]"
+        }
+      }
     },
     {
-      "_id": "2b9888e3-49dd-4272-9f2e-6919fcbfd8a3",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
       "name": "Create new Reservation",
-      "url": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
-      "method": "POST",
-      "sortNum": 45000,
-      "created": "2023-04-09T17:57:26.660Z",
-      "modified": "2023-04-09T17:59:30.558Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "[\r\n  {\r\n    \"Squadron\": \"VMGR-152\",\r\n    \"ContactDSN\": \"123-456-7890\",\r\n    \"Range\": 2211,\r\n    \"SiteLocation\": \"Charlie batt\",\r\n    \"Threat\": \"SA-3\",\r\n    \"Equipment\": \"T-2\",\r\n    \"ThreatType\": \"unmanned\",\r\n    \"EndDate\": \"2021-05-18T19:00:00Z\",\r\n    \"EventDate\": \"2021-05-18T21:00:00Z\",\r\n    \"Notes\": \"fgdsfjgkfgds\",\r\n    \"Status\": \"Pending\"\r\n  }\r\n]",
-        "form": []
-      },
-      "tests": []
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
+          "path": [
+            "_api",
+            "web",
+            "lists",
+            "GetByTitle('Reservations')",
+            "items"
+          ],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "[\n  {\n    \"Squadron\": \"VMGR-152\",\n    \"ContactDSN\": \"123-456-7890\",\n    \"Range\": 2211,\n    \"SiteLocation\": \"Charlie batt\",\n    \"Threat\": \"SA-3\",\n    \"Equipment\": \"T-2\",\n    \"ThreatType\": \"unmanned\",\n    \"EndDate\": \"2021-05-18T19:00:00Z\",\n    \"EventDate\": \"2021-05-18T21:00:00Z\",\n    \"Notes\": \"fgdsfjgkfgds\",\n    \"Status\": \"Pending\"\n  }\n]"
+        }
+      }
     },
     {
-      "_id": "2c83e6d9-8606-45e5-bd42-ff5aa6b9a83f",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
+      "name": "Update existing Asset",
+      "request": {
+        "method": "PUT",
+        "url": {
+          "raw": "http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(41)",
+          "path": ["_api", "web", "lists", "GetByTitle('Assets')", "items(41)"],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "[\n  {\n    \"Serial\": \"changed\",\n    \"Status\": \"GREEN\"\n  }\n]"
+        }
+      }
+    },
+    {
       "name": "Update existing Reservation",
-      "url": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(40)",
-      "method": "PUT",
-      "sortNum": 42500,
-      "created": "2023-04-09T18:13:07.037Z",
-      "modified": "2023-04-09T18:27:00.730Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "[\r\n  {\r\n    \"Squadron\": \"changed\",\r\n    \"ContactDSN\": \"345-456-5678\",\r\n    \"Range\": \"2202\",\r\n    \"SiteLocation\": \"Country-7\",\r\n    \"Threat\": \"XM-43\",\r\n    \"Equipment\": \"XM-43\",\r\n    \"ThreatType\": \"Unmanned\",\r\n    \"EventDate\": \"2023-02-26T19:09:58.000Z\",\r\n    \"EndDate\": \"2023-02-26T21:09:58.000Z\",\r\n    \"Notes\": \"hacking the array won't do anything, we need to override the primary GB bus!\",\r\n    \"Status\": \"Pending\"\r\n  }\r\n]",
-        "form": []
-      },
-      "tests": []
+      "request": {
+        "method": "PUT",
+        "url": {
+          "raw": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(101)",
+          "path": [
+            "_api",
+            "web",
+            "lists",
+            "GetByTitle('Reservations')",
+            "items(101)"
+          ],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "[\n  {\n    \"Squadron\": \"changed\",\n    \"ContactDSN\": \"345-456-5678\",\n    \"Range\": \"2202\",\n    \"SiteLocation\": \"Country-7\",\n    \"Threat\": \"XM-43\",\n    \"Equipment\": \"XM-43\",\n    \"ThreatType\": \"Unmanned\",\n    \"EventDate\": \"2023-02-26T19:09:58.000Z\",\n    \"EndDate\": \"2023-02-26T21:09:58.000Z\",\n    \"Notes\": \"hacking the array won't do anything, we need to override the primary GB bus!\",\n    \"Status\": \"Pending\"\n  }\n]"
+        }
+      }
     },
     {
-      "_id": "d1f9de75-8d0b-4744-a414-1b6e76e9339b",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
+      "name": "Delete existing Asset",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)",
+          "path": ["_api", "web", "lists", "GetByTitle('Assets')", "items(1)"],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "[\n  {\n    \"Squadron\": \"changed\",\n    \"ContactDSN\": \"345-456-5678\",\n    \"Range\": \"2202\",\n    \"SiteLocation\": \"Country-7\",\n    \"Threat\": \"XM-43\",\n    \"Equipment\": \"XM-43\",\n    \"ThreatType\": \"Unmanned\",\n    \"EventDate\": \"2023-02-26T19:09:58.000Z\",\n    \"EndDate\": \"2023-02-26T21:09:58.000Z\",\n    \"Notes\": \"hacking the array won't do anything, we need to override the primary GB bus!\",\n    \"Status\": \"Pending\"\n  }\n]"
+        }
+      }
+    },
+    {
       "name": "Delete existing Reservation",
-      "url": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(405)",
-      "method": "DELETE",
-      "sortNum": 55000,
-      "created": "2023-04-09T18:43:03.633Z",
-      "modified": "2023-04-09T18:46:46.517Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "[\n  {\n    \"Squadron\": \"changed\",\n    \"ContactDSN\": \"345-456-5678\",\n    \"Range\": \"2202\",\n    \"SiteLocation\": \"Country-7\",\n    \"Threat\": \"XM-43\",\n    \"Equipment\": \"XM-43\",\n    \"ThreatType\": \"Unmanned\",\n    \"EventDate\": \"2023-02-26T19:09:58.000Z\",\n    \"EndDate\": \"2023-02-26T21:09:58.000Z\",\n    \"Notes\": \"hacking the array won't do anything, we need to override the primary GB bus!\",\n    \"Status\": \"Pending\"\n  }\n]",
-        "form": []
-      },
-      "tests": []
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(998)",
+          "path": [
+            "_api",
+            "web",
+            "lists",
+            "GetByTitle('Reservations')",
+            "items(998)"
+          ],
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001"
+        },
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "[\n  {\n    \"Squadron\": \"changed\",\n    \"ContactDSN\": \"345-456-5678\",\n    \"Range\": \"2202\",\n    \"SiteLocation\": \"Country-7\",\n    \"Threat\": \"XM-43\",\n    \"Equipment\": \"XM-43\",\n    \"ThreatType\": \"Unmanned\",\n    \"EventDate\": \"2023-02-26T19:09:58.000Z\",\n    \"EndDate\": \"2023-02-26T21:09:58.000Z\",\n    \"Notes\": \"hacking the array won't do anything, we need to override the primary GB bus!\",\n    \"Status\": \"Pending\"\n  }\n]"
+        }
+      }
     },
     {
-      "_id": "feb17ee3-414f-4590-8fdf-41996bd81c40",
-      "colId": "29f92423-e0e5-4217-9ed8-522ebbd4b20a",
-      "containerId": "",
       "name": "sharepoint current user details",
-      "url": "localhost:3001/_api/Web/CurrentUser",
-      "method": "GET",
-      "sortNum": 65000,
-      "created": "2023-04-09T21:29:41.602Z",
-      "modified": "2023-04-09T22:13:01.283Z",
-      "headers": [],
-      "params": [],
-      "tests": []
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "localhost:3001/_api/Web/CurrentUser",
+          "path": ["_api", "Web", "CurrentUser"],
+          "host": ["localhost"],
+          "port": "3001"
+        }
+      }
     }
   ]
 }
