@@ -18,7 +18,7 @@ const ReservationSuccessPie = ({dateRange,reserveList}) => {
       let reservations = reserveList.filter(
         (reservation) =>
           reservation.date.startOf('day') >= dateRange.start.startOf('day') &&
-          reservation.date.startOf('day') <= dateRange.end.startOf('day')
+          reservation.date.startOf('day') < dateRange.end.startOf('day')
       );
 
       setReservationSuccessData({

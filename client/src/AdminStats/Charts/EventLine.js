@@ -18,11 +18,11 @@ const EventLine = ({dateRange,reserveList}) => {
       let reservations = reserveList.filter(
         (reservation) =>
           reservation.date.startOf('day') >= dateRange.start.startOf('day') &&
-          reservation.date.startOf('day') <= dateRange.end.startOf('day')
+          reservation.date.startOf('day') < dateRange.end.startOf('day')
       );
 
       if (reservations.length > 0) {
-
+        console.log(reservations.forEach((res)=>console.log(res.date.toFormat('dd MMM yyyy EEE'))))
       // if (daySpan > 7 && daySpan <= 14) {
       //   for(let i = 0; i < reservations.length; i++) {
       //     tempArray[parseInt(reservations[i].date.toFormat('c'))-1] += 1
@@ -33,12 +33,14 @@ const EventLine = ({dateRange,reserveList}) => {
       // }
 
       if (daySpan === 7) {  
-        let tempArray = new Array(7).fill(0)
+        // let tempArray = new Array(7).fill(0)
+        let obj = {};
         for(let i = 0; i < reservations.length; i++) {
-          tempArray[parseInt(reservations[i].date.toFormat('c'))-1] += 1
-          tempArray2.push(Info.weekdays('short')[reservations[i].date.toFormat('c')-1])
+          let key = reservations[i].date.toFormat('EEE')
+          typeof obj[key] === 'undefined' ? obj[key] = 1 : obj[key]++;
         }
-        setLineLabels({labels:[... new Set(tempArray2)],data:tempArray,range:'Week'})
+        console.log(obj)
+        setLineLabels({labels:Object.keys(obj),data:Object.values(obj),range:'Week'})
       } 
       
       if (daySpan > 14) {
