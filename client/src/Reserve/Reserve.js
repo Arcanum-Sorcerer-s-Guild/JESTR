@@ -111,7 +111,9 @@ const Reserve = () => {
   };
 
   useEffect(() => {
-    fetch(`${listUrl}/GetByTitle('Assets')/items`)
+    fetch(`${listUrl}/GetByTitle('Assets')/items`,
+      { credentials: 'include', }
+    )
       .then((res) => res.json())
       .then((data) => setData(data.d.results));
   }, []);
