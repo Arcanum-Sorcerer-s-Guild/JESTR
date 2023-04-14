@@ -60,7 +60,6 @@ const columns = [
     Header: 'Elevation',
     accessor: 'Elevation',
   },
-
 ];
 
 function SubRowComponent({ data }) {
@@ -119,7 +118,7 @@ const Reserve = () => {
 
   return (
     <>
-    {/* {JSON.stringify(selected)} */}
+      {/* {JSON.stringify(selected)} */}
       <ReserveMap assetList={selected} />
       <ListTable
         data={data}

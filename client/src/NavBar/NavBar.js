@@ -17,22 +17,20 @@ const NavBar = () => {
 
   let notLoggedIn = (
     <>
-    <Link
-      to="Login"
-      className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
-    >
-      <span>Login</span>
-    </Link>
-       <Link
-       to="Register"
-       className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
-     >
-       <span onClick={() => setUserdata({})}>Register</span>
-     </Link>
-
-     </>
+      <Link
+        to="Login"
+        className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+      >
+        <span>Login</span>
+      </Link>
+      <Link
+        to="Register"
+        className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+      >
+        <span onClick={() => setUserdata({})}>Register</span>
+      </Link>
+    </>
   );
-
 
   const signOut = () => {
     fetch('http://localhost:3001/user/logout', {
@@ -97,7 +95,12 @@ const NavBar = () => {
                 {link.text}
               </Link>
             ))}
-            <Link className={`${userData.IsSiteAdmin === true ? "" : "hidden"}`} to='/Admin'>Admin</Link>
+            <Link
+              className={`${userData.IsSiteAdmin === true ? '' : 'hidden'}`}
+              to="/Admin"
+            >
+              Admin
+            </Link>
           </div>
           {'Id' in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>

@@ -52,7 +52,6 @@ const ReserveMap = ({ assetList }) => {
     );
   }, [assetList]);
 
-
   const handleChange = (assetName, assetCoordinates) => {
     if (selectedAssets.includes(assetName)) {
       const index = selectedAssets.indexOf(assetName);
@@ -61,21 +60,16 @@ const ReserveMap = ({ assetList }) => {
       selectedAssets.push(assetName);
       // setZoom(10);
       setCenter(assetCoordinates);
-      
-      
     }
   };
 
   useEffect(() => {
     if (geoArray.length > 0) {
-      geoArray.map((asset, index) => (
-        handleChange(
-          asset.properties.name,
-          asset.geometry.coordinates
-        )
-      ))
+      geoArray.map((asset, index) =>
+        handleChange(asset.properties.name, asset.geometry.coordinates)
+      );
     }
-  }, [geoArray])
+  }, [geoArray]);
 
   return (
     <div>
@@ -115,7 +109,6 @@ const ReserveMap = ({ assetList }) => {
           <FullScreenControl />
         </Controls>
       </Map>
-
     </div>
   );
 };
