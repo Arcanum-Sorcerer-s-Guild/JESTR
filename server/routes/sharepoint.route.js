@@ -12,12 +12,11 @@ console.log('sharepoint route loaded');
 // http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items
 // http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items
 router.get("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
-  const permitted = helper.checkPermissions(req, {
-    needLoggedIn: true,
-  });
+  const permitted = helper.checkPermissions(req, ['User']);
   if (typeof permitted === 'number') {
     return res.sendStatus(permitted);
   }
+
   dbLists
     .getListItem(req.params.listTitle)
     .then((data) => {
@@ -36,9 +35,7 @@ router.get("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
 router.get(
   "/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
   (req, res) => {
-    const permitted = helper.checkPermissions(req, {
-      needLoggedIn: true,
-    });
+    const permitted = helper.checkPermissions(req, ['User']);
     if (typeof permitted === 'number') {
       return res.sendStatus(permitted);
     }
@@ -63,17 +60,23 @@ router.get(
   }
 );
 
-// Post List Item
+// Create new List Item
 // http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items
 // http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items
 router.post("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ message: 'unauthorized' });
+  const listLocation = req.params.listTitle;
+  let permittedGroups = listLocation === 'Assets' ? ['Site Admin'] : ['User'];
+
+  const permitted = helper.checkPermissions(req, permittedGroups);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
   }
 
-  const listLocation = req.params.listTitle;
-  // Deconstruct req.body into payload and remove Id, AuthorId, EditorId
-  const [{ Id, AuthorId, EditorId, ...payload }] = req.body;
+  let payload = req.body[0];
+  // These properties are not definable by the user
+  ['Id', 'AuthorId', 'EditorId'].forEach(
+    (property) => delete payload[property]
+  );
   dbLists
     .createListItem(listLocation, {
       ...payload,
@@ -95,15 +98,46 @@ router.post("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
 // http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
 router.put(
   "/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
-  (req, res) => {
-    if (!req.session.user) {
-      return res.status(401).json({ message: 'unauthorized' });
+  async (req, res) => {
+    // Check if user is logged in before performing any calls to the db
+    let permitted = helper.checkPermissions(req, ['User']);
+    if (typeof permitted === 'number') {
+      return res.sendStatus(permitted);
     }
 
-    const listLocation = req.params.listTitle;
+    // Get the user ID of the item author
     const itemId = req.params.itemId;
-    // Deconstruct req.body into payload and remove Id, AuthorId, EditorId
-    const [{ Id, AuthorId, EditorId, ...payload }] = req.body;
+    const listLocation = req.params.listTitle;
+    let originalUserId;
+    try {
+      const originalItem = await dbLists.getListItem(listLocation, itemId);
+      originalUserId = originalItem[0].AuthorId;
+    } catch (err) {
+      res.status(500).json({
+        error: err,
+      });
+    }
+
+    let permittedGroups =
+      listLocation === 'Assets' ? ['Site Admin'] : ['Author', 'Approver'];
+
+    // Check if user is the author of the item or is approver or admin
+    permitted = helper.checkPermissions(req, permittedGroups, originalUserId);
+    if (typeof permitted === 'number') {
+      return res.sendStatus(permitted);
+    }
+
+    let payload = req.body[0];
+    // These properties are not definable by the user
+    ['Id', 'AuthorId', 'EditorId'].forEach(
+      (property) => delete payload[property]
+    );
+    // Remove Status, if user is not an Approver or Site Admin
+    if (!(req.session.user.IsApprover || req.session.user.IsSiteAdmin)) {
+      delete payload['Status'];
+    }
+
+    console.log('payload:', payload);
 
     dbLists
       .updateListItem(
@@ -129,17 +163,38 @@ router.put(
 // http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(1)
 router.delete(
   "/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
-  (req, res) => {
-    if (!req.session.user) {
-      return res.status(401).json({ message: 'unauthorized' });
+  async (req, res) => {
+    // Check if user is logged in before performing any calls to the db
+    let permitted = helper.checkPermissions(req, ['User']);
+    if (typeof permitted === 'number') {
+      return res.sendStatus(permitted);
     }
 
-    const listLocation = req.params.listTitle;
+    // Get the user ID of the item author
     const itemId = req.params.itemId;
+    const listLocation = req.params.listTitle;
+    let originalUserId;
+    try {
+      const originalItem = await dbLists.getListItem(listLocation, itemId);
+      originalUserId = originalItem[0].AuthorId;
+    } catch (err) {
+      res.status(500).json({
+        error: err,
+      });
+    }
+
+    let permittedGroups =
+      listLocation === 'Assets' ? ['Site Admin'] : ['Author'];
+
+    // Check if user is the author of the item or is approver or admin
+    permitted = helper.checkPermissions(req, permittedGroups, originalUserId);
+    if (typeof permitted === 'number') {
+      return res.sendStatus(permitted);
+    }
 
     dbLists
       .deleteListItem(listLocation, itemId)
-      .then((data) => {
+      .then(() => {
         res.sendStatus(204);
       })
       .catch((err) => {
@@ -153,8 +208,9 @@ router.delete(
 // Return Current User
 // http://localhost:3001/_api/Web/CurrentUser
 router.get('/CurrentUser', async (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ message: 'unauthorized' });
+  let permitted = helper.checkPermissions(req, ['User']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
   }
 
   try {

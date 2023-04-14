@@ -1,10 +1,9 @@
 const { faker } = require('@faker-js/faker');
 const bcrypt = require('bcrypt');
-const knex = require('knex')(require('../knexfile.js')['development']);
 
 const globalNumUsers = 100;
 const globalNumAssets = 60;
-const globalNumReservations = 400;
+const globalNumReservations = 1000;
 const globalDateRangeStart = '2023-01-01';
 const globalDateRangeEnd = '2023-05-01';
 
@@ -22,7 +21,6 @@ const generateFakeDate = (
 };
 
 const generateUsers = (numUsers = globalNumUsers) => {
-
   defaultPassword = 'password';
   hashedDefaultPassword = bcrypt.hashSync(defaultPassword, 10);
 
@@ -32,62 +30,86 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Title: 'Hartsfield Joseph DOD - joseph.w.hartsfield',
       Email: 'Joseph.Hartsfield@us.af.mil',
       Password: '$2b$10$UsKeiH3WcXiiSExAkVRz8OemrorThLhg6tqLh98jKVmZUtWp5NpcW', // password is first name all lowercase
-      IsSiteAdmin: true,
       IsApprover: true,
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|jacob.s.steward',
       Title: 'Steward Jacob DOD - jacob.s.steward',
       Email: 'Jacob.Steward@us.af.mil',
       Password: '$2b$10$ueciUEIX/XVp/T9s/GR4jOygLJsclVsSTdCybQKgnSA7xkmTgOPoK', // password is first name all lowercase
-      IsSiteAdmin: true,
       IsApprover: true,
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|david.b.bonilla',
       Title: 'Bonilla David DOD - david.b.bonilla',
       Email: 'David.Bonilla@us.af.mil',
       Password: '$2b$10$bQdHtPZNYyu3tMhQKpPGu.pIGTpLI/ls4DBL54t9raxsHpcdzsyZG', // password is first name all lowercase
-      IsSiteAdmin: true,
       IsApprover: true,
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|jason.m.martin',
       Title: 'Martin Jason DOD - jason.m.martin',
       Email: 'Jason.Martin@us.af.mil',
       Password: '$2b$10$bPdTDVkvqG7MVEHuN9Mtz.3ogQYpS7VExp7WT1oJYWLNRdBOXjNtK', // password is first name all lowercase
-      IsSiteAdmin: true,
       IsApprover: true,
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|kyle.h.hackett',
       Title: 'Hackett Kyle DOD - kyle.h.hackett',
       Email: 'Kyle.Hackett@us.af.mil',
       Password: '$2b$10$MgXcQaRN7NR3/hJO4aRt1em6Yq1jyHtuPEJeYc7tKDr89apkw5N6y', // password is first name all lowercase
-      IsSiteAdmin: true,
       IsApprover: true,
+      IsSiteAdmin: true,
     },
     {
       LoginName: 'i:0e.t|fedvis|brandon.r.roques',
       Title: 'Roques Brandon DOD - brandon.r.roques',
       Email: 'Brandon.Roques@us.af.mil',
       Password: '$2b$10$SmPj0Ry74xDBjSyv06x7R.3lc/adNdbKJiIethrqAh9t923tJKJSO', // password is first name all lowercase
-      IsSiteAdmin: true,
       IsApprover: true,
+      IsSiteAdmin: true,
     },
     {
-      LoginName: 'i:0e.t|fedvis|first.m.last', // test user
+      LoginName: 'i:0e.t|fedvis|first.m.last',
       Title: 'Last First DOD - first.m.last',
       Email: 'First.Last@us.af.mil',
       Password: '$2b$10$mpB1umV1L4B6BExRvfGfG.sZsgM8Ac0I0PbaNGZnymd0410Nx8iC2', // password is first name all lowercase
-      IsSiteAdmin: true,
       IsApprover: true,
+      IsSiteAdmin: true,
     },
-  ]
+    {
+      LoginName: 'i:0e.t|fedvis|test.m.user', // test user
+      Title: 'User Test DOD - test.m.user',
+      Email: 'Test.User@us.af.mil',
+      Password: '$2b$10$fUG51mix9BfHaPdDspHPU.ZWaD8DQUelmyOd3KirWQksh3/z/TMJ6', // password is first name all lowercase
+      IsApprover: false,
+      IsSiteAdmin: false,
+    },
+    {
+      LoginName: 'i:0e.t|fedvis|test.m.approver', // test approver
+      Title: 'Approver Test DOD - test.m.approver',
+      Email: 'Test.Approver@us.af.mil',
+      Password: '$2b$10$fUG51mix9BfHaPdDspHPU.ZWaD8DQUelmyOd3KirWQksh3/z/TMJ6', // password is first name all lowercase
+      IsApprover: true,
+      IsSiteAdmin: false,
+    },
+    {
+      LoginName: 'i:0e.t|fedvis|test.m.admin', // test site admin
+      Title: 'Admin Test DOD - test.m.admin',
+      Email: 'Test.Admin@us.af.mil',
+      Password: '$2b$10$fUG51mix9BfHaPdDspHPU.ZWaD8DQUelmyOd3KirWQksh3/z/TMJ6', // password is first name all lowercase
+      IsApprover: true,
+      IsSiteAdmin: true,
+    },
+  ];
 
   const names = new Set();
 
-  while ((names.size + hardcodedUsers.length) < numUsers) {
+  while (names.size + hardcodedUsers.length < numUsers) {
     const fName = faker.name.firstName();
     const mName = faker.name.firstName();
     const lName = faker.name.lastName();
