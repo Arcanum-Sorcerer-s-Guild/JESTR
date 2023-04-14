@@ -162,6 +162,7 @@ router.get('/list', async (req, res) => {
   }
 
   const userList = await db.getAllUsers();
+  userList.forEach((user) => delete user.Password);
 
   res.status(200).json(userList);
 });
@@ -173,9 +174,10 @@ router.get('/:userId', async (req, res) => {
     return res.sendStatus(permitted);
   }
 
-  const userList = await db.getUserById(req.params.userId);
+  const [user] = await db.getUserById(req.params.userId);
+  delete user.Password;
 
-  res.status(200).json(userList);
+  res.status(200).json(user);
 });
 
 // Update user permissions
