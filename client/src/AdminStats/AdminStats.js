@@ -3,6 +3,7 @@ import { Context } from '../App';
 import { DateTime } from 'luxon';
 import ReservationSuccessPie from './Charts/ReservationSuccessPie.js';
 import OperationalBar from './Charts/OperationalBar.js';
+import EventLine from './Charts/EventLine.js'
 import DateRangeSelector from './DateRangeSelector.js';
 
 const AdminStats = () => {
@@ -45,12 +46,13 @@ const AdminStats = () => {
 
       <div className="flex flex-col text-center content-start">
       <h1 className="text-center text-4xl mb-5">Reservation Statistics</h1>
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-16">
         <ReservationSuccessPie dateRange={dateRange} reserveList={reserveList}/>
+        {/* <EventLine dateRange={dateRange} reserveList={reserveList}/> */}
       </div>
       </div>
       <h1  className="text-center text-4xl mb-5 mt-5">Asset Statistics</h1>
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-16">
         <OperationalBar assetList={assetList} />
         
       </div>

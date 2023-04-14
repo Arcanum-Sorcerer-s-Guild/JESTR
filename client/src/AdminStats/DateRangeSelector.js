@@ -6,10 +6,6 @@ const DateRangeSelector = ({dateRange,setDateRange}) => {
   const [showSpanInput, setShowSpanInput] = useState(false)
   const [dateMessage, setDateMessage] = useState('All reservations on: ')
   const [timeFrame,setTimeFrame] = useState('day')
-  // const [dateRange, setDateRange] = useState({
-  //   start: DateTime.local(),
-  //   end: DateTime.local(),
-  // });
 
   const dateInputChange = (e) => {
     let name = e.target.name

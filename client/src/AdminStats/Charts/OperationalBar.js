@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
-
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 const OperationalBar = ({assetList}) => {
   const [operationalBarData,setOperationalBarData] = useState()
@@ -17,13 +14,10 @@ const OperationalBar = ({assetList}) => {
     if (assetList.length > 0) {
       setOperationalBarData({
         labels: ['Unschedulable','Operational','Unavailable'],
-        datasets: [
-            {
+        datasets: [{
               data: assetBarData,
               backgroundColor: 'rgba(53, 162, 235, 0.5)'
-            }
-
-        ]
+            }]
       })
 
     }
