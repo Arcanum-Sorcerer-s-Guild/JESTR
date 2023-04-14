@@ -40,9 +40,6 @@ function App() {
     .catch(err=>console.log(err))
   },[]) 
 
-  useEffect(()=>{console.log(userData)},[userData])
-
-
   return (
     <div className="flex flex-col w-full">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>

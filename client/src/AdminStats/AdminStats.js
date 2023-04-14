@@ -17,7 +17,7 @@ const AdminStats = () => {
   });
 
   useEffect(() => {
-    fetch(`${listUrl}/GetByTitle('Reservations')/items`)
+    fetch(`${listUrl}/GetByTitle('Reservations')/items`, {credentials: "include"})
       .then((res) => res.json())
       .then((data) => {
         setReserveList(
@@ -33,7 +33,7 @@ const AdminStats = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`${listUrl}/GetByTitle('Assets')/items`)
+    fetch(`${listUrl}/GetByTitle('Assets')/items`, {credentials: "include"})
       .then((res) => res.json())
       .then((data) => {
         setAssetList(data.d.results);
@@ -48,7 +48,7 @@ const AdminStats = () => {
       <h1 className="text-center text-4xl mb-5">Reservation Statistics</h1>
       <div className="flex flex-row gap-16">
         <ReservationSuccessPie dateRange={dateRange} reserveList={reserveList}/>
-        {/* <EventLine dateRange={dateRange} reserveList={reserveList}/> */}
+        <EventLine dateRange={dateRange} reserveList={reserveList}/>
       </div>
       </div>
       <h1  className="text-center text-4xl mb-5 mt-5">Asset Statistics</h1>

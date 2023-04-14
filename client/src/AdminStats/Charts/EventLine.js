@@ -11,20 +11,17 @@ const EventLine = ({dateRange,reserveList}) => {
   useEffect(()=>{
     if(reserveList.length > 0) {
       reserveList.sort((a,b)=>{return a.date - b.date})
-      // console.log(reserveList.forEach((res)=>console.log(res.date.toFormat('dd MMM yyyy'))))
 
       let daySpan = parseInt((dateRange.end.diff(dateRange.start)).toFormat('dd'))
+      let tempArray2 = []
       
-
       let reservations = reserveList.filter(
         (reservation) =>
           reservation.date.startOf('day') >= dateRange.start.startOf('day') &&
           reservation.date.startOf('day') <= dateRange.end.startOf('day')
       );
 
-      console.log(reservations.forEach(res=>res.date.toFormat('dd MMM yyyy')))
-      let tempArray = new Array(reservations.length).fill(0)
-      let tempArray2 = []
+      if (reservations.length > 0) {
 
       // if (daySpan > 7 && daySpan <= 14) {
       //   for(let i = 0; i < reservations.length; i++) {
@@ -35,31 +32,30 @@ const EventLine = ({dateRange,reserveList}) => {
       //   setLineLabels({labels:tempArray2,data:tempArray,range:'Week'})
       // }
 
-      if (daySpan === 7) {
+      if (daySpan === 7) {  
+        let tempArray = new Array(7).fill(0)
         for(let i = 0; i < reservations.length; i++) {
           tempArray[parseInt(reservations[i].date.toFormat('c'))-1] += 1
+          tempArray2.push(Info.weekdays('short')[reservations[i].date.toFormat('c')-1])
         }
-        setLineLabels({labels:['Sun','Mon','Tues','Wed','Thur','Fri','Sat'],data:tempArray,range:'Week'})
+        setLineLabels({labels:[... new Set(tempArray2)],data:tempArray,range:'Week'})
+      } 
+      
+      if (daySpan > 14) {
         
-        // setEventLineArray(eventLineArray.reduce((acc,event) => {
-        //   console.log(parseInt(event.date.toFormat('c'))-1)
-        //   // return(acc[parseInt(event.date.toFormat('c'))-1]+=1)
-        //   // acc[event.date.toFormat('c')] += 1
-        // },[0,0,0,0,0,0,0,0]))
-      } else if (daySpan === 366) {
-
+        let tempArray = new Array(12).fill(0)
         for(let i = 0; i < reservations.length; i++) {
-
-          tempArray[parseInt(reservations[i].date.toFormat('MM'))-1] += 1
+          tempArray[parseInt(reservations[i].date.toFormat('M'))-1] += 1
         }
-
-        setLineLabels({labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],data:tempArray,range:'Year'})
-      } else {
-        
-
-      }
-
-
+        let startMonth = parseInt(reservations[0].date.toFormat('M')-1)
+        let tempArray2 = new Array(12).fill(startMonth)
+        for (let i = 0; i < 12; i++) {
+          tempArray2[i] = (tempArray2[i] + i) % 12
+        }
+        tempArray2 = tempArray2.map(month => {return(  Info.months('short')[month])})
+        setLineLabels({labels:tempArray2,data:tempArray,range:'Year'})
+      } 
+    }
     }
   },[dateRange])
 
