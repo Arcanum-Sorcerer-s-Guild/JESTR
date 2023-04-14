@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 
 const db = require('../db/controllers/users.js');
 
+const helper = require('../utils/helper.util.js');
+
 console.log('user route loaded');
 
 // Register a new user
@@ -126,8 +128,9 @@ router.post('/login', async (req, res) => {
 
 // Logout user
 router.post('/logout', async (req, res) => {
-  if (!req.session.user) {
-    return res.sendStatus(204);
+  let permitted = helper.checkPermissions(req, ['User']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
   }
   try {
     await req.session.destroy();
@@ -144,11 +147,63 @@ router.post('/logout', async (req, res) => {
 
 // send user details to front end
 router.get('/details', async (req, res) => {
-  if (!req.session.user) {
-    return res.sendStatus(401);
+  let permitted = helper.checkPermissions(req, ['User']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
   }
-  res.status(200);
-  return res.json(req.session.user);
+  return res.status(200).json(req.session.user);
+});
+
+// Get all users
+router.get('/list', async (req, res) => {
+  let permitted = helper.checkPermissions(req, ['Site Admin']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
+
+  const userList = await db.getAllUsers();
+  userList.forEach((user) => delete user.Password);
+
+  res.status(200).json(userList);
+});
+
+// Get specific user
+router.get('/:userId', async (req, res) => {
+  let permitted = helper.checkPermissions(
+    req,
+    ['Site Admin', 'Author'],
+    req.params.userId
+  );
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
+
+  const [user] = await db.getUserById(req.params.userId);
+  delete user.Password;
+
+  res.status(200).json(user);
+});
+
+// Update user permissions
+router.put('/:userId', async (req, res) => {
+  let permitted = helper.checkPermissions(req, ['Site Admin']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
+
+  newUserPerms = {
+    Id: req.params.userId,
+  };
+  if ('IsSiteAdmin' in req.body) {
+    newUserPerms.IsSiteAdmin = req.body.IsSiteAdmin;
+  }
+  if ('IsApprover' in req.body) {
+    newUserPerms.IsApprover = req.body.IsApprover;
+  }
+
+  const user = await db.updateUser(newUserPerms);
+
+  res.status(200).json(user);
 });
 
 module.exports = router;
