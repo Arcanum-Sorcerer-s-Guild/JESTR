@@ -2,14 +2,8 @@ const express = require('express');
 require('dotenv').config();
 const morgan = require('morgan');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
 
 const knex = require('./db/dbConnections.js');
-const {
-  getListItem,
-  postListItem,
-  deleteListItem,
-} = require('./db/controllers/lists.js');
 
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
