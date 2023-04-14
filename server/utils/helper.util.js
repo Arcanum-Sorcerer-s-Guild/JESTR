@@ -65,7 +65,6 @@ const checkPermissions = (
   permittedGroups = ['User'], // 'User', 'Author', 'Site Admin', and/or 'Approver'
   requiredUserId,
 ) => {
-  console.log('req.session.user: ', req.session.user);
 
   const userGroups = [];
 
@@ -87,8 +86,6 @@ const checkPermissions = (
   
   // Site Admin is always allowed
   const allowedGroups = new Set([...permittedGroups, 'Site Admin']);
-  console.log('userGroups: ', userGroups);
-  console.log('allowedGroups: ', allowedGroups);
   if (userGroups.some((userGroup) => allowedGroups.has(userGroup))) {
     return;
   } else {
