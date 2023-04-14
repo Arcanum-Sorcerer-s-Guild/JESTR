@@ -1,6 +1,6 @@
 import { createContext,useContext, useEffect, useState } from 'react';
-import { Context } from '../App';
-import Table from './TableComponents/Table';
+import { Context } from '../../App';
+import Table from './Table';
 
 //dependencies packages
 import DateObject from 'react-date-object';

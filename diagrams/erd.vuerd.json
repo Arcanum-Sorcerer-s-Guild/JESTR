@@ -1139,18 +1139,14 @@
         "startRelationshipType": "Dash",
         "start": {
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
-          "columnIds": [
-            "c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"
-          ],
+          "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 1003.69423984375,
           "y": 184.3468,
           "direction": "right"
         },
         "end": {
           "tableId": "616fc3f7-42ce-4657-9835-1de51654ebb4",
-          "columnIds": [
-            "3d0e76e7-8c66-48b3-880d-355d92701317"
-          ],
+          "columnIds": ["3d0e76e7-8c66-48b3-880d-355d92701317"],
           "x": 1167.7775,
           "y": 482.7504,
           "direction": "left"
@@ -1165,18 +1161,14 @@
         "startRelationshipType": "Dash",
         "start": {
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
-          "columnIds": [
-            "c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"
-          ],
+          "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 1003.69423984375,
           "y": 290.59680000000003,
           "direction": "right"
         },
         "end": {
           "tableId": "616fc3f7-42ce-4657-9835-1de51654ebb4",
-          "columnIds": [
-            "2b376b1c-826e-4e13-b094-202e05317f91"
-          ],
+          "columnIds": ["2b376b1c-826e-4e13-b094-202e05317f91"],
           "x": 1167.7775,
           "y": 202.2504,
           "direction": "left"
@@ -1191,18 +1183,14 @@
         "startRelationshipType": "Dash",
         "start": {
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
-          "columnIds": [
-            "c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"
-          ],
+          "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 645.3334,
           "y": 184.3468,
           "direction": "left"
         },
         "end": {
           "tableId": "8c6298b3-4c60-4059-b91e-2822301413ef",
-          "columnIds": [
-            "15726f03-7a34-4364-a02a-9c2999a768e2"
-          ],
+          "columnIds": ["15726f03-7a34-4364-a02a-9c2999a768e2"],
           "x": 473.6936234375,
           "y": 387.7779,
           "direction": "right"
@@ -1217,18 +1205,14 @@
         "startRelationshipType": "Dash",
         "start": {
           "tableId": "38f26055-d5be-444c-a2a8-2705af840d89",
-          "columnIds": [
-            "c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"
-          ],
+          "columnIds": ["c5319cce-2ab2-4ce0-aa6f-ea206a6bfe89"],
           "x": 645.3334,
           "y": 290.59680000000003,
           "direction": "left"
         },
         "end": {
           "tableId": "8c6298b3-4c60-4059-b91e-2822301413ef",
-          "columnIds": [
-            "334dfc7d-57e6-4ab5-a1b0-63f315076076"
-          ],
+          "columnIds": ["334dfc7d-57e6-4ab5-a1b0-63f315076076"],
           "x": 473.6936234375,
           "y": 209.7779,
           "direction": "right"

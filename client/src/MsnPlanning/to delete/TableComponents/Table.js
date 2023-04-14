@@ -46,8 +46,8 @@ const Table = () => {
 
   return (
     <tableContext.Provider value={{ tableData, setTableData }}>
-      <table className="table">
-        <caption>{Date()}</caption>
+      <table className="min-w-full divide-y-2 divide-pink  text-center tracking-wider">
+        <caption className='text-text'>{Date()}</caption>
         <TableHead {...{columns, handleSorting}} />
         <TableBody columns={columns} />
       </table>

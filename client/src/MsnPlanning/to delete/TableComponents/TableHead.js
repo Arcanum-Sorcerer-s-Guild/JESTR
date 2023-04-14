@@ -16,8 +16,8 @@ const TableHead = ({ columns, handleSorting }) => {
   }
 
   return (
-    <thead>
-      <tr>
+    <thead className="text-blue">
+      <tr className="px-4 py-2 text-sm uppercase">
         {columns.map(({ label, accessor, sortable }) => {
           return (
             <th 

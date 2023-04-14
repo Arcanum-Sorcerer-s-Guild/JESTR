@@ -22,7 +22,6 @@ const generateFakeDate = (
 };
 
 const generateUsers = (numUsers = globalNumUsers) => {
-
   defaultPassword = 'password';
   hashedDefaultPassword = bcrypt.hashSync(defaultPassword, 10);
 
@@ -83,11 +82,11 @@ const generateUsers = (numUsers = globalNumUsers) => {
       IsSiteAdmin: true,
       IsApprover: true,
     },
-  ]
+  ];
 
   const names = new Set();
 
-  while ((names.size + hardcodedUsers.length) < numUsers) {
+  while (names.size + hardcodedUsers.length < numUsers) {
     const fName = faker.name.firstName();
     const mName = faker.name.firstName();
     const lName = faker.name.lastName();
