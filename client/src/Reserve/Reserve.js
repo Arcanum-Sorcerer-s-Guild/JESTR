@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Context } from '../App';
 // import ReservationThreatsForm from './ReservationThreatsForm';
 // import ReservationUserForm from './ReservationUserForm';
-import TimeSelector from './DuelTimeSelector';
+import DualTimeSelector from './DualTimeSelector';
 import ReserveMap from './ReserveMap';
 import UserForm from './UserForm';
 import ListTable from './ListTable';
@@ -131,7 +131,7 @@ const Reserve = () => {
       />
       <div className="flex">
         <UserForm setUserForm={setUserForm} />
-        <TimeSelector />
+        <DualTimeSelector />
       </div>
 
       {JSON.stringify(selected)}
