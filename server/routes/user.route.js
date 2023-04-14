@@ -115,7 +115,7 @@ router.post('/login', async (req, res) => {
 
     // send user object to front end for cookie
     res.status(200);
-    return res.json(req.session);
+    return res.json(req.session.cookie);
   } catch (err) {
     console.error(err);
     return res.status(401).json({
