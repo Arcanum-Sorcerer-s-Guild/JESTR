@@ -85,7 +85,7 @@ const ReserveMap = ({ assetList }) => {
 
           {geoArray.length > 0 ? (
             geoArray.map((geoObject, index) => {
-              return selectedAssets.includes(geoObject.properties.name) ? (
+              return assetList.map(a => a.Serial).includes(geoObject.properties.name) ? (
                 <>
                   <VectorLayer
                     source={vector({

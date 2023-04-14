@@ -26,7 +26,7 @@ const AllAssets = () => {
   // Helper function to update the list of all assets
   const updateInventory = async () => {
     // Retrieves all database assets
-    fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`)
+    fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`, { credentials: 'include'})
       .then((res) => res.json())
       .then((items) => setCurrAssets(items.d.results))
       .then(handleSorting('SiteLocation', 'asc'));

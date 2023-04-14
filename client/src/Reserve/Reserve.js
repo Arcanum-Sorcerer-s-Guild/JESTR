@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Context } from '../App';
+
 // import ReservationThreatsForm from './ReservationThreatsForm';
 // import ReservationUserForm from './ReservationUserForm';
 import DualTimeSelector from './DualTimeSelector';
@@ -7,6 +8,7 @@ import ReserveMap from './ReserveMap';
 import UserForm from './UserForm';
 import ListTable from './ListTable';
 import { json } from 'react-router-dom';
+import { DateTime } from 'luxon';
 
 const columns = [
   {
@@ -89,19 +91,31 @@ const Reserve = () => {
   const [lists, setLists] = useState([]);
   const [selected, setSelected] = useState([]);
   const [data, setData] = useState([]);
+  const [timeList, setTimeList] = useState([]);
 
   useEffect(() => {
-    fetch(`${listUrl}/GetByTitle('Assets')/items`)
+    fetch(`${listUrl}/GetByTitle('Assets')/items`,
+      { credentials: 'include', }
+    )
       .then((res) => res.json())
       .then((data) => {
         setLists(data.d.results);
       });
   }, []);
 
+  useEffect(() => {
+    const weekDays = [];
+    for (let i = 0; i < 7; i++) {
+      let day = DateTime.now().startOf('week').plus({ days: i }).toISODate();
+      weekDays.push(day)
+    }
+    setRequestedWeek(weekDays)
+  }, [])
+
+  const [requestedWeek, setRequestedWeek] = useState([]);
   const [userForm, setUserForm] = React.useState({
     name: '',
     dsn: '',
-    week: '',
     squadron: '',
   });
 
@@ -130,11 +144,17 @@ const Reserve = () => {
         SubRowComponent={SubRowComponent}
       />
       <div className="flex">
-        <UserForm setUserForm={setUserForm} />
-        <DualTimeSelector />
+        <UserForm setUserForm={setUserForm} setRequestedWeek={setRequestedWeek} />
+        <DualTimeSelector timeList={timeList} setTimeList={setTimeList} />
       </div>
 
-      {JSON.stringify(selected)}
+
+      {JSON.stringify(timeList)}
+      {JSON.stringify(requestedWeek)}
+      {JSON.stringify(userForm)}
+      {/* {DateTime.now().startOf('week').toFormat("yyyy-wW")}
+<br />
+{DateTime.now().startOf('week').toISOWeekDate()} */}
     </>
   );
 };
