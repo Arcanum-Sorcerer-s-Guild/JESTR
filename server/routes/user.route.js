@@ -176,6 +176,28 @@ router.get('/:userId', async (req, res) => {
   const userList = await db.getUserById(req.params.userId);
 
   res.status(200).json(userList);
-})
+});
+
+// Update user permissions
+router.put('/:userId', async (req, res) => {
+  let permitted = helper.checkPermissions(req, ['Site Admin']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
+
+  newUserPerms = {
+    Id: req.params.userId,
+  };
+  if ('IsSiteAdmin' in req.body) {
+    newUserPerms.IsSiteAdmin = req.body.IsSiteAdmin;
+  }
+  if ('IsApprover' in req.body) {
+    newUserPerms.IsApprover = req.body.IsApprover;
+  }
+
+  const user = await db.updateUser(newUserPerms);
+
+  res.status(200).json(user);
+});
 
 module.exports = router;

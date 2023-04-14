@@ -13,12 +13,12 @@ const getUserByEmail = async (email) => {
 };
 
 const createUser = async (user) => {
-  console.log("creating user:", user);
-  return await knex("Users")
-    .insert([
-      user,
-    ])
-    .returning("*");
+const updateUser = async (user) => {
+  console.log('updating user:', user);
+  return await knex('Users')
+    .where('Id', '=', user.Id)
+    .update(user)
+    .returning('*');
 };
 
 module.exports = {
@@ -26,4 +26,5 @@ module.exports = {
   getUserById,
   getUserByEmail,
   createUser,
+  updateUser,
 };
