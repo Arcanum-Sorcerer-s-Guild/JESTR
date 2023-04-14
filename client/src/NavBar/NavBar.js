@@ -29,8 +29,11 @@ const NavBar = () => {
      >
        <span onClick={() => setUserdata({})}>Register</span>
      </Link>
+
      </>
   );
+
+
   const signOut = () => {
     fetch('http://localhost:3001/user/logout', {
       method: "POST",
@@ -43,7 +46,6 @@ const NavBar = () => {
     .then(data => {
       if (data.message === "logout successful") {
         setUserdata({})
-        alert("Logout successful")
         navigate('/Login')
       
       }
@@ -95,6 +97,7 @@ const NavBar = () => {
                 {link.text}
               </Link>
             ))}
+            <Link className={`${userData.IsSiteAdmin === true ? "" : "hidden"}`} to='/Admin'>Admin</Link>
           </div>
           {"Id" in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>
