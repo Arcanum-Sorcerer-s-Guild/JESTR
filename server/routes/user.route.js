@@ -166,4 +166,16 @@ router.get('/list', async (req, res) => {
   res.status(200).json(userList);
 })
 
+// Get specific user
+router.get('/:userId', async (req, res) => {
+  let permitted = helper.checkPermissions(req, ['Site Admin']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
+
+  const userList = await db.getUserById(req.params.userId);
+
+  res.status(200).json(userList);
+})
+
 module.exports = router;
