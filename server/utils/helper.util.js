@@ -75,7 +75,7 @@ const checkPermissions = (
     userGroups.push('User');
   }
   
-  if (requiredUserId && requiredUserId === req.session.user.Id) {
+  if (requiredUserId && requiredUserId == req.session.user.Id) {
     userGroups.push('Author');
   }
   if (req.session.user.IsSiteAdmin) {
