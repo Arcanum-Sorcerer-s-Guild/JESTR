@@ -1,29 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+} from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ReservationSuccessPie = ({dateRange,reserveList}) => {
+const ReservationSuccessPie = ({ dateRange, reserveList }) => {
   const [reservationSuccessData, setReservationSuccessData] = useState();
 
   useEffect(() => {
-    ChartJS.register(ChartDataLabels,CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend);
+    ChartJS.register(
+      ChartDataLabels,
+      CategoryScale,
+      LinearScale,
+      BarElement,
+      Title,
+      Tooltip,
+      Legend
+    );
   });
 
   useEffect(() => {
     if (reserveList.length > 0) {
-    let reservations = [];
-    if (dateRange.start.startOf('day').toFormat('dd MMM yy') === dateRange.end.startOf('day').toFormat('dd MMM yy')) {
-      reservations = reserveList.filter(res=>res.date.startOf('day').toFormat('dd MMM yy') === dateRange.start.startOf('day').toFormat('dd MMM yy'))
-    } else {
-      reservations = reserveList.filter(
-        (reservation) =>
-          reservation.date.startOf('day') >= dateRange.start.startOf('day') &&
-          reservation.date.startOf('day') < dateRange.end.startOf('day')
-      );
-    }
+      let reservations = [];
+      if (
+        dateRange.start.startOf('day').toFormat('dd MMM yy') ===
+        dateRange.end.startOf('day').toFormat('dd MMM yy')
+      ) {
+        reservations = reserveList.filter(
+          (res) =>
+            res.date.startOf('day').toFormat('dd MMM yy') ===
+            dateRange.start.startOf('day').toFormat('dd MMM yy')
+        );
+      } else {
+        reservations = reserveList.filter(
+          (reservation) =>
+            reservation.date.startOf('day') >= dateRange.start.startOf('day') &&
+            reservation.date.startOf('day') < dateRange.end.startOf('day')
+        );
+      }
 
       setReservationSuccessData({
         labels: ['Completed', 'Pending', 'Denied'],
@@ -54,36 +78,39 @@ const ReservationSuccessPie = ({dateRange,reserveList}) => {
     }
   }, [dateRange, reserveList]);
 
-  return(<>        <div className="flex flex-col">
-  <h3 className="text-2xl mb-2">Approved vs Denied Reservations</h3>
-  <div>
-    {reservationSuccessData ? (
-      <Pie
-        width={250}
-        height={250}
-        options={{
-          maintainAspectRatio: false,
-          plugins: {
-            datalabels: {
-              display: function (context) {
-                return context.dataset.data[context.dataIndex] !== 0;
-              },
-              color: 'black',
-              formatter: Math.round,
-              offset: -20,
-              align: 'start',
-            },
-          },
-        }}
-        data={reservationSuccessData}
-      />
-    ) : (
-      <></>
-    )}
-    </div>
-    </div></>)
-
-
-}
+  return (
+    <>
+      {' '}
+      <div className="flex flex-col">
+        <h3 className="text-2xl mb-2">Approved vs Denied Reservations</h3>
+        <div>
+          {reservationSuccessData ? (
+            <Pie
+              width={250}
+              height={250}
+              options={{
+                maintainAspectRatio: false,
+                plugins: {
+                  datalabels: {
+                    display: function (context) {
+                      return context.dataset.data[context.dataIndex] !== 0;
+                    },
+                    color: 'black',
+                    formatter: Math.round,
+                    offset: -20,
+                    align: 'start',
+                  },
+                },
+              }}
+              data={reservationSuccessData}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default ReservationSuccessPie;

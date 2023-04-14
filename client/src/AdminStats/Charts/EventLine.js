@@ -13,20 +13,24 @@ const EventLine = ({ dateRange, reserveList }) => {
 
   useEffect(() => {
     if (reserveList.length > 0) {
-      reserveList.sort((a, b) => {return a.date - b.date;});
-      let daySpan = parseInt(dateRange.end.diff(dateRange.start).toFormat('dd'));
+      reserveList.sort((a, b) => {
+        return a.date - b.date;
+      });
+      let daySpan = parseInt(
+        dateRange.end.diff(dateRange.start).toFormat('dd')
+      );
       let reservations = [];
-      let rangeTerm = ''
-
+      let rangeTerm = '';
 
       if (daySpan < 7) {
         reservations = reserveList.filter(
           (res) =>
             res.date.startOf('day') >= dateRange.start.startOf('day') &&
-            res.date.startOf('day') < dateRange.start.startOf('day').plus({ day: 3 })
+            res.date.startOf('day') <
+              dateRange.start.startOf('day').plus({ day: 3 })
         );
         daySpan = 7;
-        rangeTerm = 'Day'
+        rangeTerm = 'Day';
       } else {
         reservations = reserveList.filter(
           (res) =>
@@ -37,8 +41,6 @@ const EventLine = ({ dateRange, reserveList }) => {
 
       console.log(daySpan, reservations);
       if (reservations.length > 0) {
-
-
         if (daySpan === 7) {
           // let tempArray = new Array(7).fill(0)
           let obj = {};
@@ -54,36 +56,33 @@ const EventLine = ({ dateRange, reserveList }) => {
         }
 
         if (daySpan > 7 && daySpan < 30) {
-            let obj = {};
-            for (let i = 0; i < reservations.length; i++) {
-              let key = reservations[i].date.toFormat('d');
-              typeof obj[key] === 'undefined' ? (obj[key]=1) : obj[key]++
-            }
-            setLineLabels({
-              labels: Object.keys(obj),
-              data: Object.values(obj),
-              range: 'Span',
-            });
+          let obj = {};
+          for (let i = 0; i < reservations.length; i++) {
+            let key = reservations[i].date.toFormat('d');
+            typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
+          }
+          setLineLabels({
+            labels: Object.keys(obj),
+            data: Object.values(obj),
+            range: 'Span',
+          });
         }
 
         if (daySpan > 30) {
           let obj = {};
           for (let i = 0; i < reservations.length; i++) {
             let key = reservations[i].date.toFormat('MMM');
-            typeof obj[key] === 'undefined' ? (obj[key]=1) : obj[key]++
+            typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
           }
           setLineLabels({
             labels: Object.keys(obj),
             data: Object.values(obj),
             range: 'Year',
           });
-
-          
-
         }
       }
     }
-  }, [dateRange,reserveList]);
+  }, [dateRange, reserveList]);
 
   useEffect(() => {
     setEventLineData({
