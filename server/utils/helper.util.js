@@ -56,26 +56,39 @@ const formatSharepointUser = (user) => {
 /**
  * Check user permissions based on the given parameters.
  * @param {Object} req - The request object.
- * @param {Boolean} [needLoggedIn=true] - Determine if user needs to be logged in.
- * @param {Boolean} [needApprover=false] - Determine if user needs to be an approver.
- * @param {Boolean} [needSiteAdmin=false] - Determine if user needs to be a site admin.
+ * @param {Array} permittedGroups - Groups that are permitted to perform this action.  'User', 'Author', 'Site Admin', and/or 'Approver'
+ * @param {Number} requiredUserId - If Author is permitted, this is the AuthorId of the item.
  * @returns {Number} - Return 401 if user is not logged in, 403 if user does not have permission.
  */
 const checkPermissions = (
   req,
-  { needLoggedIn = true, needApprover = false, needSiteAdmin = false } = {}
+  permittedGroups = ['User'], // 'User', 'Author', 'Site Admin', and/or 'Approver'
+  requiredUserId,
 ) => {
-  console.log('req.session.user: ', req.session.user);
-  if (needLoggedIn && !req.session.user) {
-    // return res.status(401).json({ message: 'unauthorized' });
+
+  const userGroups = [];
+
+  if (!req.session.user) {
     return 401;
+  } else {
+    userGroups.push('User');
   }
-  if (needApprover && !req.session.user.IsApprover) {
-    // return res.status(401).json({ message: 'unauthorized' });
-    return 403;
+  
+  if (requiredUserId && requiredUserId == req.session.user.Id) {
+    userGroups.push('Author');
   }
-  if (needSiteAdmin && !req.session.user.IsSiteAdmin) {
-    // return res.status(401).json({ message: 'unauthorized' });
+  if (req.session.user.IsSiteAdmin) {
+    userGroups.push('Site Admin');
+  }
+  if (req.session.user.IsApprover) {
+    userGroups.push('Approver');
+  }
+  
+  // Site Admin is always allowed
+  const allowedGroups = new Set([...permittedGroups, 'Site Admin']);
+  if (userGroups.some((userGroup) => allowedGroups.has(userGroup))) {
+    return;
+  } else {
     return 403;
   }
 };
