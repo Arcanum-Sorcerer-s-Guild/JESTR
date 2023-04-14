@@ -1,9 +1,6 @@
-import { useContext, useEffect, useState, useMemo } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../App';
-
-//dependencies packages
-import DateObject from 'react-date-object';
 
 //icons
 import { FaSortUp, FaSortDown, FaSort } from 'react-icons/fa';
