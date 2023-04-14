@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from "react"
-import "./Map.css";
-import MapContext from "./MapContext";
-import * as ol from "ol";
+import React, { useRef, useState, useEffect } from 'react';
+import './Map.css';
+import MapContext from './MapContext';
+import * as ol from 'ol';
 
 const Map = ({ children, zoom, center }) => {
   const mapRef = useRef();
@@ -12,7 +12,7 @@ const Map = ({ children, zoom, center }) => {
       view: new ol.View({ zoom, center }),
       layers: [],
       controls: [],
-      overlays: []
+      overlays: [],
     };
     let mapObject = new ol.Map(options);
     mapObject.setTarget(mapRef.current);
@@ -27,14 +27,14 @@ const Map = ({ children, zoom, center }) => {
   // center change handler
   useEffect(() => {
     if (!map) return;
-    map.getView().setCenter(center)
-  }, [center])
+    map.getView().setCenter(center);
+  }, [center]);
   return (
     <MapContext.Provider value={{ map }}>
       <div ref={mapRef} className="ol-map">
         {children}
       </div>
     </MapContext.Provider>
-  )
-}
+  );
+};
 export default Map;

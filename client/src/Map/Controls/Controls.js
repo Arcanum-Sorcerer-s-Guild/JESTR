@@ -1,8 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const Controls = ({children}) => {
-  return <div>{children}</div>
-}
+const Controls = ({ children }) => {
+  return <div>{children}</div>;
+};
 
-export default Controls
-
+export default Controls;
