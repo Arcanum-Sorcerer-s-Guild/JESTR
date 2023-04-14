@@ -139,7 +139,7 @@ router.delete(
 
     dbLists
       .deleteListItem(listLocation, itemId)
-      .then((data) => {
+      .then(() => {
         res.sendStatus(204);
       })
       .catch((err) => {
