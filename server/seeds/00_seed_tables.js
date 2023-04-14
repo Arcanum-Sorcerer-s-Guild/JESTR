@@ -100,7 +100,7 @@ const generateUsers = (numUsers = globalNumUsers) => {
     {
       LoginName: 'i:0e.t|fedvis|test.m.admin', // test site admin
       Title: 'Admin Test DOD - test.m.admin',
-      Email: 'Admin.User@us.af.mil',
+      Email: 'Test.Admin@us.af.mil',
       Password: '$2b$10$fUG51mix9BfHaPdDspHPU.ZWaD8DQUelmyOd3KirWQksh3/z/TMJ6', // password is first name all lowercase
       IsApprover: true,
       IsSiteAdmin: true,
