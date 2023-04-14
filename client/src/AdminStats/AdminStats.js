@@ -32,6 +32,13 @@ const AdminStats = () => {
       });
   }, []);
 
+  ///UNCOMMENT TO VALIDATE DATES IN CONSOLE///
+  // useEffect(()=>{
+  //   reserveList.sort((a,b)=>{return a.date - b.date})
+  //   reserveList.forEach((res)=>console.log(res.date.toFormat('dd MMM yyyy EEE')))
+  
+  // },[reserveList])
+
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items`, {credentials: "include"})
       .then((res) => res.json())

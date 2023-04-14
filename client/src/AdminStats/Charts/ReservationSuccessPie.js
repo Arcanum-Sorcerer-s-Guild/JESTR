@@ -14,12 +14,16 @@ const ReservationSuccessPie = ({dateRange,reserveList}) => {
 
   useEffect(() => {
     if (reserveList.length > 0) {
-
-      let reservations = reserveList.filter(
+    let reservations = [];
+    if (dateRange.start.startOf('day').toFormat('dd MMM yy') === dateRange.end.startOf('day').toFormat('dd MMM yy')) {
+      reservations = reserveList.filter(res=>res.date.startOf('day').toFormat('dd MMM yy') === dateRange.start.startOf('day').toFormat('dd MMM yy'))
+    } else {
+      reservations = reserveList.filter(
         (reservation) =>
           reservation.date.startOf('day') >= dateRange.start.startOf('day') &&
-          reservation.date.startOf('day') <= dateRange.end.startOf('day')
+          reservation.date.startOf('day') < dateRange.end.startOf('day')
       );
+    }
 
       setReservationSuccessData({
         labels: ['Completed', 'Pending', 'Denied'],
@@ -51,7 +55,7 @@ const ReservationSuccessPie = ({dateRange,reserveList}) => {
   }, [dateRange, reserveList]);
 
   return(<>        <div className="flex flex-col">
-  <h3 className="text-2xl mb-2">Completed vs Denied Reservations</h3>
+  <h3 className="text-2xl mb-2">Approved vs Denied Reservations</h3>
   <div>
     {reservationSuccessData ? (
       <Pie
