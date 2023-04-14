@@ -154,4 +154,16 @@ router.get('/details', async (req, res) => {
   return res.status(200).json(req.session.user);
 });
 
+// Get all users
+router.get('/list', async (req, res) => {
+  let permitted = helper.checkPermissions(req, ['Site Admin']);
+  if (typeof permitted === 'number') {
+    return res.sendStatus(permitted);
+  }
+
+  const userList = await db.getAllUsers();
+
+  res.status(200).json(userList);
+})
+
 module.exports = router;

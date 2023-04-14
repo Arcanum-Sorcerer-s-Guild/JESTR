@@ -1,5 +1,9 @@
 const knex = require("../dbConnections.js");
 
+const getAllUsers = async () => {
+  return await knex("Users");
+};
+
 const getUserById = async (userId) => {
   return await knex("Users").where("Id", "=", userId);
 };
@@ -18,6 +22,7 @@ const createUser = async (user) => {
 };
 
 module.exports = {
+  getAllUsers,
   getUserById,
   getUserByEmail,
   createUser,
