@@ -104,11 +104,17 @@ const Reserve = () => {
       });
   }, []);
 
+  const selectAll = (e) => {
+    let allAssets = data.map(asset=>asset.Serial)
+    if (selected.toString() !== allAssets.toString() && e.target.checked === true) setSelected(allAssets)
+    if (selected.length === allAssets.length) setSelected([])
+  }
+
   return (
     <>
       <div className="flex flex-row">
         <div className=" w-2/3 border border-black mt-5 ml-5">
-        <input type="checkbox" className="ml-3 mr-3"/>Select All
+        <input type="checkbox" onChange={(e)=>selectAll(e)}className="ml-3 mr-3"/>Select All
           {rangeList.length > 0 ?
             rangeList.map(range => <CollapsibleChild key={range} range={range} selected={selected} setSelected={setSelected} assets={data.filter(asset=>asset.Range === range)}/>)
             : <>Loading...</>}
@@ -119,9 +125,12 @@ const Reserve = () => {
   );
 };
 
-
 const CollapsibleChild = ({range,assets,selected,setSelected}) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+  const [selectAll,setSelectAll] = useState(false)
+
+  const [isCheck, setIsCheck] = useState([])
+  const [list, setList] = useState([])
 
   const handleChange = (name) => {
     if (selected.includes(name)) {
@@ -132,15 +141,18 @@ const CollapsibleChild = ({range,assets,selected,setSelected}) => {
     }
   }
 
-
+  const selectRange = (range) => {
+    setSelected(assets.filter(asset=> asset.Range === range).map(asset=>asset.Serial))
+  }
 
   return(
     <div>
-      <button {...getToggleProps()} className="ml-3">
-        Range: {range}
+      <input type="checkbox" className="ml-3 mr-3" onChange={()=>selectRange(range)}/>
+      <button {...getToggleProps()}>
+        {isExpanded? '↓ ' : '> '}Range: {range}
       </button>
       <section {...getCollapseProps()}>
-        {assets.map(asset=><div key={asset.Serial}><input className="ml-7 mr-3" type="checkbox" onChange={()=>handleChange(asset.Serial)}/>Asset: {asset.Serial}</div>)}
+        {assets.map(asset=><div key={asset.Serial}><input className="ml-7 mr-3" checked={selected.includes(asset.Serial)}type="checkbox" onChange={()=>handleChange(asset.Serial)}/>Asset: {asset.Serial}</div>)}
       </section>
     </div>
   )
