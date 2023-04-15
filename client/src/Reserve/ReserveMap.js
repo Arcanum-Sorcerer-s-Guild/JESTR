@@ -26,10 +26,7 @@ let styles = {
   }),
 };
 
-const ReserveMap = ({ assetList,selected }) => {
-  const [center, setCenter] = useState([
-    -146.44166473513687, 64.31714411488758,
-  ]);
+const ReserveMap = ({ assetList,selected,center,setCenter }) => {
   const [zoom, setZoom] = useState(8);
   const [geoArray, setGeoArray] = useState([]);
   const [selectedAssets] = useState([]);
