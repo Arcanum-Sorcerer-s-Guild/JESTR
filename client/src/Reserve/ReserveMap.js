@@ -64,7 +64,7 @@ const ReserveMap = ({ assetList,selected }) => {
 
       combCoord.lat /= selGeos.length
       combCoord.lon /= selGeos.length
-      console.log(combCoord)
+
       setCenter([combCoord.lon,combCoord.lat])
       } else {
         setCenter([

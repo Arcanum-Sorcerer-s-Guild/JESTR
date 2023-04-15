@@ -114,7 +114,7 @@ const Reserve = () => {
     <>
       <div className="flex flex-row">
         <div className=" w-2/3 border border-black mt-5 ml-5">
-        <input type="checkbox" onChange={(e)=>selectAll(e)}className="ml-3 mr-3"/>Select All
+        <input type="checkbox" onChange={(e)=>selectAll(e)} className="ml-3 mr-3"/>Select All
           {rangeList.length > 0 ?
             rangeList.map(range => <CollapsibleChild key={range} range={range} selected={selected} setSelected={setSelected} assets={data.filter(asset=>asset.Range === range)}/>)
             : <>Loading...</>}
@@ -129,9 +129,6 @@ const CollapsibleChild = ({range,assets,selected,setSelected}) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const [selectAll,setSelectAll] = useState(false)
 
-  const [isCheck, setIsCheck] = useState([])
-  const [list, setList] = useState([])
-
   const handleChange = (name) => {
     if (selected.includes(name)) {
       const index = selected.indexOf(name);
@@ -141,13 +138,23 @@ const CollapsibleChild = ({range,assets,selected,setSelected}) => {
     }
   }
 
-  const selectRange = (range) => {
-    setSelected(assets.filter(asset=> asset.Range === range).map(asset=>asset.Serial))
+  const selectRange = (e) => {
+    // setSelected(assets.filter(asset=> asset.Range === range).map(asset=>asset.Serial))
+    let allAssets = assets.filter(asset=>asset.Range===range).map(asset=>asset.Serial)
+    let allIncluded = assets.reduce((acc,curr)=> acc ? selected.includes(curr.Serial): false,true)
+    if (!allIncluded &&  e.target.checked) setSelected([...selected,...allAssets])
+
+    if (allIncluded) setSelected(selected.filter(asset=>!allAssets.includes(asset)))
   }
 
   return(
     <div>
-      <input type="checkbox" className="ml-3 mr-3" onChange={()=>selectRange(range)}/>
+      <input
+        type="checkbox"
+        className="ml-3 mr-3"
+        checked={assets.reduce((acc,curr)=> acc ? selected.includes(curr.Serial): false,true)}
+        onChange={(e)=>selectRange(e)}
+      />
       <button {...getToggleProps()}>
         {isExpanded? '↓ ' : '> '}Range: {range}
       </button>
