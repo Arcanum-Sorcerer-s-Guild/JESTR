@@ -74,6 +74,15 @@ const EventLine = ({ dateRange, reserveList }) => {
             let key = reservations[i].date.toFormat('MMM');
             typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
           }
+
+          
+          if (Object.keys(obj).length < 6) {
+            for(let i = 0; i < 6-Object.keys(obj).length; i++) {
+              // console.log()
+              // let key = reservations[reservations.length - 1].date.Plus({month:i}).toFormat('MMM')
+              // obj[key]=0
+            }}
+
           setLineLabels({
             labels: Object.keys(obj),
             data: Object.values(obj),
