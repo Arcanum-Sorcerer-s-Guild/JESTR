@@ -27,7 +27,6 @@ let styles = {
 };
 
 const ReserveMap = ({ assetList,selected }) => {
-  // let {assetList} = props
   const [center, setCenter] = useState([
     -146.44166473513687, 64.31714411488758,
   ]);
@@ -59,29 +58,15 @@ const ReserveMap = ({ assetList,selected }) => {
       combCoord = selGeos.reduce((acc,curr)=>{
         acc.lat+=Number(curr.geometry.coordinates[1])
         acc.lon+=Number(curr.geometry.coordinates[0])
-        return(acc)
-        }
+        return(acc)}
       , combCoord)
 
       combCoord.lat /= selGeos.length
       combCoord.lon /= selGeos.length
       console.log(combCoord)
-      // setCenter([combCoord.lon,combCoord.lat])
-
-
+      setCenter([combCoord.lon,combCoord.lat])
 
     },[selected])
-
-
-  // useEffect(() => {
-  //   if (geoArray.length > 0) {
-
-  //     geoArray.map((asset, index) =>
-
-  //       handleChange(asset.properties.name, asset.geometry.coordinates)
-  //     );
-  //   }
-  // }, [geoArray]);
 
   return (
     <div>
