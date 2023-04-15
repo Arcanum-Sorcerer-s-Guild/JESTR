@@ -108,6 +108,7 @@ const Reserve = () => {
     <>
       <div className="flex flex-row">
         <div className=" w-2/3 border border-black mt-5 ml-5">
+        <input type="checkbox" className="ml-3 mr-3"/>Select All
           {rangeList.length > 0 ?
             rangeList.map(range => <CollapsibleChild key={range} range={range} selected={selected} setSelected={setSelected} assets={data.filter(asset=>asset.Range === range)}/>)
             : <>Loading...</>}
@@ -135,11 +136,11 @@ const CollapsibleChild = ({range,assets,selected,setSelected}) => {
 
   return(
     <div>
-      <button {...getToggleProps()}>
+      <button {...getToggleProps()} className="ml-3">
         Range: {range}
       </button>
       <section {...getCollapseProps()}>
-        {assets.map(asset=><div key={asset.Serial}><input className="ml-10" type="checkbox" onChange={()=>handleChange(asset.Serial)}/>Asset: {asset.Serial}</div>)}
+        {assets.map(asset=><div key={asset.Serial}><input className="ml-7 mr-3" type="checkbox" onChange={()=>handleChange(asset.Serial)}/>Asset: {asset.Serial}</div>)}
       </section>
     </div>
   )

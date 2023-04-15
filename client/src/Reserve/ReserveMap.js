@@ -52,6 +52,7 @@ const ReserveMap = ({ assetList,selected }) => {
   }, [assetList]);
 
     useEffect(()=>{
+      if(selected.length > 0) {
       let combCoord = {lat:0,lon:0}
       let selGeos = geoArray.filter(geo=>selected.includes(geo.properties.name))
 
@@ -65,7 +66,11 @@ const ReserveMap = ({ assetList,selected }) => {
       combCoord.lon /= selGeos.length
       console.log(combCoord)
       setCenter([combCoord.lon,combCoord.lat])
-
+      } else {
+        setCenter([
+          -146.44166473513687, 64.31714411488758,
+        ])
+      }
     },[selected])
 
   return (
