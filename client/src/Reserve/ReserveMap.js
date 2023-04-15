@@ -26,7 +26,7 @@ let styles = {
   }),
 };
 
-const ReserveMap = ({ assetList }) => {
+const ReserveMap = ({ assetList,selected }) => {
   // let {assetList} = props
   const [center, setCenter] = useState([
     -146.44166473513687, 64.31714411488758,
@@ -52,28 +52,39 @@ const ReserveMap = ({ assetList }) => {
     );
   }, [assetList]);
 
-  const handleChange = (assetName, assetCoordinates) => {
-    if (selectedAssets.includes(assetName)) {
-      const index = selectedAssets.indexOf(assetName);
-      selectedAssets.splice(index, 1);
-    } else {
-      selectedAssets.push(assetName);
-      // setZoom(10);
-      setCenter(assetCoordinates);
-    }
-  };
+    useEffect(()=>{
+      let combCoord = {lat:0,lon:0}
+      let selGeos = geoArray.filter(geo=>selected.includes(geo.properties.name))
 
-  useEffect(() => {
-    if (geoArray.length > 0) {
-      geoArray.map((asset, index) =>
-        handleChange(asset.properties.name, asset.geometry.coordinates)
-      );
-    }
-  }, [geoArray]);
+      combCoord = selGeos.reduce((acc,curr)=>{
+        acc.lat+=Number(curr.geometry.coordinates[1])
+        acc.lon+=Number(curr.geometry.coordinates[0])
+        return(acc)
+        }
+      , combCoord)
+
+      combCoord.lat /= selGeos.length
+      combCoord.lon /= selGeos.length
+      console.log(combCoord)
+      // setCenter([combCoord.lon,combCoord.lat])
+
+
+
+    },[selected])
+
+
+  // useEffect(() => {
+  //   if (geoArray.length > 0) {
+
+  //     geoArray.map((asset, index) =>
+
+  //       handleChange(asset.properties.name, asset.geometry.coordinates)
+  //     );
+  //   }
+  // }, [geoArray]);
 
   return (
     <div>
-      {/* {console.log(Map)} */}
       <Map center={fromLonLat(center)} zoom={zoom}>
         <Layers>
           <TileLayer
@@ -82,10 +93,9 @@ const ReserveMap = ({ assetList }) => {
             })}
             // zIndex={-1}
           />
-
           {geoArray.length > 0 ? (
             geoArray.map((geoObject, index) => {
-              return selectedAssets.includes(geoObject.properties.name) ? (
+              return selected.includes(geoObject.properties.name) ? (
                 <>
                   <VectorLayer
                     source={vector({
