@@ -11,7 +11,6 @@ import { useCollapse } from 'react-collapsed';
 import { GiCompass, GiObservatory } from "react-icons/gi";
 import { GrCheckboxSelected, GrCheckbox } from "react-icons/gr";
 import DmsCoordinates, { parseDms } from "dms-conversion";
-import { Resizable } from 'react-resizable';
 
 const Reserve = () => {
   const { listUrl } = useContext(Context);
@@ -85,7 +84,6 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
   }
 
   return (
-    <Resizable>
     <div>
       <input
         type="checkbox"
@@ -123,7 +121,6 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
         )}
       </section>
     </div>
-    </Resizable>
   )
 }
 
