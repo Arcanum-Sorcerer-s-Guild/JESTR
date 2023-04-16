@@ -9,7 +9,9 @@ import ListTable from './ListTable';
 import { json } from 'react-router-dom';
 import { useCollapse } from 'react-collapsed';
 import { GiCompass, GiObservatory } from "react-icons/gi";
-import { GrCheckboxSelected,GrCheckbox } from "react-icons/gr";
+import { GrCheckboxSelected, GrCheckbox } from "react-icons/gr";
+import DmsCoordinates, { parseDms } from "dms-conversion";
+import { Resizable } from 'react-resizable';
 
 const Reserve = () => {
   const { listUrl } = useContext(Context);
@@ -22,6 +24,7 @@ const Reserve = () => {
   ]);
 
   useEffect(() => {
+    let offset = 1000000000
     fetch(`${listUrl}/GetByTitle('Assets')/items`,
       { credentials: 'include', }
     )
@@ -29,85 +32,98 @@ const Reserve = () => {
       .then((data) => {
         setRangeList([...new Set(data.d.results.map(a => a.Range))])
         setData(data.d.results)
+        setData(data.d.results.map(asset=> (
+          {...asset,dms:new DmsCoordinates(Number(asset.Latitude),Number(asset.Longitude)) }) ) )
       });
   }, []);
 
   const selectAll = (e) => {
-    let allAssets = data.map(asset=>asset.Serial)
+    let allAssets = data.map(asset => asset.Serial)
     if (selected.toString() !== allAssets.toString() && e.target.checked === true) setSelected(allAssets)
     if (selected.length === allAssets.length) setSelected([])
   }
 
   return (
     <>
+
       <div className="flex flex-row">
         <div className=" w-2/3 border border-black mt-5 ml-5">
-        <input type="checkbox" onChange={(e)=>selectAll(e)} className="ml-3 mr-3"/>Select All
+          <input type="checkbox" onChange={(e) => selectAll(e)} className="ml-3 mr-3" />Select All
           {rangeList.length > 0 ?
-            rangeList.map(range => <CollapsibleChild key={range} range={range} selected={selected} setSelected={setSelected} setCenter={setCenter}  assets={data.filter(asset=>asset.Range === range)}/>)
+            rangeList.map(range => <CollapsibleChild key={range} range={range} selected={selected} setSelected={setSelected} setCenter={setCenter} assets={data.filter(asset => asset.Range === range)} />)
             : <>Loading...</>}
         </div>
-        <ReserveMap assetList={data} selected={selected} center={center} setCenter={setCenter}/>
+        <ReserveMap assetList={data} selected={selected} center={center} setCenter={setCenter} />
       </div>
     </>
   );
 };
 
-const CollapsibleChild = ({range,assets,selected,setSelected,setCenter}) => {
+const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
-  const [selectAll,setSelectAll] = useState(false)
+  const [selectAll, setSelectAll] = useState(false)
+
 
   const handleChange = (name) => {
     if (selected.includes(name)) {
       const index = selected.indexOf(name);
-      setSelected(selected.filter((asset)=> asset !== name))
+      setSelected(selected.filter((asset) => asset !== name))
     } else {
-      setSelected([...selected,name])
+      setSelected([...selected, name])
     }
   }
 
   const selectRange = (e) => {
-    let allAssets = assets.filter(asset=>asset.Range===range).map(asset=>asset.Serial)
-    let allIncluded = assets.reduce((acc,curr)=> acc ? selected.includes(curr.Serial): false,true)
-    if (!allIncluded &&  e.target.checked) setSelected([...selected,...allAssets])
-    if (allIncluded) setSelected(selected.filter(asset=>!allAssets.includes(asset)))
+    let allAssets = assets.filter(asset => asset.Range === range).map(asset => asset.Serial)
+    let allIncluded = assets.reduce((acc, curr) => acc ? selected.includes(curr.Serial) : false, true)
+    if (!allIncluded && e.target.checked) setSelected([...selected, ...allAssets])
+    if (allIncluded) setSelected(selected.filter(asset => !allAssets.includes(asset)))
   }
 
-  const centerOnAsset = (lat,lon) => {
-    setCenter([Number(lon),Number(lat)])
+  const centerOnAsset = (lat, lon) => {
+    setCenter([Number(lon), Number(lat)])
   }
 
-  return(
+  return (
+    <Resizable>
     <div>
       <input
         type="checkbox"
         className="ml-3 mr-3"
-        checked={assets.reduce((acc,curr)=> acc ? selected.includes(curr.Serial): false,true)}
-        onChange={(e)=>selectRange(e)}
+        checked={assets.reduce((acc, curr) => acc ? selected.includes(curr.Serial) : false, true)}
+        onChange={(e) => selectRange(e)}
       />
       <button {...getToggleProps()}>
-        {isExpanded? '↓ ' : '> '}Range: {range}
+        {isExpanded ? '↓ ' : '> '}Range: {range}
       </button>
       <section {...getCollapseProps()}>
-        {assets.map(asset=> {
-          return(<>
-          <div key={asset.Serial} className={`mb-1 flex flex-row`}>
-            <input className="ml-7 mr-3" checked={selected.includes(asset.Serial)}type="checkbox" onChange={()=>handleChange(asset.Serial)}/>
-            <GiObservatory/>
-            <span className="font-medium">{asset.Serial.toUpperCase()}</span>
-            {/* <span>{` in ${asset.SiteLocation}`}</span> */}
-            <button className="rounded-full p-1 text-sm bg-blue border border-black ml-2 flex flex-row"
-              onClick={()=>centerOnAsset(asset.Latitude,asset.Longitude)}>{` ${asset.Latitude}°\t`}<GiCompass/>{`\t${asset.Longitude}°`}
-            </button>
-            <div className={`ml-2 border border-2 w-1/2 text-center ${asset.Status === 'RED' ? `border-red bg-red/40`:`border-green bg-green/40`} ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40`:``}`}>
-              <span>{`Status:${asset.Status} Equipment: ${asset.Equipment}  Threat: ${asset.Threat}`}</span>
+        {assets.map(asset => {
+          return (<>
+            <div key={asset.Serial} className={`mb-1 flex flex-row`}>
+              <div className="flex flex-row w-1/2">
+                <input className="ml-7 mr-3" checked={selected.includes(asset.Serial)} type="checkbox" onChange={() => handleChange(asset.Serial)} />
+                <GiObservatory />
+                <span className="font-medium">{asset.Serial.toUpperCase()}</span>
+                {/* <span>{` in ${asset.SiteLocation}`}</span> */}
+                <button className="rounded-full p-1 text-sm bg-blue border border-black ml-2 flex flex-row gap-1"
+                  onClick={() => centerOnAsset(asset.Latitude, asset.Longitude)}>
+                  {asset.Latitude} N
+                  {/* {asset.dms.toString()} */}
+                  <GiCompass />
+                  {asset.Longitude} W
+                </button>
+              </div>
+              <div className={`ml-2 border border-2 w-5/12 text-center ${asset.Status === 'RED' ? `border-red bg-red/40` : `border-green bg-green/40`} ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40` : ``}`}>
+                <span>{`Status: ${asset.Status} Equip: ${asset.Equipment}  Threat: ${asset.Threat}`}</span>
+              </div>
+              {/* <div className="flex flex-row">{asset.Operational ? <GrCheckboxSelected/>:<GrCheckbox/>}</div> */}
             </div>
-            {/* <div className="flex flex-row">{asset.Operational ? <GrCheckboxSelected/>:<GrCheckbox/>}</div> */}
-          </div>
-          </>)}
+          </>)
+        }
         )}
       </section>
     </div>
+    </Resizable>
   )
 }
 
