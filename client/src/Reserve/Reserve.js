@@ -50,10 +50,13 @@ const Reserve = () => {
       <div className="flex flex-row">
         <Resizable className="border-double hover:border-dashed border-r-2 border-black mt-5 ml-5"
         defaultSize={{
-          width:320,
-          height:200,
-        }}>
-        <div className=" border border-black mr-2">
+          width:475,
+          height:750,
+        }}
+        minWidth={475} minHeight={750} maxHeight={750}
+
+        >
+        <div className=" border border-black mr-2 h-full overflow-scroll">
           <input type="checkbox" onChange={(e) => selectAll(e)} className="ml-3 mr-3" />Select All
           {rangeList.length > 0 ?
             rangeList.map(range => <CollapsibleChild key={range} range={range} selected={selected} setSelected={setSelected} setCenter={setCenter} assets={data.filter(asset => asset.Range === range)} />)

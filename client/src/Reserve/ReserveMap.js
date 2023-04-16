@@ -71,7 +71,7 @@ const ReserveMap = ({ assetList,selected,center,setCenter }) => {
     },[selected])
 
   return (
-    <div>
+    <div className="w-full h-full">
       <Map center={fromLonLat(center)} zoom={zoom}>
         <Layers>
           <TileLayer
