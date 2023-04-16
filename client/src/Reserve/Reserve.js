@@ -11,6 +11,9 @@ import { useCollapse } from 'react-collapsed';
 import { GiCompass, GiObservatory } from "react-icons/gi";
 import { GrCheckboxSelected, GrCheckbox } from "react-icons/gr";
 import DmsCoordinates, { parseDms } from "dms-conversion";
+import { Resizable } from "re-resizable";
+
+
 
 const Reserve = () => {
   const { listUrl } = useContext(Context);
@@ -23,7 +26,6 @@ const Reserve = () => {
   ]);
 
   useEffect(() => {
-    let offset = 1000000000
     fetch(`${listUrl}/GetByTitle('Assets')/items`,
       { credentials: 'include', }
     )
@@ -46,12 +48,19 @@ const Reserve = () => {
     <>
 
       <div className="flex flex-row">
-        <div className=" w-2/3 border border-black mt-5 ml-5">
+        <Resizable className="border-double hover:border-dashed border-r-2 border-black mt-5 ml-5"
+        defaultSize={{
+          width:320,
+          height:200,
+        }}>
+        <div className=" border border-black mr-2">
           <input type="checkbox" onChange={(e) => selectAll(e)} className="ml-3 mr-3" />Select All
           {rangeList.length > 0 ?
             rangeList.map(range => <CollapsibleChild key={range} range={range} selected={selected} setSelected={setSelected} setCenter={setCenter} assets={data.filter(asset => asset.Range === range)} />)
             : <>Loading...</>}
-        </div>
+         </div>
+        </Resizable>
+
         <ReserveMap assetList={data} selected={selected} center={center} setCenter={setCenter} />
       </div>
     </>
@@ -97,22 +106,33 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
       <section {...getCollapseProps()}>
         {assets.map(asset => {
           return (<>
-            <div key={asset.Serial} className={`mb-1 flex flex-row`}>
-              <div className="flex flex-row w-4/12 items-center">
+
+            <div key={asset.Serial} className={`mb-1 flex flex-row overflow-hidden whitespace-nowrap`}>
+            <div className="flex w-full justify-between">
+              <div className="flex items-center min-w-[450px] ">
                 <input className="ml-7 mr-3" checked={selected.includes(asset.Serial)} type="checkbox" onChange={() => handleChange(asset.Serial)} />
                 <GiObservatory />
-                <span className="font-medium w-2/12 mr-1">{asset.Serial.toUpperCase()}</span>
-                {/* <span>{` in ${asset.SiteLocation}`}</span> */}
-                <button className="rounded-full p-1 text-sm bg-blue border border-black ml-2 flex flex-row gap-1 items-center"
-                  onClick={() => centerOnAsset(asset.Latitude, asset.Longitude)}>
-                  <GiCompass/>
-                  {`${asset.dms.toString().slice(0,12)}${asset.dms.toString().slice(24,41)}${asset.dms.toString().slice(-3,57)}`}
-                </button>
+                <span className="font-medium w-1/3 ml-1 mr-3">{asset.Serial.toUpperCase()}</span>
+                <div className="w-2/3 flex justify-end">
+                  <button className="rounded-full p-1 text-sm bg-blue border border-black ml-2 mr-2 flex flex-row gap-1 items-center"
+                    onClick={() => centerOnAsset(asset.Latitude, asset.Longitude)}>
+                    <GiCompass/>
+                    {`${asset.dms.toString().slice(0,12)}${asset.dms.toString().slice(24,41)}${asset.dms.toString().slice(-3,57)}`}
+                  </button>
+                </div>
               </div>
-              <div className={`ml-2 border border-2 w-5/12 text-center ${asset.Status === 'RED' ? `border-red bg-red/40` : `border-green bg-green/40`} ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40` : ``}`}>
-                <span>{`Status: ${asset.Status} Equip: ${asset.Equipment}  Threat: ${asset.Threat}`}</span>
+
+
+              <div className="flex flex-row min-w-2/3 items-center">
+                    <div className={`ml-2 border border-2 max-h-8 min-w-5/12 overflow:hidden whitespace-nowrap text-center ${asset.Status === 'RED' ? `border-red bg-red/40` : `border-green bg-green/40`} ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40` : ``}`}>
+                      <span>{`Status: ${asset.Status} Equip: ${asset.Equipment}  Threat: ${asset.Threat}`}</span>
+                    </div>
+
+                  <div className="flex flex-row ml-2 items-center">OpStatus: {asset.Operational ? <GrCheckboxSelected/>:<GrCheckbox/>}</div>
+                    {/* <span className="whitespace-nowrap">{` in ${asset.SiteLocation}`}</span> */}
               </div>
-              {/* <div className="flex flex-row">{asset.Operational ? <GrCheckboxSelected/>:<GrCheckbox/>}</div> */}
+
+            </div>
             </div>
           </>)
         }
