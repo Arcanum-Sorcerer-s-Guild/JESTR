@@ -98,17 +98,15 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
         {assets.map(asset => {
           return (<>
             <div key={asset.Serial} className={`mb-1 flex flex-row`}>
-              <div className="flex flex-row w-1/2">
+              <div className="flex flex-row w-4/12 items-center">
                 <input className="ml-7 mr-3" checked={selected.includes(asset.Serial)} type="checkbox" onChange={() => handleChange(asset.Serial)} />
                 <GiObservatory />
-                <span className="font-medium">{asset.Serial.toUpperCase()}</span>
+                <span className="font-medium w-2/12 mr-1">{asset.Serial.toUpperCase()}</span>
                 {/* <span>{` in ${asset.SiteLocation}`}</span> */}
-                <button className="rounded-full p-1 text-sm bg-blue border border-black ml-2 flex flex-row gap-1"
+                <button className="rounded-full p-1 text-sm bg-blue border border-black ml-2 flex flex-row gap-1 items-center"
                   onClick={() => centerOnAsset(asset.Latitude, asset.Longitude)}>
-                  {asset.Latitude} N
-                  {/* {asset.dms.toString()} */}
-                  <GiCompass />
-                  {asset.Longitude} W
+                  <GiCompass/>
+                  {`${asset.dms.toString().slice(0,12)}${asset.dms.toString().slice(24,41)}${asset.dms.toString().slice(-3,57)}`}
                 </button>
               </div>
               <div className={`ml-2 border border-2 w-5/12 text-center ${asset.Status === 'RED' ? `border-red bg-red/40` : `border-green bg-green/40`} ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40` : ``}`}>
