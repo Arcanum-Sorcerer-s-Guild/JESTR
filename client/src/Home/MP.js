@@ -15,7 +15,9 @@ const MP = () => {
   ];
 
   useEffect(() => {
-    fetch(`${listUrl}/GetByTitle('Reservations')/items`,{ credentials: 'include'})
+    fetch(`${listUrl}/GetByTitle('Reservations')/items`,{
+      credentials: "include"
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data.d.results[0].AuthorId);
@@ -28,7 +30,7 @@ const MP = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-        <h3 className="font-semibold">MP board</h3>
+          <h3 className="font-semibold">MP board</h3>
       </div>
       <div className>
         <div className="mt-2">
@@ -40,9 +42,9 @@ const MP = () => {
                     <thead className="bg-gray-light/50 text-gray/100">
                       <tr>
                         {headers.map((header, i) => (
-                          <th
+                          <th 
                             key={i}
-                            className="px-6 py-2 text-center text-xs font-medium uppercase tracking-wider"
+                            className='px-6 py-2 text-center text-xs font-medium uppercase tracking-wider'
                           >
                             {header.name}
                           </th>
@@ -55,9 +57,7 @@ const MP = () => {
                           <td className="text-left text-xs">
                             {list.SiteLocation}
                           </td>
-                          <td className="flex gap-2 text-left text-xs">
-                            {list.Threat}({list.Equipment})
-                          </td>
+                          <td className="flex gap-2 text-left text-xs">{list.Threat}({list.Equipment})</td>
                           <td className="text-left text-xs">{list.Squadron}</td>
                           <td className="text-left text-xs">
                             {list.EventDate}

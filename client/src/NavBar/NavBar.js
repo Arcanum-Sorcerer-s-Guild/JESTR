@@ -80,9 +80,9 @@ const NavBar = () => {
 
   return (
     <>
-      <div className=" bg-gunmetal text-text flex items-center justify-between flex-wrap p-4 shadow-md">
+      <div className="bg-gunmetal text-pink flex items-center justify-between flex-wrap p-4 shadow-md shadow-pink/50">
         <div className="flex items-center flex-shrink-0 text-text mr-6">
-          <span className="font-semibold text-xl tracking-tight">JEST</span>
+          <span className="font-semibold text-xl text-blue tracking-tight">JESTER</span>
         </div>
         <div className="w-full block flex-grow lg:flex lg: items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
@@ -90,7 +90,7 @@ const NavBar = () => {
               <Link
                 key={i}
                 to={link.name}
-                className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+                className="mt-4 lg:inline-block lg:mt-0 hover:text-blue p-2"
               >
                 {link.text}
               </Link>

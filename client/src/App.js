@@ -4,7 +4,7 @@ import Login from './Login/Login.js';
 // import Users from './Users/Users.js'
 import Register from './Register/Register.js';
 import Home from './Home/Home.js';
-import MP from './Home/MP';
+import MP from './MsnPlanning/MP.js';
 import Reserve from './Reserve/Reserve.js';
 import Reservation from './Reservation/Reservation.js';
 import AllReservations from './AllReservations/AllReservations.js';
@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
         <Routes>
