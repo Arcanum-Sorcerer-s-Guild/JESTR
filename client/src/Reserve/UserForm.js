@@ -5,11 +5,12 @@ import { DateTime } from 'luxon';
 
 const squadronDDOpts = ['Other', 'Demons', 'Falcons'];
 export default function UserForm({ setUserForm, setRequestedWeek }) {
+  const defaultWeek = DateTime.now().startOf('week').toISOWeekDate().toString().split('-');
   const title = useContext(Context).userData.Title;
   const [squadronDD, setSquadronDD] = useState(squadronDDOpts[0]);
   const [name, setName] = useState(title);
   const [dsn, setDSN] = useState('');
-  const [week, setWeek] = useState('');
+  const [week, setWeek] = useState(`${defaultWeek[0]}-${defaultWeek[1]}`);
   const [squadron, setSquadron] = useState('');
 
   useEffect(() => {
@@ -24,7 +25,6 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
     const weekDays = [];
     for (let i = 1; i < 8; i++) {
       let day = DateTime.fromISO(`${week}-${i}`).toISODate()
-      
       weekDays.push(day)
     }
     setRequestedWeek(weekDays)
@@ -80,9 +80,11 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
           <input
             type="week"
             className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-            defaultValue={DateTime.now().startOf('week').toISOWeekDate()}
+            value={week}
             onChange={(e) => setWeek(e.target.value)}
           />
+
+     
         </div>
       </div>
     </>

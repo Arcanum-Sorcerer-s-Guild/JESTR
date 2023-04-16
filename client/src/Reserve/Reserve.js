@@ -1,16 +1,13 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Context } from '../App';
 
-// import ReservationThreatsForm from './ReservationThreatsForm';
-// import ReservationUserForm from './ReservationUserForm';
 import DualTimeSelector from './DualTimeSelector';
 import ReserveMap from './ReserveMap';
 import UserForm from './UserForm';
 import ListTable from './ListTable';
-import { json } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
-const columns = [
+let assetColumns = [
   {
     Header: 'Add Info',
     accessor: 'Select',
@@ -63,6 +60,21 @@ const columns = [
     accessor: 'Elevation',
   },
 ];
+let formColumns = [
+  {
+    Header: 'Equipment',
+    accessor: 'Equipment',
+  },
+  {
+    Header: 'Serial',
+    accessor: 'Serial',
+  },
+  {
+    Header: 'Threat',
+    accessor: 'Threat',
+  },
+
+];
 
 function SubRowComponent({ data }) {
   return (
@@ -91,7 +103,10 @@ const Reserve = () => {
   const [lists, setLists] = useState([]);
   const [selected, setSelected] = useState([]);
   const [data, setData] = useState([]);
+
   const [timeList, setTimeList] = useState([]);
+  const [formNewColumns, setFormNewColumns] = useState([]);
+  const [dateForm, setDateForm] = useState([]);
 
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items`,
@@ -103,14 +118,7 @@ const Reserve = () => {
       });
   }, []);
 
-  useEffect(() => {
-    const weekDays = [];
-    for (let i = 0; i < 7; i++) {
-      let day = DateTime.now().startOf('week').plus({ days: i }).toISODate();
-      weekDays.push(day)
-    }
-    setRequestedWeek(weekDays)
-  }, [])
+
 
   const [requestedWeek, setRequestedWeek] = useState([]);
   const [userForm, setUserForm] = React.useState({
@@ -118,6 +126,87 @@ const Reserve = () => {
     dsn: '',
     squadron: '',
   });
+
+  const dropdownHandler = (row, target, e) => {
+    let times = [];
+    if (target.value === "none") {
+      times = [];
+    } else if (target.value === 'all') {
+      times.push(...timeList);
+    } else {
+      timeList.map(time => {
+        if (time.name === target.value) {
+          times.push(time);
+        }
+      })
+    }
+
+    //todo Add POC name
+    times.map(({ name, start, end }) => {
+      const vulName = name;
+      const startTime = start;
+      const endTime = end;
+      const requestDate = target.id.split("--")[1];
+
+      // requests[`${row.original.Serial}--${requestDate}--${startTime}-${endTime}`] = {
+      //   Range: row.original.Range,
+      //   SiteLocation: row.original.SiteLocation,
+      //   Threat: row.original.Threat,
+      //   Equipment: row.original.Equipment,
+      //   ThreatType: row.original.ThreatType,
+      //   EventDate: DateTime.fromISO(`${requestDate}T${startTime}`).toLocal().toUTC().toISO(),
+      //   EndDate: DateTime.fromISO(`${requestDate}T${endTime}`).toLocal().toUTC().toISO(),
+      //   Status: 'Pending'
+      // }
+
+      setDateForm(dateForm => [...dateForm, {
+        title: `${row.original.Serial}--${requestDate}--${startTime}-${endTime}`,
+        Range: row.original.Range,
+        SiteLocation: row.original.SiteLocation,
+        Threat: row.original.Threat,
+        Equipment: row.original.Equipment,
+        ThreatType: row.original.ThreatType,
+        EventDate: DateTime.fromISO(`${requestDate}T${startTime}`).toLocal().toUTC().toISO(),
+        EndDate: DateTime.fromISO(`${requestDate}T${endTime}`).toLocal().toUTC().toISO(),
+        Status: 'Pending'
+      }]);
+
+    });
+
+
+
+  }
+
+
+  const optionsFormat = () => {
+    return requestedWeek.map((x, index) => {
+      return {
+        Header: x,
+        accessor: x,
+        Cell: ({ row, column }) => (
+          <div>
+            <select id={`row-${row.id}-col--${column.id}`} name="timeSelector" onChange={(e) => dropdownHandler(row, e.target, e)}>
+              <option value="none">None</option>
+              {timeList.map((y, index) => {
+                return (
+                  <option key={index} value={y.name}>
+                    {y.name}
+                  </option>
+                  // <></>
+                );
+              })}
+              <option value="all">All</option>
+            </select>
+          </div>
+        ),
+      }
+    });
+  }
+
+  useEffect(() => {
+    let options = optionsFormat();
+    setFormNewColumns([...formColumns, ...options]);
+  }, [requestedWeek, timeList])
 
   //TODO
   const sendForm = () => {
@@ -134,11 +223,10 @@ const Reserve = () => {
 
   return (
     <>
-      {/* {JSON.stringify(selected)} */}
       <ReserveMap assetList={selected} />
       <ListTable
         data={data}
-        columns={columns}
+        columns={assetColumns}
         selected={selected}
         setSelected={setSelected}
         SubRowComponent={SubRowComponent}
@@ -146,15 +234,18 @@ const Reserve = () => {
       <div className="flex">
         <UserForm setUserForm={setUserForm} setRequestedWeek={setRequestedWeek} />
         <DualTimeSelector timeList={timeList} setTimeList={setTimeList} />
+        {/* TODO, make the input wok for all items  */}
+        <input type="text" onChange={(e) => setUserForm({ ...userForm, [e.target.name]: e.target.value })} name="Notes" placeholder="Notes" />
       </div>
 
+      <ListTable
+        data={selected}
+        columns={formNewColumns}
+        selected={selected}
+        setSelected={setSelected}
+        SubRowComponent={SubRowComponent}
+      />
 
-      {JSON.stringify(timeList)}
-      {JSON.stringify(requestedWeek)}
-      {JSON.stringify(userForm)}
-      {/* {DateTime.now().startOf('week').toFormat("yyyy-wW")}
-<br />
-{DateTime.now().startOf('week').toISOWeekDate()} */}
     </>
   );
 };
