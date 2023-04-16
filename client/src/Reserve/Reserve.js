@@ -6,6 +6,7 @@ import ReserveMap from './ReserveMap';
 import UserForm from './UserForm';
 import ListTable from './ListTable';
 import { DateTime } from 'luxon';
+import { set } from 'ol/transform';
 
 let assetColumns = [
   {
@@ -127,55 +128,127 @@ const Reserve = () => {
     squadron: '',
   });
 
+
+  // let splicer = dateForm.filter((date, index) => {
+  //   date.title !== `${row.original.Serial}--${requestDate}--${startTime}-${endTime}`
+  // });
+  // setDateForm(splicer);
+
+
+  let excludeFilter = (list, filter) => {
+    return list.filter((item) =>
+      list['title'] != filter
+    );
+  }
+
+
   const dropdownHandler = (row, target, e) => {
     let times = [];
+    const requestDate = target.id.split("--")[1];
+
     if (target.value === "none") {
-      times = [];
-    } else if (target.value === 'all') {
-      times.push(...timeList);
-    } else {
-      timeList.map(time => {
-        if (time.name === target.value) {
-          times.push(time);
-        }
+      timeList.forEach(({ name, start, end }) => {
+        let removal = excludeFilter(timeList, `${row.original.Serial}--${requestDate}--${start}-${end}`);
+        console.log(removal)
       })
     }
+    else if (target.value === 'all') {
+      timeList.forEach(({ name, start, end }) => {
+        let removal = excludeFilter(timeList, `${row.original.Serial}--${requestDate}--${start}-${end}`);
+        console.log(removal)
+      })
 
-    //todo Add POC name
-    times.map(({ name, start, end }) => {
-      const vulName = name;
-      const startTime = start;
-      const endTime = end;
-      const requestDate = target.id.split("--")[1];
-
-      // requests[`${row.original.Serial}--${requestDate}--${startTime}-${endTime}`] = {
-      //   Range: row.original.Range,
-      //   SiteLocation: row.original.SiteLocation,
-      //   Threat: row.original.Threat,
-      //   Equipment: row.original.Equipment,
-      //   ThreatType: row.original.ThreatType,
-      //   EventDate: DateTime.fromISO(`${requestDate}T${startTime}`).toLocal().toUTC().toISO(),
-      //   EndDate: DateTime.fromISO(`${requestDate}T${endTime}`).toLocal().toUTC().toISO(),
-      //   Status: 'Pending'
-      // }
-
-      setDateForm(dateForm => [...dateForm, {
-        title: `${row.original.Serial}--${requestDate}--${startTime}-${endTime}`,
-        Range: row.original.Range,
-        SiteLocation: row.original.SiteLocation,
-        Threat: row.original.Threat,
-        Equipment: row.original.Equipment,
-        ThreatType: row.original.ThreatType,
-        EventDate: DateTime.fromISO(`${requestDate}T${startTime}`).toLocal().toUTC().toISO(),
-        EndDate: DateTime.fromISO(`${requestDate}T${endTime}`).toLocal().toUTC().toISO(),
-        Status: 'Pending'
-      }]);
-
-    });
-
+      
+     
+    }
 
 
   }
+  // const dropdownHandler = (row, target, e) => {
+  //   let times = [];
+  //   const requestDate = target.id.split("--")[1];
+
+  //   if (target.value === "none") {
+  //     times = [];
+  //   } else if (target.value === 'all') {
+  //     times.push(...timeList);
+
+  //   } else {
+  //     timeList.map(time => {
+  //       if (time.name === target.value) {
+  //         times.push(time);
+  //       }
+  //     })
+
+
+
+
+
+  //     times.map(({ name, start, end }) => {
+  //       const vulName = name;
+  //       const startTime = start;
+  //       const endTime = end;
+
+  //       // setDateForm(dateForm => [...dateForm, {
+  //       //   title: `${row.original.Serial}--${requestDate}`,
+  //       //   times: `${startTime}-${endTime}`,
+  //       //   Range: row.original.Range,
+  //       //   SiteLocation: row.original.SiteLocation,
+  //       //   Threat: row.original.Threat,
+  //       //   Equipment: row.original.Equipment,
+  //       //   ThreatType: row.original.ThreatType,
+  //       //   EventDate: DateTime.fromISO(`${requestDate}T${startTime}`).toLocal().toUTC().toISO(),
+  //       //   EndDate: DateTime.fromISO(`${requestDate}T${endTime}`).toLocal().toUTC().toISO(),
+  //       //   Status: 'Pending'
+  //       // }]);
+  //     });
+
+
+
+
+
+
+  //     // times.map(({ name, start, end }) => {
+  //     //   const vulName = name;
+  //     //   const startTime = start;
+  //     //   const endTime = end;
+  //     //   setDateForm(dateForm => [...dateForm, {
+  //     //     title: `${row.original.Serial}--${requestDate}--${startTime}-${endTime}`,
+  //     //     Range: row.original.Range,
+  //     //     SiteLocation: row.original.SiteLocation,
+  //     //     Threat: row.original.Threat,
+  //     //     Equipment: row.original.Equipment,
+  //     //     ThreatType: row.original.ThreatType,
+  //     //     EventDate: DateTime.fromISO(`${requestDate}T${startTime}`).toLocal().toUTC().toISO(),
+  //     //     EndDate: DateTime.fromISO(`${requestDate}T${endTime}`).toLocal().toUTC().toISO(),
+  //     //     Status: 'Pending'
+  //     //   }]);
+  //     // });
+
+  //     // times.map(({ name, start, end }) => {
+  //     //   const vulName = name;
+  //     //   const startTime = start;
+  //     //   const endTime = end;
+  //     //   setDateForm(dateForm => [...dateForm, {
+  //     //     title: `${row.original.Serial}--${requestDate}--${startTime}-${endTime}`,
+  //     //     Range: row.original.Range,
+  //     //     SiteLocation: row.original.SiteLocation,
+  //     //     Threat: row.original.Threat,
+  //     //     Equipment: row.original.Equipment,
+  //     //     ThreatType: row.original.ThreatType,
+  //     //     EventDate: DateTime.fromISO(`${requestDate}T${startTime}`).toLocal().toUTC().toISO(),
+  //     //     EndDate: DateTime.fromISO(`${requestDate}T${endTime}`).toLocal().toUTC().toISO(),
+  //     //     Status: 'Pending'
+  //     //   }]);
+  //     // });
+  //   }
+
+  //   //todo Add POC name
+
+
+
+
+  // }
 
 
   const optionsFormat = () => {
@@ -236,6 +309,7 @@ const Reserve = () => {
         <DualTimeSelector timeList={timeList} setTimeList={setTimeList} />
         {/* TODO, make the input wok for all items  */}
         <input type="text" onChange={(e) => setUserForm({ ...userForm, [e.target.name]: e.target.value })} name="Notes" placeholder="Notes" />
+        Number of requests: {dateForm.length}
       </div>
 
       <ListTable
@@ -246,6 +320,7 @@ const Reserve = () => {
         SubRowComponent={SubRowComponent}
       />
 
+      {JSON.stringify(dateForm, null, 2)}
     </>
   );
 };

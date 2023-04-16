@@ -84,7 +84,6 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
             onChange={(e) => setWeek(e.target.value)}
           />
 
-     
         </div>
       </div>
     </>
