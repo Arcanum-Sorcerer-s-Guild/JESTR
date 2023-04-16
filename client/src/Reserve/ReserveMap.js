@@ -10,7 +10,7 @@ import { fromLonLat, get } from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import Controls from '../Map/Controls/Controls.js';
 import FullScreenControl from '../Map/Controls/FullScreenControl';
-import ZoomSliderControl from '../Map/Controls/ZoomSliderControl.js';
+import ZoomControl from '../Map/Controls/ZoomControl.js';
 import KML from 'ol/format/KML.js';
 import VectorSource from 'ol/source/Vector.js';
 import KMLVectorLayer from '../Map/Layers/KMLVectorLayer.js';
@@ -105,7 +105,7 @@ const ReserveMap = ({ assetList,selected,center,setCenter }) => {
         </Layers>
         <Controls>
           <FullScreenControl />
-          <ZoomSliderControl />
+          <ZoomControl />
         </Controls>
       </Map>
     </div>
