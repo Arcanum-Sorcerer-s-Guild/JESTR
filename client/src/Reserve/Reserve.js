@@ -11,6 +11,7 @@ import { useCollapse } from 'react-collapsed';
 import { GiCompass, GiObservatory } from "react-icons/gi";
 import { FaMountain } from "react-icons/fa"
 import { GrCheckboxSelected, GrCheckbox } from "react-icons/gr";
+import { IoLocationSharp } from "react-icons/io5"
 import DmsCoordinates, { parseDms } from "dms-conversion";
 import { Resizable } from "re-resizable";
 
@@ -117,11 +118,11 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
                 <input className="ml-7 mr-3" checked={selected.includes(asset.Serial)} type="checkbox" onChange={() => handleChange(asset.Serial)} />
                 <GiObservatory />
                 <span className="font-medium w-1/3 ml-1 mr-3">{asset.Serial.toUpperCase()}</span>
-                <div className="w-2/3 flex justify-end">
-                  <button className="rounded-full p-1 text-sm bg-blue border border-black ml-2 mr-2 flex flex-row gap-1 items-center"
+                <div className="w-full flex justify-end">
+                  <button className=" w-full rounded-full p-1 text-sm bg-blue border border-black ml-2 mr-2 flex flex-row gap-1 items-center"
                     onClick={() => centerOnAsset(asset.Latitude, asset.Longitude)}>
-                    <GiCompass/>
-                    {`${asset.dms.toString().slice(0,12)}${asset.dms.toString().slice(24,41)}${asset.dms.toString().slice(-3,57)}`}
+                    <IoLocationSharp/>
+                    <span className="pl-1">{`${asset.dms.toString().slice(0,12)}${asset.dms.toString().slice(24,41)}${asset.dms.toString().slice(-3,57)}`}</span>
                   </button>
                 </div>
 
