@@ -14,6 +14,7 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
   const dateSpanChange = (e) => {
     if (e.target.name === 'day') setDateRange({ start: dateRange.start,end: dateRange.start });
     if (e.target.name === 'week') setDateRange({start: dateRange.start,end: dateRange.start.plus({ day: 7 })});
+    if (e.target.name === 'month') setDateRange({start: dateRange.start,end:dateRange.start.plus({ month: 1 })});
     if (e.target.name === 'year') setDateRange({start: dateRange.start,end: dateRange.start.plus({ year: 1 })});
   };
 
@@ -43,6 +44,14 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
               onClick={(e) => dateSpanChange(e)}
             >
               Week
+            </button>
+            <button
+              type="button"
+              className="inline-block rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
+              name="month"
+              onClick={(e) => dateSpanChange(e)}
+            >
+              Month
             </button>
             <button
               type="button"
