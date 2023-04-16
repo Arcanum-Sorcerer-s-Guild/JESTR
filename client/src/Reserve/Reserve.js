@@ -9,6 +9,7 @@ import ListTable from './ListTable';
 import { json } from 'react-router-dom';
 import { useCollapse } from 'react-collapsed';
 import { GiCompass, GiObservatory } from "react-icons/gi";
+import { FaMountain } from "react-icons/fa"
 import { GrCheckboxSelected, GrCheckbox } from "react-icons/gr";
 import DmsCoordinates, { parseDms } from "dms-conversion";
 import { Resizable } from "re-resizable";
@@ -111,7 +112,7 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
           return (<>
 
             <div key={asset.Serial} className={`mb-1 flex flex-row overflow-hidden whitespace-nowrap`}>
-            <div className="flex w-full justify-between">
+            <div className="flex w-full">
               <div className="flex items-center min-w-[450px] ">
                 <input className="ml-7 mr-3" checked={selected.includes(asset.Serial)} type="checkbox" onChange={() => handleChange(asset.Serial)} />
                 <GiObservatory />
@@ -123,16 +124,27 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
                     {`${asset.dms.toString().slice(0,12)}${asset.dms.toString().slice(24,41)}${asset.dms.toString().slice(-3,57)}`}
                   </button>
                 </div>
+
               </div>
 
 
               <div className="flex flex-row min-w-2/3 items-center">
-                    <div className={`ml-2 border border-2 max-h-8 min-w-5/12 overflow:hidden whitespace-nowrap text-center ${asset.Status === 'RED' ? `border-red bg-red/40` : `border-green bg-green/40`} ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40` : ``}`}>
-                      <span>{`Status: ${asset.Status} Equip: ${asset.Equipment}  Threat: ${asset.Threat}`}</span>
+                    <div className="flex flex-row items-center gap-1"><FaMountain/>{`El: ${asset.Elevation}`}</div>
+                    <div className={`ml-2 flex justify-between border border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
+                      ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40` : ``}
+                      ${asset.Status==='GREEN'? `border-green bg-green/40`:``}
+                      ${asset.Status === 'RED' ? `border-red bg-red/40` :``}
+                      ${asset.Status==='NA'?`border-gray bg-gray/40`:``}
+                    `}>
+                      <span className="font-medium pl-1">{`${asset.ThreatType.toUpperCase()}`}</span>
+                      <span className="pr-1">{`Equip: ${asset.Equipment}  Threat: ${asset.Threat} Status: ${asset.Status}`}</span>
                     </div>
 
-                  <div className="flex flex-row ml-2 items-center">OpStatus: {asset.Operational ? <GrCheckboxSelected/>:<GrCheckbox/>}</div>
-                    {/* <span className="whitespace-nowrap">{` in ${asset.SiteLocation}`}</span> */}
+                  <div className="flex flex-row ml-2 items-center font-medium">Schedulable: {asset.Schedulable ? <>✔️</>:<>❌</>}</div>
+                  <div className="flex flex-row ml-2 items-center font-medium">OpStatus: {asset.Operational ? <>✔️</>:<>❌</>}</div>
+                  <span className=" ml-3 whitespace-nowrap">{`Located at Site: ${asset.SiteLocation}`}</span>
+
+
               </div>
 
             </div>
