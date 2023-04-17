@@ -1,12 +1,11 @@
 // Get needed dependencies only
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 import TableBody from './TableBody';
 import TableHead from './TableHead';
 export const AssetsContext = React.createContext();
 
-// Sort the all assets table by range in reverse by default
+
 
 // Provides functionality for all assets
 const AllAssets = () => {
@@ -25,15 +24,16 @@ const AllAssets = () => {
     { label: 'Threat', accessor: 'Threat', sortable: true },
     { label: 'Equipment', accessor: 'Equipment', sortable: true },
   ];
-  const navigate = useNavigate();
 
   // Helper function to update the list of all assets
   const updateInventory = async () => {
     // Retrieves all database assets
-    fetch(`${listUrl}/GetByTitle('Assets')/items`)
+    fetch(`${listUrl}/GetByTitle('Assets')/items`, {
+      credentials: 'include'
+    })
       .then((res) => res.json())
-      .then((items) => {setCurrAssets(items.d.results); console.log(currAssets)})
-      // .then(handleSorting('SiteLocation', 'asc'));
+      .then((items) => setCurrAssets(items.d.results))
+      .then(handleSorting('SiteLocation', 'asc'));
   };
 
   // Helper function to handle sorting when an asset column header is clicked
@@ -81,7 +81,8 @@ const AllAssets = () => {
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
                     <table className="min-w-full divide-y divide-gray-light/100">
-                      {currAssets}
+                      <TableHead {...{ columns, handleSorting }}/>
+                      <TableBody {...{ columns }}/>
                     </table>
                   </div>
                 </div>
