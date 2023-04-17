@@ -1,12 +1,16 @@
-
+// Get needed dependencies only
 import React, { useState, useEffect } from 'react';
-import { AssetsContext } from './AllAssets';
 
+
+
+// Provides table header functionality for the table of all assets
 const TableHead = ({ columns, handleSorting }) => {
-  const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
+
+  // Tracks the sort order and field to sort by
   const [sortField, setSortField] = useState("");
   const [order, setOrder] = useState("asc");
 
+  // Helper function to change the sorting information
   const handleSortingChange = (accessor) => {
     const sortOrder =
       accessor === sortField && order === "asc" ? "desc" : "asc";
@@ -15,11 +19,7 @@ const TableHead = ({ columns, handleSorting }) => {
     handleSorting(accessor, sortOrder);
   };
 
-  // On page load, updates the list of all assets
-  useEffect(() => {
-    handleSortingChange("SiteLocation");
-  }, []);
-
+  // Provides functionality to the table headers for all assets
   return (
     <thead>
       <tr>
@@ -40,5 +40,8 @@ const TableHead = ({ columns, handleSorting }) => {
   );
 };
 
+
+
+// Exports TableHead for local usability
 export default TableHead;
 

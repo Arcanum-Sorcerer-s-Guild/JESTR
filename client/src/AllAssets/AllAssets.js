@@ -5,7 +5,7 @@ import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 export const AssetsContext = React.createContext();
 
-
+// Sort the all assets table by range in reverse by default
 
 // Provides functionality for all assets
 const AllAssets = () => {

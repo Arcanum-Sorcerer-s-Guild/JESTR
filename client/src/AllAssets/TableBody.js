@@ -1,10 +1,15 @@
-
+// Get needed dependencies only
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AssetsContext } from './AllAssets';
 
+
+
+// Provides table body functionality for the table of all assets
 const TableBody = ({ columns }) => {
-  const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
+
+  // Pulls the current list of total assets
+  const { currAssets } = React.useContext(AssetsContext);
   const navigate = useNavigate();
 
 
@@ -13,6 +18,7 @@ const TableBody = ({ columns }) => {
     return `${Math.trunc(Math.abs(coord))}\u00B0${Math.trunc(Math.abs(coord)%1*60)}'${((Math.abs(coord)%1*60)%1*60).toFixed(2)}"`;
   }
 
+  // Provides functionality to the table body for all assets
   return (
     <tbody>
       {currAssets.map((data) => {
@@ -31,5 +37,6 @@ const TableBody = ({ columns }) => {
 
 
 
+// Exports TableBody for local usability
 export default TableBody;
 
