@@ -13,23 +13,18 @@ const EventLine = ({ dateRange, reserveList }) => {
 
   useEffect(() => {
     if (reserveList.length > 0) {
-      reserveList.sort((a, b) => {
-        return a.date - b.date;
-      });
-      let daySpan = parseInt(
-        dateRange.end.diff(dateRange.start).toFormat('dd')
-      );
+      reserveList.sort((a, b) => {return a.date - b.date});
+      let daySpan = parseInt(dateRange.end.diff(dateRange.start).toFormat('dd'));
       let reservations = [];
       let rangeTerm = '';
 
-      if (daySpan < 7) {
+      if (daySpan < 4) {
         reservations = reserveList.filter(
           (res) =>
             res.date.startOf('day') >= dateRange.start.startOf('day') &&
-            res.date.startOf('day') <
-              dateRange.start.startOf('day').plus({ day: 3 })
+            res.date.startOf('day') < dateRange.start.startOf('day').plus({ day: 3 })
         );
-        daySpan = 7;
+        daySpan = 3;
         rangeTerm = 'Day';
       } else {
         reservations = reserveList.filter(
@@ -39,15 +34,17 @@ const EventLine = ({ dateRange, reserveList }) => {
         );
       }
 
-      console.log(daySpan, reservations);
       if (reservations.length > 0) {
-        if (daySpan === 7) {
-          // let tempArray = new Array(7).fill(0)
+        if (daySpan <= 3) {
           let obj = {};
           for (let i = 0; i < reservations.length; i++) {
             let key = reservations[i].date.toFormat('EEE');
             typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
           }
+          let numDays = Object.keys(obj).length
+          for(let i = 1; i < 4 - numDays; i++) {
+            let key = reservations[reservations.length-1].date.plus({day:i}).toFormat('EEE')
+            obj[key] = 0}
           setLineLabels({
             labels: Object.keys(obj),
             data: Object.values(obj),
@@ -55,7 +52,28 @@ const EventLine = ({ dateRange, reserveList }) => {
           });
         }
 
-        if (daySpan > 7 && daySpan < 30) {
+        if (daySpan <= 7 && daySpan > 3) {
+          let obj = {};
+          for (let i = 0; i < reservations.length; i++) {
+            let key = reservations[i].date.toFormat('EEE');
+            typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
+          }
+          
+          let numDays = Object.keys(obj).length
+          for(let i = 1; i < 8 - numDays; i++) {
+            let key = reservations[reservations.length-1].date.plus({day:i}).toFormat('EEE')
+            obj[key] = 0
+          }
+
+          setLineLabels({
+            labels: Object.keys(obj),
+            data: Object.values(obj),
+            range: rangeTerm === '' ? 'Week' : 'Day',
+          });
+        }
+
+
+        if (daySpan > 7 && daySpan <= 31) {
           let obj = {};
           for (let i = 0; i < reservations.length; i++) {
             let key = reservations[i].date.toFormat('d');
@@ -66,22 +84,26 @@ const EventLine = ({ dateRange, reserveList }) => {
             data: Object.values(obj),
             range: 'Span',
           });
+
         }
 
-        if (daySpan > 30) {
+        if (daySpan > 31) {
           let obj = {};
           for (let i = 0; i < reservations.length; i++) {
             let key = reservations[i].date.toFormat('MMM');
             typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
           }
 
-          
-          if (Object.keys(obj).length < 6) {
-            for(let i = 0; i < 6-Object.keys(obj).length; i++) {
-              // console.log()
-              // let key = reservations[reservations.length - 1].date.Plus({month:i}).toFormat('MMM')
-              // obj[key]=0
-            }}
+          let numMonths = Object.keys(obj).length
+
+
+          if (numMonths < 6) {
+            for(let i = 1; i < 6 - numMonths; i++) {
+              let key = reservations[reservations.length-1].date.plus({month:i}).toFormat('MMM')
+              obj[key] = 0
+            }
+          }
+
 
           setLineLabels({
             labels: Object.keys(obj),

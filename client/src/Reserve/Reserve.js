@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState,useRef } from 'react';
 import { Context } from '../App';
 // import ReservationThreatsForm from './ReservationThreatsForm';
 // import ReservationUserForm from './ReservationUserForm';
@@ -26,6 +26,29 @@ const Reserve = () => {
   const [center, setCenter] = useState([
     -146.44166473513687, 64.31714411488758,
   ]);
+  const {height, width} = useWindowDimensions()
+
+
+  function getWindowDimensions() {
+    const {innerWidth: width, innerHeight: height} = window;
+    return {
+      width,
+      height
+    }
+  }
+
+  function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
+    useEffect(()=> {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions())
+      }
+      
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }, [])
+    return windowDimensions;
+  }
 
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items`,
@@ -39,6 +62,7 @@ const Reserve = () => {
           {...asset,dms:new DmsCoordinates(Number(asset.Latitude),Number(asset.Longitude)) }) ) )
       });
   }, []);
+
 
   const selectAll = (e) => {
     let allAssets = data.map(asset => asset.Serial)
@@ -55,7 +79,7 @@ const Reserve = () => {
           width:475,
           height:750,
         }}
-        minWidth={475} minHeight={750} maxHeight={750}
+        minWidth={475} minHeight={750} maxHeight={750} maxWidth={width-30}
 
         >
         <div className=" border border-black mr-2 h-full overflow-scroll">
