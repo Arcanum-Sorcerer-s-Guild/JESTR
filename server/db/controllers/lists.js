@@ -9,12 +9,15 @@ const getListItem = async (listName, itemId) => {
 };
 
 const createListItem = async (listName, payload) => {
-  return await knex(listName).insert(payload, '*');
+  return await knex(listName).insert(payload).returning('*');
 };
 
 const updateListItem = async (listName, payload, itemId) => {
   if (itemId) {
-    return await knex(listName).where('Id', '=', itemId).update(payload, '*');
+    return await knex(listName)
+      .where('Id', '=', itemId)
+      .update(payload)
+      .returning('*');
   } else {
     throw new Error('itemId is required');
   }

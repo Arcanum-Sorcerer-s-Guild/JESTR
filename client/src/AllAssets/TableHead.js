@@ -5,15 +5,14 @@ import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
 
 // Provides table header functionality for the table of all assets
 const TableHead = ({ columns, handleSorting }) => {
-
-  // Tracks the sort order and field to sort by
+  const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
   const [sortField, setSortField] = useState("");
   const [order, setOrder] = useState("asc");
 
   // Helper function to change the sorting information
   const handleSortingChange = (accessor) => {
     const sortOrder =
-      accessor === sortField && order === "asc" ? "desc" : "asc";
+      accessor === sortField && order === 'asc' ? 'desc' : 'asc';
     setSortField(accessor);
     setOrder(sortOrder);
     handleSorting(accessor, sortOrder);
@@ -24,27 +23,22 @@ const TableHead = ({ columns, handleSorting }) => {
     <thead>
       <tr>
         {columns.map(({ label, accessor, sortable }) => {
-          return <th
-            key={accessor}
-            onClick={sortable ? () => handleSortingChange(accessor) : null}
-            className=""
-          >
-            <div className="inline-flex align-middle">
-              <span className="bg-primary">
-                {label}
-              </span>
-              <span className="bg-secondary align-middle justify-center">
-                {sortable
-                  ? sortField === accessor && order === "asc"
-                    ? <FaSortUp/>
-                    : sortField === accessor && order === "desc"
-                      ? <FaSortDown/>
-                      : <FaSort/>
-                  : ""
-                }
-              </span>
-            </div>
-          </th>;
+          const cl = sortable
+            ? sortField === accessor && order === 'asc'
+              ? 'up'
+              : sortField === accessor && order === 'desc'
+              ? 'down'
+              : 'default'
+            : '';
+          return (
+            <th
+              key={accessor}
+              onClick={sortable ? () => handleSortingChange(accessor) : null}
+              className={cl}
+            >
+              {label}
+            </th>
+          );
         })}
       </tr>
     </thead>
@@ -55,4 +49,3 @@ const TableHead = ({ columns, handleSorting }) => {
 
 // Exports TableHead for local usability
 export default TableHead;
-
