@@ -220,6 +220,7 @@ const generateReservations = (
 
     reservations.push({
       Squadron: squadron, // "VMGR-152"
+      POC: faker.name.firstName() + ' ' + faker.name.lastName(), // Matt Heidenreich
       ContactDSN: contactDSN, // "123-456-7890"
       Range: asset.Range, // 2202 || 2205 || 2211 || ?other? **Pulled
       SiteLocation: asset.SiteLocation, // Charlie batt  **Pulled
