@@ -179,15 +179,15 @@ const generateReservations = (
 ) => {
   const squadronsInfo = [
     { squadron: 'The Black Company', contactDSN: '428-952-7303' },
-    { squadron: 'Kings of the Wyld', contactDSN: '668-485-9330' },
-    { squadron: 'Privy Council', contactDSN: '207-922-8712' },
+    // { squadron: 'Kings of the Wyld', contactDSN: '668-485-9330' },
+    // { squadron: 'Privy Council', contactDSN: '207-922-8712' },
     { squadron: 'Soul Breakers', contactDSN: '936-279-6750' },
     { squadron: 'Bridgeburners', contactDSN: '900-370-1994' },
     { squadron: 'Bonehunters', contactDSN: '233-297-2338' },
     { squadron: 'Forsaken', contactDSN: '288-319-8706' },
     { squadron: 'Legion', contactDSN: '299-508-9999' },
-    { squadron: 'Band of the Red Hand', contactDSN: '507-703-6035' },
-    { squadron: 'Crimson Guard', contactDSN: '417-509-6527' },
+    // { squadron: 'Band of the Red Hand', contactDSN: '507-703-6035' },
+    // { squadron: 'Crimson Guard', contactDSN: '417-509-6527' },
   ];
 
   const reservations = [];
