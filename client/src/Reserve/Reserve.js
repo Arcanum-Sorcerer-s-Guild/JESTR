@@ -136,9 +136,19 @@ const Reserve = () => {
 
 
   let excludeFilter = (list, filter) => {
-    return list.filter((item) =>
-      list['title'] != filter
-    );
+    console.log("list", list)
+    console.log("filter", filter)
+    let items = list.filter((item) =>  {
+      if("id" in item) {
+        // console.log(item.id !== filter)
+      return item.id !== filter
+      }
+      else {
+        return item.title
+      }
+    } );
+    console.log("excludeFileter", items)
+    return items
   }
 
 
@@ -148,18 +158,33 @@ const Reserve = () => {
 
     if (target.value === "none") {
       timeList.forEach(({ name, start, end }) => {
-        let removal = excludeFilter(timeList, `${row.original.Serial}--${requestDate}--${start}-${end}`);
-        console.log(removal)
+        let data = excludeFilter(dateForm, `${row.original.Serial}--${requestDate}`);
+        // console.log("data", [...data])
+        // setDateForm(data);
       })
     }
-    else if (target.value === 'all') {
+    if (target.value === 'all') {
       timeList.forEach(({ name, start, end }) => {
-        let removal = excludeFilter(timeList, `${row.original.Serial}--${requestDate}--${start}-${end}`);
-        console.log(removal)
+        // let data = excludeFilter(dateForm, `${row.original.Serial}--${requestDate}`)
+
+        setDateForm(dateForm => [...dateForm, {
+          id: `${row.original.Serial}--${requestDate}`,
+          times: `${start}-${end}`,
+          Range: row.original.Range,
+          SiteLocation: row.original.SiteLocation,
+          Threat: row.original.Threat,
+          Equipment: row.original.Equipment,
+          ThreatType: row.original.ThreatType,
+          EventDate: DateTime.fromISO(`${requestDate}T${start}`).toLocal().toUTC().toISO(),
+          EndDate: DateTime.fromISO(`${requestDate}T${end}`).toLocal().toUTC().toISO(),
+          Status: 'Pending'
+        }]);
+        
+        console.log("dateForm", dateForm)
       })
 
-      
-     
+
+
     }
 
 
