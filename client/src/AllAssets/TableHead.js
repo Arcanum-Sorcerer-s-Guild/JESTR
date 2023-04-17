@@ -50,3 +50,4 @@ const TableHead = ({ columns, handleSorting }) => {
 
 // Exports TableHead for local usability
 export default TableHead;
+
