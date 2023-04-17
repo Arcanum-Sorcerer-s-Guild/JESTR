@@ -1,5 +1,6 @@
 // Get needed dependencies only
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
@@ -13,7 +14,7 @@ const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
   const { userData, setUserdata } = React.useContext(Context);
   const [currAssets, setCurrAssets] = useState([]);
-  const [sortField, setSortField] = useState("");
+  // const [sortField, setSortField] = useState("");
   const columns = [
     { label: 'Site Location', accessor: "SiteLocation", sortable: true },
     { label: 'Range', accessor: "Range", sortable: true },
@@ -24,6 +25,7 @@ const AllAssets = () => {
     { label: 'Threat', accessor: "Threat", sortable: true },
     { label: 'Equipment', accessor: "Equipment", sortable: true }
   ];
+  const navigate = useNavigate();
 
   // Helper function to update the list of all assets
   const updateInventory = async () => {
@@ -77,7 +79,7 @@ const AllAssets = () => {
                   <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
                     <table className="min-w-full divide-y divide-gray-light/100">
                       <TableHead {...{ columns, handleSorting }}/>
-                      <TableBody {...{ columns }}/>
+                      <TableBody {...{ columns, navigate }}/>
                     </table>
                   </div>
                 </div>

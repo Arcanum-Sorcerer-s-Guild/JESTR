@@ -1,6 +1,6 @@
 // Get needed dependencies only
 import React, { useState, useEffect } from 'react';
-
+import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
 
 
 // Provides table header functionality for the table of all assets
@@ -24,16 +24,27 @@ const TableHead = ({ columns, handleSorting }) => {
     <thead>
       <tr>
         {columns.map(({ label, accessor, sortable }) => {
-          return <th key={accessor} onClick={sortable ? () => handleSortingChange(accessor) : null} className="">
-              {label}
-              {sortable
-                ? sortField === accessor && order === "asc"
-                  ? <img src="../../images/up_arrow.png" alt="up" className="flex"/>
-                  : sortField === accessor && order === "desc"
-                  ? <img src="../../images/down_arrow.png" alt="down" className="flex"/>
-                  : <img src="../../images/default.png" alt="default" className="flex"/>
-                : ""}
-            </th>;
+          return <th
+            key={accessor}
+            onClick={sortable ? () => handleSortingChange(accessor) : null}
+            className=""
+          >
+            <div className="inline-flex align-middle">
+              <span className="bg-primary">
+                {label}
+              </span>
+              <span className="bg-secondary align-middle justify-center">
+                {sortable
+                  ? sortField === accessor && order === "asc"
+                    ? <FaSortUp/>
+                    : sortField === accessor && order === "desc"
+                      ? <FaSortDown/>
+                      : <FaSort/>
+                  : ""
+                }
+              </span>
+            </div>
+          </th>;
         })}
       </tr>
     </thead>

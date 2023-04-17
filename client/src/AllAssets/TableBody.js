@@ -6,11 +6,11 @@ import { AssetsContext } from './AllAssets';
 
 
 // Provides table body functionality for the table of all assets
-const TableBody = ({ columns }) => {
+const TableBody = ({ columns, navigate }) => {
 
   // Pulls the current list of total assets
   const { currAssets } = React.useContext(AssetsContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
   // Helper function to convert coordinates from the DD format to the DMS format
@@ -23,7 +23,7 @@ const TableBody = ({ columns }) => {
     <tbody>
       {currAssets.map((data) => {
         return (
-          <tr key={data.id} >
+          <tr key={data.id}>
           {columns.map(({ accessor }) => {
             const tData = data[accessor] ? ((accessor === "Latitude" || accessor === "Longitude") ? convertDDtoDMS(data[accessor]) : data[accessor]) : "——";
             return <td key={accessor}>{tData}</td>;
