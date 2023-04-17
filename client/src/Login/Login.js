@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../App';
+import './login.css';
 import logo from './jetti.png';
 
 const Login = () => {
@@ -38,24 +39,24 @@ const Login = () => {
     <div className="container mx-auto">
       <div className="flex justify-center px-6 my-12">
         {/* image section */}
-        <div className="w-full xk:w-3/4 lg:w-11/12 flex shadow-lg">
+        <div className="w-full xk:w-3/4 lg:w-11/12 flex shadow-2xl">
           <div className="w-full h-auto bg-gray hidden lg:block lg:w-1/2 bg-cover rounded-l-lg">
             <img src={logo} alt="yeti" className="w-full h-full rounded" />
           </div>
           {/* login section */}
-          <div className="w-full lg:w-1/2 bg-gray-light p-5 rounded-lg lg:rounded-l-none">
-            <div className="p-4 text-left">
-              <h3 className="text-2xl">Welcome to JESTR</h3>
-              <p className="text-md">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi,
-                quas.
+          <div className="w-full lg:w-1/2 bg-blue/50 p-5 rounded lg:rounded-l-none">
+            <div className="p-4 text-left text-text">
+              <h3 className="text-xl md:text-3xl font-semibold">Joint Pacific Alaska Range Complex</h3>
+              <hr className='style-one my-2 border-2 text-pink'/>
+              <p className="text-lg italic text-gray-light">
+                Emitter Status and Training Request
               </p>
             </div>
             <div className="px-8 pb-8 mb-4 rounded">
-              <div className='mt-10'>
+              <div className='mt-5'>
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-bold text-gray-700"
+                  className="block mb-2 text-sm font-bold text-gunmetal"
                 >
                   Email
                 </label>
@@ -64,7 +65,7 @@ const Login = () => {
                   id="email-address"
                   name="email"
                   required
-                  className="w-full px-3 py-2 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  className="w-full px-3 py-2 text-sm leading-tight border border-gray-light rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="email"
                 />
@@ -72,7 +73,7 @@ const Login = () => {
               <div className='mt-5'>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-sm font-bold text-gray-700"
+                  className="block mb-2 text-sm font-bold text-gray-700 text-gunmetal"
                 >
                   Password
                 </label>
@@ -81,21 +82,21 @@ const Login = () => {
                   id="password"
                   name="password"
                   required
-                  className="w-full px-3 py-2 text-sm leading-tight border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  className="w-full px-3 py-2 text-sm leading-tight border border-gray-light rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="password"
                 />
               </div>
-              <div className="mb-6 mt-6 text-center">
+              <div className="mb-10 mt-6 text-center">
                 <button
                   type="submit"
                   onClick={login}
-                  className="w-full px-4 py-2 font-bold text-text bg-blue rounded-full hover:bg-blue focus:outline-none focus:shadow-outline"
+                  className="w-full px-4 py-2 font-bold text-text bg-blue rounded-full hover:bg-blue/50 focus:outline-none focus:shadow-outline"
                 >
                   Sign In
                 </button>
               </div>
-              <hr className="mb-6 border-t" />
+              <hr className="style-one mb-6 border-t border-gunmetal" />
               {/*//TODO Needs to navigate to register */}
               <div className="text-center">
                 <span className="inline-block text-sm text-blue align-baseline hover:text-blue/50">

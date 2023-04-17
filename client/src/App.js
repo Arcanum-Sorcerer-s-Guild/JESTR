@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <div className="">
+    <div className="bg-gunmetal h-screen">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
         <div className=''>
