@@ -4,7 +4,6 @@ import Login from './Login/Login.js';
 // import Users from './Users/Users.js'
 import Register from './Register/Register.js';
 import Home from './Home/Home.js';
-import MP from './MsnPlanning/MP.js';
 import Reserve from './Reserve/Reserve.js';
 import Reservation from './Reservation/Reservation.js';
 import AllReservations from './AllReservations/AllReservations.js';
@@ -14,6 +13,7 @@ import AdminStats from './AdminStats/AdminStats.js';
 
 import { Routes, Route, UseNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import QuickLook from './Home/QuickLook.js';
 export const Context = React.createContext();
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
           {/* <Route path = "/Users" element={<Users/>}/> */}
           <Route path="/" element={<Home />} />
-          <Route path="/MP" element={<MP />} />
+          <Route path="/QuickLook" element={<QuickLook />} />
           <Route path="/Reserve" element={<Reserve />} />
           <Route path="/AllReservations" element={<AllReservations />} />
           <Route path="/Reservation/:id" element={<Reservation />} />

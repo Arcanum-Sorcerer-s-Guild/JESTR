@@ -6,12 +6,9 @@ const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context);
   const navigate = useNavigate();
   const navLinks = [
-    { name: '', to: '/', text: 'Home', icon: '' },
-    { name: 'MP', to: '/', text: 'Mission Planning', icon: '' },
-    { name: 'Asset', to: '/', text: 'Asset', icon: '' },
+    { name: 'QuickLook', to: '/', text: 'Quick Look', icon: '' },
     { name: 'AllAssets', to: '/', text: 'All Assets', icon: '' },
     { name: 'Reserve', to: '/', text: 'Reserve', icon: '' },
-    { name: 'Reservation', to: '/', text: 'Reservation', icon: '' },
     { name: 'AllReservations', to: '/', text: 'All Reservations', icon: '' },
   ];
 
