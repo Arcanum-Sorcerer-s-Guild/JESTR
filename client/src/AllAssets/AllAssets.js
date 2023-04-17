@@ -1,5 +1,5 @@
 // Get needed dependencies only
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 import TableBody from './TableBody';
@@ -11,6 +11,7 @@ export const AssetsContext = React.createContext();
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
+  const { listUrl } = useContext(Context);
   const { userData, setUserdata } = React.useContext(Context);
   const [currAssets, setCurrAssets] = useState([]);
   const [sortField, setSortField] = useState('');
@@ -29,10 +30,10 @@ const AllAssets = () => {
   // Helper function to update the list of all assets
   const updateInventory = async () => {
     // Retrieves all database assets
-    fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`)
+    fetch(`${listUrl}/GetByTitle('Assets')/items`)
       .then((res) => res.json())
-      .then((items) => setCurrAssets(items.d.results))
-      .then(handleSorting('SiteLocation', 'asc'));
+      .then((items) => {setCurrAssets(items.d.results); console.log(currAssets)})
+      // .then(handleSorting('SiteLocation', 'asc'));
   };
 
   // Helper function to handle sorting when an asset column header is clicked
@@ -80,8 +81,7 @@ const AllAssets = () => {
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
                     <table className="min-w-full divide-y divide-gray-light/100">
-                      <TableHead {...{ columns, handleSorting }}/>
-                      <TableBody {...{ columns, navigate }}/>
+                      {currAssets}
                     </table>
                   </div>
                 </div>

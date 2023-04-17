@@ -1,17 +1,10 @@
-// Get needed dependencies only
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AssetsContext } from './AllAssets';
 
-
-
-// Provides table body functionality for the table of all assets
-const TableBody = ({ columns, navigate }) => {
-
-  // Pulls the current list of total assets
-  const { currAssets } = React.useContext(AssetsContext);
-  // const navigate = useNavigate();
-
+const TableBody = ({ columns }) => {
+  const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
+  const navigate = useNavigate();
 
   // Helper function to convert coordinates from the DD format to the DMS format
   const convertDDtoDMS = (coord) => {
@@ -20,24 +13,24 @@ const TableBody = ({ columns, navigate }) => {
     )}'${((((Math.abs(coord) % 1) * 60) % 1) * 60).toFixed(2)}"`;
   };
 
-  // Provides functionality to the table body for all assets
   return (
     <tbody>
       {currAssets.map((data) => {
         return (
-          <tr key={data.id} >
-          {columns.map(({ accessor }) => {
-            const tData = data[accessor] ? ((accessor === "Latitude" || accessor === "Longitude") ? convertDDtoDMS(data[accessor]) : data[accessor]) : "——";
-            return <td key={accessor}>{tData}</td>;
-          })}
-        </tr>
-      );
-    })}
+          <tr key={data.id}>
+            {columns.map(({ accessor }) => {
+              const tData = data[accessor]
+                ? accessor === 'Latitude' || accessor === 'Longitude'
+                  ? convertDDtoDMS(data[accessor])
+                  : data[accessor]
+                : '——';
+              return <td key={accessor}>{tData}</td>;
+            })}
+          </tr>
+        );
+      })}
     </tbody>
   );
 };
 
-
-
-// Exports TableBody for local usability
 export default TableBody;
