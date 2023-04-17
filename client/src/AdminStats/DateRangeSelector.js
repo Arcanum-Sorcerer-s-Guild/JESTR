@@ -69,11 +69,11 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
               type="date"
               defaultValue={dateRange.start.toFormat('yyyy-MM-dd')}
               onChange={(e) => dateInputChange(e)}
+              max={dateRange.end.toFormat('yyyy-MM-dd')}
             />
             <input
               name="end"
               type="date"
-              defaultValue={dateRange.start.toFormat('yyyy-MM-dd')}
               min={dateRange.start.toFormat('yyyy-MM-dd')}
               onChange={(e) => dateInputChange(e)}
               value={dateRange.end.toFormat('yyyy-MM-dd')}

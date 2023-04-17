@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useMemo, useState } from 'react';
+import React, { useEffect, useContext, useState, useRef } from 'react';
 import { Context } from '../App';
 
 import DualTimeSelector from './DualTimeSelector';
@@ -50,10 +50,33 @@ const Reserve = () => {
     dsn: '',
     squadron: '',
   });
-  const [selectedData, setSelectedData] = useState([]);
+  const [selectedData, setSelectedData] = useState({});
 
   const [showModale, setShowModale] = useState(false);
 
+  const { height, width } = useWindowDimensions()
+
+
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    }
+  }
+
+  function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions())
+      }
+
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }, [])
+    return windowDimensions;
+  }
 
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items`,
@@ -67,6 +90,7 @@ const Reserve = () => {
           { ...asset, dms: new DmsCoordinates(Number(asset.Latitude), Number(asset.Longitude)) })))
       });
   }, []);
+
 
   const selectAll = (e) => {
     let allAssets = data.map(asset => asset.Serial)
@@ -94,67 +118,58 @@ const Reserve = () => {
   }
 
 
-  const dropdownHandler = (row, target) => {
-    const newdateForm = dateForm;
+  useEffect(() => {
+    //   //todo Add POC name tostate
 
-    // const dropdownHandler = (row, target, e) => {
-    let times = [];
-    const requestDate = target.id.split("--")[1];
+    // let times = [];
+    // const requestDate = target.id.split("--")[1];
+
+    // let newData = dateForm.map(item => {
+    //   console.log(item)
+    // })
+
+
+    var duplicates = dateForm.reduce(function(acc, el, i, arr) {
+      if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) acc.push(el); return acc;
+    }, []);
+
+    console.log(duplicates)
 
 
 
-
-
-    if (target.value === "none") {
-      timeList.forEach(({ name, start, end }) => {
-        let data = excludeFilter(newdateForm, (row.original.Serial + '--' + requestDate));
-        console.log("data", data)
-        setDateForm(prevItems => [data]);
-      })
-      return 'removed all'
-    }
-    if (target.value === 'all') {
-      timeList.forEach(({ name, start, end }) => {
-        // let data = excludeFilter(dateForm, `${row.original.Serial}--${requestDate}`)
-        let dataNew = [{
-          id: `${row.original.Serial}--${requestDate}`,
-          times: `${start}-${end}`,
-          Range: row.original.Range,
-          SiteLocation: row.original.SiteLocation,
-          Threat: row.original.Threat,
-          Equipment: row.original.Equipment,
-          ThreatType: row.original.ThreatType,
-          EventDate: DateTime.fromISO(`${requestDate}T${start}`).toLocal().toUTC().toISO(),
-          EndDate: DateTime.fromISO(`${requestDate}T${end}`).toLocal().toUTC().toISO(),
-          Status: 'Pending'
-        }]
-        setDateForm(prevItems => [...prevItems, ...dataNew]);
-      })
-    }
-
-    // console.log("dataNew", dataNew)
-
-    // setDateForm([...dateForm, {
-    //   id: `${row.original.Serial}--${requestDate}`,
-    //   times: `${start}-${end}`,
-    //   Range: row.original.Range,
-    //   SiteLocation: row.original.SiteLocation,
-    //   Threat: row.original.Threat,
-    //   Equipment: row.original.Equipment,
-    //   ThreatType: row.original.ThreatType,
-    //   EventDate: DateTime.fromISO(`${requestDate}T${start}`).toLocal().toUTC().toISO(),
-    //   EndDate: DateTime.fromISO(`${requestDate}T${end}`).toLocal().toUTC().toISO(),
-    //   Status: 'Pending'
-    // }])
-
-  }
+    // if (target.value === "none") {
+    //   timeList.forEach(({ name, start, end }) => {
+    //     let data = excludeFilter(newdateForm, (row.original.Serial + '--' + requestDate));
+    //     console.log("data", data)
+    //     setDateForm(prevItems => [data]);
+    //   })
+    //   return 'removed all'
+    // }
+    // if (target.value === 'all') {
+    //   timeList.forEach(({ name, start, end }) => {
+    //     // let data = excludeFilter(dateForm, `${row.original.Serial}--${requestDate}`)
+    //     let dataNew = [{
+    //       id: `${row.original.Serial}--${requestDate}`,
+    //       times: `${start}-${end}`,
+    //       Range: row.original.Range,
+    //       SiteLocation: row.original.SiteLocation,
+    //       Threat: row.original.Threat,
+    //       Equipment: row.original.Equipment,
+    //       ThreatType: row.original.ThreatType,
+    //       EventDate: DateTime.fromISO(`${requestDate}T${start}`).toLocal().toUTC().toISO(),
+    //       EndDate: DateTime.fromISO(`${requestDate}T${end}`).toLocal().toUTC().toISO(),
+    //       Status: 'Pending'
+    //     }]
+    //     setDateForm(prevItems => [...prevItems, ...dataNew]);
+    //   })
+    // }
+    
+  }, [dateForm])
 
 
 
 
 
-
-  //   //todo Add POC name
 
   const optionsFormat = () => {
     return requestedWeek.map((x, index) => {
@@ -164,26 +179,10 @@ const Reserve = () => {
         Cell: ({ row, column }) => (
           <div>
             <select id={`row-${row.id}-col--${column.id}`} name="timeSelector" onChange={(e) => {
-
               const requestDate = e.target.id.split("--")[1];
               const id = `${row.original.Serial}--${requestDate}`;
-              
-              const newDateForm = dateForm.filter((item, index) => {
-                // console.log(dateForm)
-                console.log(item.id, id);
-                return item.id === id
-              })
-
-              if (newDateForm.length === 0) {
-                // console.log("test")
-                setDateForm(prevItems => [...prevItems, { rowOrigional: row.original, targetId: e.target.id, targetValue: e.target.value, id: id }])
-              }
-
-              console.log(newDateForm)
-
-
-            }
-            }>
+              setDateForm(prevItems => [...prevItems, { rowOrigional: row.original, targetId: e.target.id, targetValue: e.target.value, id: id }])
+            }}>
               <option value="none">None</option>
               {timeList.map((y, index) => {
                 return (
@@ -222,7 +221,7 @@ const Reserve = () => {
             width: 475,
             height: 750,
           }}
-          minWidth={475} minHeight={750} maxHeight={750}
+          minWidth={475} minHeight={750} maxHeight={750} maxWidth={width - 30}
 
         >
           <div className=" border border-black mr-2 h-full overflow-scroll">
@@ -234,7 +233,7 @@ const Reserve = () => {
         </Resizable>
 
         <ReserveMap assetList={data} selected={selected} center={center} setCenter={setCenter} />
-        
+
 
       </div>
       <button onClick={() => setShowModale(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Open Form</button>
@@ -253,7 +252,7 @@ const Reserve = () => {
             <DualTimeSelector timeList={timeList} setTimeList={setTimeList} />
             {/* TODO, make the input wok for all items  */}
             <input type="text" onChange={(e) => setUserForm({ ...userForm, [e.target.name]: e.target.value })} name="Notes" placeholder="Notes" />
-            
+
           </div>
           {selectedData.length !== 0 ? <ListTableNoCheck
             data={selectedData}
@@ -261,10 +260,10 @@ const Reserve = () => {
             selected={selected}
             setSelected={setSelected}
           /> : "Please close this form and select Threats"}
-          
+
           <br></br>
           Number of requests: {dateForm.length}
-            <br></br>
+          <br></br>
           JSON Test: {JSON.stringify(dateForm, null, 2)}
         </>}
       </Modal>
