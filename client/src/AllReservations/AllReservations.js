@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Context } from '../App';
 import Modal from './Modal';
 import TableHeader from './TableHeader';
+import ExportExcel from './Excelexport.js';
+import ExportPDF from './ExportPDF';
 
 const AllReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -68,11 +70,15 @@ const AllReservations = () => {
         <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" onClick={() => changeStatus('Rejected')}>Rejected</button>
         <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" onClick={() => changeStatus('All')}>All</button>
       </div>
+      <div className="items-center bg-gray-light m-4">
+        <ExportExcel excelData={reservations} fileName={"Excel Export"} />
+        <ExportPDF divId={'table'} title={'hello world'} />
+      </div>
         <div className="mt-2">
           <div className="mt-2 flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden content-center">
+                <div class="overflow-hidden content-center" id='table'>
                   <table class=" text-center content-center">
                     <thead className="bg-gray-light/100 text-gray/200">
                       <TableHeader />
