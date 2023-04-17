@@ -1,7 +1,9 @@
+// Get needed dependencies only
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AssetsContext } from './AllAssets';
 
+// Provides the functionality for displaying the table data correctly
 const TableBody = ({ columns }) => {
   const { currAssets, setCurrAssets } = React.useContext(AssetsContext);
   const navigate = useNavigate();
@@ -33,4 +35,8 @@ const TableBody = ({ columns }) => {
   );
 };
 
+
+
+// Exports TableBody for local usability
 export default TableBody;
+
