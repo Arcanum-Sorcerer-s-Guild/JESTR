@@ -57,7 +57,8 @@ const QuickLook = () => {
   }, []);
 
   return (
-    <div className="m-4 p-2 flex justify-center">
+    <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+
     </div>
   );
 };
