@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState,useRef } from 'react';
 import { Context } from '../App';
 // import ReservationThreatsForm from './ReservationThreatsForm';
 // import ReservationUserForm from './ReservationUserForm';
@@ -26,6 +26,7 @@ const Reserve = () => {
   const [center, setCenter] = useState([
     -146.44166473513687, 64.31714411488758,
   ]);
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items`,
@@ -55,7 +56,7 @@ const Reserve = () => {
           width:475,
           height:750,
         }}
-        minWidth={475} minHeight={750} maxHeight={750}
+        minWidth={475} minHeight={750} maxHeight={750} maxWidth={windowSize.current[0]-30}
 
         >
         <div className=" border border-black mr-2 h-full overflow-scroll">
