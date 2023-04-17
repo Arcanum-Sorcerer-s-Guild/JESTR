@@ -1,35 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../App';
+
+//icons
+import { FiMenu, FiRadio } from 'react-icons/fi';
+import { RiAdminFill } from 'react-icons/ri';
+import { FaMapMarkedAlt, FaEye, FaUserCircle } from 'react-icons/fa';
+import { BsCardChecklist } from 'react-icons/bs';
 
 const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false); //true = open /false =closed
+
   const navLinks = [
-    { name: '', to: '/', text: 'Home', icon: '' },
-    { name: 'MP', to: '/', text: 'Mission Planning', icon: '' },
-    { name: 'Asset', to: '/', text: 'Asset', icon: '' },
-    { name: 'AllAssets', to: '/', text: 'All Assets', icon: '' },
-    { name: 'Reserve', to: '/', text: 'Reserve', icon: '' },
-    { name: 'Reservation', to: '/', text: 'Reservation', icon: '' },
-    { name: 'AllReservations', to: '/', text: 'All Reservations', icon: '' },
+    { name: 'QuickLook', to: '/', text: 'Quick Look', icon: <FaEye /> },
+    { name: 'AllAssets', to: '/', text: 'All Assets', icon: <FiRadio /> },
+    { name: 'Reserve', to: '/', text: 'Reserve', icon: <FaMapMarkedAlt /> },
+    {
+      name: 'AllReservations',
+      to: '/',
+      text: 'All Reservations',
+      icon: <BsCardChecklist />,
+    },
   ];
 
   let notLoggedIn = (
-    <>
+    <div className="flex items-center text-blue">
       <Link
         to="Login"
-        className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+        className={`flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text`}
       >
+        <FaUserCircle className="mr-2" />
         <span>Login</span>
       </Link>
+      <span>|</span>
       <Link
         to="Register"
-        className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+        className={`flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text`}
       >
         <span onClick={() => setUserdata({})}>Register</span>
       </Link>
-    </>
+    </div>
   );
 
   const signOut = () => {
@@ -49,61 +61,68 @@ const NavBar = () => {
       });
   };
 
+  console.log(userData.Title);
+
   let loggedIn = (
     <Link
       to="Login"
-      className="block mt-4 lg:inline-block lg:mt-0 hover:text-text p-2"
+      className={`${
+        !open && 'hidden'
+      } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
     >
-      <span onClick={signOut}>Signout</span>
+      <FaUserCircle className="mr-2" />
+      <span onClick={signOut}>Sign Out</span>
     </Link>
   );
 
-  //Conditional Login button
-  // if(!("Id in userData")) {
-  //   loginLink = (
-  //     <Link
-  //       to="Login"
-  //       onClick={() => {
-  //         fetch(`${url}/logout`, {
-  //           method: "POST",
-  //           credentials: "include",
-  //         })
-  //         .then(() => {
-  //           //set user({});
-  //         })
-  //       }}
-  //     >
-  //     <span>Logout</span>
-  //     </Link>
-  //   )
-  // }
+  let adminLink = (
+    <Link
+      className={`flex ${userData.IsSiteAdmin === true ? '' : 'hidden'} p-4 items-center hover:text-text`}
+      to="/Admin"
+    >
+      <RiAdminFill className="mr-2" /> <span className>Admin</span>
+    </Link>
+  );
 
   return (
     <>
-      <div className="bg-gunmetal text-pink flex items-center justify-between flex-wrap p-4 shadow-md shadow-pink/50">
-        <div className="flex items-center flex-shrink-0 text-text mr-6">
-          <span className="font-semibold text-xl text-blue tracking-tight">JESTER</span>
+      <div className="flex px-4 border-b shadow-md shadow-pink/100 items-center relative bg-gunmetal">
+        <div className="text-lg font-bold md:py-0 py-4">
+          <span className="text-blue">JESTER</span>
         </div>
-        <div className="w-full block flex-grow lg:flex lg: items-center lg:w-auto">
-          <div className="text-sm lg:flex-grow">
+        <div
+          className={`md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full md:visible 
+        left-0 right-0 bg-gunmetal/75 md:bg-gunmetal text-pink text-sm ${
+          !open && 'hidden'
+        } duration-300`}
+        >
+          <div className={`${!userData.Title ? 'hidden' : ''}`}>
             {navLinks.map((link, i) => (
               <Link
                 key={i}
                 to={link.name}
-                className="mt-4 lg:inline-block lg:mt-0 hover:text-blue p-2"
+                className={`flex md:inline-flex p-4 items-center hover:text-text`}
               >
+                <span className="mr-2">{link.icon}</span>
                 {link.text}
               </Link>
             ))}
-            <Link
-              className={`${userData.IsSiteAdmin === true ? '' : 'hidden'}`}
-              to="/Admin"
-            >
-              Admin
-            </Link>
+            <div className='flex md:inline-flex'>{adminLink}</div>
           </div>
           {'Id' in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>
+        <div className="ml-auto md:hidden cursor-pointer">
+          <FiMenu
+            className="w-5 h-5 fill-current text-text"
+            onClick={() => setOpen(!open)}
+          />
+        </div>
+      </div>
+      <div className="px-2 bg-blue">
+        <span className="text-xs italic">
+          Currently Logged in as:{' '}
+          <span className="font-semibold">{userData.Title}</span>
+        </span>
       </div>
     </>
   );
