@@ -348,7 +348,6 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
                   <div className="flex flex-row ml-2 items-center font-medium">OpStatus: {asset.Operational ? <>✔️</> : <>❌</>}</div>
                   <span className=" ml-3 whitespace-nowrap">{`Located at Site: ${asset.SiteLocation}`}</span>
 
-
                 </div>
 
               </div>
@@ -357,8 +356,6 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
         }
         )}
       </section>
-
-
 
     </div>
   )
