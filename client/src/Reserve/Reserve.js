@@ -167,8 +167,10 @@ const Reserve = () => {
 
               const requestDate = e.target.id.split("--")[1];
               const id = `${row.original.Serial}--${requestDate}`;
+              
               const newDateForm = dateForm.filter((item, index) => {
-                console.log(item.id, id)
+                // console.log(dateForm)
+                console.log(item.id, id);
                 return item.id === id
               })
 
@@ -332,7 +334,7 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
 
                 <div className="flex flex-row min-w-2/3 items-center">
                   <div className="flex flex-row items-center gap-1"><FaMountain />{`El: ${asset.Elevation}`}</div>
-                  <div className={`ml-2 flex justify-between border border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
+                  <div className={`ml-2 flex justify-between border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
                       ${asset.Status === 'AMBER' ? `border-yellow bg-yellow/40` : ``}
                       ${asset.Status === 'GREEN' ? `border-green bg-green/40` : ``}
                       ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
@@ -363,120 +365,3 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
 }
 
 export default Reserve;
-
-
-
-
-      // useEffect(() => {
-  //   fetch(`${listUrl}/GetByTitle('Assets')/items`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setLists(data.d.results);
-  //     });
-  // }, []);
-
-
-  // const [userForm, setUserForm] = React.useState({
-  //   name: '',
-  //   dsn: '',
-  //   week: '',
-  //   squadron: '',
-  // });
-
-  // //TODO
-  // const sendForm = () => {
-  //   console.log(userForm);
-  // };
-
-
-
-      //   {/* <ListTable
-      //   data={data}
-      //   columns={columns}
-      //   selected={selected}
-      //   setSelected={setSelected}
-      //   SubRowComponent={SubRowComponent}
-      // /> */}
-
-      //       {/* <div className="flex">
-      //   <UserForm setUserForm={setUserForm} />
-      //    <DualTimeSelector />
-      // </div>
-      // {JSON.stringify(selected)} */}
-
-      // const columns = [
-//   {
-//     Header: 'Add Info',
-//     accessor: 'Select',
-//     Cell: ({ row }) => (
-//       <div
-//         {...row.getToggleRowExpandedProps({
-//           style: {
-//             paddingLeft: `${row.depth * 2}rem`,
-//           },
-//         })}
-//       >
-//         {row.isExpanded ? ' 👇 ' : ' 👉 '}
-//       </div>
-//     ),
-//   },
-//   {
-//     Header: 'Equipment',
-//     accessor: 'Equipment',
-//   },
-//   {
-//     Header: 'Serial',
-//     accessor: 'Serial',
-//   },
-//   {
-//     Header: 'Threat',
-//     accessor: 'Threat',
-//   },
-//   {
-//     Header: 'ThreatType',
-//     accessor: 'ThreatType',
-//   },
-//   {
-//     Header: 'SiteLocation',
-//     accessor: 'SiteLocation',
-//   },
-//   {
-//     Header: 'Range',
-//     accessor: 'Range',
-//   },
-//   {
-//     Header: 'Latitude',
-//     accessor: 'Latitude',
-//   },
-//   {
-//     Header: 'Longitude',
-//     accessor: 'Longitude',
-//   },
-//   {
-//     Header: 'Elevation',
-//     accessor: 'Elevation',
-//   },
-// ];
-
-// function SubRowComponent({ data }) {
-
-//   return (
-//     <div>
-//       <p>Additional information for {data.Equipment}</p>
-//       <ul>
-//         <li>SystemInformation: {data.SystemInformation}</li>
-//         <li>StatusDate: {data.StatusDate}</li>
-//         <li>Status: {data.Status}</li>
-//         <li>Remarks: {data.Remarks}</li>
-//         <li>Schedulable: {data.Schedulable}</li>
-//         <li>Serial: {data.Serial}</li>
-//         <li>Status: {data.Status}</li>
-//         <li>Status: {data.Status}</li>
-//         <li>Coord Accuracy: {data.Accuracy}</li>
-//         <li>CoordSource: {data.CoordSource}</li>
-//         <li>CoordRecordedDate: {data.CoordRecordedDate}</li>
-//         {/* <li>created: {data.created} | modified: {data.modified} | AuthorId: {data.created} | EditorId: {data.EditorId}</li> */}
-//       </ul>
-//     </div>
-//   );
-// }
