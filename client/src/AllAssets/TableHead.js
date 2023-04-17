@@ -1,6 +1,7 @@
 // Get needed dependencies only
 import React, { useState, useEffect } from 'react';
 import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
+import { AssetsContext } from './AllAssets';
 
 
 // Provides table header functionality for the table of all assets
