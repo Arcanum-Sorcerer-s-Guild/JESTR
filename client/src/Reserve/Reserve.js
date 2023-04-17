@@ -313,7 +313,7 @@ const CollapsibleChild = ({ range, assets, selected, setSelected, setCenter }) =
         {assets.map(asset => {
           return (<>
 
-            <div key={asset.Serial} className={`mb-1 flex flex-row overflow-hidden whitespace-nowrap`}>
+            <div key={asset.Serial} className={`mb-1 flex flex-row overflow whitespace-nowrap`}>
               <div className="flex w-full">
                 <div className="flex items-center min-w-[450px] ">
                   <input className="ml-7 mr-3" checked={selected.includes(asset.Serial)} type="checkbox" onChange={() => handleChange(asset.Serial)} />
