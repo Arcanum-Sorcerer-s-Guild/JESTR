@@ -25,6 +25,7 @@ const AllReservations = () => {
         console.log('data', data.d.results);
         setReservations(data.d.results);
         setTemp(data.d.results);
+        console.log('rendered')
       });
   }, [render]);
   
