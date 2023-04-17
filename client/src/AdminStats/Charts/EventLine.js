@@ -55,7 +55,7 @@ const EventLine = ({ dateRange, reserveList }) => {
           });
         }
 
-        if (daySpan > 7 && daySpan < 30) {
+        if (daySpan > 7 && daySpan <= 30) {
           let obj = {};
           for (let i = 0; i < reservations.length; i++) {
             let key = reservations[i].date.toFormat('d');
@@ -76,12 +76,12 @@ const EventLine = ({ dateRange, reserveList }) => {
           }
 
           
-          if (Object.keys(obj).length < 6) {
-            for(let i = 0; i < 6-Object.keys(obj).length; i++) {
-              // console.log()
-              // let key = reservations[reservations.length - 1].date.Plus({month:i}).toFormat('MMM')
-              // obj[key]=0
-            }}
+          // if (Object.keys(obj).length < 6) {
+          //   for(let i = 0; i < 6-Object.keys(obj).length; i++) {
+          //     console.log()
+          //     // let key = reservations[reservations.length - 1].date.Plus({month:i}).toFormat('MMM')
+          //     // obj[key]=0
+          //   }}
 
           setLineLabels({
             labels: Object.keys(obj),
