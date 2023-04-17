@@ -44,7 +44,7 @@ function App() {
     <div className="">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
-        <div className='overflow-hidden mt-20 max-m-auto'>
+        <div className=''>
           <Routes>
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
