@@ -5,7 +5,7 @@ import { Context } from '../App';
 const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context);
   const navigate = useNavigate();
-  const [open, setOpen]= useState(true)
+  const [open, setOpen]= useState(false)
 
   const navLinks = [
     { name: 'QuickLook', to: '/', text: 'Quick Look', icon: '' },
