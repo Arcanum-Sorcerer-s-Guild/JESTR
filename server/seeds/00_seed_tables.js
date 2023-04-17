@@ -183,9 +183,21 @@ const generateReservations = (
     const { squadron, contactDSN } =
       squadronsInfo[randomIncRange(0, squadronsInfo.length - 1)];
 
-    const startDate = new Date(
+    let startDate = new Date(
       generateFakeDate(globalDateRangeStart, globalDateRangeEnd)
     );
+    while (startDate.getDay() > 5 || startDate.getDay() < 1) {
+      startDate = new Date(
+        generateFakeDate(globalDateRangeStart, globalDateRangeEnd)
+      )
+    }
+    // pick time slots from 0900, 1100, 1300, 1500
+    const eventWindow = randomIncRange(1, 4);
+    startDate.setHours((eventWindow * 2) + 7);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0);
+
 
     // Offset endState from startDate by +2 hours
     const endDate = new Date(startDate);

@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <div className="">
+    <div className="overflow-hidden">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
         <Routes>
