@@ -15,7 +15,9 @@ const MP = () => {
   ];
 
   useEffect(() => {
-    fetch(`${listUrl}/GetByTitle('Reservations')/items`)
+    fetch(`${listUrl}/GetByTitle('Reservations')/items`,{
+      credentials: "include"
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data.d.results[0].AuthorId);

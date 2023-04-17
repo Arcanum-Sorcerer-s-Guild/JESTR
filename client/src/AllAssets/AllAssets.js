@@ -1,28 +1,27 @@
 // Get needed dependencies only
 import React, { useState, useEffect } from 'react';
 import { Context } from '../App';
-import TableBody from "./TableBody";
-import TableHead from "./TableHead";
+import TableBody from './TableBody';
+import TableHead from './TableHead';
 export const AssetsContext = React.createContext();
 
 
 
 // Provides functionality for all assets
 const AllAssets = () => {
-
   // Tracks user info, current total items, and displayed asset info
   const { userData, setUserdata } = React.useContext(Context);
   const [currAssets, setCurrAssets] = useState([]);
-  const [sortField, setSortField] = useState("");
+  const [sortField, setSortField] = useState('');
   const columns = [
-    { label: 'Site Location', accessor: "SiteLocation", sortable: true },
-    { label: 'Range', accessor: "Range", sortable: true },
-    { label: 'Latitude', accessor: "Latitude", sortable: true },
-    { label: 'Longitude', accessor: "Longitude", sortable: true },
-    { label: 'Elevation', accessor: "Elevation", sortable: true },
-    { label: 'Serial', accessor: "Serial", sortable: true },
-    { label: 'Threat', accessor: "Threat", sortable: true },
-    { label: 'Equipment', accessor: "Equipment", sortable: true }
+    { label: 'Site Location', accessor: 'SiteLocation', sortable: true },
+    { label: 'Range', accessor: 'Range', sortable: true },
+    { label: 'Latitude', accessor: 'Latitude', sortable: true },
+    { label: 'Longitude', accessor: 'Longitude', sortable: true },
+    { label: 'Elevation', accessor: 'Elevation', sortable: true },
+    { label: 'Serial', accessor: 'Serial', sortable: true },
+    { label: 'Threat', accessor: 'Threat', sortable: true },
+    { label: 'Equipment', accessor: 'Equipment', sortable: true },
   ];
 
   // Helper function to update the list of all assets
@@ -31,8 +30,8 @@ const AllAssets = () => {
     fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items`)
       .then((res) => res.json())
       .then((items) => setCurrAssets(items.d.results))
-      .then(handleSorting("SiteLocation", "asc"));
-  }
+      .then(handleSorting('SiteLocation', 'asc'));
+  };
 
   // Helper function to handle sorting when an asset column header is clicked
   const handleSorting = (sortField, sortOrder) => {
@@ -42,9 +41,9 @@ const AllAssets = () => {
         if (b[sortField] === null) return -1;
         if (a[sortField] === null && b[sortField] === null) return 0;
         return (
-          a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+          a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
             numeric: true,
-          }) * (sortOrder === "asc" ? 1 : -1)
+          }) * (sortOrder === 'asc' ? 1 : -1)
         );
       });
       setCurrAssets(sorted);
@@ -59,15 +58,18 @@ const AllAssets = () => {
   // Formats the list of all assets
   return (
     <div className="max-w-6xl mx-auto">
-      <AssetsContext.Provider value={{currAssets, setCurrAssets}}>
-        {userData.IsOwner ?
+      <AssetsContext.Provider value={{ currAssets, setCurrAssets }}>
+        {userData.IsSiteAdmin ? (
           <div className="mt-4 rounded-md shadow-md bg-purple text-text text-center max-w-2x1">
-            <button type="button" className="font-semibold">Add Asset</button>
-          </div>:
+            <button type="button" className="font-semibold">
+              Add Asset
+            </button>
+          </div>
+        ) : (
           <></>
-        }
+        )}
         <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-            <h3 className="font-semibold">All Assets</h3>
+          <h3 className="font-semibold">All Assets</h3>
         </div>
         <div className>
           <div className="mt-2">
@@ -90,8 +92,5 @@ const AllAssets = () => {
   );
 };
 
-
-
 // Exports AllAssets for usability
 export default AllAssets;
-
