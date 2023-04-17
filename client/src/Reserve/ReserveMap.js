@@ -10,6 +10,7 @@ import { fromLonLat, get } from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import Controls from '../Map/Controls/Controls.js';
 import FullScreenControl from '../Map/Controls/FullScreenControl';
+import ZoomControl from '../Map/Controls/ZoomControl.js';
 import KML from 'ol/format/KML.js';
 import VectorSource from 'ol/source/Vector.js';
 import KMLVectorLayer from '../Map/Layers/KMLVectorLayer.js';
@@ -26,11 +27,7 @@ let styles = {
   }),
 };
 
-const ReserveMap = ({ assetList }) => {
-  // let {assetList} = props
-  const [center, setCenter] = useState([
-    -146.44166473513687, 64.31714411488758,
-  ]);
+const ReserveMap = ({ assetList,selected,center,setCenter }) => {
   const [zoom, setZoom] = useState(8);
   const [geoArray, setGeoArray] = useState([]);
   const [selectedAssets] = useState([]);
@@ -52,28 +49,30 @@ const ReserveMap = ({ assetList }) => {
     );
   }, [assetList]);
 
-  const handleChange = (assetName, assetCoordinates) => {
-    if (selectedAssets.includes(assetName)) {
-      const index = selectedAssets.indexOf(assetName);
-      selectedAssets.splice(index, 1);
-    } else {
-      selectedAssets.push(assetName);
-      // setZoom(10);
-      setCenter(assetCoordinates);
-    }
-  };
+    useEffect(()=>{
+      if(selected.length > 0) {
+      let combCoord = {lat:0,lon:0}
+      let selGeos = geoArray.filter(geo=>selected.includes(geo.properties.name))
 
-  useEffect(() => {
-    if (geoArray.length > 0) {
-      geoArray.map((asset, index) =>
-        handleChange(asset.properties.name, asset.geometry.coordinates)
-      );
-    }
-  }, [geoArray]);
+      combCoord = selGeos.reduce((acc,curr)=>{
+        acc.lat+=Number(curr.geometry.coordinates[1])
+        acc.lon+=Number(curr.geometry.coordinates[0])
+        return(acc)}
+      , combCoord)
+
+      combCoord.lat /= selGeos.length
+      combCoord.lon /= selGeos.length
+
+      setCenter([combCoord.lon,combCoord.lat])
+      } else {
+        setCenter([
+          -146.44166473513687, 64.31714411488758,
+        ])
+      }
+    },[selected])
 
   return (
-    <div>
-      {/* {console.log(Map)} */}
+    <div className="w-full h-full">
       <Map center={fromLonLat(center)} zoom={zoom}>
         <Layers>
           <TileLayer
@@ -82,10 +81,9 @@ const ReserveMap = ({ assetList }) => {
             })}
             // zIndex={-1}
           />
-
           {geoArray.length > 0 ? (
             geoArray.map((geoObject, index) => {
-              return assetList.map(a => a.Serial).includes(geoObject.properties.name) ? (
+              return selected.includes(geoObject.properties.name) ? (
                 <>
                   <VectorLayer
                     source={vector({
@@ -107,6 +105,7 @@ const ReserveMap = ({ assetList }) => {
         </Layers>
         <Controls>
           <FullScreenControl />
+          <ZoomControl />
         </Controls>
       </Map>
     </div>
