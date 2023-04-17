@@ -42,13 +42,6 @@ const Register = () => {
   };
   return (
     <div>
-      {/* <h1>Register</h1>
-    <input type='text' onChange={(e) => setFirstName(e.target.value)} placeholder='First Name' /> <br />
-    <input type='text' onChange={(e) => setMiddleName(e.target.value)} placeholder='Middle Name' /> <br />
-    <input type='text' onChange={(e) => setLastName(e.target.value)} placeholder='Last Name' /> <br />
-    <input type='password' onChange={(e) => setPassword1(e.target.value)} placeholder='password' /> <br />
-    <input type='password' onChange={(e) => setPassword2(e.target.value)} placeholder='password' /> <br />
-    <button type='submit' onClick={register}>submit</button> */}
       <div class="bg-grey-lighter min-h-screen flex flex-col">
         <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
           <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
