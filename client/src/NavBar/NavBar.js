@@ -26,12 +26,12 @@ const NavBar = () => {
   ];
 
   let notLoggedIn = (
-    <div className='flex items-center text-blue'>
+    <div className="flex items-center text-blue">
       <Link
         to="Login"
         className={`flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text`}
       >
-        <FaUserCircle className='mr-2'/>
+        <FaUserCircle className="mr-2" />
         <span>Login</span>
       </Link>
       <span>|</span>
@@ -70,8 +70,17 @@ const NavBar = () => {
         !open && 'hidden'
       } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
     >
-      <FaUserCircle className='mr-2'/>
+      <FaUserCircle className="mr-2" />
       <span onClick={signOut}>Sign Out</span>
+    </Link>
+  );
+
+  let adminLink = (
+    <Link
+      className={`flex ${userData.IsSiteAdmin === true ? '' : 'hidden'} p-4 items-center hover:text-text`}
+      to="/Admin"
+    >
+      <RiAdminFill className="mr-2" /> <span className>Admin</span>
     </Link>
   );
 
@@ -98,14 +107,7 @@ const NavBar = () => {
                 {link.text}
               </Link>
             ))}
-            <Link
-              className={`${
-                userData.IsSiteAdmin === true ? '' : 'hidden'
-              } flex md:inline-flex p-4 items-center hover:text-text`}
-              to="/Admin"
-            >
-              <RiAdminFill className="mr-2" /> <span className>Admin</span>
-            </Link>
+            <div className='flex md:inline-flex'>{adminLink}</div>
           </div>
           {'Id' in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>
