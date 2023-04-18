@@ -49,6 +49,8 @@ const AssetMap = ({ serial,center }) => {
 
 
 
+
+
   return (<>
     {Object.keys(geoObj).length > 0 ? 
     <div className="w-full h-full">
@@ -59,6 +61,7 @@ const AssetMap = ({ serial,center }) => {
               url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             })}
           />
+
             <VectorLayer
               source={vector({
                 features: new GeoJSON().readFeatures(geoObj, {
@@ -66,6 +69,7 @@ const AssetMap = ({ serial,center }) => {
                 }),
               })}
             />
+
           <KMLVectorLayer zIndex={99} />
         </Layers>
         <Controls>

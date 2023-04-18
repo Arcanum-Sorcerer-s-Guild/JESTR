@@ -82,7 +82,8 @@ const Asset = () => {
   }
 
   return (<>
-    {assets && Object.keys(currAsset).length>0 ? 
+    {console.log(currAsset)}
+  {assets && currAsset !== undefined ? 
     <div className="w-full h-screen block text shadow-lg p-2 ">
       <div className="flex flex-row gap-5 h-3/12 mb-4 justify-center">
         <button className="ml-5" onClick={()=>changePage('prev')}>
@@ -198,8 +199,8 @@ const Asset = () => {
             
 
                 <div className="flex flex-row justify-center gap-5">
-                  <button onClick={()=>setShowModal(true)}>Edit</button>
-                  <button onClick={()=>handleDelete()}>Delete</button>
+                  <button className="border border-black rounded-lg block bg-blue p-2" onClick={()=>setShowModal(true)}>Edit</button>
+                  <button className="border border-black rounded-lg block bg-blue p-2" onClick={()=>handleDelete()}>Delete</button>
                 </div>
             
               </div>
@@ -220,7 +221,7 @@ const Asset = () => {
         
 
 
-    : <></>}
+  : <></>}
   
   </>)
 

@@ -31,9 +31,7 @@ const EditAsset = ({showModal, setShowModal, asset}) => {
     console.log(inputs)
     let reqOpts = {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
       credentials: 'include',
       body: JSON.stringify(inputs),
     }
