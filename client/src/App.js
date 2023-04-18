@@ -59,6 +59,7 @@ function App() {
             <Route path="/AllAssets" element={<AllAssets />} />
             <Route path="/Asset/:id" element={<Asset />} />
             <Route path="/Admin" element={<AdminStats />} />
+            <Route path='/Book' element={<MyBook />} />
           </Routes>
         </div>
       </Context.Provider>
