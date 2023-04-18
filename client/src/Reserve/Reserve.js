@@ -266,6 +266,10 @@ const Reserve = () => {
 
   return (
     <>
+      <UserForm
+        setUserForm={setUserForm}
+        setRequestedWeek={setRequestedWeek}
+      />
       <div className="flex flex-row">
         <Resizable
           className="border-double hover:border-dashed border-r-2 border-black mt-5 ml-5"
@@ -342,10 +346,7 @@ const Reserve = () => {
 
               <TabPanel>
                 <div className="flex">
-                  <UserForm
-                    setUserForm={setUserForm}
-                    setRequestedWeek={setRequestedWeek}
-                  />
+
                   <DualTimeSelector
                     timeList={timeList}
                     setTimeList={setTimeList}
@@ -543,10 +544,10 @@ const CollapsibleChild = ({
                         <span className="pl-1">{`${asset.dms
                           .toString()
                           .slice(0, 12)}${asset.dms
-                          .toString()
-                          .slice(24, 41)}${asset.dms
-                          .toString()
-                          .slice(-3, 57)}`}</span>
+                            .toString()
+                            .slice(24, 41)}${asset.dms
+                              .toString()
+                              .slice(-3, 57)}`}</span>
                       </button>
                     </div>
                   </div>
@@ -558,16 +559,14 @@ const CollapsibleChild = ({
                     </div>
                     <div
                       className={`ml-2 flex justify-between border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
-                      ${
-                        asset.Status === 'AMBER'
+                      ${asset.Status === 'AMBER'
                           ? `border-yellow bg-yellow/40`
                           : ``
-                      }
-                      ${
-                        asset.Status === 'GREEN'
+                        }
+                      ${asset.Status === 'GREEN'
                           ? `border-green bg-green/40`
                           : ``
-                      }
+                        }
                       ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
                       ${asset.Status === 'NA' ? `border-gray bg-gray/40` : ``}
                     `}
