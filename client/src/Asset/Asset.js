@@ -13,7 +13,7 @@ import { DateTime } from 'luxon';
 import { AiOutlineNumber } from 'react-icons/ai'
 import { FaCrosshairs } from 'react-icons/fa'
 import { GiAntiAircraftGun } from 'react-icons/gi'
-import { FiArrowRight } from 'react-icons/fi'
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import { FaTools } from 'react-icons/fa'
 
 
@@ -43,7 +43,7 @@ const Asset = () => {
   },[params,assets])
 
   const changePage = (page) => {
-    if(page === 'prev' && params.id !== 1) {
+    if(page === 'prev' && parseInt(params.id) !== 1) {
       navigate(`/Asset/${parseInt(params.id) - 1}`)
     }
     if(page === 'next' && parseInt(params.id) + 1 !== assets.length + 1 ) {
@@ -68,8 +68,12 @@ const Asset = () => {
   return (<>
     {assets && Object.keys(currAsset).length>0 ? 
     <div className="w-full h-screen block text shadow-lg p-2 ">
-      <div className="flex flex-row gap-5 h-3/12 mb-4">
-        <button onClick={()=>changePage('prev')}>Previous</button>
+      <div className="flex flex-row gap-5 h-3/12 mb-4 justify-center">
+        <button className="ml-5" onClick={()=>changePage('prev')}>
+          <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full">
+            <FiArrowLeft className="mt-10"/>
+          </div>
+        </button>
         
         <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden flex flex-row">
           <div className="w-1/3 ">
@@ -105,19 +109,23 @@ const Asset = () => {
           </div>
         </div>
 
-        <div className="w-1/4 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden flex flex-row">
+        <div className="w-1/5 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden flex flex-row">
           <div className="w-1/3">
             <FaTools size={70} className="h-full pl-2"/>
           </div>
-          <div>
-            <h1 className="text-xl font-medium">Asset Status</h1>
+          <div className="flex flex-col">
+            <h1 className="text-xl font-medium ">Asset Status</h1>
             <div>{`Color Code: ${currAsset.Status}`}</div>
             <div>{`Operational:`}{currAsset.Operational ? <>✔️</>:<>❌</>}</div>
             <div>{`Schedulable:`}{currAsset.Schedulable ? <>✔️</>:<>❌</>}</div>
           </div>  
         </div>
 
-        <button onClick={()=>changePage('next')}>Next</button>
+        <button onClick={()=>changePage('next')}>
+          <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full ">
+            <FiArrowRight className="mt-10"/>
+          </div>
+        </button>
       </div>
 
       <div className="flex flex-row gap-5 mb-4 ml-8 mr-2">
@@ -145,7 +153,7 @@ const Asset = () => {
                   {event.time.toFormat('dd MMM yyyy')}
                 </p>
                 <p className="text-sm">
-                {`at ${event.time.toFormat('mm:ss')}`}
+                {`at ${event.time.toFormat('hh:mm')}`}
                 </p>
               </div>
               <div className="ml-4 mt-2 pb-5 md:ml-0">
