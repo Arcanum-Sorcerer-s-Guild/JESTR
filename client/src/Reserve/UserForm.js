@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import UserDropDown from './UserDropDown';
-import { Context } from '../App'
+import { Context } from '../App';
 import { DateTime } from 'luxon';
 
 const squadronDDOpts = ['Other', 'Demons', 'Falcons'];
 export default function UserForm({ setUserForm, setRequestedWeek }) {
-  const defaultWeek = DateTime.now().startOf('week').toISOWeekDate().toString().split('-');
+  const defaultWeek = DateTime.now()
+    .startOf('week')
+    .toISOWeekDate()
+    .toString()
+    .split('-');
   const title = useContext(Context).userData.Title;
   const [squadronDD, setSquadronDD] = useState(squadronDDOpts[0]);
   const [name, setName] = useState(title);
@@ -15,20 +19,20 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
 
   useEffect(() => {
     setUserForm({
-      name: name,
-      dsn: dsn,
-      squadron: squadron,
+      POC: name,
+      ContactDSN: dsn,
+      Squadron: squadron,
     });
   }, [name, dsn, squadron, setUserForm]);
 
   useEffect(() => {
     const weekDays = [];
     for (let i = 1; i < 8; i++) {
-      let day = DateTime.fromISO(`${week}-${i}`).toISODate()
-      weekDays.push(day)
+      let day = DateTime.fromISO(`${week}-${i}`).toISODate();
+      weekDays.push(day);
     }
-    setRequestedWeek(weekDays)
-  }, [week])
+    setRequestedWeek(weekDays);
+  }, [week]);
 
   useEffect(() => {
     if (squadronDD === squadronDDOpts[0]) {
@@ -39,7 +43,6 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
       setSquadron('Falcons');
     }
   }, [squadronDD]);
-
 
   return (
     <>
@@ -83,7 +86,6 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
             value={week}
             onChange={(e) => setWeek(e.target.value)}
           />
-
         </div>
       </div>
     </>
