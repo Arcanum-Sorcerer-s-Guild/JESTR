@@ -46,8 +46,8 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
 
   return (
     <>
-      <div className="top-16 w-72">
-        <div className="p-5">
+      <div className=" ">
+        <div className="p-2 flex">
           Squadron:
           <UserDropDown
             dropDownItems={squadronDDOpts}
