@@ -39,7 +39,11 @@ const Asset = () => {
   },[])
 
   useEffect(()=>{
-    if (assets.length > 0) setCurrAsset(  assets.filter(a=>a.Id===parseInt(params.id))[0] )
+    if (assets.length > 0) {
+      setCurrAsset(  assets.filter(a=>a.Id===parseInt(params.id))[0] )
+      setEditToggle(!editToggle)
+    }
+
   },[params,assets])
 
   const changePage = (page) => {
@@ -187,7 +191,9 @@ const Asset = () => {
               </div>
             </div>
 
-            <div className="w-1/2 h-full block rounded-lg bg-bluer/25 border border-black"></div>
+            <div className="w-1/2 h-full block rounded-lg bg-bluer/25 border border-black">
+              <img className="rounded-lg h-full" src={`http://localhost:3000/images/${(params.id%10).toString()}.jpg`}/>
+            </div>
           </div>
         </div>
       </div>
