@@ -9,9 +9,11 @@ const Login = () => {
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (userData.Id) navigate('/');
   }, []);
+
   const handleLogin = (e, id) => {
     e.preventDefault(); // prevent page reload
     const form = e.target;
@@ -23,7 +25,9 @@ const Login = () => {
       credentials: "include",
       body: JSON.stringify(formJSON),
     };
+
     console.log(requestOptions.body)
+
     fetch(`http://localhost:3001/user/login`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
@@ -35,6 +39,7 @@ const Login = () => {
         } else alert('Login failed. Please try again');
       })
   };
+
   return (
     <div className="container mx-auto h-screen">
       <div className="flex justify-center px-6 my-12">
@@ -52,7 +57,10 @@ const Login = () => {
                 Emitter Status and Training Request
               </p>
             </div>
-            <div className="px-8 pb-8 mb-4 rounded-md">
+            <form 
+              onSubmit={handleLogin}
+              className="px-8 pb-8 mb-4 rounded-md"
+            >
               <div className='mt-5'>
                 <label
                   htmlFor="email"
@@ -66,7 +74,6 @@ const Login = () => {
                   name="email"
                   required
                   className="w-full px-3 py-2 text-sm leading-tight border border-gray-light rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="email"
                 />
               </div>
@@ -83,14 +90,12 @@ const Login = () => {
                   name="password"
                   required
                   className="w-full px-3 py-2 text-sm leading-tight border border-gray-light rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="password"
                 />
               </div>
               <div className="mb-10 mt-6 text-center">
                 <button
                   type="submit"
-                  onClick={login}
                   className="w-1/2 px-4 py-2 font-bold text-text bg-blue rounded-full hover:bg-blue/50 focus:outline-none focus:shadow-outline"
                 >
                   Log In
@@ -104,7 +109,7 @@ const Login = () => {
                   Create an Account
                 </Link>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
