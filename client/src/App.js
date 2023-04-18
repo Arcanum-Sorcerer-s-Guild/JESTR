@@ -41,10 +41,10 @@ function App() {
   }, []);
 
   return (
-    <div className="">
+    <div className="bg-gunmetal h-screen">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
-        <div className='overflow-hidden mt-20 max-m-auto'>
+        <div className='bg-gunmetal h-screen'>
           <Routes>
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
