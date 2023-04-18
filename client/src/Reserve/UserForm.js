@@ -46,46 +46,64 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
 
   return (
     <>
-      <div className=" ">
-        <div className="p-2 flex">
-          Squadron:
-          <UserDropDown
-            dropDownItems={squadronDDOpts}
-            dropdown={squadronDD}
-            setDropdown={setSquadronDD}
-          />
-          Name:
-          <input
-            type="text"
-            className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+      <div className="text-center">
+        <div className="p-2 flex ">
+          <div className='p-1 w-full'>
+            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
+              Squadron
+              </label>
+            <UserDropDown
+              dropDownItems={squadronDDOpts}
+              dropdown={squadronDD}
+              setDropdown={setSquadronDD}
+            />
+          </div>
+          <div className='p-1 w-full'>
+            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
+              POC
+              </label>
+            <input
+              type="text"
+              className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md    sm:text-sm"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
           {squadronDD === squadronDDOpts[0] ? (
-            <>
-              Squadron:
+            <div className='p-1 w-full'>
+              <label className="text-text text-center underline block text-sm font-medium text-gray-700">
+                Squadron
+                </label>
               <input
                 type="text"
-                className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+                className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md    sm:text-sm"
                 onChange={(e) => setSquadron(e.target.value)}
+
               />
-            </>
+            </div>
+
           ) : (
             <></>
           )}
-          DSN:
-          <input
-            type="tel"
-            className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-            onChange={(e) => setDSN(e.target.value)}
-          />
-          Week:
-          <input
-            type="week"
-            className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-            value={week}
-            onChange={(e) => setWeek(e.target.value)}
-          />
+          <div className='p-1 w-full'>
+            <label className="text-text text-center underline block text-sm font-medium text-gray-700">DSN</label>
+            <input
+              type="tel"
+              className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm"
+              onChange={(e) => setDSN(e.target.value)}
+            />
+          </div>
+          <div className='p-1 w-full'>
+            <label className="text-text text-center underline block text-sm font-medium text-gray-700">Week</label>
+
+
+            <input
+              type="week"
+              className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md sm:text-sm"
+              value={week}
+              onChange={(e) => setWeek(e.target.value)}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -22,7 +22,8 @@ import { Resizable } from 're-resizable';
 import { DateTime } from 'luxon';
 import Modal from './Modal';
 import './react-tabs.css';
-
+import ButtonClose from './ButtonClose';
+import ButtonOpen from './ButtonOpen';
 let formColumns = [
   {
     Header: 'Equip',
@@ -266,12 +267,17 @@ const Reserve = () => {
 
   return (
     <>
-      <UserForm
-        setUserForm={setUserForm}
-        setRequestedWeek={setRequestedWeek}
-      />
-      <div className='container mx-auto h-screen'>
-        <div className="flex justify-center px-6 my-6 bg-tertiary rounded">
+      <div className='justify-center flex'>
+        <UserForm
+          setUserForm={setUserForm}
+          setRequestedWeek={setRequestedWeek}
+        />
+        <div className='flex items-center justify-center pt-5'>
+        <ButtonOpen name={'Reserve'} onClick={() => setShowModale(true)} />
+        </div>
+      </div>
+      <div className='w-full p-3 mx-auto'>
+        <div className="flex w-full  justify-center px-6 my-6 bg-tertiary rounded">
           <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
             <div className="flex flex-row">
               <Resizable
@@ -281,8 +287,8 @@ const Reserve = () => {
                   height: 750,
                 }}
                 minWidth={475}
-                minHeight={750}
-                maxHeight={750}
+                minHeight={700}
+                maxHeight={700}
                 maxWidth={width - 30}
               >
                 <div className=" border border-black mr-2 h-full overflow-scroll">
@@ -316,12 +322,7 @@ const Reserve = () => {
                 setCenter={setCenter}
               />
             </div>
-            <button
-              onClick={() => setShowModale(true)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Open Form
-            </button>
+
             {/* {console.log("selectedData", selectedData)}
                 {console.log(data)} */}
             <Modal
@@ -331,53 +332,54 @@ const Reserve = () => {
               }}
             >
               {
-                <>
+                <div className='bg-blue'>
                   <Tabs>
                     <TabList>
-                      <Tab>User Info</Tab>
+                      <Tab>Select VULs and Notes</Tab>
                       <Tab>Week Data</Tab>
                       <Tab>Submit Form</Tab>
-                      <button
-                        onClick={() => setShowModale(false)}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                      >
-                        Close Form
-                      </button>
                     </TabList>
 
-              <TabPanel>
-                <div className="flex">
+                    <TabPanel>
+                      <div className="flex">
+                        <div>
+                          <UserForm
+                            setUserForm={setUserForm}
+                            setRequestedWeek={setRequestedWeek}
+                          />
+                          <input
+                            type="text"
+                            className='w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl'
+                            onChange={(e) =>
+                              setUserForm({
+                                ...userForm,
+                                [e.target.name]: e.target.value,
+                              })
+                            }
+                            name="Notes"
+                            placeholder="Notes"
+                          />
+                        </div>
+                      </div>
+                      <DualTimeSelector
+                        timeList={timeList}
+                        setTimeList={setTimeList}
+                      />
+                      {/* TODO, make the input wok for all items  */}
 
-                  <DualTimeSelector
-                    timeList={timeList}
-                    setTimeList={setTimeList}
-                  />
-                  {/* TODO, make the input wok for all items  */}
-                  <input
-                    type="text"
-                    onChange={(e) =>
-                      setUserForm({
-                        ...userForm,
-                        [e.target.name]: e.target.value,
-                      })
-                    }
-                    name="Notes"
-                    placeholder="Notes"
-                  />
-                </div>
-              </TabPanel>
-              <TabPanel>
-                {selectedData.length !== 0 ? (
-                  <ListTableNoCheck
-                    data={selectedData}
-                    columns={formNewColumns}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                ) : (
-                  'Please close this form and select threats from main display...'
-                )}
-              </TabPanel>
+                    </TabPanel>
+                    <TabPanel>
+                      {selectedData.length !== 0 ? (
+                        <ListTableNoCheck
+                          data={selectedData}
+                          columns={formNewColumns}
+                          selected={selected}
+                          setSelected={setSelected}
+                        />
+                      ) : (
+                        'Please close this form and select threats from main display...'
+                      )}
+                    </TabPanel>
 
                     <TabPanel>
                       <>
@@ -456,7 +458,7 @@ const Reserve = () => {
                       </>
                     </TabPanel>
                   </Tabs>
-                </>
+                </div>
               }
             </Modal>
           </div>

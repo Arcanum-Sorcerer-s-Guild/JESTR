@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import '../App.css';
 import Map from '../Map/Map.js';
 import Layers from '../Map/Layers/Layers.js';
@@ -107,7 +107,7 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
           {geoArray.length > 0 ? (
             geoArray.map((geoObject, index) => {
               return selected.includes(geoObject.properties.name) ? (
-                <>
+                <Fragment key={`VectorLayer-${index}`}>
                   <VectorLayer
                     source={vector({
                       features: new GeoJSON().readFeatures(geoObject, {
@@ -116,7 +116,7 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
                     })}
                     style={styles}
                   />
-                </>
+                </Fragment>
               ) : (
                 <></>
               );

@@ -1,6 +1,6 @@
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useState } from 'react';
-
+import CloseButton from './ButtonClose';
 const Modal = ({ isvisible, onClose, children }) => {
   if (!isvisible) return null;
   const handleClose = (e) => {
@@ -12,13 +12,10 @@ const Modal = ({ isvisible, onClose, children }) => {
       className="fixed overflow-scroll inset-0 bg-black bg-opacity-25 backdrop-blur-sm  justify-center items-center text-center p-5"
       onClick={handleClose}
     >
-      <div className="relative   flex flex-col">
-        <button
-          className="text-black text=xxl place-self-end absolute right-2 top-2"
-          onClick={() => onClose()}
-        >
-          x
-        </button>
+      <div className="relative  flex flex-col">
+        <div className='place-self-end absolute right-2 top-2'>
+          <CloseButton name={'✖️'} onClick={() => onClose()} />
+        </div>
         <div className="bg-text p-2 h-[70%] justify-center rounded">
           {children}
         </div>

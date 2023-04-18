@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CloseButton from './ButtonClose';
 
 function DualTimeSelector({ timeList, setTimeList }) {
   const [startTime, setStartTime] = useState('09:00');
@@ -78,12 +79,7 @@ function DualTimeSelector({ timeList, setTimeList }) {
       <ul>
         {timeList.map((time, index) => (
           <li key={index}>
-            <button
-              className="h-6 w-6 border p-none m-none content-center text-center bg-accent"
-              onClick={handleRemoveTimeClick}
-            >
-              X
-            </button>
+            <CloseButton onClick={() => handleRemoveTimeClick(index)} />
             {time.name}: {time.start} - {time.end}
           </li>
         ))}
