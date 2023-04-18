@@ -9,13 +9,15 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
-    setSelected(selectedItems.map(data => data.original));
+    setSelected(selectedItems.map((data) => data.original));
   }, [selectedItems]);
 
   const toggleRowSelection = (row) => {
     if (checked.includes(row.original.serial)) {
       setChecked(checked.filter((value) => value !== row.original.serial));
-      setSelectedItems(selectedItems.filter((value) => value.id !== row.original.serial));
+      setSelectedItems(
+        selectedItems.filter((value) => value.id !== row.original.serial)
+      );
     } else {
       setChecked([...checked, row.original.serial]);
       setSelectedItems([
@@ -34,20 +36,21 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
   };
 
   const toggleSelectAll = () => {
-
     if (selectAll) {
       setChecked([]);
-      setSelectedItems([])
+      setSelectedItems([]);
       setSelectAll(false);
     } else {
       setChecked([...rows.map((row) => row.original.serial)]);
-      setSelectedItems([...rows.map((row) => {
-        return { id: row.original.serial, original: row.original }
-      })])
+      setSelectedItems([
+        ...rows.map((row) => {
+          return { id: row.original.serial, original: row.original };
+        }),
+      ]);
       setSelectAll(true);
     }
 
-    console.log("checked", checked);
+    console.log('checked', checked);
   };
 
   const selectionColumn = useMemo(
