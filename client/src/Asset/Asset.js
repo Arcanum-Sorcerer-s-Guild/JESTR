@@ -18,12 +18,15 @@ import { FaTools } from 'react-icons/fa'
 
 
 
+
+
 const Asset = () => {
   const [assets,setAssets] = useState([])
   const [currAsset,setCurrAsset] = useState([])
   let params = useParams();
   const [editToggle, setEditToggle] = useState(false)
   const [timeLine,setTimeLine] = useState([])
+  const [showModal,setShowModal] = useState(false)
   const navigate = useNavigate() 
 
 
@@ -51,7 +54,6 @@ const Asset = () => {
       navigate(`/Asset/${parseInt(params.id) - 1}`)
     }
     if(page === 'next' && parseInt(params.id) + 1 !== assets.length + 1 ) {
-      console.log(parseInt(params.id) + 1,assets.length)
       navigate(`/Asset/${parseInt(params.id) + 1}`)
     }
     setEditToggle(!editToggle)
@@ -68,6 +70,16 @@ const Asset = () => {
     ])
     }
   },[currAsset])
+
+  const handleDelete = (e) => {
+    fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(${params.id})`, 
+    {method: 'DELETE', credentials: 'include'})
+    .then(res => {
+      console.log(res.json())
+    }
+    )
+    navigate('/')
+  }
 
   return (<>
     {assets && Object.keys(currAsset).length>0 ? 
@@ -182,10 +194,12 @@ const Asset = () => {
                   <div className="text-center">{`${currAsset.SystemInformation}`}</div>
                   <div className="p-5">{`${currAsset.Remarks}`}</div>
                 
+                  <EditAsset showModal={showModal} setShowModal={setShowModal} asset={currAsset}/>
+            
 
                 <div className="flex flex-row justify-center gap-5">
-                  <button>Edit</button>
-                  <button>Delete</button>
+                  <button onClick={()=>setShowModal(true)}>Edit</button>
+                  <button onClick={()=>handleDelete()}>Delete</button>
                 </div>
             
               </div>
