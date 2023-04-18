@@ -3,8 +3,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
 export const AssetsContext = React.createContext();
-// import TableBody from './TableBody';
-// import TableHead from './TableHead';
 
 
 
@@ -12,19 +10,19 @@ export const AssetsContext = React.createContext();
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
   const { listUrl } = useContext(Context);
-  const { userData, setUserdata } = React.useContext(Context);
+  const { userData } = React.useContext(Context);
   const [currAssets, setCurrAssets] = useState([]);
-  const [sortField, setSortField] = useState('');
-  const columns = [
-    { label: 'Site Location', accessor: 'SiteLocation', sortable: true },
-    { label: 'Range', accessor: 'Range', sortable: true },
-    { label: 'Latitude', accessor: 'Latitude', sortable: true },
-    { label: 'Longitude', accessor: 'Longitude', sortable: true },
-    { label: 'Elevation', accessor: 'Elevation', sortable: true },
-    { label: 'Serial', accessor: 'Serial', sortable: true },
-    { label: 'Threat', accessor: 'Threat', sortable: true },
-    { label: 'Equipment', accessor: 'Equipment', sortable: true },
-  ];
+  // const [sortField, setSortField] = useState('');
+  // const columns = [
+  //   { label: 'Site Location', accessor: 'SiteLocation', sortable: true },
+  //   { label: 'Range', accessor: 'Range', sortable: true },
+  //   { label: 'Latitude', accessor: 'Latitude', sortable: true },
+  //   { label: 'Longitude', accessor: 'Longitude', sortable: true },
+  //   { label: 'Elevation', accessor: 'Elevation', sortable: true },
+  //   { label: 'Serial', accessor: 'Serial', sortable: true },
+  //   { label: 'Threat', accessor: 'Threat', sortable: true },
+  //   { label: 'Equipment', accessor: 'Equipment', sortable: true },
+  // ];
   const navigate = useNavigate();
 
   // Helper function to update the list of all assets
@@ -35,36 +33,38 @@ const AllAssets = () => {
     })
       .then((res) => res.json())
       .then((items) => {
-        console.log(items.d.results);
-        console.log(currAssets);
         setCurrAssets(items.d.results);
-        console.log(items.d.results);
-        console.log(currAssets);
       })
-      // .then(newItems => console.log(newItems))
-      // .then(handleSorting('SiteLocation', 'asc'));
   };
 
-  // Helper function to handle sorting when an asset column header is clicked
-  const handleSorting = (sortField, sortOrder) => {
-    if (sortField) {
-      const sorted = [...currAssets].sort((a, b) => {
-        if (a[sortField] === null) return 1;
-        if (b[sortField] === null) return -1;
-        if (a[sortField] === null && b[sortField] === null) return 0;
-        return (
-          a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
-            numeric: true,
-          }) * (sortOrder === 'asc' ? 1 : -1)
-        );
-      });
-      setCurrAssets(sorted);
-    }
-  };
+  // // Helper function to convert coordinates from the DD format to the DMS format
+  // const convertDDtoDMS = (coord) => {
+  //   return `${Math.trunc(Math.abs(coord))}\u00B0${Math.trunc(
+  //     (Math.abs(coord) % 1) * 60
+  //   )}'${((((Math.abs(coord) % 1) * 60) % 1) * 60).toFixed(2)}"`;
+  // };
 
+  // // Helper function to handle sorting when an asset column header is clicked
+  // const handleSorting = (sortField, sortOrder) => {
+  //   if (sortField) {
+  //     const sorted = [...currAssets].sort((a, b) => {
+  //       if (a[sortField] === null) return 1;
+  //       if (b[sortField] === null) return -1;
+  //       if (a[sortField] === null && b[sortField] === null) return 0;
+  //       return (
+  //         a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
+  //           numeric: true,
+  //         }) * (sortOrder === 'asc' ? 1 : -1)
+  //       );
+  //     });
+  //     setCurrAssets(sorted);
+  //   }
+  // };
+
+  // Updates the displayed inventory on initial page load and when the assets list is changed
   useEffect(() => {
     updateInventory()
-  }, []); // currAssets
+  }, []);
 
 
   // Formats the list of all assets
@@ -108,10 +108,6 @@ const AllAssets = () => {
       ) : (
         <></>
       )}
-                    {/* <table className="min-w-full divide-y divide-gray-light/100">
-                      <TableHead {...{ columns, handleSorting }}/>
-                      <TableBody {...{ columns }}/>
-                    </table> */}
     </div>
   );
 };
