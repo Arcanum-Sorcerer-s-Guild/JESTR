@@ -46,6 +46,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
 
   return (
     <>
+      {/* //Todo convert to flex */}
       <div className="top-16 w-72">
         <div className="p-5">
           Squadron:

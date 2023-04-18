@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
+import { useParams } from 'react-router-dom'
+
+
 
 const Reservation = () => {
-  return (
-    <>
-      <h1>Reservation</h1>
-    </>
-  );
+
+  return (<>
+    <div></div>
+  </>);
 };
 
 export default Reservation;
