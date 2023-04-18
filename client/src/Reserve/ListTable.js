@@ -13,14 +13,16 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
   }, [selectedItems]);
 
   const toggleRowSelection = (row) => {
-    if (checked.includes(row.id)) {
-      setChecked(checked.filter((value) => value !== row.id));
-      setSelectedItems(selectedItems.filter((value) => value.id !== row.id));
+    if (checked.includes(row.original.serial)) {
+      setChecked(checked.filter((value) => value !== row.original.serial));
+      setSelectedItems(
+        selectedItems.filter((value) => value.id !== row.original.serial)
+      );
     } else {
-      setChecked([...checked, row.id]);
+      setChecked([...checked, row.original.serial]);
       setSelectedItems([
         ...selectedItems,
-        { id: row.id, original: row.original },
+        { id: row.original.serial, original: row.original },
       ]);
     }
   };
@@ -39,14 +41,16 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
       setSelectedItems([]);
       setSelectAll(false);
     } else {
-      setChecked([...rows.map((row) => row.id)]);
+      setChecked([...rows.map((row) => row.original.serial)]);
       setSelectedItems([
         ...rows.map((row) => {
-          return { id: row.id, original: row.original };
+          return { id: row.original.serial, original: row.original };
         }),
       ]);
       setSelectAll(true);
     }
+
+    console.log('checked', checked);
   };
 
   const selectionColumn = useMemo(
@@ -69,11 +73,11 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
         <div>
           <input
             type="checkbox"
-            checked={checked.includes(row.id)}
+            checked={checked.includes(row.original.serial)}
             onChange={() => toggleRowSelection(row)}
-            id={`row-${row.id}-checkbox`}
+            id={`row-${row.original.serial}-checkbox`}
           />
-          <label htmlFor={`row-${row.id}-checkbox`} />
+          <label htmlFor={`row-${row.original.serial}-checkbox`} />
         </div>
       ),
     }),
@@ -89,8 +93,8 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
       Cell: ({ row }) => (
         <div>
           {row.canExpand ? (
-            <button onClick={() => toggleRowExpansion(row.id)}>
-              {expandedRows.includes(row.id) ? 'Hide' : 'Show'}
+            <button onClick={() => toggleRowExpansion(row.original.serial)}>
+              {expandedRows.includes(row.original.serial) ? 'Hide' : 'Show'}
             </button>
           ) : null}
         </div>

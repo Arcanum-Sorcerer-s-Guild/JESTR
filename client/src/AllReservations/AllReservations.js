@@ -122,7 +122,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              class="bg-green py-2 px-4 rounded-full"
+                              className="bg-green py-2 px-4 rounded-full"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -154,7 +154,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              class="bg-red py-2 px-4 rounded-full"
+                              className="bg-red py-2 px-4 rounded-full"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -179,44 +179,53 @@ const AllReservations = () => {
                             >
                               {list.Status}
                             </button>
-                          ) : (
-                            <button
-                              type="button"
-                              data-te-toggle="modal"
-                              data-te-target="#exampleModal"
-                              data-te-ripple-init
-                              data-te-ripple-color="light"
-                              class="bg-gray py-2 px-4 rounded-full"
-                              onClick={() => {
-                                setModaleChildren(
-                                  <>
-                                    <form onSubmit={handleLogin}>
-                                      <label htmlFor="Notes" >Remarks</label>
-                                      <input name="Notes" type="text" placeholder="Enter Remarks Here..." />
-                                      <label htmlFor="Status">Choose a Status</label>
-                                      <select name="Status" id="Status">
-                                        <option value="Rejected" defaultValue={"Rejected"}>Reject</option>
-                                        <option value="Approved">Approve</option>
-                                      </select>
-                                      <input name="Id" value={list.Id} hidden type="text" placeholder="Enter Remarks Here..." />
-                                      <button type="submit" className="group relative flex w-full justify-center rounded-md bg-green px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
-                                        submit
-                                      </button>
-                                    </form>
-                                  </>
-                                );
-                                setShowModale(true);
-                              }}
-                            >
-                              {list.Status}
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                            ) : (
+                              <button
+                                type="button"
+                                data-te-toggle="modal"
+                                data-te-target="#exampleModal"
+                                data-te-ripple-init
+                                data-te-ripple-color="light"
+                                className="bg-gray py-2 px-4 rounded-full"
+                                onClick={() => {
+                                  setModaleChildren(
+                                    <>
+                                      <form onSubmit={handleLogin}>
+                                        <label htmlFor="Notes" >Remarks</label>
+                                        <input name="Notes" type="text" placeholder="Enter Remarks Here..." />
+                                        <label htmlFor="Status">Choose a Status</label>
+                                        <select name="Status" id="Status">
+                                          <option value="Rejected" defaultValue={"Rejected"}>Reject</option>
+                                          <option value="Approved">Approve</option>
+                                        </select>
+                                        <input name="Id" value={list.Id} hidden type="text" placeholder="Enter Remarks Here..." />
+                                        <button type="submit" className="group relative flex w-full justify-center rounded-md bg-green px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
+                                            submit
+                                          </button>
+                                      </form>
+                                    </>
+                                  );
+                                  setShowModale(true);
+                                }}
+                              >
+                                {list.Status}
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <Modal
+                  isvisible={showModale}
+                  onClose={() => {
+                    setShowModale(false);
+                  }}
+                >
+                  {modaleChildren}
+                </Modal>
               </div>
               <Modal
                 isvisible={showModale}

@@ -51,7 +51,6 @@ const SquadronRadar = ({dateRange, reserveList}) => {
       <div className="flex flex-col">
         <h3 className="text-2xl mb-2">Squadron Site Usage</h3>
           <div>
-            {console.log()}
             {Object.keys(squadronRangeData).length>0 
             ? <Radar 
               width={250} 
@@ -66,5 +65,4 @@ const SquadronRadar = ({dateRange, reserveList}) => {
         
   </>)
 }
-
 export default SquadronRadar

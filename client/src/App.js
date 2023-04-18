@@ -43,23 +43,10 @@ function App() {
   }, []);
 
   return (
-    <div className="">
+    <div className="bg-gunmetal h-screen">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
-        <Routes>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          {/* <Route path = "/Users" element={<Users/>}/> */}
-          <Route path="/" element={<Home />} />
-          <Route path="/Reserve" element={<Reserve />} />
-          <Route path="/AllReservations" element={<AllReservations />} />
-          <Route path="/Reservation/:id" element={<Reservation />} />
-          <Route path="/AllAssets" element={<AllAssets />} />
-          <Route path="/Asset/:id" element={<Asset />} />
-          <Route path="/Admin" element={<AdminStats />} />
-          <Route path="/Book" element={<MyBook />} />
-        </Routes>
-        <div className='overflow-hidden mt-20 max-m-auto'>
+        <div className='bg-gunmetal h-screen'>
           <Routes>
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
