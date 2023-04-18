@@ -20,6 +20,14 @@ const generateFakeDate = (
   return faker.date.between(`${startDate}T00:00:00Z`, `${endDate}T00:00:00Z`);
 };
 
+const generateFakeParagraph = (numSentences = randomIncRange(1, 10)) => {
+  const fakeParagraph = [];
+  while (fakeParagraph.length < numSentences) {
+    fakeParagraph.push(faker.hacker.phrase());
+  }
+  return fakeParagraph.join(" ");
+};
+
 const generateUsers = (numUsers = globalNumUsers) => {
   defaultPassword = 'password';
   hashedDefaultPassword = bcrypt.hashSync(defaultPassword, 10);
@@ -143,7 +151,7 @@ const generateAssets = (numAssets = globalNumAssets) => {
       StatusDate: generateFakeDate('2023-03-01', '2023-3-20'),
       Status: ['RED', 'AMBER', 'GREEN', 'NA'][randomIncRange(0, 3)], // RED ||AMBER || GREEN || NA
       ETIC: generateFakeDate('2023-03-01', '2024-3-20'), // 2022-11-02T19:44:06Z
-      Remarks: faker.hacker.phrase(), // "some string"
+      Remarks: generateFakeParagraph(), // "some string"
       Schedulable: randomIncRange(1, 100) < 20 ? false : true, // true/false
       Operational: randomIncRange(1, 100) < 40 ? false : true, // true/false
       Range: [
