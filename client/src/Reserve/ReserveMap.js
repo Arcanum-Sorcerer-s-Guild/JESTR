@@ -4,7 +4,7 @@ import Map from '../Map/Map.js';
 import Layers from '../Map/Layers/Layers.js';
 import TileLayer from '../Map/Layers/TileLayer.js';
 import VectorLayer from '../Map/Layers/VectorLayer.js';
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import { Circle as CircleStyle, Fill, Stroke, Style, Icon } from 'ol/style';
 import { osm, vector, xyz } from '../Map/Wrappers/wrapper.js';
 import { fromLonLat, get } from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
@@ -14,20 +14,43 @@ import ZoomControl from '../Map/Controls/ZoomControl.js';
 import KML from 'ol/format/KML.js';
 import VectorSource from 'ol/source/Vector.js';
 import KMLVectorLayer from '../Map/Layers/KMLVectorLayer.js';
+import mapIcon from './mapIcon.png';
 
-let styles = {
-  MultiPolygon: new Style({
-    stroke: new Stroke({
-      color: 'blue',
-      width: 1,
-    }),
-    fill: new Fill({
-      color: 'rgba(0,0,255,0.1)',
-    }),
+let styles = new Style({
+  image: new Icon({
+    anchor: [0.5, 46],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    src: `${mapIcon}`,
+    scale: 0.1,
+    color: 'white',
   }),
-};
+  // text: new Text({
+  //   font: "16px sans-serif",
+  //   textAlign: "left",
+  //   justify: "left",
+  //   padding: [5, 5, 5, 5],
+  //   offsetX: 75,
+  //   text: `point`,
+  //   fill: new Fill({
+  //     color: [0, 0, 0, 1],
+  //   }),
+  //   backgroundFill: new Fill({
+  //     color:
+  //       values.Status === "GREEN"
+  //         ? "#00ff00"
+  //         : values.Status === "AMBER"
+  //         ? "#ffff00"
+  //         : values.Status === "RED"
+  //         ? "#ff0000"
+  //         : values.Status === "NA"
+  //         ? "#0000ff"
+  //         : [25, 118, 210, 0.6],
+  //   }),
+  // }),
+});
 
-const ReserveMap = ({ assetList,selected,center,setCenter }) => {
+const ReserveMap = ({ assetList, selected, center, setCenter }) => {
   const [zoom, setZoom] = useState(8);
   const [geoArray, setGeoArray] = useState([]);
   const [selectedAssets] = useState([]);
@@ -49,27 +72,27 @@ const ReserveMap = ({ assetList,selected,center,setCenter }) => {
     );
   }, [assetList]);
 
-    useEffect(()=>{
-      if(selected.length > 0) {
-      let combCoord = {lat:0,lon:0}
-      let selGeos = geoArray.filter(geo=>selected.includes(geo.properties.name))
+  useEffect(() => {
+    if (selected.length > 0) {
+      let combCoord = { lat: 0, lon: 0 };
+      let selGeos = geoArray.filter((geo) =>
+        selected.includes(geo.properties.name)
+      );
 
-      combCoord = selGeos.reduce((acc,curr)=>{
-        acc.lat+=Number(curr.geometry.coordinates[1])
-        acc.lon+=Number(curr.geometry.coordinates[0])
-        return(acc)}
-      , combCoord)
+      combCoord = selGeos.reduce((acc, curr) => {
+        acc.lat += Number(curr.geometry.coordinates[1]);
+        acc.lon += Number(curr.geometry.coordinates[0]);
+        return acc;
+      }, combCoord);
 
-      combCoord.lat /= selGeos.length
-      combCoord.lon /= selGeos.length
+      combCoord.lat /= selGeos.length;
+      combCoord.lon /= selGeos.length;
 
-      setCenter([combCoord.lon,combCoord.lat])
-      } else {
-        setCenter([
-          -146.44166473513687, 64.31714411488758,
-        ])
-      }
-    },[selected])
+      setCenter([combCoord.lon, combCoord.lat]);
+    } else {
+      setCenter([-146.44166473513687, 64.31714411488758]);
+    }
+  }, [selected]);
 
   return (
     <div className="w-full h-full">
@@ -91,6 +114,7 @@ const ReserveMap = ({ assetList,selected,center,setCenter }) => {
                         featureProjection: get('EPSG:3857'),
                       }),
                     })}
+                    style={styles}
                   />
                 </>
               ) : (
@@ -101,7 +125,7 @@ const ReserveMap = ({ assetList,selected,center,setCenter }) => {
             <></>
           )}
 
-          <KMLVectorLayer zIndex={99} />
+          <KMLVectorLayer zIndex={1} />
         </Layers>
         <Controls>
           <FullScreenControl />
@@ -112,3 +136,35 @@ const ReserveMap = ({ assetList,selected,center,setCenter }) => {
   );
 };
 export default ReserveMap;
+
+// feature.setStyle(
+//   new Style({
+//     image: new Icon({
+//       src: `${mapIcon}`,
+//       scale: 0.1,
+//     }),
+//     text: new Text({
+//       font: "16px sans-serif",
+//       textAlign: "left",
+//       justify: "left",
+//       padding: [5, 5, 5, 5],
+//       offsetX: 75,
+//       text: `${values.Equipment}`,
+//       fill: new Fill({
+//         color: [0, 0, 0, 1],
+//       }),
+//       backgroundFill: new Fill({
+//         color:
+//           values.Status === "GREEN"
+//             ? "#00ff00"
+//             : values.Status === "AMBER"
+//             ? "#ffff00"
+//             : values.Status === "RED"
+//             ? "#ff0000"
+//             : values.Status === "NA"
+//             ? "#0000ff"
+//             : [25, 118, 210, 0.6],
+//       }),
+//     }),
+//   })
+// );
