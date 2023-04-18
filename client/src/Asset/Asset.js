@@ -83,7 +83,7 @@ const Asset = () => {
 
   return (<>
     {console.log(currAsset)}
-  {assets && currAsset !== undefined ? 
+  {assets && currAsset !== undefined && currAsset.length > 0 ? 
     <div className="w-full h-screen block text shadow-lg p-2 ">
       <div className="flex flex-row gap-5 h-3/12 mb-4 justify-center">
         <button className="ml-5" onClick={()=>changePage('prev')}>
@@ -221,7 +221,22 @@ const Asset = () => {
         
 
 
-  : <></>}
+  : <>
+    <div className="flex mt-10 justify-center items-center">
+    <button className="ml-5 mr-10" onClick={()=>{changePage('prev')}}>
+      <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full">
+        <FiArrowLeft className="mt-10"/>
+      </div>
+    </button>
+    <h1 className="text-4xl">Unable to locate requested entry!</h1>
+    <button className="ml-10" onClick={()=>changePage('next')}>
+        <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full ">
+          <FiArrowRight className="mt-10"/>
+        </div>
+    </button>
+    </div>
+    </>
+  }
   
   </>)
 
