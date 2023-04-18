@@ -3,12 +3,7 @@ import React, { useState, useEffect } from 'react';
 function DualTimeSelector({ timeList, setTimeList }) {
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('10:00');
-  // const [timeList, setTimeList] = useState([]);
   const [name, setName] = useState(`VUL-0`);
-
-  useEffect(() => {
-    setTimeList(timeList);
-  }, [timeList]);
 
   useEffect(() => {
     const vulNum =
