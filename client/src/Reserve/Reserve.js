@@ -270,79 +270,80 @@ const Reserve = () => {
         setUserForm={setUserForm}
         setRequestedWeek={setRequestedWeek}
       />
-      <div className="flex flex-row">
-        <Resizable
-          className="border-double hover:border-dashed border-r-2 border-black mt-5 ml-5"
-          defaultSize={{
-            width: 475,
-            height: 750,
-          }}
-          minWidth={475}
-          minHeight={750}
-          maxHeight={750}
-          maxWidth={width - 30}
-        >
-          <div className=" border border-black mr-2 h-full overflow-scroll">
-            <input
-              type="checkbox"
-              onChange={(e) => selectAll(e)}
-              className="ml-3 mr-3"
-            />
-            Select All
-            {rangeList.length > 0 ? (
-              rangeList.map((range) => (
-                <CollapsibleChild
-                  key={range}
-                  range={range}
-                  selected={selected}
-                  setSelected={setSelected}
-                  setCenter={setCenter}
-                  assets={data.filter((asset) => asset.Range === range)}
-                />
-              ))
-            ) : (
-              <>Loading...</>
-            )}
-          </div>
-        </Resizable>
+      <div className='container mx-auto h-screen'>
+        <div className="flex justify-center px-6 my-6 bg-tertiary rounded">
+          <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
+            <div className="flex flex-row">
+              <Resizable
+                className="border-double hover:border-dashed border-r-2 border-black mt-5 ml-5"
+                defaultSize={{
+                  width: 475,
+                  height: 750,
+                }}
+                minWidth={475}
+                minHeight={750}
+                maxHeight={750}
+                maxWidth={width - 30}
+              >
+                <div className=" border border-black mr-2 h-full overflow-scroll">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => selectAll(e)}
+                    className="ml-3 mr-3"
+                  />
+                  Select All
+                  {rangeList.length > 0 ? (
+                    rangeList.map((range) => (
+                      <CollapsibleChild
+                        key={range}
+                        range={range}
+                        selected={selected}
+                        setSelected={setSelected}
+                        setCenter={setCenter}
+                        assets={data.filter((asset) => asset.Range === range)}
+                      />
+                    ))
+                  ) : (
+                    <>Loading...</>
+                  )}
+                </div>
+              </Resizable>
 
-        <ReserveMap
-          assetList={data}
-          selected={selected}
-          center={center}
-          setCenter={setCenter}
-        />
-      </div>
-      <button
-        onClick={() => setShowModale(true)}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Open Form
-      </button>
-
-      {/* {console.log("selectedData", selectedData)}
-          {console.log(data)} */}
-
-      <Modal
-        isvisible={showModale}
-        onClose={() => {
-          setShowModale(false);
-        }}
-      >
-        {
-          <>
-            <Tabs>
-              <TabList>
-                <Tab>User Info</Tab>
-                <Tab>Week Data</Tab>
-                <Tab>Submit Form</Tab>
-                <button
-                  onClick={() => setShowModale(false)}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Close Form
-                </button>
-              </TabList>
+              <ReserveMap
+                assetList={data}
+                selected={selected}
+                center={center}
+                setCenter={setCenter}
+              />
+            </div>
+            <button
+              onClick={() => setShowModale(true)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Open Form
+            </button>
+            {/* {console.log("selectedData", selectedData)}
+                {console.log(data)} */}
+            <Modal
+              isvisible={showModale}
+              onClose={() => {
+                setShowModale(false);
+              }}
+            >
+              {
+                <>
+                  <Tabs>
+                    <TabList>
+                      <Tab>User Info</Tab>
+                      <Tab>Week Data</Tab>
+                      <Tab>Submit Form</Tab>
+                      <button
+                        onClick={() => setShowModale(false)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        Close Form
+                      </button>
+                    </TabList>
 
               <TabPanel>
                 <div className="flex">
@@ -378,86 +379,89 @@ const Reserve = () => {
                 )}
               </TabPanel>
 
-              <TabPanel>
-                <>
-                  <div>
-                    <h1>User Data</h1>
-                    <div className="flex">
-                      POC:{' '}
-                      {userForm.POC ? (
-                        <div className="">{userForm.POC}</div>
-                      ) : (
-                        <div className="border-red bg-red/40">
-                          None... A username is required
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex">
-                      ContactDSN:{' '}
-                      {userForm.ContactDSN ? (
-                        <div className="">{userForm.ContactDSN}</div>
-                      ) : (
-                        <div className="border-red bg-red/40">
-                          None... A email is required
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex">
-                      Squadron:{' '}
-                      {userForm.Squadron ? (
-                        <div className="">{userForm.Squadron}</div>
-                      ) : (
-                        <div className="border-red bg-red/40">
-                          None... A Squadron is required
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div>
-                    <h1>Requests</h1>
-                    {itemsToSubmit.map(
-                      (
-                        {
-                          id,
-                          Range,
-                          SiteLocation,
-                          Threat,
-                          Equipment,
-                          ThreatType,
-                          EventDate,
-                          EndDate,
-                        },
-                        index
-                      ) => (
-                        <ol>
+                    <TabPanel>
+                      <>
+                        <div>
+                          <h1>User Data</h1>
                           <div className="flex">
-                            {index}
-                            {Range}
-                            {SiteLocation}
-                            {Threat}
-                            {Equipment}
-                            {ThreatType}
-                            {EventDate}
-                            {EndDate}
+                            POC:{' '}
+                            {userForm.POC ? (
+                              <div className="">{userForm.POC}</div>
+                            ) : (
+                              <div className="border-red bg-red/40">
+                                None... A username is required
+                              </div>
+                            )}
                           </div>
-                        </ol>
-                      )
-                    )}
-                  </div>
-                  <button
-                    className={
-                      'bg-gunmetal text-pink flex items-center text-center justify-between p-4 shadow-md shadow-pink/50'
-                    }
-                    onClick={() => sendForm(itemsToSubmit)}
-                  >
-                    Submit
-                  </button>
+                          <div className="flex">
+                            ContactDSN:{' '}
+                            {userForm.ContactDSN ? (
+                              <div className="">{userForm.ContactDSN}</div>
+                            ) : (
+                              <div className="border-red bg-red/40">
+                                None... A email is required
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex">
+                            Squadron:{' '}
+                            {userForm.Squadron ? (
+                              <div className="">{userForm.Squadron}</div>
+                            ) : (
+                              <div className="border-red bg-red/40">
+                                None... A Squadron is required
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div>
+                          <h1>Requests</h1>
+                          {itemsToSubmit.map(
+                            (
+                              {
+                                id,
+                                Range,
+                                SiteLocation,
+                                Threat,
+                                Equipment,
+                                ThreatType,
+                                EventDate,
+                                EndDate,
+                              },
+                              index
+                            ) => (
+                              <ol>
+                                <div className="flex">
+                                  {index}
+                                  {Range}
+                                  {SiteLocation}
+                                  {Threat}
+                                  {Equipment}
+                                  {ThreatType}
+                                  {EventDate}
+                                  {EndDate}
+                                </div>
+                              </ol>
+                            )
+                          )}
+                        </div>
+                        <button
+                          className={
+                            'bg-gunmetal text-pink flex items-center text-center justify-between p-4 shadow-md shadow-pink/50'
+                          }
+                          onClick={() => sendForm(itemsToSubmit)}
+                        >
+                          Submit
+                        </button>
+                      </>
+                    </TabPanel>
+                  </Tabs>
                 </>
-              </TabPanel>
-            </Tabs>
-          </>
-        }
-      </Modal>
+              }
+            </Modal>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

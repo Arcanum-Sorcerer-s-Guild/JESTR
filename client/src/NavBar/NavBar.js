@@ -5,7 +5,11 @@ import { Context } from '../App';
 //icons
 import { FiMenu, FiRadio } from 'react-icons/fi';
 import { RiAdminFill } from 'react-icons/ri';
-import { FaMapMarkedAlt, FaEye, FaUserCircle } from 'react-icons/fa';
+import {
+  FaMapMarkedAlt,
+  FaEye,
+  FaUserCircle,
+} from 'react-icons/fa';
 import { BsCardChecklist } from 'react-icons/bs';
 
 const NavBar = () => {
@@ -61,8 +65,6 @@ const NavBar = () => {
       });
   };
 
-  console.log(userData.Title);
-
   let loggedIn = (
     <Link
       to="Login"
@@ -77,7 +79,9 @@ const NavBar = () => {
 
   let adminLink = (
     <Link
-      className={`flex ${userData.IsSiteAdmin === true ? '' : 'hidden'} p-4 items-center hover:text-text`}
+      className={`flex ${
+        userData.IsSiteAdmin === true ? '' : 'hidden'
+      } p-4 items-center hover:text-text`}
       to="/Admin"
     >
       <RiAdminFill className="mr-2" /> <span className>Admin</span>
@@ -87,8 +91,12 @@ const NavBar = () => {
   return (
     <>
       <div className="flex px-4 border-b shadow-md shadow-pink/100 items-center relative bg-gunmetal">
-        <div className="text-lg font-bold md:py-0 py-4">
-          <span className="text-blue">JESTER</span>
+        <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
+          <div className='text-blue'>
+          </div>
+          <div className=''>
+            <h1 className="text-blue">JESTR</h1>
+          </div>
         </div>
         <div
           className={`md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full md:visible 
@@ -107,7 +115,7 @@ const NavBar = () => {
                 {link.text}
               </Link>
             ))}
-            <div className='flex md:inline-flex'>{adminLink}</div>
+            <div className="flex md:inline-flex">{adminLink}</div>
           </div>
           {'Id' in userData ? <div>{loggedIn}</div> : <div>{notLoggedIn}</div>}
         </div>
@@ -119,7 +127,7 @@ const NavBar = () => {
         </div>
       </div>
       <div className="px-2 bg-blue">
-        <span className="text-xs italic">
+        <span className={`${!userData.Title ? 'hidden' : ''} text-xs italic`}>
           Currently Logged in as:{' '}
           <span className="font-semibold">{userData.Title}</span>
         </span>

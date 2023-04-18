@@ -109,7 +109,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              class="bg-green py-2 px-4 rounded-full"
+                              className="bg-green py-2 px-4 rounded-full"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -141,7 +141,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              class="bg-red py-2 px-4 rounded-full"
+                              className="bg-red py-2 px-4 rounded-full"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -173,7 +173,7 @@ const AllReservations = () => {
                                 data-te-target="#exampleModal"
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
-                                class="bg-gray py-2 px-4 rounded-full"
+                                className="bg-gray py-2 px-4 rounded-full"
                                 onClick={() => {
                                   setModaleChildren(
                                     <>
