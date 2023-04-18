@@ -260,6 +260,8 @@ const Reserve = () => {
       credentials: 'include',
     }).then((res) => res.json());
     setShowModale(false);
+    setItemsToSubmit([]);
+    setTimeList([]);
   };
 
   return (
