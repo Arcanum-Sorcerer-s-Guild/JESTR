@@ -22,8 +22,8 @@ let styles = new Style({
     anchorXUnits: 'fraction',
     anchorYUnits: 'pixels',
     src: `${mapIcon}`,
-    scale: 0.1,
-    color: 'white',
+    scale: 0.05,
+    color: [191,12,215,100],
   }),
   // text: new Text({
   //   font: "16px sans-serif",
@@ -136,35 +136,3 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
   );
 };
 export default ReserveMap;
-
-// feature.setStyle(
-//   new Style({
-//     image: new Icon({
-//       src: `${mapIcon}`,
-//       scale: 0.1,
-//     }),
-//     text: new Text({
-//       font: "16px sans-serif",
-//       textAlign: "left",
-//       justify: "left",
-//       padding: [5, 5, 5, 5],
-//       offsetX: 75,
-//       text: `${values.Equipment}`,
-//       fill: new Fill({
-//         color: [0, 0, 0, 1],
-//       }),
-//       backgroundFill: new Fill({
-//         color:
-//           values.Status === "GREEN"
-//             ? "#00ff00"
-//             : values.Status === "AMBER"
-//             ? "#ffff00"
-//             : values.Status === "RED"
-//             ? "#ff0000"
-//             : values.Status === "NA"
-//             ? "#0000ff"
-//             : [25, 118, 210, 0.6],
-//       }),
-//     }),
-//   })
-// );
