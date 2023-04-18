@@ -60,6 +60,7 @@ exports.up = function (knex) {
       .createTable('Reservations', (table) => {
         table.increments('Id').primary();
         table.text('Squadron').nullable(); // "VMGR-152"
+        table.text('POC').nullable(); // "Matthew Heidenreich"
         table.text('ContactDSN').nullable(); // "123-456-7890"
         table.text('Range').nullable(); // 2202 || 2205 || 2211 || ?other?
         table.text('SiteLocation').nullable(); // Charlie batt

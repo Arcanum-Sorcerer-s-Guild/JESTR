@@ -12,19 +12,19 @@ const Login = () => {
   useEffect(() => {
     if (userData.Id) navigate('/');
   }, []);
-
-  const login = () => {
-    const dataToSend = {};
-    if (!Array.isArray(email)) dataToSend.email = email;
-    if (!Array.isArray(password)) dataToSend.password = password;
-    fetch(`http://localhost:3001/user/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(dataToSend),
-    })
+  const handleLogin = (e, id) => {
+    e.preventDefault(); // prevent page reload
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJSON = Object.fromEntries(formData.entries());
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(formJSON),
+    };
+    console.log(requestOptions.body)
+    fetch(`http://localhost:3001/user/login`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -33,7 +33,7 @@ const Login = () => {
           // alert('Login Successful')
           navigate('/');
         } else alert('Login failed. Please try again');
-      });
+      })
   };
   return (
     <div className="container mx-auto h-screen">
