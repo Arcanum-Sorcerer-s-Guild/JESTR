@@ -91,7 +91,8 @@ const AllReservations = () => {
           <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div class="overflow-hidden content-center" id='table'>
-                <table class=" text-center content-center">
+                <table class=" text-center content-center" id='bestTable'>
+                  {console.log(document.getElementById('bestTable').rows.length, 'plz')}
                   <thead className="bg-gray-light/100 text-gray/200">
                     <TableHeader />
                   </thead>
