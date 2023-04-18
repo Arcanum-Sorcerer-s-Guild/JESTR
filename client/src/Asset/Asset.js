@@ -22,45 +22,40 @@ import { FaTools } from 'react-icons/fa'
 
 const Asset = () => {
   const [assets,setAssets] = useState([])
-  const [currAsset,setCurrAsset] = useState([])
+  const [currAsset,setCurrAsset] = useState()
   let params = useParams();
-  const [editToggle, setEditToggle] = useState(false)
   const [timeLine,setTimeLine] = useState([])
   const [showModal,setShowModal] = useState(false)
+  const [toggle,setToggle] = useState(false)
   const navigate = useNavigate() 
 
-
-
-
   useEffect(()=>{
-    fetch("http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items", {credentials: 'include'})
-      .then((response) => response.json())
-      .then((data) => {
-        setAssets(data.d.results.map(asset=> (
-          {...asset,dms:new DmsCoordinates(Number(asset.Latitude),Number(asset.Longitude)) }) ) )  
-      });
-  },[])
-
-  useEffect(()=>{
-    if (assets.length > 0) {
-      setCurrAsset(  assets.filter(a=>a.Id===parseInt(params.id))[0] )
-      setEditToggle(!editToggle)
+    fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(${params.id})`, {credentials:'include'})
+    .then(res=>res.json())
+    .then(data=> {
+      let val = data.d;
+      setCurrAsset(undefined)
+      val.dms = new DmsCoordinates(Number(data.d.Latitude),Number(data.d.Longitude))
+      setCurrAsset(val)
     }
+      )
+  },[params])
 
-  },[params,assets])
 
   const changePage = (page) => {
     if(page === 'prev' && parseInt(params.id) !== 1) {
       navigate(`/Asset/${parseInt(params.id) - 1}`)
+      setToggle(!toggle)
     }
     if(page === 'next' && parseInt(params.id) + 1 !== assets.length + 1 ) {
       navigate(`/Asset/${parseInt(params.id) + 1}`)
+      setToggle(!toggle)
     }
-    setEditToggle(!editToggle)
   }
 
+
   useEffect(()=>{
-    if (Object.keys(currAsset).length > 0) {
+    if (currAsset !== undefined) {
       setTimeLine( [
         {name:'Coordinate Recorded',time:DateTime.fromISO(currAsset.CoordRecordedDate)},
         {name:'Status Recorded',time:DateTime.fromISO(currAsset.StatusDate)},
@@ -75,15 +70,17 @@ const Asset = () => {
     fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(${params.id})`, 
     {method: 'DELETE', credentials: 'include'})
     .then(res => {
-      console.log(res.json())
+      navigate(0)
+
     }
     )
-    navigate('/')
+    
   }
 
   return (<>
-    {console.log(currAsset)}
-  {assets && currAsset !== undefined && currAsset.length > 0 ? 
+  {console.log(toggle)}
+  {currAsset !== undefined ? 
+
     <div className="w-full h-screen block text shadow-lg p-2 ">
       <div className="flex flex-row gap-5 h-3/12 mb-4 justify-center">
         <button className="ml-5" onClick={()=>changePage('prev')}>
@@ -219,7 +216,6 @@ const Asset = () => {
 
           
         
-
 
   : <>
     <div className="flex mt-10 justify-center items-center">

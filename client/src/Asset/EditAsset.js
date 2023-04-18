@@ -1,10 +1,12 @@
 import React, {useState,useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const EditAsset = ({showModal, setShowModal, asset}) => {
   
   const [inputs, setInputs] = useState();
   const [schedulable,setSchedulable] =useState();
   const [operational,setOperational] =useState();
+  const navigate = useNavigate();
 
   useEffect(()=>{
     setSchedulable(asset.Schedulable)
@@ -28,28 +30,24 @@ const EditAsset = ({showModal, setShowModal, asset}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(inputs)
     let reqOpts = {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       credentials: 'include',
-      body: JSON.stringify(inputs),
+      body: JSON.stringify([inputs]),
     }
 
     fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(${asset.Id})`, reqOpts)
     .then(res=>console.log(res.json()))
-   
+    .then(setShowModal(false))
+    navigate(0)
   }
 
 
 
   return(<>
 
-
       <div className={showModal ? '' : 'hidden'}>
-        
-      
-
     
       <div id='wrapper' className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center" >
       <div className="relative md:w-[60%] w-[90%] flex flex-col">
