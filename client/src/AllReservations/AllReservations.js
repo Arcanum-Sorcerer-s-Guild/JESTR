@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Context } from '../App';
 import Modal from './Modal';
+import TableHeader from './TableHeader';
+import ExportExcel from './Excelexport.js';
+import ExportPDF from './ExportPDF';
 
 const AllReservations = () => {
   const [reservations, setReservations] = useState([]);
+  const [temp, setTemp] = useState([]);
   const [showModale, setShowModale] = useState(false);
   const [render, setRender] = useState(true);
   const [modaleChildren, setModaleChildren] = useState(
     <div>this is a big'ol test</div>
   );
   const { userData } = React.useContext(Context);
+
   useEffect(() => {
     fetch(
       "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
@@ -21,11 +26,14 @@ const AllReservations = () => {
       .then((data) => {
         console.log('data', data.d.results);
         setReservations(data.d.results);
+        setTemp(data.d.results);
+        console.log('rendered')
       });
   }, [render]);
+  
+  //This is for when an approver presses submit when changing the Reservation status
   const handleLogin = (e, id) => {
     e.preventDefault(); // prevent page reload
-
     const form = e.target;
     const formData = new FormData(form);
     const formJSON = Object.fromEntries(formData.entries());
@@ -41,38 +49,39 @@ const AllReservations = () => {
         setShowModale(false)
         setRender(!render)});
   };
-  console.log('data', reservations);
-  const headers = [
-    { name: 'Site Location' },
-    { name: 'Threat (Equipment)' },
-    { name: 'Squadron' },
-    { name: 'Start Date' },
-    { name: 'End Date' },
-    { name: 'Status' },
-  ];
+
+  const changeStatus = (status) => {
+      const newData = temp.filter(item => {
+        if (status === 'All') return typeof item.Status === typeof "hello"
+      return item.Status === status
+    })
+    setReservations(newData)
+    console.log('hello', newData)
+  }
+
   return (
     <div className="grid place-items-center">
       <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-        <h1>All Reservations</h1>
+        <h1 className="text-5xl">All Reservations</h1>
       </div>
-      <div className>
+      <div className="items-center bg-gray-light m-4">
+        <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" onClick={() => changeStatus('Pending')}>Pending</button>
+        <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" onClick={() => changeStatus('Approved')}>Approved</button>
+        <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" onClick={() => changeStatus('Rejected')}>Rejected</button>
+        <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" onClick={() => changeStatus('All')}>All</button>
+      </div>
+      <div className="items-center bg-gray-light m-4">
+        <ExportExcel excelData={reservations} fileName={"Excel Export"} />
+        <ExportPDF divId={'table'} title={'hello world'} />
+      </div>
         <div className="mt-2">
           <div className="mt-2 flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden content-center">
+                <div class="overflow-hidden content-center" id='table'>
                   <table class=" text-center content-center">
                     <thead className="bg-gray-light/100 text-gray/200">
-                      <tr>
-                        {headers.map((header, i) => (
-                          <th
-                            key={i}
-                            className="px-24 py-2 text-center text-xs font-medium uppercase tracking-wider"
-                          >
-                            {header.name}
-                          </th>
-                        ))}
-                      </tr>
+                      <TableHeader />
                     </thead>
                     <tbody className="bg-text divide-y divide-y-gray/75">
                       {reservations.map((list, i) => (
@@ -209,7 +218,6 @@ const AllReservations = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

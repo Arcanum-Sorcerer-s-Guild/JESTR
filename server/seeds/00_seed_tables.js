@@ -146,10 +146,17 @@ const generateAssets = (numAssets = globalNumAssets) => {
       Remarks: faker.hacker.phrase(), // "some string"
       Schedulable: randomIncRange(1, 100) < 20 ? false : true, // true/false
       Operational: randomIncRange(1, 100) < 40 ? false : true, // true/false
-      Range: [2202, 2205, 2211][randomIncRange(0, 2)], // 2202 || 2205 || 2211 || ?other?
+      Range: [
+        'Midgaard',
+        'Shattered Plains',
+        'Barren Coast',
+        'First Forge',
+        'Camelot',
+        'Winterfell',
+      ][randomIncRange(0, 5)], // 2202 || 2205 || 2211 || ?other?
       SiteLocation: `${faker.music.genre()}-${randomIncRange(1, 10)}`, // "string ex Charlie Batt"
-      Latitude: faker.address.latitude(66, 65, 6), // "N64 37.220"= '';
-      Longitude: faker.address.longitude(-145, -148, 6), // "W146 39.160"= '';
+      Latitude: faker.address.latitude(65, 63.5, 6),
+      Longitude: faker.address.longitude(-145, -148, 6),
       Elevation: randomIncRange(3500, 4500), // 2000
       Accuracy: `+/- ${randomIncRange(3, 8)}`, // UNK / +/- 2m
       CoordSource: ['GARMIN GPX 55I', 'Arcanum', 'Sorcery', 'Magic'][
@@ -171,9 +178,16 @@ const generateReservations = (
   numUsers = globalNumUsers
 ) => {
   const squadronsInfo = [
-    { squadron: '123 CYS', contactDSN: '123-234-3456' },
-    { squadron: '234 ACMS', contactDSN: '234-345-4567' },
-    { squadron: '345 RANS', contactDSN: '345-456-5678' },
+    { squadron: 'The Black Company', contactDSN: '428-952-7303' },
+    // { squadron: 'Kings of the Wyld', contactDSN: '668-485-9330' },
+    // { squadron: 'Privy Council', contactDSN: '207-922-8712' },
+    { squadron: 'Soul Breakers', contactDSN: '936-279-6750' },
+    { squadron: 'Bridgeburners', contactDSN: '900-370-1994' },
+    { squadron: 'Bonehunters', contactDSN: '233-297-2338' },
+    { squadron: 'Forsaken', contactDSN: '288-319-8706' },
+    { squadron: 'Legion', contactDSN: '299-508-9999' },
+    // { squadron: 'Band of the Red Hand', contactDSN: '507-703-6035' },
+    // { squadron: 'Crimson Guard', contactDSN: '417-509-6527' },
   ];
 
   const reservations = [];
@@ -189,15 +203,14 @@ const generateReservations = (
     while (startDate.getDay() > 5 || startDate.getDay() < 1) {
       startDate = new Date(
         generateFakeDate(globalDateRangeStart, globalDateRangeEnd)
-      )
+      );
     }
     // pick time slots from 0900, 1100, 1300, 1500
     const eventWindow = randomIncRange(1, 4);
-    startDate.setHours((eventWindow * 2) + 7);
+    startDate.setHours(eventWindow * 2 + 7);
     startDate.setMinutes(0);
     startDate.setSeconds(0);
     startDate.setMilliseconds(0);
-
 
     // Offset endState from startDate by +2 hours
     const endDate = new Date(startDate);
@@ -207,6 +220,7 @@ const generateReservations = (
 
     reservations.push({
       Squadron: squadron, // "VMGR-152"
+      POC: faker.name.firstName() + ' ' + faker.name.lastName(), // Matt Heidenreich
       ContactDSN: contactDSN, // "123-456-7890"
       Range: asset.Range, // 2202 || 2205 || 2211 || ?other? **Pulled
       SiteLocation: asset.SiteLocation, // Charlie batt  **Pulled
