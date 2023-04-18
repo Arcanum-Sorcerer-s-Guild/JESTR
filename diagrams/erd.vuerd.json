@@ -4,7 +4,7 @@
     "width": 2000,
     "height": 2000,
     "scrollTop": -75,
-    "scrollLeft": 0,
+    "scrollLeft": -10,
     "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
@@ -212,9 +212,10 @@
           "active": false,
           "left": 645.3334,
           "top": 131.2218,
-          "zIndex": 3,
+          "zIndex": 5,
           "widthName": 60,
-          "widthComment": 60
+          "widthComment": 60,
+          "color": "#2196F3"
         },
         "visible": true,
         "id": "38f26055-d5be-444c-a2a8-2705af840d89"
@@ -780,9 +781,10 @@
           "active": false,
           "left": 1167.7775,
           "top": 62.0004,
-          "zIndex": 1,
+          "zIndex": 4,
           "widthName": 60,
-          "widthComment": 60
+          "widthComment": 60,
+          "color": "#F44336"
         },
         "visible": true,
         "id": "616fc3f7-42ce-4657-9835-1de51654ebb4"
@@ -1138,12 +1140,13 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 112.4446,
           "top": 120.7779,
-          "zIndex": 7,
+          "zIndex": 6,
           "widthName": 77.8671875,
-          "widthComment": 60
+          "widthComment": 60,
+          "color": "#4CAF50"
         },
         "visible": true,
         "id": "8c6298b3-4c60-4059-b91e-2822301413ef"
