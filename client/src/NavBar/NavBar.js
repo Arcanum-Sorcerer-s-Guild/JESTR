@@ -9,7 +9,6 @@ import {
   FaMapMarkedAlt,
   FaEye,
   FaUserCircle,
-  FaTheRedYeti,
 } from 'react-icons/fa';
 import { BsCardChecklist } from 'react-icons/bs';
 
@@ -96,7 +95,6 @@ const NavBar = () => {
       <div className="flex px-4 border-b shadow-md shadow-pink/100 items-center relative bg-gunmetal">
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
           <div className='text-blue'>
-            <FaTheRedYeti  className='text-xl'/>
           </div>
           <div className=''>
             <h1 className="text-blue">JESTR</h1>
