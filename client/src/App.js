@@ -49,7 +49,7 @@ function App() {
             <Routes>
               <Route path="/Login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
-              <Route path="*" element={<Navigate to="/Login" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           )}
           {userData.Title && (
