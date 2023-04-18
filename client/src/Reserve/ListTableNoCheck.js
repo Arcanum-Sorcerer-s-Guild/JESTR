@@ -2,12 +2,14 @@ import { set } from 'ol/transform';
 import React, { useMemo, useState, Fragment, useEffect } from 'react';
 import { useTable, useExpanded } from 'react-table';
 
-function ListTableNoCheck({ data, columns, selected, setSelected, SubRowComponent }) {
-  
-  const tableColumns = useMemo(
-    () => [ ...columns],
-    [columns]
-  );
+function ListTableNoCheck({
+  data,
+  columns,
+  selected,
+  setSelected,
+  SubRowComponent,
+}) {
+  const tableColumns = useMemo(() => [...columns], [columns]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
