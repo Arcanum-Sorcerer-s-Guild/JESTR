@@ -44,7 +44,7 @@ function App() {
     <div className="bg-gunmetal h-screen">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
-        <div className='bg-gunmetal h-screen'>
+        <div className='bg-gunmetal h-auto'>
           {!userData.Title && (
             <Routes>
               <Route path="/Login" element={<Login />} />
