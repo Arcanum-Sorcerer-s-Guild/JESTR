@@ -97,7 +97,6 @@ const Login = () => {
                 </button>
               </div>
               <hr className="style-one mb-6 border-t border-gunmetal" />
-              {/*//TODO Needs to navigate to register */}
               <div className="text-center">
                 <Link 
                   to={'/Register'}

@@ -65,8 +65,6 @@ const NavBar = () => {
       });
   };
 
-  console.log(userData.Title);
-
   let loggedIn = (
     <Link
       to="Login"

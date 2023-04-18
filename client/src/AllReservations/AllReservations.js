@@ -70,10 +70,10 @@ const AllReservations = () => {
       </div>
         <div className="mt-2">
           <div className="mt-2 flex flex-col">
-            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden content-center">
-                  <table class=" text-center content-center">
+            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div className="overflow-hidden content-center">
+                  <table className=" text-center content-center">
                     <thead className="bg-gray-light/100 text-gray/200">
                       <TableHeader />
                     </thead>
@@ -103,7 +103,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              class="bg-green py-2 px-4 rounded-full"
+                              className="bg-green py-2 px-4 rounded-full"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -135,7 +135,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              class="bg-red py-2 px-4 rounded-full"
+                              className="bg-red py-2 px-4 rounded-full"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -167,7 +167,7 @@ const AllReservations = () => {
                                 data-te-target="#exampleModal"
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
-                                class="bg-gray py-2 px-4 rounded-full"
+                                className="bg-gray py-2 px-4 rounded-full"
                                 onClick={() => {
                                   setModaleChildren(
                                     <>
