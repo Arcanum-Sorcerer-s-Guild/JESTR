@@ -4,6 +4,7 @@ import Modal from './Modal';
 import TableHeader from './TableHeader';
 import ExportExcel from './Excelexport.js';
 import ExportPDF from './ExportPDF';
+import { useNavigate } from 'react-router-dom'
 
 const AllReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -14,6 +15,7 @@ const AllReservations = () => {
     <div>this is a big'ol test</div>
   );
   const { userData } = React.useContext(Context);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(
@@ -85,7 +87,7 @@ const AllReservations = () => {
                     </thead>
                     <tbody className="bg-text divide-y divide-y-gray/75">
                       {reservations.map((list, i) => (
-                        <tr key={i}>
+                        <tr key={i} onClick={()=>navigate(`/Reservation/${list.Id}`)}>
                           <td className="text-center text-m">
                             {list.SiteLocation}
                           </td>
