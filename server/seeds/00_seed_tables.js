@@ -25,7 +25,7 @@ const generateFakeParagraph = (numSentences = randomIncRange(1, 10)) => {
   while (fakeParagraph.length < numSentences) {
     fakeParagraph.push(faker.hacker.phrase());
   }
-  return fakeParagraph.join(" ");
+  return fakeParagraph.join(' ');
 };
 
 const generateUsers = (numUsers = globalNumUsers) => {
