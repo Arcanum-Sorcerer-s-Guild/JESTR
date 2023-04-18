@@ -1,10 +1,5 @@
 import React, { useEffect,useState } from 'react';
 import { useParams } from 'react-router-dom'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import {FaChevronLeft, FaChevronRight} from 'react-icons/fa'
-import './asset.css'
 import AssetMap from './AssetMap.js'
 import EditAsset from './EditAsset'
 import DmsCoordinates, { parseDms } from "dms-conversion";

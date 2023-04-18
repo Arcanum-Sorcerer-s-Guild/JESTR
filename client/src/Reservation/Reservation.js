@@ -11,7 +11,3 @@ const Reservation = () => {
 };
 
 export default Reservation;
-
-
-            // 
-            // <Slide index={2}>I am the third Slide.</Slide> 
