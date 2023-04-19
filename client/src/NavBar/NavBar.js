@@ -5,11 +5,7 @@ import { Context } from '../App';
 //icons
 import { FiMenu, FiRadio } from 'react-icons/fi';
 import { RiAdminFill } from 'react-icons/ri';
-import {
-  FaMapMarkedAlt,
-  FaEye,
-  FaUserCircle,
-} from 'react-icons/fa';
+import { FaMapMarkedAlt, FaEye, FaUserCircle } from 'react-icons/fa';
 import { BsCardChecklist } from 'react-icons/bs';
 
 const NavBar = () => {
@@ -70,8 +66,9 @@ const NavBar = () => {
   let loggedIn = (
     <Link
       to="Login"
-      className={`${!open && 'hidden'
-        } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
+      className={`${
+        !open && 'hidden'
+      } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
     >
       <FaUserCircle className="mr-2" />
       <span onClick={signOut}>Sign Out</span>
@@ -80,8 +77,9 @@ const NavBar = () => {
 
   let adminLink = (
     <Link
-      className={`flex ${userData.IsSiteAdmin === true ? '' : 'hidden'
-        } p-4 items-center hover:text-text`}
+      className={`flex ${
+        userData.IsSiteAdmin === true ? '' : 'hidden'
+      } p-4 items-center hover:text-text`}
       to="/Admin"
     >
       <RiAdminFill className="mr-2" /> <span className>Admin</span>
@@ -92,16 +90,16 @@ const NavBar = () => {
     <>
       <div className="flex px-4 border-b shadow-md shadow-pink/100 items-center relative bg-gunmetal">
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
-          <div className='text-blue'>
-          </div>
-          <div className=''>
+          <div className="text-blue"></div>
+          <div className="">
             <h1 className="text-blue">JESTR</h1>
           </div>
         </div>
         <div
           className={`md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full md:visible 
-        left-0 right-0 bg-gunmetal/75 md:bg-gunmetal text-pink text-sm ${!open && 'hidden'
-            } duration-300`}
+        left-0 right-0 bg-gunmetal/75 md:bg-gunmetal text-pink text-sm ${
+          !open && 'hidden'
+        } duration-300`}
         >
           <div className={`${!userData.Title ? 'hidden' : ''}`}>
             {navLinks.map((link, i) => (
