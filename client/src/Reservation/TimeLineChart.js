@@ -93,7 +93,6 @@ const TimeLineChart = ({conflictArray,currRes,setAltRes,setShowModal}) => {
   // },
 
 ]}
-  
 
   return(<>
     <Bar width={350} height={350} options={options} data={data} ref={chartRef} onClick={onChartClick}/>
