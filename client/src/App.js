@@ -65,7 +65,7 @@ function App() {
             <Routes>
               {/* <Route path = "/Users" element={<Users/>}/> */}
               <Route path="/" element={<Home />} />
-              <Route path="/QuickLook" element={<MP />} />
+              <Route path="/QuickLook" element={<MyBook />} />
               <Route path="/Reserve" element={<Reserve />} />
               <Route path="/AllReservations" element={<AllReservations />} />
               <Route path="/Reservation/:id" element={<Reservation />} />

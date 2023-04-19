@@ -88,7 +88,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="flex px-4 border-b shadow-md shadow-pink/100 items-center relative bg-gunmetal">
+      <div className="flex px-4 border-b shadow-md items-center relative bg-gunmetal">
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
           <div className="text-blue"></div>
           <div className="">
@@ -123,7 +123,7 @@ const NavBar = () => {
           />
         </div>
       </div>
-      <div className="px-2 bg-blue">
+      <div className="px-2 bg-blue shadow-pink">
         <span className={`${!userData.Title ? 'hidden' : ''} text-xs italic`}>
           Currently Logged in as:{' '}
           <span className="font-semibold">{userData.Title}</span>
