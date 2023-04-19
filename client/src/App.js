@@ -20,9 +20,16 @@ export const Context = React.createContext();
 
 function App() {
   const [userData, setUserdata] = useState({});
-
   const userUrl = 'http://localhost:3001/user';
   const listUrl = 'http://localhost:3001/_api/web/lists';
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUserdata(foundUser);
+    }
+  }, []);
 
   useEffect(() => {
     let reqOpts = {
@@ -47,14 +54,14 @@ function App() {
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
         <div className='bg-gunmetal h-auto'>
-          {!userData.Title && (
+          {!localStorage.getItem("user") && (
             <Routes>
               <Route path="/Login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              {/* <Route path="*" element={<Navigate to="/" />} /> */}
             </Routes>
           )}
-          {userData.Title && (
+          {localStorage.getItem("user") && (
             <Routes>
               {/* <Route path = "/Users" element={<Users/>}/> */}
               <Route path="/" element={<Home />} />
@@ -66,7 +73,7 @@ function App() {
               <Route path="/Asset/:id" element={<Asset />} />
               <Route path="/Admin" element={<AdminStats />} />
               <Route path='/Book' element={<MyBook />} />
-          </Routes>
+            </Routes>
           )}
         </div>
       </Context.Provider>
