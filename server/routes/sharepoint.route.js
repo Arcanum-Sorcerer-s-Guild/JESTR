@@ -99,6 +99,7 @@ router.post("/lists/GetByTitle\\(':listTitle'\\)/items", (req, res) => {
 router.put(
   "/lists/GetByTitle\\(':listTitle'\\)/items\\(:itemId\\)",
   async (req, res) => {
+    console.log(req.body)
     // Check if user is logged in before performing any calls to the db
     let permitted = helper.checkPermissions(req, ['User']);
     if (typeof permitted === 'number') {
