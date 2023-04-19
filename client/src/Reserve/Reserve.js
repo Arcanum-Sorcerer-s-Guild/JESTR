@@ -11,18 +11,17 @@ import DualTimeSelector from './DualTimeSelector';
 import ReserveMap from './ReserveMap';
 import UserForm from './UserForm';
 import ListTableNoCheck from './ListTableNoCheck';
-import { json } from 'react-router-dom';
 import { useCollapse } from 'react-collapsed';
 import { GiCompass, GiObservatory } from 'react-icons/gi';
 import { FaMountain } from 'react-icons/fa';
-import { GrCheckboxSelected, GrCheckbox } from 'react-icons/gr';
 import { IoLocationSharp } from 'react-icons/io5';
 import DmsCoordinates, { parseDms } from 'dms-conversion';
 import { Resizable } from 're-resizable';
 import { DateTime } from 'luxon';
 import Modal from './Modal';
 import './react-tabs.css';
-
+import ButtonClose from './ButtonClose';
+import ButtonOpen from './ButtonOpen';
 let formColumns = [
   {
     Header: 'Equip',
@@ -161,7 +160,9 @@ const Reserve = () => {
   const optionsFormat = () => {
     return requestedWeek.map((x, index) => {
       return {
-        Header: x,
+        Header: DateTime.fromISO(x)
+          .toLocal()
+          .toLocaleString({ weekday: 'short', month: 'short', day: '2-digit' }),
         accessor: x,
         Cell: ({ row, column }) => (
           <div>
@@ -228,8 +229,8 @@ const Reserve = () => {
         timeList.forEach(({ name, start, end }) => {
           itemsToPush.push({
             ...userForm,
-            id: id,
-            times: `${start}-${end}`,
+            // id: id,
+            // times: `${start}-${end}`,
             Range: Range,
             SiteLocation: SiteLocation,
             Threat: Threat,
@@ -248,38 +249,52 @@ const Reserve = () => {
         });
       }
     );
+    //TODO check oin why times arnt right
     setItemsToSubmit(itemsToPush);
   }, [dateForm]);
 
   //TODO
   const sendForm = (payload) => {
-    console.log(payload);
-    fetch(`${listUrl}/GetByTitle('Assets')/items`, {
-      method: 'PUT',
-      body: JSON.stringify([payload]),
-      credentials: 'include',
-    }).then((res) => res.json());
-    setShowModale(false);
-    setItemsToSubmit([]);
-    setTimeList([]);
+    payload.map((x) => {
+      fetch(`${listUrl}/GetByTitle('Reservations')/items`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify([x]),
+        credentials: 'include',
+      }).then((res) => res.json());
+      setShowModale(false);
+      // setItemsToSubmit([]);
+      // setTimeList([]);
+      // alert('Reservation sent');
+      // navigate(0)
+    });
   };
 
   return (
     <>
-      <div className="container mx-auto h-screen">
-        <div className="flex justify-center px-6 my-6 bg-tertiary rounded">
+      <div className="justify-center flex">
+        <UserForm
+          setUserForm={setUserForm}
+          setRequestedWeek={setRequestedWeek}
+        />
+        <div className="flex items-center justify-center pt-5">
+          <ButtonOpen name={'Reserve'} onClick={() => setShowModale(true)} />
+        </div>
+      </div>
+      <div className="w-full p-3 mx-auto">
+        <div className="flex w-full  justify-center p-8 bg-tertiary rounded">
           <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
-            <div className="flex flex-row">
+            <div className="flex flex-row pb-4">
               <Resizable
-                className="border-double hover:border-dashed border-r-2 border-black mt-5 ml-5"
+                className="border-double hover:border-dashed border-r-8 border-secondary mt-5 ml-5"
                 defaultSize={{
                   width: 475,
-                  height: 750,
+                  height: 700,
                 }}
                 minWidth={475}
-                minHeight={750}
-                maxHeight={750}
-                maxWidth={width - 30}
+                minHeight={600}
+                maxHeight={20}
+                maxWidth={width - 115}
               >
                 <div className=" border border-black mr-2 h-full overflow-scroll">
                   <input
@@ -312,12 +327,7 @@ const Reserve = () => {
                 setCenter={setCenter}
               />
             </div>
-            <button
-              onClick={() => setShowModale(true)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Open Form
-            </button>
+
             {/* {console.log("selectedData", selectedData)}
                 {console.log(data)} */}
             <Modal
@@ -327,55 +337,58 @@ const Reserve = () => {
               }}
             >
               {
-                <>
+                <div className="bg-blue h-full items-center text-center ">
                   <Tabs>
                     <TabList>
-                      <Tab>User Info</Tab>
+                      <Tab>Select VULs and Notes</Tab>
                       <Tab>Week Data</Tab>
                       <Tab>Submit Form</Tab>
-                      <button
-                        onClick={() => setShowModale(false)}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                      >
-                        Close Form
-                      </button>
                     </TabList>
 
                     <TabPanel>
-                      <div className="flex">
-                        <UserForm
-                          setUserForm={setUserForm}
-                          setRequestedWeek={setRequestedWeek}
-                        />
+                      <div className="flex items-center justify-center">
                         <DualTimeSelector
                           timeList={timeList}
                           setTimeList={setTimeList}
                         />
-                        {/* TODO, make the input wok for all items  */}
-                        <input
-                          type="text"
-                          onChange={(e) =>
-                            setUserForm({
-                              ...userForm,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
-                          name="Notes"
-                          placeholder="Notes"
-                        />
                       </div>
+                      {/* <UserForm
+                            setUserForm={setUserForm}
+                            setRequestedWeek={setRequestedWeek}
+                          /> */}
+                      <input
+                        type="multiline"
+                        className="xl:w-3/4 lg:2-11/12 shadow-2xl pl-10 pr-10 m-10 w-3/4  border border-black"
+                        onChange={(e) =>
+                          setUserForm({
+                            ...userForm,
+                            [e.target.name]: e.target.value,
+                          })
+                        }
+                        name="Notes"
+                        placeholder="Notes"
+                      />
+
+                      {/* TODO, make the input wok for all items  */}
                     </TabPanel>
+
                     <TabPanel>
-                      {selectedData.length !== 0 ? (
-                        <ListTableNoCheck
-                          data={selectedData}
-                          columns={formNewColumns}
-                          selected={selected}
-                          setSelected={setSelected}
-                        />
-                      ) : (
-                        'Please close this form and select threats from main display...'
-                      )}
+                      <div
+                        className={
+                          'overflow-scroll h-96 flex items-center justify-center'
+                        }
+                      >
+                        {selectedData.length !== 0 ? (
+                          <ListTableNoCheck
+                            data={selectedData}
+                            columns={formNewColumns}
+                            selected={selected}
+                            setSelected={setSelected}
+                          />
+                        ) : (
+                          'Please close this form and select threats from main display...'
+                        )}
+                      </div>
                     </TabPanel>
 
                     <TabPanel>
@@ -383,7 +396,8 @@ const Reserve = () => {
                         <div>
                           <h1>User Data</h1>
                           <div className="flex">
-                            POC:{' '}
+                            <label className="mr-2">POC: </label>
+
                             {userForm.POC ? (
                               <div className="">{userForm.POC}</div>
                             ) : (
@@ -393,7 +407,8 @@ const Reserve = () => {
                             )}
                           </div>
                           <div className="flex">
-                            ContactDSN:{' '}
+                            <label className="mr-2">Contact DSN: </label>
+
                             {userForm.ContactDSN ? (
                               <div className="">{userForm.ContactDSN}</div>
                             ) : (
@@ -403,7 +418,7 @@ const Reserve = () => {
                             )}
                           </div>
                           <div className="flex">
-                            Squadron:{' '}
+                            <label className="mr-2">Squadron: </label>
                             {userForm.Squadron ? (
                               <div className="">{userForm.Squadron}</div>
                             ) : (
@@ -455,7 +470,7 @@ const Reserve = () => {
                       </>
                     </TabPanel>
                   </Tabs>
-                </>
+                </div>
               }
             </Modal>
           </div>

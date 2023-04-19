@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import '../App.css';
 import Map from '../Map/Map.js';
 import Layers from '../Map/Layers/Layers.js';
@@ -22,8 +22,8 @@ let styles = new Style({
     anchorXUnits: 'fraction',
     anchorYUnits: 'pixels',
     src: `${mapIcon}`,
-    scale: 0.1,
-    color: 'white',
+    scale: 0.2,
+    // color: [0,0,0,100],
   }),
   // text: new Text({
   //   font: "16px sans-serif",
@@ -107,7 +107,7 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
           {geoArray.length > 0 ? (
             geoArray.map((geoObject, index) => {
               return selected.includes(geoObject.properties.name) ? (
-                <>
+                <Fragment key={`VectorLayer-${index}`}>
                   <VectorLayer
                     source={vector({
                       features: new GeoJSON().readFeatures(geoObject, {
@@ -116,7 +116,7 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
                     })}
                     style={styles}
                   />
-                </>
+                </Fragment>
               ) : (
                 <></>
               );
@@ -136,35 +136,3 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
   );
 };
 export default ReserveMap;
-
-// feature.setStyle(
-//   new Style({
-//     image: new Icon({
-//       src: `${mapIcon}`,
-//       scale: 0.1,
-//     }),
-//     text: new Text({
-//       font: "16px sans-serif",
-//       textAlign: "left",
-//       justify: "left",
-//       padding: [5, 5, 5, 5],
-//       offsetX: 75,
-//       text: `${values.Equipment}`,
-//       fill: new Fill({
-//         color: [0, 0, 0, 1],
-//       }),
-//       backgroundFill: new Fill({
-//         color:
-//           values.Status === "GREEN"
-//             ? "#00ff00"
-//             : values.Status === "AMBER"
-//             ? "#ffff00"
-//             : values.Status === "RED"
-//             ? "#ff0000"
-//             : values.Status === "N/A"
-//             ? "#0000ff"
-//             : [25, 118, 210, 0.6],
-//       }),
-//     }),
-//   })
-// );
