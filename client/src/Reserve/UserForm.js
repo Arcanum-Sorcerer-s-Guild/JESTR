@@ -48,7 +48,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
     <>
       <div className="text-center">
         <div className="p-2 flex ">
-          <div className='p-1 w-full'>
+          <div className="p-1 w-full">
             <label className="text-text text-center underline block text-sm font-medium text-gray-700">
               Squadron
             </label>
@@ -58,7 +58,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
               setDropdown={setSquadronDD}
             />
           </div>
-          <div className='p-1 w-full'>
+          <div className="p-1 w-full">
             <label className="text-text text-center underline block text-sm font-medium text-gray-700">
               POC
             </label>
@@ -70,7 +70,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
             />
           </div>
           {squadronDD === squadronDDOpts[0] ? (
-            <div className='p-1 w-full'>
+            <div className="p-1 w-full">
               <label className="text-text text-center underline block text-sm font-medium text-gray-700">
                 Squadron
               </label>
@@ -78,24 +78,25 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
                 type="text"
                 className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md    sm:text-sm"
                 onChange={(e) => setSquadron(e.target.value)}
-
               />
             </div>
-
           ) : (
             <></>
           )}
-          <div className='p-1 w-full'>
-            <label className="text-text text-center underline block text-sm font-medium text-gray-700">DSN</label>
+          <div className="p-1 w-full">
+            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
+              DSN
+            </label>
             <input
               type="tel"
               className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm"
               onChange={(e) => setDSN(e.target.value)}
             />
           </div>
-          <div className='p-1 w-full'>
-            <label className="text-text text-center underline block text-sm font-medium text-gray-700">Week</label>
-
+          <div className="p-1 w-full">
+            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
+              Week
+            </label>
 
             <input
               type="week"

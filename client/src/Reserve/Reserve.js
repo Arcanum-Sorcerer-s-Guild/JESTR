@@ -160,7 +160,9 @@ const Reserve = () => {
   const optionsFormat = () => {
     return requestedWeek.map((x, index) => {
       return {
-        Header: DateTime.fromISO(x).toLocal().toLocaleString({ weekday: 'short', month: 'short', day: '2-digit' }),
+        Header: DateTime.fromISO(x)
+          .toLocal()
+          .toLocaleString({ weekday: 'short', month: 'short', day: '2-digit' }),
         accessor: x,
         Cell: ({ row, column }) => (
           <div>
@@ -266,21 +268,20 @@ const Reserve = () => {
       // alert('Reservation sent');
       // navigate(0)
     });
-
   };
 
   return (
     <>
-      <div className='justify-center flex'>
+      <div className="justify-center flex">
         <UserForm
           setUserForm={setUserForm}
           setRequestedWeek={setRequestedWeek}
         />
-        <div className='flex items-center justify-center pt-5'>
+        <div className="flex items-center justify-center pt-5">
           <ButtonOpen name={'Reserve'} onClick={() => setShowModale(true)} />
         </div>
       </div>
-      <div className='w-full p-3 mx-auto'>
+      <div className="w-full p-3 mx-auto">
         <div className="flex w-full  justify-center p-8 bg-tertiary rounded">
           <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
             <div className="flex flex-row pb-4">
@@ -336,7 +337,7 @@ const Reserve = () => {
               }}
             >
               {
-                <div className='bg-blue h-full items-center text-center '>
+                <div className="bg-blue h-full items-center text-center ">
                   <Tabs>
                     <TabList>
                       <Tab>Select VULs and Notes</Tab>
@@ -344,8 +345,8 @@ const Reserve = () => {
                       <Tab>Submit Form</Tab>
                     </TabList>
 
-                    <TabPanel >
-                      <div className='flex items-center justify-center'>
+                    <TabPanel>
+                      <div className="flex items-center justify-center">
                         <DualTimeSelector
                           timeList={timeList}
                           setTimeList={setTimeList}
@@ -357,7 +358,7 @@ const Reserve = () => {
                           /> */}
                       <input
                         type="multiline"
-                        className='xl:w-3/4 lg:2-11/12 shadow-2xl pl-10 pr-10 m-10 w-3/4  border border-black'
+                        className="xl:w-3/4 lg:2-11/12 shadow-2xl pl-10 pr-10 m-10 w-3/4  border border-black"
                         onChange={(e) =>
                           setUserForm({
                             ...userForm,
@@ -369,11 +370,14 @@ const Reserve = () => {
                       />
 
                       {/* TODO, make the input wok for all items  */}
-
                     </TabPanel>
 
-                    <TabPanel >
-                      <div className={'overflow-scroll h-96 flex items-center justify-center'}>
+                    <TabPanel>
+                      <div
+                        className={
+                          'overflow-scroll h-96 flex items-center justify-center'
+                        }
+                      >
                         {selectedData.length !== 0 ? (
                           <ListTableNoCheck
                             data={selectedData}
@@ -558,10 +562,10 @@ const CollapsibleChild = ({
                         <span className="pl-1">{`${asset.dms
                           .toString()
                           .slice(0, 12)}${asset.dms
-                            .toString()
-                            .slice(24, 41)}${asset.dms
-                              .toString()
-                              .slice(-3, 57)}`}</span>
+                          .toString()
+                          .slice(24, 41)}${asset.dms
+                          .toString()
+                          .slice(-3, 57)}`}</span>
                       </button>
                     </div>
                   </div>
@@ -573,14 +577,16 @@ const CollapsibleChild = ({
                     </div>
                     <div
                       className={`ml-2 flex justify-between border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
-                      ${asset.Status === 'AMBER'
+                      ${
+                        asset.Status === 'AMBER'
                           ? `border-yellow bg-yellow/40`
                           : ``
-                        }
-                      ${asset.Status === 'GREEN'
+                      }
+                      ${
+                        asset.Status === 'GREEN'
                           ? `border-green bg-green/40`
                           : ``
-                        }
+                      }
                       ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
                       ${asset.Status === 'NA' ? `border-gray bg-gray/40` : ``}
                     `}
