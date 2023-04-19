@@ -133,6 +133,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
         `${lName} ${fName} DOD - ` + `${fName}.${mInit}.${lName}`.toLowerCase(), // "Hartsfield Joseph DOD - joseph.w.hartsfield"
       Email: `${fName}.${lName}@us.af.mil`, // first.last@us.af.mil
       Password: hashedDefaultPassword, // password
+      IsApprover: randomIncRange(1, 100) < 15 ? true : false,
+      IsSiteAdmin: randomIncRange(1, 100) < 5 ? true : false,
     });
   });
 
