@@ -82,14 +82,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       IsSiteAdmin: true,
     },
     {
-      LoginName: 'i:0e.t|fedvis|first.m.last',
-      Title: 'Last First DOD - first.m.last',
-      Email: 'First.Last@us.af.mil',
-      Password: '$2b$10$mpB1umV1L4B6BExRvfGfG.sZsgM8Ac0I0PbaNGZnymd0410Nx8iC2', // password is first name all lowercase
-      IsApprover: true,
-      IsSiteAdmin: true,
-    },
-    {
       LoginName: 'i:0e.t|fedvis|test.m.user', // test user
       Title: 'User Test DOD - test.m.user',
       Email: 'Test.User@us.af.mil',
@@ -111,6 +103,14 @@ const generateUsers = (numUsers = globalNumUsers) => {
       Email: 'Test.Admin@us.af.mil',
       Password: '$2b$10$fUG51mix9BfHaPdDspHPU.ZWaD8DQUelmyOd3KirWQksh3/z/TMJ6', // password is first name all lowercase
       IsApprover: true,
+      IsSiteAdmin: true,
+    },
+    {
+      LoginName: 'i:0e.t|fedvis|test.m.adminonly', // test site admin
+      Title: 'Adminonly Test DOD - test.m.adminonly',
+      Email: 'Test.Adminonly@us.af.mil',
+      Password: '$2b$10$fUG51mix9BfHaPdDspHPU.ZWaD8DQUelmyOd3KirWQksh3/z/TMJ6', // password is first name all lowercase
+      IsApprover: false,
       IsSiteAdmin: true,
     },
   ];
