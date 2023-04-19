@@ -8,7 +8,6 @@ const MyBook = () => {
     const [localData2, setLocalData2] = useState([]);
     const [currentDate, setCurrentDate] = useState(DateTime.now().toFormat('yyyy MMM dd'));
     const [currentPage, setCurrentPage] = useState(1)
-    const [sliced, setSliced] = useState([[{ hello: 'hello' }]]);
     const sliceData = (arr) => {
         if (arr.length <= 10) return arr;
         const slicedArr = [];
@@ -34,14 +33,6 @@ const MyBook = () => {
                         );
                     })
                 );
-                // const useMe2 = sliceData(
-                //     data.d.results.filter((item) => {
-                //         return (
-                //             DateTime.fromISO(item.EventDate).toLocal().plus({days: 1}).toFormat('yyyy MMM dd')
-                //             === DateTime.toLocal().plus({days: 1}).toFormat('yyyy MMM dd')
-                //         );
-                //     })
-                // );
                 const today = DateTime.local().startOf('day');
                 const tomorrow = today.plus({ days: 1 }).startOf('day');
                 const noUseMe = sliceData(
@@ -52,22 +43,19 @@ const MyBook = () => {
                         const dateA = DateTime.fromISO(a.EventDate).toLocal();
                         const dateB = DateTime.fromISO(b.EventDate).toLocal();
                         if (dateA < dateB) {
-                          return -1;
+                            return -1;
                         }
                         if (dateA > dateB) {
-                          return 1;
+                            return 1;
                         }
                         return 0;
-                      })
+                    })
                 );
-                console.log('useMe', useMe, 'noUseMe', noUseMe)
                 setReservations(sliceData(data.d.results));
                 setLocalData(useMe);
                 setLocalData2(noUseMe);
             });
     }, []);
-    console.log('localData2', localData2)
-    console.log('localData.length', localData.length)
     const headers = [
         { name: 'Site Location' },
         { name: 'Threat (Equipment)' },
@@ -77,10 +65,8 @@ const MyBook = () => {
     ];
     const handlePageChange = (e) => {
         setCurrentPage(book.current.pageFlip().getCurrentPageIndex() + 1);
-        console.log('e.data', e.data)
-        if (e.data + 1 === localData.length  || e.data === localData.length ) {
+        if (e.data + 1 === localData.length || e.data === localData.length) {
             setCurrentDate(DateTime.now().plus({ days: 1 }).toFormat('yyyy MMM dd'))
-            console.log('hello...Jason')
         } else if (e.data + 1 < localData.length) setCurrentDate(DateTime.now().toFormat('yyyy MMM dd'))
     }
     const book = useRef();
@@ -88,11 +74,11 @@ const MyBook = () => {
         <div className="container mx-auto h-screen">
             <div className="flex justify-center px-6">
                 <div className="w-full xl:w-full lg:w-12/12 flex flex-col shadow-2xl">
+                    <div className='h-8 mt-6 rounded-sm text-center'> <span className='font-medium text-text text-lg w-max'>
+                        Todays date: {currentDate}
+                    </span></div>
                     <div className='flex justify-around h-8 mt-6 rounded-sm'>
                         <button className="bg-green top-2 left-64 rounded-md p-1" onClick={() => book.current.pageFlip().flipPrev()}>Previous page</button>
-                        <span className='font-medium text-text text-lg w-max '>
-                            Todays date: {currentDate}
-                        </span>
                         <span className='font-medium text-text text-lg w-max '>
                             Current Page: {currentPage}
                         </span>
@@ -117,9 +103,7 @@ const MyBook = () => {
                         onFlip={handlePageChange}
                         className='mt-10 rounded-r-md'
                     >
-
                         {localData2.map((item, index) => {
-                            //if (index === localData.length - 1) return <div className='bg-text h-11 border-r border-gray-dark border-2 rounded-md'>new page</div>
                             return (
                                 <div className='bg-text h-11 border-r border-gray-dark border-2 rounded-md'>
                                     <table>
@@ -160,9 +144,7 @@ const MyBook = () => {
                                 </div>
                             );
                         })
-
                         }
-
                     </HTMLFlipBook>
                 </div>
             </div>
