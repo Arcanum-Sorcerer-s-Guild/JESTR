@@ -5,11 +5,7 @@ import { Context } from '../App';
 //icons
 import { FiMenu, FiRadio } from 'react-icons/fi';
 import { RiAdminFill } from 'react-icons/ri';
-import {
-  FaMapMarkedAlt,
-  FaEye,
-  FaUserCircle,
-} from 'react-icons/fa';
+import { FaMapMarkedAlt, FaEye, FaUserCircle } from 'react-icons/fa';
 import { BsCardChecklist } from 'react-icons/bs';
 
 const NavBar = () => {
@@ -59,8 +55,10 @@ const NavBar = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === 'logout successful') {
+          // Clear Session Storage
+          localStorage.clear();
           setUserdata({});
-          navigate('/Login');
+          navigate('/');
         }
       });
   };
@@ -92,9 +90,8 @@ const NavBar = () => {
     <>
       <div className="flex px-4 border-b shadow-md items-center relative bg-gunmetal">
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
-          <div className='text-blue'>
-          </div>
-          <div className=''>
+          <div className="text-blue"></div>
+          <div className="">
             <h1 className="text-blue">JESTR</h1>
           </div>
         </div>

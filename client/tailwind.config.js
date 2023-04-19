@@ -19,6 +19,7 @@ const vaporwaveColors = {
   'gray-dark': '#273444',
   gray: '#8492a6',
   'gray-light': '#d3dce6',
+  'gray-lighter': '#ededed',
   gunmetal: '#1f2937',
 };
 

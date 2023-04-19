@@ -36,6 +36,8 @@ const Register = () => {
         if ('Id' in data) {
           setUserdata(data);
           // alert('Login Successful')
+          //Set Local Storage
+          localStorage.setItem('user', JSON.stringify(data));
           navigate('/');
         } else if (password1 !== password2) alert("Passwords don't match");
         else if (data.message === 'LoginName already taken...')
@@ -156,9 +158,11 @@ const Register = () => {
               </div>
               <hr className="style-two mb-6 border-t border-gunmetal" />
               <div className="text-center text-xs text-text italic">
-                <p> By signing up, you agree to entering{' '}
-                <span className="text-blue underline">The Best</span> &{' '}
-                <span className="text-blue underline">Coolest</span> App
+                <p>
+                  {' '}
+                  By signing up, you agree to entering{' '}
+                  <span className="text-blue underline">The Best</span> &{' '}
+                  <span className="text-blue underline">Coolest</span> App
                 </p>
               </div>
             </div>

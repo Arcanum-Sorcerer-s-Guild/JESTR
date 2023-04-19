@@ -29,6 +29,8 @@ import { GiVirtualMarker } from 'react-icons/gi';
 const Asset = () => {
   const [assets, setAssets] = useState([]);
   const [currAsset, setCurrAsset] = useState();
+  const [assets, setAssets] = useState([]);
+  const [currAsset, setCurrAsset] = useState();
   let params = useParams();
   const [timeLine, setTimeLine] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -56,13 +58,21 @@ const Asset = () => {
     if (page === 'prev' && parseInt(params.id) !== 1) {
       navigate(`/Asset/${parseInt(params.id) - 1}`);
       setToggle(!toggle);
+    if (page === 'prev' && parseInt(params.id) !== 1) {
+      navigate(`/Asset/${parseInt(params.id) - 1}`);
+      setToggle(!toggle);
     }
+    if (page === 'next' && parseInt(params.id) + 1 !== assets.length + 1) {
+      navigate(`/Asset/${parseInt(params.id) + 1}`);
+      setToggle(!toggle);
     if (page === 'next' && parseInt(params.id) + 1 !== assets.length + 1) {
       navigate(`/Asset/${parseInt(params.id) + 1}`);
       setToggle(!toggle);
     }
   };
+  };
 
+  useEffect(() => {
   useEffect(() => {
     if (currAsset !== undefined) {
       setTimeLine([
@@ -78,7 +88,21 @@ const Asset = () => {
         { name: 'Asset Modified', time: DateTime.fromISO(currAsset.modified) },
         { name: 'ETIC', time: DateTime.fromISO(currAsset.ETIC) },
       ]);
+      setTimeLine([
+        {
+          name: 'Coordinate Recorded',
+          time: DateTime.fromISO(currAsset.CoordRecordedDate),
+        },
+        {
+          name: 'Status Recorded',
+          time: DateTime.fromISO(currAsset.StatusDate),
+        },
+        { name: 'Asset Created', time: DateTime.fromISO(currAsset.created) },
+        { name: 'Asset Modified', time: DateTime.fromISO(currAsset.modified) },
+        { name: 'ETIC', time: DateTime.fromISO(currAsset.ETIC) },
+      ]);
     }
+  }, [currAsset]);
   }, [currAsset]);
 
   const handleDelete = (e) => {

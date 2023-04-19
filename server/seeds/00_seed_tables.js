@@ -20,6 +20,14 @@ const generateFakeDate = (
   return faker.date.between(`${startDate}T00:00:00Z`, `${endDate}T00:00:00Z`);
 };
 
+const generateFakeParagraph = (numSentences = randomIncRange(1, 10)) => {
+  const fakeParagraph = [];
+  while (fakeParagraph.length < numSentences) {
+    fakeParagraph.push(faker.hacker.phrase());
+  }
+  return fakeParagraph.join(' ');
+};
+
 const generateUsers = (numUsers = globalNumUsers) => {
   defaultPassword = 'password';
   hashedDefaultPassword = bcrypt.hashSync(defaultPassword, 10);
@@ -74,14 +82,6 @@ const generateUsers = (numUsers = globalNumUsers) => {
       IsSiteAdmin: true,
     },
     {
-      LoginName: 'i:0e.t|fedvis|first.m.last',
-      Title: 'Last First DOD - first.m.last',
-      Email: 'First.Last@us.af.mil',
-      Password: '$2b$10$mpB1umV1L4B6BExRvfGfG.sZsgM8Ac0I0PbaNGZnymd0410Nx8iC2', // password is first name all lowercase
-      IsApprover: true,
-      IsSiteAdmin: true,
-    },
-    {
       LoginName: 'i:0e.t|fedvis|test.m.user', // test user
       Title: 'User Test DOD - test.m.user',
       Email: 'Test.User@us.af.mil',
@@ -105,6 +105,14 @@ const generateUsers = (numUsers = globalNumUsers) => {
       IsApprover: true,
       IsSiteAdmin: true,
     },
+    {
+      LoginName: 'i:0e.t|fedvis|test.m.adminonly', // test site admin
+      Title: 'Adminonly Test DOD - test.m.adminonly',
+      Email: 'Test.Adminonly@us.af.mil',
+      Password: '$2b$10$fUG51mix9BfHaPdDspHPU.ZWaD8DQUelmyOd3KirWQksh3/z/TMJ6', // password is first name all lowercase
+      IsApprover: false,
+      IsSiteAdmin: true,
+    },
   ];
 
   const names = new Set();
@@ -125,6 +133,8 @@ const generateUsers = (numUsers = globalNumUsers) => {
         `${lName} ${fName} DOD - ` + `${fName}.${mInit}.${lName}`.toLowerCase(), // "Hartsfield Joseph DOD - joseph.w.hartsfield"
       Email: `${fName}.${lName}@us.af.mil`, // first.last@us.af.mil
       Password: hashedDefaultPassword, // password
+      IsApprover: randomIncRange(1, 100) < 15 ? true : false,
+      IsSiteAdmin: randomIncRange(1, 100) < 5 ? true : false,
     });
   });
 
@@ -141,9 +151,9 @@ const generateAssets = (numAssets = globalNumAssets) => {
       ThreatType: ['Manned', 'Unmanned'][randomIncRange(0, 1)],
       SystemInformation: `${faker.hacker.noun()} issues`, // "some string"
       StatusDate: generateFakeDate('2023-03-01', '2023-3-20'),
-      Status: ['RED', 'AMBER', 'GREEN', 'NA'][randomIncRange(0, 3)], // RED ||AMBER || GREEN || NA
+      Status: ['RED', 'AMBER', 'GREEN', 'N/A'][randomIncRange(0, 3)], // RED ||AMBER || GREEN || N/A
       ETIC: generateFakeDate('2023-03-01', '2024-3-20'), // 2022-11-02T19:44:06Z
-      Remarks: faker.hacker.phrase(), // "some string"
+      Remarks: generateFakeParagraph(), // "some string"
       Schedulable: randomIncRange(1, 100) < 20 ? false : true, // true/false
       Operational: randomIncRange(1, 100) < 40 ? false : true, // true/false
       Range: [
@@ -165,8 +175,8 @@ const generateAssets = (numAssets = globalNumAssets) => {
       CoordRecordedDate: generateFakeDate('2020-03-01', '2020-08-01'), // 2022-11-02T19:44:06Z
       created: generateFakeDate('2023-03-01', '2023-3-20'),
       modified: generateFakeDate('2023-08-01', '2023-10-01'),
-      AuthorId: 1,
-      EditorId: 1,
+      AuthorId: randomIncRange(1, 6),
+      EditorId: randomIncRange(1, 6),
     });
   }
   return assets;
