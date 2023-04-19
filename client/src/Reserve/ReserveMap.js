@@ -43,7 +43,7 @@ let styles = new Style({
   //         ? "#ffff00"
   //         : values.Status === "RED"
   //         ? "#ff0000"
-  //         : values.Status === "NA"
+  //         : values.Status === "N/A"
   //         ? "#0000ff"
   //         : [25, 118, 210, 0.6],
   //   }),

@@ -588,7 +588,7 @@ const CollapsibleChild = ({
                           : ``
                       }
                       ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
-                      ${asset.Status === 'NA' ? `border-gray bg-gray/40` : ``}
+                      ${asset.Status === 'N/A' ? `border-gray bg-gray/40` : ``}
                     `}
                     >
                       <span className="font-medium pl-1">{`${asset.ThreatType.toUpperCase()}`}</span>
