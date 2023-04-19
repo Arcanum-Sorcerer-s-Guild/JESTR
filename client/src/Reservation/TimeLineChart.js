@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import 'chartjs-adapter-luxon'
-import { Bar } from 'react-chartjs-2';
+import { Bar, getElementAtEvent } from 'react-chartjs-2';
 import { DateTime } from 'luxon';
 import {
   Chart as ChartJS,
@@ -22,18 +22,28 @@ ChartJS.register(
 
 
 
-const TimeLineChart = ({conflictArray,currRes}) => {
+const TimeLineChart = ({conflictArray,currRes,setAltRes,setShowModal}) => {
+  let colorArray = conflictArray.map(conflict=> conflict.Status === 'Approved' ? 'rgba(0,255,0)': 'rgba(255,0,0')
+  let labels = conflictArray.map(conflict=>`${conflict.Squadron}: #${conflict.Id}`);
+  colorArray.unshift('rgba(0,0,255)')
+  labels.unshift(`Reservation #${currRes.Id}`)
+  const chartRef = useRef()
 
-  let labels = [... new Set(conflictArray.map(conflict=>conflict.Squadron))];
-  labels.push('Current')
+  const onChartClick = (event) => {
+    let element = getElementAtEvent(chartRef.current,event)[0]
+    if (element !== undefined) {
+      console.log(conflictArray[element.index])
+      setAltRes(conflictArray[element.index])
+      setShowModal(true)  
+    }
 
-  console.log(conflictArray)
+  }
 
   const options = {
     indexAxis: 'y' ,
     scales: {
       x: {
-        min: DateTime.now().toFormat('hh:mm'), //'2022-02-01',
+        min: '06:00',       //DateTime.now().toFormat('hh:mm'), //'2022-02-01',
         max: '18:00',
         type: 'time',
         time: {
@@ -51,12 +61,10 @@ const TimeLineChart = ({conflictArray,currRes}) => {
     },
     responsive: true,
     plugins: {
-      legend: {
-        position: 'right',
-      },
+      legend: false,
       title: {
         display: true,
-        text: 'Chart.js Horizontal Bar Chart',
+        text: ` Reservations on ${currRes.start.toFormat('dd MMM yyyy')}` ,
       },
     },
   };
@@ -68,9 +76,8 @@ const TimeLineChart = ({conflictArray,currRes}) => {
       {
       label: `Conflicts`,
       data: conflictArray.map(conflict => ([conflict.start.toFormat('HH:mm'),conflict.end.toFormat('HH:mm')])),
-      borderColor: 'rgb(255,0,0,.5)',
-      backgroundColor: 'rgb(255,0,0)',
-      barPercentage: .50,
+      backgroundColor: colorArray,
+      barPercentage: .25,
   },
   //     {
   //     label: `Conflicts`,
@@ -82,29 +89,9 @@ const TimeLineChart = ({conflictArray,currRes}) => {
 
 ]}
   
-  // const data = {
-  //   labels,
-  //   datasets: [
-  
-  //     {
-  //       label: 'Dataset 1',
-  //       data: [ ['2022-02-01','2022-02-01'],['2022-02-02','2022-02-04'],['2022-02-03','2022-02-07'],['2022-02-04','2022-02-09'],['2022-02-05','2022-02-06'] ],
-  //       borderColor: 'rgb(255, 99, 132)',
-  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  //       barPercentage: .50,
-  //     },
-  //     {
-  //       label: 'Dataset 2',
-  //       data: [500],
-  //       borderColor: 'rgb(53, 162, 235)',
-  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-  //       barPercentage: .50,
-  //     },
-  //   ],
-  // };
+
   return(<>
-    {conflictArray.map(conflict=> console.log(conflict.start.toFormat('hh:mm'),conflict.end.toFormat('hh:mm')))}
-    <Bar options={options} data={data} />;
+    <Bar width={350} height={350} options={options} data={data} ref={chartRef} onClick={onChartClick}/>
   </>)
 }
 
