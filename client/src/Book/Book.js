@@ -4,15 +4,18 @@ import { DateTime } from 'luxon';
 
 const MyBook = () => {
     const [reservations, setReservations] = useState([]);
-    const [localData, setLocalDate] = useState([]);
-    const [sliced, setSliced] = useState([[{}]]);
+    const [localData, setLocalData] = useState([[{ hello: 'hello' }]]);
+    const [localData2, setLocalData2] = useState([]);
+    const [currentDate, setCurrentDate] = useState(DateTime.now().toFormat('yyyy MMM dd'));
+    const [currentPage, setCurrentPage] = useState(1)
+    const [sliced, setSliced] = useState([[{ hello: 'hello' }]]);
     const sliceData = (arr) => {
-        if (arr.length <= 4) return arr;
+        if (arr.length <= 10) return arr;
         const slicedArr = [];
         let index = 0;
         while (index < arr.length) {
-            slicedArr.push(arr.slice(index, index + 10));
-            index += 10;
+            slicedArr.push(arr.slice(index, index + 8));
+            index += 8;
         }
         return slicedArr;
     };
@@ -26,23 +29,45 @@ const MyBook = () => {
                 const useMe = sliceData(
                     data.d.results.filter((item) => {
                         return (
-                            DateTime.fromISO(item.EventDate).toLocal().toISODate()
-                            === DateTime.now().toISODate()
+                            DateTime.fromISO(item.EventDate).toLocal().toFormat('yyyy MMM dd')
+                            === DateTime.now().toFormat('yyyy MMM dd')
                         );
                     })
                 );
-                setReservations(data.d.results);
-                setLocalDate(
+                // const useMe2 = sliceData(
+                //     data.d.results.filter((item) => {
+                //         return (
+                //             DateTime.fromISO(item.EventDate).toLocal().plus({days: 1}).toFormat('yyyy MMM dd')
+                //             === DateTime.toLocal().plus({days: 1}).toFormat('yyyy MMM dd')
+                //         );
+                //     })
+                // );
+                const today = DateTime.local().startOf('day');
+                const tomorrow = today.plus({ days: 1 }).startOf('day');
+                const noUseMe = sliceData(
                     data.d.results.filter((item) => {
-                        return (
-                            DateTime.fromISO(item.EventDate).toLocal().toISODate()
-                            === DateTime.now().toISODate()
-                        );
-                    })
+                        const eventDate = DateTime.fromISO(item.EventDate).toLocal().startOf('day');
+                        return eventDate >= today && eventDate <= tomorrow;
+                    }).sort((a, b) => {
+                        const dateA = DateTime.fromISO(a.EventDate).toLocal();
+                        const dateB = DateTime.fromISO(b.EventDate).toLocal();
+                        if (dateA < dateB) {
+                          return -1;
+                        }
+                        if (dateA > dateB) {
+                          return 1;
+                        }
+                        return 0;
+                      })
                 );
-                setSliced(useMe);
+                console.log('useMe', useMe, 'noUseMe', noUseMe)
+                setReservations(sliceData(data.d.results));
+                setLocalData(useMe);
+                setLocalData2(noUseMe);
             });
     }, []);
+    console.log('localData2', localData2)
+    console.log('localData.length', localData.length)
     const headers = [
         { name: 'Site Location' },
         { name: 'Threat (Equipment)' },
@@ -50,15 +75,26 @@ const MyBook = () => {
         { name: 'Start Date' },
         { name: 'Status' },
     ];
+    const handlePageChange = (e) => {
+        setCurrentPage(book.current.pageFlip().getCurrentPageIndex() + 1);
+        console.log('e.data', e.data)
+        if (e.data + 1 === localData.length  || e.data === localData.length ) {
+            setCurrentDate(DateTime.now().plus({ days: 1 }).toFormat('yyyy MMM dd'))
+            console.log('hello...Jason')
+        } else if (e.data + 1 < localData.length) setCurrentDate(DateTime.now().toFormat('yyyy MMM dd'))
+    }
     const book = useRef();
     return (
         <div className="container mx-auto h-screen">
             <div className="flex justify-center px-6">
                 <div className="w-full xl:w-full lg:w-12/12 flex flex-col shadow-2xl">
                     <div className='flex justify-around h-8 mt-6 rounded-sm'>
-                    <button className="bg-green top-2 left-64 rounded-md p-1" onClick={() => book.current.pageFlip().flipPrev()}>Previous page</button>
+                        <button className="bg-green top-2 left-64 rounded-md p-1" onClick={() => book.current.pageFlip().flipPrev()}>Previous page</button>
                         <span className='font-medium text-text text-lg w-max '>
-                        Todays date: {DateTime.now().toFormat('yyyy MMM dd')}            
+                            Todays date: {currentDate}
+                        </span>
+                        <span className='font-medium text-text text-lg w-max '>
+                            Current Page: {currentPage}
                         </span>
                         <button className="bg-green top-2 right-64 rounded-md p-1 " onClick={() => book.current.pageFlip().flipNext()}>Next page</button>
                     </div>
@@ -78,9 +114,12 @@ const MyBook = () => {
                         usePortrait={false}
                         ref={book}
                         responsive={false}
+                        onFlip={handlePageChange}
                         className='mt-10 rounded-r-md'
                     >
-                        {sliced.map((item) => {
+
+                        {localData2.map((item, index) => {
+                            //if (index === localData.length - 1) return <div className='bg-text h-11 border-r border-gray-dark border-2 rounded-md'>new page</div>
                             return (
                                 <div className='bg-text h-11 border-r border-gray-dark border-2 rounded-md'>
                                     <table>
@@ -100,7 +139,7 @@ const MyBook = () => {
                                             {item.map((list, i) => {
                                                 return (
                                                     <tr key={i} className="mt-10">
-                                                        <td className="text-center text-m p-3">
+                                                        <td className="text-center text-m p-3 pb-5">
                                                             {list.SiteLocation}
                                                         </td>
                                                         <td className="text-center text-m">
@@ -110,7 +149,7 @@ const MyBook = () => {
                                                         <td className="text-center text-m">
                                                             {DateTime.fromISO(list.EventDate)
                                                                 .toLocal()
-                                                                .toFormat('HH mm')}
+                                                                .toFormat('yyyy MMM dd')}
                                                         </td>
                                                         <td className="text-center text-m">{list.Status}</td>
                                                     </tr>
@@ -120,7 +159,10 @@ const MyBook = () => {
                                     </table>
                                 </div>
                             );
-                        })}
+                        })
+
+                        }
+
                     </HTMLFlipBook>
                 </div>
             </div>
