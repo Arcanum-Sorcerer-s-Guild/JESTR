@@ -13,7 +13,7 @@ const Modal = ({ isvisible, onClose, children }) => {
       onClick={handleClose}
     >
       <div className="relative h-full  mt-12 flex flex-col">
-        <div className='place-self-end absolute right-2 top-2'>
+        <div className="place-self-end absolute right-2 top-2">
           <CloseButton name={'✖️'} onClick={() => onClose()} />
         </div>
         <div className="bg-text p-2 h-[70%] justify-center rounded">

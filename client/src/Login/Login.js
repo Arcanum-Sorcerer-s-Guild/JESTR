@@ -20,9 +20,9 @@ const Login = () => {
     const formData = new FormData(form);
     const formJSON = Object.fromEntries(formData.entries());
     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(formJSON),
     };
 
@@ -34,34 +34,33 @@ const Login = () => {
           // alert('Login Successful')
           // Add session item for user
           // TODO add session key for comparison
-          localStorage.setItem('user', JSON.stringify(data))
+          localStorage.setItem('user', JSON.stringify(data));
           navigate('/');
         } else alert('Login failed. Please try again');
-      })
+      });
   };
 
   return (
     <div className="container mx-auto h-screen">
       <div className="flex justify-center px-6 my-12">
         <div className="w-full xl:w-3/4 lg:w-12/12 flex shadow-2xl">
-        {/* image section */}
+          {/* image section */}
           <div className="w-full h-auto hidden lg:block lg:w-1/2 bg-cover rounded-l-lg">
             <img src={logo} alt="yeti" className="w-full h-full rounded-l-md" />
           </div>
           {/* login section */}
           <div className="w-full lg:w-1/2 bg-gray-dark p-5 rounded lg:rounded-l-none">
             <div className="p-4 text-left text-text">
-              <h3 className="log_H3 text-xl md:text-3xl font-semibold">Joint Pacific Alaska Range Complex</h3>
-              <hr className='style-one my-2 border-2 text-pink'/>
+              <h3 className="log_H3 text-xl md:text-3xl font-semibold">
+                Joint Pacific Alaska Range Complex
+              </h3>
+              <hr className="style-one my-2 border-2 text-pink" />
               <p className="text-lg italic text-gray-light">
                 Emitter Status and Training Request
               </p>
             </div>
-            <form 
-              onSubmit={handleLogin}
-              className="px-8 pb-8 mb-4 rounded-md"
-            >
-              <div className='mt-5'>
+            <form onSubmit={handleLogin} className="px-8 pb-8 mb-4 rounded-md">
+              <div className="mt-5">
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-bold text-blue"
@@ -77,7 +76,7 @@ const Login = () => {
                   placeholder="email"
                 />
               </div>
-              <div className='mt-5'>
+              <div className="mt-5">
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-bold text-gray-700 text-blue"
@@ -103,9 +102,10 @@ const Login = () => {
               </div>
               <hr className="style-one mb-6 border-t border-gunmetal" />
               <div className="text-center">
-                <Link 
+                <Link
                   to={'/Register'}
-                  className="inline-block text-sm text-gray-light align-baseline hover:text-blue/50">
+                  className="inline-block text-sm text-gray-light align-baseline hover:text-blue/50"
+                >
                   Create an Account
                 </Link>
               </div>
