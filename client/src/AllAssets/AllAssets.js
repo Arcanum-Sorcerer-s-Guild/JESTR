@@ -110,7 +110,7 @@ const AllAssets = () => {
           {
             currPage>1
               ? <button type="button" className="bg-secondary text-text" onClick={()=>prevPageFunc()}>Previous Page</button>
-              : <button type="button" className="bg-secondary text-text opacity-10" onClick={()=>prevPageFunc()}>Previous Page</button>
+              : <span className="bg-secondary text-text opacity-50">Previous Page</span>
           }
           <label for="assets" >Sort Assets by:</label>
           <select name="assets" id="assets" >
@@ -140,7 +140,10 @@ const AllAssets = () => {
                   <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
                     <div className="text-center">Total Assets: {currAssets.length}</div>
                     <span className="flex flex-wrap">
-                      {currAssets.map(card => {
+                      {currAssets.filter(asset => {
+                        let currIndex = currAssets.indexOf(asset)+1 // adjusted for 0-indexing
+                        return currIndex >= 1+itemsPerPage*(currPage-1) && currIndex <= itemsPerPage*(currPage);
+                      }).map(card => {
                         return (
                           <span key={card.Id} className="m-5 hover:scale-110 border border-separate bg-tertiary w-80 shadow-md" style={{borderRadius:"8px", padding:"5px"}} onClick={() => navigate(`/Asset/${card.Id}`)}>
                             <pre className="">
