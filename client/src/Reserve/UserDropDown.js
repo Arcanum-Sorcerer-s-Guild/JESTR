@@ -30,7 +30,8 @@ const UserDropDown = ({ dropDownItems, dropdown, setDropdown }) => {
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>
-                    ` relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                    ` relative cursor-default select-none py-2 pl-10 pr-4 ${
+                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
                     }`
                   }
                   value={person}
@@ -38,8 +39,9 @@ const UserDropDown = ({ dropDownItems, dropdown, setDropdown }) => {
                   {({ dropdown }) => (
                     <>
                       <span
-                        className={`block truncate ${dropdown ? 'font-medium' : 'font-normal'
-                          }`}
+                        className={`block truncate ${
+                          dropdown ? 'font-medium' : 'font-normal'
+                        }`}
                       >
                         {person}
                       </span>
