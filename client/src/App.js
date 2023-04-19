@@ -56,9 +56,9 @@ function App() {
         <div className="bg-gunmetal h-auto">
           {!localStorage.getItem("user") && (
             <Routes>
-              <Route path="/Login" element={<Login />} />
+              <Route path="/" element={<Login />} />
               <Route path="/Register" element={<Register />} />
-              <Route path="*" element={<Navigate to="/Login" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           )}
           {localStorage.getItem("user") && (
