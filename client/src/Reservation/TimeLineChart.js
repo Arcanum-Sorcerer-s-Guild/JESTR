@@ -23,17 +23,25 @@ ChartJS.register(
 
 
 const TimeLineChart = ({conflictArray,currRes,setAltRes,setShowModal}) => {
-  let colorArray = conflictArray.map(conflict=> conflict.Status === 'Approved' ? 'rgba(0,255,0)': 'rgba(255,0,0')
-  let labels = conflictArray.map(conflict=>`${conflict.Squadron}: #${conflict.Id}`);
-  colorArray.unshift('rgba(0,0,255)')
-  labels.unshift(`Reservation #${currRes.Id}`)
   const chartRef = useRef()
-
+  
+  // conflictArray.unshift(currRes)
+  
+  let labels = conflictArray.map(conflict=>`${conflict.Squadron}: #${conflict.Id}`);
+  let colorArray = conflictArray.map(conflict=> conflict.Status === 'Approved' ? 'rgba(0,255,0)': 'rgba(255,0,0')
+  let dataArray = conflictArray.map(conflict => ([conflict.start.toFormat('HH:mm'),conflict.end.toFormat('HH:mm')]))
+  // if (conflictArray.includes(currRes) === false) conflictArray.unshift(currRes)
+  labels.unshift(`Reservation #${currRes.Id}`)
+  colorArray.unshift('rgba(0,0,255)')
+  dataArray.unshift([`${currRes.start.toFormat('HH:mm')}`,`${currRes.end.toFormat('HH:mm')}`])
+  
+  
   const onChartClick = (event) => {
     let element = getElementAtEvent(chartRef.current,event)[0]
+
     if (element !== undefined) {
-      console.log(conflictArray[element.index])
-      setAltRes(conflictArray[element.index])
+      if (element.index === 0) setAltRes(currRes)
+      else setAltRes(conflictArray[element.index -1])
       setShowModal(true)  
     }
 
@@ -69,13 +77,14 @@ const TimeLineChart = ({conflictArray,currRes,setAltRes,setShowModal}) => {
     },
   };
 
+  console.log(dataArray)
 
   const data = {
     labels,
     datasets: [
       {
       label: `Conflicts`,
-      data: conflictArray.map(conflict => ([conflict.start.toFormat('HH:mm'),conflict.end.toFormat('HH:mm')])),
+      data: dataArray,
       backgroundColor: colorArray,
       barPercentage: .25,
   },

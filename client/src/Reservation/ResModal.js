@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 
 
 const ResModal = ({showModal , setShowModal, altRes}) => {
+  const navigate = useNavigate()
 
   return(<>
-    {console.log(showModal)}
     <div className={showModal ? '' : 'hidden'}>
       <div id='wrapper' className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center" >
         <div className="relative md:w-[60%] w-[90%] flex flex-col">
@@ -22,6 +22,14 @@ const ResModal = ({showModal , setShowModal, altRes}) => {
             <div>{altRes.start.toFormat('hh:mm')}</div>
           <div>{altRes.end.toFormat('hh:mm')}</div>  */}
             <div>{altRes.Notes}</div>
+            <button 
+              className="border border-black block rounded-lg w-1/4"
+              onClick={()=>{
+                navigate(`/Reservation/${altRes.Id}`)
+                navigate(0)
+                setShowModal(false)
+              }}
+              >View</button>
           </div>
             </>:<></>}
           

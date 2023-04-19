@@ -5,9 +5,7 @@ import TimeLineChart  from './TimeLineChart.js'
 import { useNavigate } from 'react-router-dom'
 import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import ResModal from './ResModal.js'
-
-
-
+import { Context } from '../App';
 
 const Reservation = () => {
   const params = useParams()
@@ -18,6 +16,7 @@ const Reservation = () => {
   const [toggle,setToggle] = useState(false)
   const [showModal,setShowModal] = useState(false)
   const [altRes,setAltRes] = useState({})
+  const { userData, setUserdata } = React.useContext(Context);
 
   useEffect(() => {
     fetch("http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",{credentials: 'include'})
@@ -30,7 +29,7 @@ const Reservation = () => {
           end: DateTime.fromISO(res.EndDate).toLocal(),
         }) }) )
     })
-  },[])
+  },[toggle])
 
   useEffect(()=>{},[toggle])
 
@@ -40,10 +39,10 @@ const Reservation = () => {
     setConflictArray(resArray.filter(conflict=>{
       // if(res.star.toStart() >= conflict.start && res.start < conflict.end || res.end > conflict.start && res.end < conflict.end) {return(conflict)}
       if(res.start.toFormat('dd MMM yyyy') === conflict.start.toFormat('dd MMM yyyy')) {return(conflict)}
-    }))
+    }).filter(conflict=>conflict.Id !== currRes.Id))
   }
 
-  },[currRes])
+  },[currRes,toggle])
 
   useEffect(()=>{
     if (resArray.length > 0) setCurrRes(resArray.filter((res)=>res.Id === parseInt(params.id))[0])
@@ -67,6 +66,21 @@ const Reservation = () => {
     setShowModal(true)
     console.log(showModal)
   }
+
+  const updateReservations = (newStatus) => {
+    let reqOpts = {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify([{"Status":newStatus}]),
+    }
+    console.log(newStatus)
+    fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(${params.id})`, reqOpts)
+    .then(res=>res.json())
+    .then(data=>console.log(data))
+    .then(setToggle(!toggle))
+
+  }
   
   
 
@@ -74,7 +88,6 @@ const Reservation = () => {
      
 
     <ResModal showModal={showModal} setShowModal={setShowModal} altRes={altRes}/>
-      {/* {console.log(JSON.stringify(currRes) !== '{}')} */}
       {JSON.stringify(currRes) !== '{}'}
       {currRes !== undefined ? <>
       <div className="w-full h-screen block text shadow-lg p-2 ">
@@ -100,11 +113,12 @@ const Reservation = () => {
             <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden flex flex-col">
               {currRes.start !== undefined ? <div>{`${currRes.start.toFormat('dd MMM yyyy')} from ${currRes.start.toFormat('hh:mm')} to ${currRes.end.toFormat('hh:mm')}`}</div> : <></>}
               <div>{`Status: ${currRes.Status}`}</div>
+              { userData.IsSiteAdmin ? 
               <div className="flex flex-row justify-center gap-10 ">
-                  <button className="border border-black rounded bg-bluer h-8 p-1">Approve</button>
-                  <button className="border border-black rounded bg-bluer h-8 p-1">Deny</button>
-                </div>
-
+                  <button className="border border-black rounded bg-bluer h-8 p-1" onClick={()=>updateReservations('Approved')}>Approve</button>
+                  <button className="border border-black rounded bg-bluer h-8 p-1" onClick={()=>updateReservations('Rejected')}>Deny</button>
+              </div>
+              :<></>}
             </div>
 
             <button onClick={()=>changePage('next')}>
@@ -127,14 +141,15 @@ const Reservation = () => {
                   <div>
                     <table class="table-auto w-full"> 
                       <thread >
-                      <tr className="grid-container grid grid-cols-9">
-                        <th >ID</th>
-                        <th>Squadron</th>
-                        <th>POC</th>
-                        <th>DSN</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Date</th>
+                      <tr className="grid-container grid grid-cols-9 border-b border-black">
+                        <th className="col-span-1" >ID</th>
+                        <th className="col-span-1">Squadron</th>
+                        <th className="col-span-2">POC</th>
+                        <th className="col-span-1">DSN</th>
+                        <th className="col-span-1">Start Time</th>
+                        <th className="col-span-1">End Time</th>
+                        <th className="col-span-1">Date</th>
+                        <th className="col-span-1">Status</th>
                       </tr>
                       </thread>
                      <tbody >
@@ -143,13 +158,15 @@ const Reservation = () => {
                     ).map((res,index)=> {
                       return(<>
                         {res.Id !== currRes.Id ?
-                        <tr className="grid-container grid grid-cols-9 " onClick={()=>handleAltResClick(res)} key={index}> 
+                        <tr className="grid-container grid grid-cols-9 border-b border-gray/50" onClick={()=>handleAltResClick(res)} key={index}> 
                           <td className="col-span-1">{res.Id}</td>
-                          <td className="col-span-2">{res.Squadron}</td>
+                          <td className="col-span-1">{res.Squadron}</td>
                           <td className="col-span-2">{res.POC}</td>
+                          <td className="col-span-1">{res.ContactDSN}</td>
                           <td className="col-span-1">{res.start.toFormat('hh:mm')}</td>
                           <td className="col-span-1">{res.end.toFormat('hh:mm')}</td>
                           <td className="col-span-1">{res.start.toFormat('dd MMM yyyy')}</td>
+                          <td className="col-span-1">{res.Status}</td>
                         </tr>
                         : <></>} 
                         </>)})
@@ -160,10 +177,14 @@ const Reservation = () => {
                 </div>
 
               </div>
-              <div className="block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden w-full h-1/2">
-                <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">Notes:</h1>
-                {`${currRes.Notes}`}
-              </div>
+              {Object.keys(currRes).length > 0 ? 
+                <div className="block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden w-full h-1/2">
+                  <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">
+                    {`${currRes.ThreatType.toUpperCase()} ${currRes.Equipment} as ${currRes.Threat} `}
+                  </h1>
+                  {`${currRes.Notes}`}
+                </div>
+              : <></>}
             </div>
 
           </div>
