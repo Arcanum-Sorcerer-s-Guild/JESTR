@@ -74,19 +74,14 @@ const Reservation = () => {
       credentials: 'include',
       body: JSON.stringify([{"Status":newStatus}]),
     }
-    console.log(newStatus)
+    //console.log(newStatus)
     fetch(`http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(${params.id})`, reqOpts)
     .then(res=>res.json())
     .then(data=>console.log(data))
     .then(setToggle(!toggle))
-
   }
   
-  
-
   return (<>
-     
-
     <ResModal showModal={showModal} setShowModal={setShowModal} altRes={altRes}/>
       {JSON.stringify(currRes) !== '{}'}
       {currRes !== undefined ? <>
@@ -133,7 +128,6 @@ const Reservation = () => {
                           { conflictArray.length > 0 && JSON.stringify(currRes) !== '{}' ? <TimeLineChart conflictArray={conflictArray} currRes={currRes} altRes={altRes} setAltRes={setAltRes} setShowModal={setShowModal}/> : <></>}
                         </div>
 
-          
             <div className="flex flex-col gap-5 w-1/2">
               <div className="block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden w-full h-1/2">
                 <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">Conflicting Reservations</h1>
@@ -186,20 +180,10 @@ const Reservation = () => {
                 </div>
               : <></>}
             </div>
-
           </div>
-
           </div>
-
         </div>
-
-            
-      
-        
-
-
       </>:<></>}
-    
   </>);
 };
 
