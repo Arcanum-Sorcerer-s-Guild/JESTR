@@ -14,15 +14,12 @@ import {
   AiFillCloseCircle,
   AiFillCheckCircle,
 } from 'react-icons/ai';
-import { FaCrosshairs } from 'react-icons/fa';
-import { GrStatusGood, GrStatusCritical } from 'react-icons/gr';
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
-import { FaTools } from 'react-icons/fa';
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 import { BiTargetLock } from 'react-icons/bi';
 import { SiSemaphoreci } from 'react-icons/si';
-import { BsMagic, BsCheckCircleFill } from 'react-icons/bs';
-import { HiOutlineStatusOnline, HiDocumentReport } from 'react-icons/hi';
-import { RxTrackPrevious, RxTrackNext } from 'react-icons/rx';
+import { BsMagic } from 'react-icons/bs';
+import { HiOutlineStatusOnline, HiDocumentReport, HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { GiVirtualMarker } from 'react-icons/gi';
 
 const Asset = () => {
   const [assets, setAssets] = useState([]);
@@ -93,145 +90,174 @@ const Asset = () => {
       {currAsset !== undefined ? (
         <div className="container mx-auto h-screen my-6">
           <div className="flex flex-col">
-            <div className="flex gap-2 mb-4">
+            <div className="timeline mb-4">
+              {/* timeline-start */}
+              <div className="w-full block bg-text relative overflow-hidden border border-gray-light shadow-xl rounded-lg p-4">
+                {/* <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" /> */}
+                <ol
+                  key={Math.random()}
+                  className="flex justify-between border-t-2 border-dashed border-opacity-20 border-purple mx-4"
+                >
+                  {timeLine.length > 0 ? (
+                    [...timeLine]
+                      .sort((a, b) => {
+                        return a.time - b.time;
+                      })
+                      .map((event) => {
+                        return (
+                          <li className="text-sm text-purple/90 ml-4">
+                            <div className="">
+                              <div className="bg-purple w-fit rounded-full -mt-2">
+                                <GiVirtualMarker className="text-text" />
+                              </div>
+                              <span className="py-2">{event.name}</span>
+                              <div className="flex text-xs gap-1 text-gray-dark">
+                                <span>{`${event.time.toFormat(
+                                  'hh:mm'
+                                )}z`}</span>
+                                <span>
+                                  {event.time.toFormat('dd / MM / yyyy')}
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })
+                  ) : (
+                    <></>
+                  )}
+                </ol>
+              </div>
+              {/* timeline-end */}
+            </div>
+
+            <div className="card-map flex gap-2 mb-4">
               {/* card-start */}
-              <div className="w-3/4 min-h-fit bg-text relative block overflow-hidden border border-gray-light shadow-xl rounded-lg p-4">
+              <div className="w-3/4 min-h-fit bg-text relative block overflow-hidden border border-gray-light shadow-xl rounded-lg p-6">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
 
+                {/* card-content-start */}
+                <div className="w-full flex flex-col space-y-4 px-6 text-gray">
+                  <div className="card-header">
+                    <h5 className="md:text-lg text-sm text-gray-dark/80 font-semibold uppercase">
+                      {`${currAsset.ThreatType} ${currAsset.Equipment} (${currAsset.Threat})`}
+                    </h5>
+                    <hr />
+                    <p className="mt-1 text-xs text-gray">{`${currAsset.Range} | ${currAsset.SiteLocation}`}</p>
+                  </div>
+                  <div className="range & data">
+                    <p className="text-gray-dark uppercase text-sm">
+                      Range & Equipment Data:{' '}
+                    </p>
+                    <div className="flex flex-row text-xs mt-2">
+                      <p className="flex items-center text-gray">
+                        <BiTargetLock className="mr-3" />
+                        <span className="font-semibold mr-2 uppercase">
+                          Coordinates:
+                        </span>
+                        <span>{`${currAsset.dms
+                          .toString()
+                          .slice(0, 12)}${currAsset.dms
+                          .toString()
+                          .slice(24, 41)}${currAsset.dms
+                          .toString()
+                          .slice(-3, 57)}`}</span>
+                      </p>
+                    </div>
+
+                    <div className="flex flex-row text-xs mt-2">
+                      <p className="flex items-center text-gray">
+                        <SiSemaphoreci className="mr-3" />
+                        <span className="font-semibold mr-2 uppercase">
+                          Elevation:
+                        </span>
+                        <span>{`${currAsset.Elevation} ft.`}</span>
+                      </p>
+                    </div>
+
+                    <div className="flex flex-row text-xs mt-2">
+                      <p className="flex items-center text-gray">
+                        <BsMagic className="mr-3" />
+                        <span className="font-semibold mr-2 uppercase">
+                          Measured:
+                        </span>
+                        <span>{`with ${currAsset.CoordSource}`}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="status">
+                    <p className="text-gray-dark uppercase text-sm">
+                      Asset Status:{' '}
+                    </p>
+
+                    <div className="flex flex-row text-xs mb-2">
+                      <p className="flex items-center text-gray">
+                        <HiDocumentReport className="mr-3" />
+                        <span className="font-semibold mr-2 uppercase">
+                          Status:
+                        </span>
+                        <span
+                          className={`text-text px-1 rounded-full bg-gray`}
+                        >{`${currAsset.Status}`}</span>
+                      </p>
+                    </div>
+
+                    {/* 'RED', 'AMBER', 'GREEN', 'NA' */}
+
+                    <div className="flex flex-row text-xs mt-2">
+                      <p className="flex items-center text-gray">
+                        <HiOutlineStatusOnline className="mr-3" />
+                        <span className="font-semibold mr-2 uppercase">
+                          Operational:
+                        </span>
+                        <span className="text-lg ml-1">
+                          {currAsset.Operational ? (
+                            <AiFillCheckCircle className="text-green" />
+                          ) : (
+                            <AiFillCloseCircle className="text-red/60" />
+                          )}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="flex flex-row text-xs mt-2">
+                      <p className="flex items-center text-gray">
+                        <AiFillSchedule className="mr-3" />
+                        <span className="font-semibold mr-2 uppercase">
+                          Schedulable:
+                        </span>
+                        <span className="text-lg">
+                          {currAsset.Schedulable ? (
+                            <AiFillCheckCircle className="text-green" />
+                          ) : (
+                            <AiFillCloseCircle className="text-red/60" />
+                          )}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="card-footer flex w-full border-t text-xs">
+                    <span className="p-2">{`serial: ${currAsset.Serial}`}</span>
+                    <span className="p-2">|</span>
+                    <span className="p-2">{`author id: ${currAsset.AuthorId}`}</span>
+                    <span className="p-2">|</span>
+                    <span className="p-2">{`asset id: ${currAsset.Id}`}</span>
+                  </div>
+                </div>
+                {/* card-content-end */}
+
                 {/* card-nav-start */}
-                <div className="nav-btns flex justify-between text-gray">
-                  <button onClick={() => changePage('prev')}>
-                    <RxTrackPrevious />
+                <div className="nav-btns flex justify-between text-pink/60 text-xs mt-4">
+                  <button className="flex" onClick={() => changePage('prev')}>
+                    <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
+                    <span className="ml-2">Previous Asset </span>
                   </button>
-                  <button onClick={() => changePage('next')}>
-                    <RxTrackNext />
+                  <span className='text-2xl'><HiOutlineDotsHorizontal/></span>
+                  <button className="flex" onClick={() => changePage('next')}>
+                    <span className="mr-2">Next Asset </span>
+                    <GrFormNext className="bg-gray-light text-lg rounded-full" />
                   </button>
                 </div>
                 {/* card-nav-end */}
-
-                <div className="flex justify-center">
-                  {/* card-content-start */}
-                  <div className="w-4/6 flex flex-col space-y-4 px-6 text-gray">
-                    <div className="card-header">
-                      <h5 className="md:text-lg text-sm text-gray-dark/80 font-bold uppercase">
-                        {`${currAsset.ThreatType} ${currAsset.Equipment} (${currAsset.Threat})`}
-                      </h5>
-                      <hr />
-                      <div className="site-location flex justify-between">
-                        <p className="mt-1 text-xs font-medium text-gray">{`${currAsset.Range} | ${currAsset.SiteLocation}`}</p>
-                      </div>
-                    </div>
-                    <div className="range & data">
-                      <p className="text-gray-dark uppercase text-sm">
-                        Range & Equipment Data:{' '}
-                      </p>
-                      <div className="flex flex-row text-xs mt-2">
-                        <p className="flex items-center text-gray">
-                          <BiTargetLock className="mr-3" />
-                          <span className="font-semibold mr-2 uppercase">
-                            Coordinates:
-                          </span>
-                          <span>{`${currAsset.dms
-                            .toString()
-                            .slice(0, 12)}${currAsset.dms
-                            .toString()
-                            .slice(24, 41)}${currAsset.dms
-                            .toString()
-                            .slice(-3, 57)}`}</span>
-                        </p>
-                      </div>
-
-                      <div className="flex flex-row text-xs mt-2">
-                        <p className="flex items-center text-gray">
-                          <SiSemaphoreci className="mr-3" />
-                          <span className="font-semibold mr-2 uppercase">
-                            Elevation:
-                          </span>
-                          <span>{`${currAsset.Elevation} ft.`}</span>
-                        </p>
-                      </div>
-
-                      <div className="flex flex-row text-xs mt-2">
-                        <p className="flex items-center text-gray">
-                          <BsMagic className="mr-3" />
-                          <span className="font-semibold mr-2 uppercase">
-                            Measured:
-                          </span>
-                          <span>{`with ${currAsset.CoordSource}`}</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="status">
-                      <p className="text-gray-dark uppercase text-sm">
-                        Asset Status:{' '}
-                      </p>
-
-                      <div className="flex flex-row text-xs mt-2">
-                        <p className="flex items-center text-gray">
-                          <HiDocumentReport className="mr-3" />
-                          <span className="font-semibold mr-2 uppercase">
-                            Status:
-                          </span>
-                          <span
-                            className={`text-text px-1 rounded-full bg-gray`}
-                          >{`${currAsset.Status}`}</span>
-                        </p>
-                      </div>
-
-                      {/* 'RED', 'AMBER', 'GREEN', 'NA' */}
-
-                      <div className="flex flex-row text-xs mt-2">
-                        <p className="flex items-center text-gray">
-                          <HiOutlineStatusOnline className="mr-3" />
-                          <span className="font-semibold mr-2 uppercase">
-                            Operational:
-                          </span>
-                          <span className="text-lg ml-1">
-                            {currAsset.Operational ? (
-                              <AiFillCheckCircle className="text-green" />
-                            ) : (
-                              <AiFillCloseCircle className="text-red/60" />
-                            )}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="flex flex-row text-xs mt-2">
-                        <p className="flex items-center text-gray">
-                          <AiFillSchedule className="mr-3" />
-                          <span className="font-semibold mr-2 uppercase">
-                            Schedulable:
-                          </span>
-                          <span className="text-lg">
-                            {currAsset.Schedulable ? (
-                              <AiFillCheckCircle className="text-green" />
-                            ) : (
-                              <AiFillCloseCircle className="text-red/60" />
-                            )}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="card-footer flex w-full border-t text-xs">
-                      <span className="p-2">{`serial: ${currAsset.Serial}`}</span>
-                      <span className="p-2">|</span>
-                      <span className="p-2">{`author id: ${currAsset.AuthorId}`}</span>
-                      <span className="p-2">|</span>
-                      <span className="p-2">{`asset id: ${currAsset.Id}`}</span>
-                    </div>
-                  </div>
-                  {/* card-content-end */}
-                  {/* asset-image-start */}
-                  {/* <div className='w-full h-auto hidden lg:block lg:w-1/2 bg-cover p-4'>
-                    <img
-                    alt={`${params.id}`}
-                    src={`http://localhost:3000/images/${(
-                      params.id % 10
-                    ).toString()}.jpg`}
-                    className="w-full h-auto rounded-lg"
-                  />
-                  </div> */}
-                  {/* asset-image-end*/}
-                </div>
               </div>
               {/* card-end  */}
 
@@ -243,10 +269,6 @@ const Asset = () => {
                 />
               </div>
               {/* map-end */}
-
-              {/* asset image */}
-
-              {/* asset image end */}
             </div>
 
             <div className="flex gap-2">
@@ -292,116 +314,21 @@ const Asset = () => {
 export default Asset;
 
 {
-  /* <div className="px-12 sm:px-4 sm:h-full sm:justify-center">
-<img
-  alt={`${params.id}`}
-  src={`http://localhost:3000/images/${(
-    params.id % 10
-  ).toString()}.jpg`}
-  className="object-cover rounded-lg shadow-sm"
-/>
-</div> */
+  /* asset image */
 }
 
 {
-  /* <div className="flex flex-row gap-5 mb-4 ml-8 mr-2">
-<div className="w-1/2 h-4/6 ">
-  <AssetMap
-        serial={currAsset.Serial}
-        center={[currAsset.Longitude, currAsset.Latitude]}
-      />
-</div> */
+  /* <div className="w-full h-auto hidden lg:block lg:w-1/2 bg-cover p-4">
+                <img
+                  alt={`${params.id}`}
+                  src={`http://localhost:3000/images/${(
+                    params.id % 10
+                  ).toString()}.jpg`}
+                  className="w-full h-auto rounded-lg"
+                />
+              </div> */
 }
 
 {
-  /* <div className="flex flex-col gap-5 w-1/2 mr-10"> */
+  /* asset image end */
 }
-{
-  /* <div className="h-1/3 block rounded-lg bg-bluer/25 border border-black text-center flex flex-row justify-between">
-        <>
-          <ol className="mt-4 border-t border-neutral-300 w-full flex flex-row justify-around">
-            {timeLine.length > 0 ? (
-              [...timeLine]
-                .sort((a, b) => {
-                  return a.time - b.time;
-                })
-                .map((event, index) => {
-                  return (
-                    <li>
-                      <div className="flex-start flex items-center pt-2 md:block md:pt-0">
-                        <div className="-ml-[5px] mr-3 h-[9px] w-[9px] rounded-full bg-neutral-300 dark:bg-neutral-500 md:-mt-[5px] md:ml-0 md:mr-0"></div>
-                        <h4 className="mb-1.5 text-lg font-semibold">
-                          {event.name}
-                          {index !== timeLine.length - 1 ? (
-                            '-->'
-                          ) : (
-                            <></>
-                          )}
-                        </h4>
-                        <p className="mt-2 text-sm font-medium text-neutral-500">
-                          {event.time.toFormat('dd MMM yyyy')}
-                        </p>
-                        <p className="text-sm">
-                          {`at ${event.time.toFormat('hh:mm')}`}
-                        </p>
-                      </div>
-                      <div className="ml-4 mt-2 pb-5 md:ml-0">
-                        <p className="mb-3 text-neutral-500 dark:text-neutral-300">
-                          {event.name === 'Asset Modified' ? (
-                            <>{`Editor ID: ${currAsset.EditorId}`}</>
-                          ) : (
-                            <></>
-                          )}
-                        </p>
-                      </div>
-                    </li>
-                  );
-                })
-            ) : (
-              <></>
-            )}
-          </ol>
-        </>
-      </div> */
-}
-
-{
-  /* <div className="flex flex-row h-full gap-5">
-    {/* <div className="w-1/2 h-full block rounded-lg bg-bluer/25 border border-black">
-          <div className="flex flex-col">
-            <h1 className="text-xl font-medium text-center">
-              System Information
-            </h1>
-            <div className="text-center">{`${currAsset.SystemInformation}`}</div>
-            <div className="p-5">{`${currAsset.Remarks}`}</div>
-
-            <EditAsset
-              showModal={showModal}
-              setShowModal={setShowModal}
-              asset={currAsset}
-            />
-
-            <div className="flex flex-row justify-center gap-5">
-              <button
-                className="border border-black rounded-lg block bg-blue p-2"
-                onClick={() => setShowModal(true)}
-              >
-                Edit
-              </button>
-              <button
-                className="border border-black rounded-lg block bg-blue p-2"
-                onClick={() => handleDelete()}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div> */
-}
-
-//     <div className="w-1/2 h-full block rounded-lg">
-
-//     </div>
-//   </div>
-// </div>
-// </div>
