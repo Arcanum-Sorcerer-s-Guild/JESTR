@@ -90,10 +90,10 @@ const Asset = () => {
       {currAsset !== undefined ? (
         <div className="container mx-auto h-screen my-6">
           <div className="flex flex-col">
-            <div className="timeline mb-4">
+            <div className="timeline mb-2">
               {/* timeline-start */}
               <div className="w-full block bg-text relative overflow-hidden border border-gray-light shadow-xl rounded-lg p-4">
-                {/* <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" /> */}
+                <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 <ol
                   key={Math.random()}
                   className="flex justify-between border-t-2 border-dashed border-opacity-20 border-purple mx-4"
@@ -111,7 +111,7 @@ const Asset = () => {
                                 <GiVirtualMarker className="text-text" />
                               </div>
                               <span className="py-2">{event.name}</span>
-                              <div className="flex text-xs gap-1 text-gray-dark">
+                              <div className="flex text-xs gap-1 text-gray">
                                 <span>{`${event.time.toFormat(
                                   'hh:mm'
                                 )}z`}</span>
