@@ -59,9 +59,9 @@ const NavBar = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === 'logout successful') {
+          // Clear Session Storage
           localStorage.clear();
           setUserdata({});
-          // Clear Session Storage
           navigate('/');
         }
       });
