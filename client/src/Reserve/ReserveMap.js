@@ -22,8 +22,8 @@ let styles = new Style({
     anchorXUnits: 'fraction',
     anchorYUnits: 'pixels',
     src: `${mapIcon}`,
-    scale: 0.05,
-    color: [191,12,215,100],
+    scale: .2,
+    // color: [0,0,0,100],
   }),
   // text: new Text({
   //   font: "16px sans-serif",
