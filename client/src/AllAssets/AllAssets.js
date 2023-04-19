@@ -9,20 +9,23 @@ export const AssetsContext = React.createContext();
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
+  const itemsPerPage = 8;
   const { listUrl } = useContext(Context);
   const { userData } = React.useContext(Context);
   const [currAssets, setCurrAssets] = useState([]);
-  // const [sortField, setSortField] = useState('');
-  // const columns = [
-  //   { label: 'Site Location', accessor: 'SiteLocation', sortable: true },
-  //   { label: 'Range', accessor: 'Range', sortable: true },
-  //   { label: 'Latitude', accessor: 'Latitude', sortable: true },
-  //   { label: 'Longitude', accessor: 'Longitude', sortable: true },
-  //   { label: 'Elevation', accessor: 'Elevation', sortable: true },
-  //   { label: 'Serial', accessor: 'Serial', sortable: true },
-  //   { label: 'Threat', accessor: 'Threat', sortable: true },
-  //   { label: 'Equipment', accessor: 'Equipment', sortable: true },
-  // ];
+  const [currPage, setCurrPage] = useState(1); // Page displays 9 assets per page
+  const [sortField, setSortField] = useState('Range');
+  const [sortOrder, setSortOrder] = useState(true); // True = Ascending, False = Descending
+  const columns = [
+    { label: 'Site Location', accessor: 'SiteLocation', sortable: true },
+    { label: 'Range', accessor: 'Range', sortable: true },
+    { label: 'Latitude', accessor: 'Latitude', sortable: true },
+    { label: 'Longitude', accessor: 'Longitude', sortable: true },
+    { label: 'Elevation', accessor: 'Elevation', sortable: true },
+    { label: 'Serial', accessor: 'Serial', sortable: true },
+    { label: 'Threat', accessor: 'Threat', sortable: true },
+    { label: 'Equipment', accessor: 'Equipment', sortable: true },
+  ];
   const navigate = useNavigate();
 
   // Helper function to update the list of all assets
@@ -35,6 +38,8 @@ const AllAssets = () => {
       .then((items) => {
         setCurrAssets(items.d.results);
       })
+      .then(handleSorting(sortField, sortOrder))
+      .then(console.log(currAssets))
   };
 
   // // Helper function to convert coordinates from the DD format to the DMS format
@@ -44,28 +49,49 @@ const AllAssets = () => {
   //   )}'${((((Math.abs(coord) % 1) * 60) % 1) * 60).toFixed(2)}"`;
   // };
 
-  // // Helper function to handle sorting when an asset column header is clicked
-  // const handleSorting = (sortField, sortOrder) => {
-  //   if (sortField) {
-  //     const sorted = [...currAssets].sort((a, b) => {
-  //       if (a[sortField] === null) return 1;
-  //       if (b[sortField] === null) return -1;
-  //       if (a[sortField] === null && b[sortField] === null) return 0;
-  //       return (
-  //         a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
-  //           numeric: true,
-  //         }) * (sortOrder === 'asc' ? 1 : -1)
-  //       );
-  //     });
-  //     setCurrAssets(sorted);
-  //   }
-  // };
+  // Helper function to handle sorting when an asset column header is clicked
+  const handleSorting = (newSortField, newSortOrder) => {
+    const sorted = [...currAssets].sort((a, b) => {
+      // if (a[sortField] === null) return 1;
+      // if (b[sortField] === null) return -1;
+      // if (a[sortField] === null && b[sortField] === null) return 0;
+      return (
+        a[newSortField].toString().localeCompare(b[newSortField].toString(), 'en', {
+          numeric: true,
+        }) * (newSortOrder ? 1 : -1)
+      );
+    });
+    setCurrAssets(sorted);
+    // console.log(sortField);
+    // console.log(sortOrder);
+    // setSortField(newSortField);
+    // setSortOrder(newSortOrder);
+    console.log(sortField);
+    console.log(sortOrder);
+    // console.log(currAssets);
+  };
 
   // Updates the displayed inventory on initial page load and when the assets list is changed
   useEffect(() => {
-    updateInventory()
+    updateInventory();
+    // handleSorting(sortField, sortOrder);
   }, []);
 
+  const nextPageFunc = () => {
+    if (currAssets.length / (currPage*itemsPerPage) > 1) {
+      setCurrPage(currPage+1)
+    }
+  }
+
+  const prevPageFunc = () => {
+    if (currPage > 1) {
+      setCurrPage(currPage-1)
+    }
+  }
+
+  // onchange={() => {handleSorting(sortField, sortOrder)}}
+
+  // onClick={() => {handleSorting(sortField, !sortOrder)}}
 
   // Formats the list of all assets
   return (
@@ -80,24 +106,63 @@ const AllAssets = () => {
         <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
           <h3 className="font-semibold">All Assets</h3>
         </div>
+        <span>
+          {
+            currPage>1
+              ? <button type="button" className="bg-secondary text-text" onClick={()=>prevPageFunc()}>Previous Page</button>
+              : <button type="button" className="bg-secondary text-text opacity-10" onClick={()=>prevPageFunc()}>Previous Page</button>
+          }
+          <label for="assets" >Sort Assets by:</label>
+          <select name="assets" id="assets" >
+            <option value="range">Range</option>
+            <option value="equipment">Equipment</option>
+            <option value="threat">Threat</option>
+            <option value="location">SiteLocation</option>
+            <option value="serial">Serial</option>
+          </select>
+          <label for="assets">Display In:</label>
+          <button type="button">{sortOrder ? "Ascending Order" : "Descending Order"}</button>
+          {
+            currAssets.length / (currPage*itemsPerPage) > 1
+              ? <button type="button" className="bg-secondary text-text" onClick={()=>nextPageFunc()}>Next Page</button>
+              : <button type="button" className="bg-secondary text-text opacity-10" onClick={()=>nextPageFunc()}>Next Page</button>
+          }
+          {/* <select name="assets" id="assets" onchange={handleSorting(sortField, sortOrder)}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select> */}
+        </span>
         <div className>
           <div className="mt-2">
             <div className="mt-2 flex flex-col">
               <div className="my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
-                    <div>Total Assets: {currAssets.length}</div>
-                    <div className="flex-wrap flex-col">
+                    <div className="text-center">Total Assets: {currAssets.length}</div>
+                    <span className="flex flex-wrap">
                       {currAssets.map(card => {
                         return (
-                          <span key={card.Id} className="m-5 hover:scale-110" onClick={() => navigate(`/Asset/${card.Id}`)}>
-                            {card.Equipment}
-                            {card.Range}
-                            {card.SiteLocation}
+                          <span key={card.Id} className="m-5 hover:scale-110 border border-separate bg-tertiary w-80 shadow-md" style={{borderRadius:"8px", padding:"5px"}} onClick={() => navigate(`/Asset/${card.Id}`)}>
+                            <pre className="">
+                              <b>Equipment:</b>
+                              {`\t\t${card.Equipment}`}
+                              <br/>
+                              <b>Threat:</b>
+                              {`\t\t\t${card.Threat}`}
+                              <br/>
+                              <b>Range:</b>
+                              {`\t\t\t${card.Range}`}
+                              <br/>
+                              <b>Site Location:</b>
+                              {`\t${card.SiteLocation}`}
+                              <br/>
+                              <b>Serial:</b>
+                              {`\t\t\t${card.Serial}`}
+                            </pre>
                           </span>
                         )
                       })}
-                    </div>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -106,7 +171,7 @@ const AllAssets = () => {
         </div>
       </AssetsContext.Provider>
       ) : (
-        <></>
+        <>You need to be logged in as a site admin.</>
       )}
     </div>
   );
