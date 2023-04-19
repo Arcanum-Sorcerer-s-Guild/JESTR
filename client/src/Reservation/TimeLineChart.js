@@ -77,8 +77,6 @@ const TimeLineChart = ({conflictArray,currRes,setAltRes,setShowModal}) => {
     },
   };
 
-  console.log(dataArray)
-
   const data = {
     labels,
     datasets: [
