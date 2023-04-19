@@ -35,7 +35,7 @@ const Login = () => {
           // Add session item for user
           // TODO add session key for comparison
           localStorage.setItem('user', JSON.stringify(data));
-          navigate('/');
+          navigate('/Quicklook');
         } else alert('Login failed. Please try again');
       });
   };
