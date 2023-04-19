@@ -46,7 +46,7 @@ function App() {
     <div className="bg-gunmetal h-screen">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
-        <div className='bg-gunmetal h-screen'>
+        <div className="bg-gunmetal h-screen">
           <Routes>
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
@@ -59,7 +59,7 @@ function App() {
             <Route path="/AllAssets" element={<AllAssets />} />
             <Route path="/Asset/:id" element={<Asset />} />
             <Route path="/Admin" element={<AdminStats />} />
-            <Route path='/Book' element={<MyBook />} />
+            <Route path="/Book" element={<MyBook />} />
           </Routes>
         </div>
       </Context.Provider>

@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../App';
 
-
 //icons
 import { FaSortUp, FaSortDown, FaSort } from 'react-icons/fa';
 
@@ -60,7 +59,7 @@ const QuickLook = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-          <h3 className="font-semibold">MP board</h3>
+        <h3 className="font-semibold">MP board</h3>
       </div>
       <div className>
         <div className="mt-2">
@@ -72,9 +71,9 @@ const QuickLook = () => {
                     <thead className="bg-gray-light/50 text-gray/100">
                       <tr>
                         {headers.map((header, i) => (
-                          <th 
+                          <th
                             key={i}
-                            className='px-6 py-2 text-center text-xs font-medium uppercase tracking-wider'
+                            className="px-6 py-2 text-center text-xs font-medium uppercase tracking-wider"
                           >
                             {header.name}
                           </th>
@@ -87,7 +86,9 @@ const QuickLook = () => {
                           <td className="text-left text-xs">
                             {list.SiteLocation}
                           </td>
-                          <td className="flex gap-2 text-left text-xs">{list.Threat}({list.Equipment})</td>
+                          <td className="flex gap-2 text-left text-xs">
+                            {list.Threat}({list.Equipment})
+                          </td>
                           <td className="text-left text-xs">{list.Squadron}</td>
                           <td className="text-left text-xs">
                             {list.EventDate}
