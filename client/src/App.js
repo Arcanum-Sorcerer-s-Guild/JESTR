@@ -10,10 +10,12 @@ import AllReservations from './AllReservations/AllReservations.js';
 import AllAssets from './AllAssets/AllAssets.js';
 import Asset from './Asset/Asset.js';
 import AdminStats from './AdminStats/AdminStats.js';
+import MyBook from './Book/Book';
 
 import { Routes, Route, UseNavigate, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import QuickLook from './Home/QuickLook.js';
+import MP from './Home/MP';
 export const Context = React.createContext();
 
 function App() {
@@ -56,14 +58,15 @@ function App() {
             <Routes>
               {/* <Route path = "/Users" element={<Users/>}/> */}
               <Route path="/" element={<Home />} />
-              <Route path="/QuickLook" element={<QuickLook />} />
+              <Route path="/QuickLook" element={<MP />} />
               <Route path="/Reserve" element={<Reserve />} />
               <Route path="/AllReservations" element={<AllReservations />} />
               <Route path="/Reservation/:id" element={<Reservation />} />
               <Route path="/AllAssets" element={<AllAssets />} />
               <Route path="/Asset/:id" element={<Asset />} />
               <Route path="/Admin" element={<AdminStats />} />
-            </Routes>
+              <Route path='/Book' element={<MyBook />} />
+          </Routes>
           )}
         </div>
       </Context.Provider>
