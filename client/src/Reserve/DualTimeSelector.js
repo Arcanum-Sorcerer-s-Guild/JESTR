@@ -44,7 +44,6 @@ function DualTimeSelector({ timeList, setTimeList }) {
   return (
     <div className="bg-primary text-center w-48">
       <h2>Add Times</h2>
-      {/* <h3>{name}</h3> */}
       <div className="bg-secondary flexbox content-center p-1">
         <div className="flexbox">
           <label className="text-text">Start Time</label>
@@ -55,8 +54,6 @@ function DualTimeSelector({ timeList, setTimeList }) {
           value={startTime}
           onChange={handleStartTimeChange}
         />
-
-        <br />
         <div className="flexbox">
           <label className="text-text">End Time</label>
         </div>
@@ -67,7 +64,6 @@ function DualTimeSelector({ timeList, setTimeList }) {
           onChange={handleEndTimeChange}
         />
 
-        <br />
       </div>
       <button
         className="font-bold p-1 m-1 rounded bg-accent"
@@ -75,11 +71,11 @@ function DualTimeSelector({ timeList, setTimeList }) {
       >
         Add Time
       </button>
-      <br />
+
       <ul>
         {timeList.map((time, index) => (
           <li key={index}>
-            <CloseButton onClick={() => handleRemoveTimeClick(index)} />
+            <CloseButton name={"✖️"} onClick={() => handleRemoveTimeClick(index)} />
             {time.name}: {time.start} - {time.end}
           </li>
         ))}
