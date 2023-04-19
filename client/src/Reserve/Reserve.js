@@ -11,11 +11,9 @@ import DualTimeSelector from './DualTimeSelector';
 import ReserveMap from './ReserveMap';
 import UserForm from './UserForm';
 import ListTableNoCheck from './ListTableNoCheck';
-import { json } from 'react-router-dom';
 import { useCollapse } from 'react-collapsed';
 import { GiCompass, GiObservatory } from 'react-icons/gi';
 import { FaMountain } from 'react-icons/fa';
-import { GrCheckboxSelected, GrCheckbox } from 'react-icons/gr';
 import { IoLocationSharp } from 'react-icons/io5';
 import DmsCoordinates, { parseDms } from 'dms-conversion';
 import { Resizable } from 're-resizable';
@@ -162,7 +160,7 @@ const Reserve = () => {
   const optionsFormat = () => {
     return requestedWeek.map((x, index) => {
       return {
-        Header: x,
+        Header: DateTime.fromISO(x).toLocal().toLocaleString({ weekday: 'short', month: 'short', day: '2-digit' }),
         accessor: x,
         Cell: ({ row, column }) => (
           <div>
@@ -229,8 +227,8 @@ const Reserve = () => {
         timeList.forEach(({ name, start, end }) => {
           itemsToPush.push({
             ...userForm,
-            id: id,
-            times: `${start}-${end}`,
+            // id: id,
+            // times: `${start}-${end}`,
             Range: Range,
             SiteLocation: SiteLocation,
             Threat: Threat,
@@ -249,20 +247,26 @@ const Reserve = () => {
         });
       }
     );
+    //TODO check oin why times arnt right
     setItemsToSubmit(itemsToPush);
   }, [dateForm]);
 
   //TODO
-  const sendForm = (payload) => {
-    console.log(payload);
-    fetch(`${listUrl}/GetByTitle('Assets')/items`, {
-      method: 'PUT',
-      body: JSON.stringify([payload]),
-      credentials: 'include',
-    }).then((res) => res.json());
-    setShowModale(false);
-    setItemsToSubmit([]);
-    setTimeList([]);
+  const sendForm =  (payload) => {
+    payload.map( (x) => {
+         fetch(`${listUrl}/GetByTitle('Reservations')/items`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify([x]),
+        credentials: 'include',
+      }).then((res) => res.json());
+      setShowModale(false);
+      // setItemsToSubmit([]);
+      // setTimeList([]);
+      // alert('Reservation sent');
+      // navigate(0)
+    });
+
   };
 
   return (
@@ -273,23 +277,23 @@ const Reserve = () => {
           setRequestedWeek={setRequestedWeek}
         />
         <div className='flex items-center justify-center pt-5'>
-        <ButtonOpen name={'Reserve'} onClick={() => setShowModale(true)} />
+          <ButtonOpen name={'Reserve'} onClick={() => setShowModale(true)} />
         </div>
       </div>
       <div className='w-full p-3 mx-auto'>
-        <div className="flex w-full  justify-center px-6 my-6 bg-tertiary rounded">
+        <div className="flex w-full  justify-center p-8 bg-tertiary rounded">
           <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
-            <div className="flex flex-row">
+            <div className="flex flex-row pb-4">
               <Resizable
-                className="border-double hover:border-dashed border-r-2 border-black mt-5 ml-5"
+                className="border-double hover:border-dashed border-r-8 border-secondary mt-5 ml-5"
                 defaultSize={{
                   width: 475,
-                  height: 750,
+                  height: 700,
                 }}
                 minWidth={475}
-                minHeight={700}
-                maxHeight={700}
-                maxWidth={width - 30}
+                minHeight={600}
+                maxHeight={20}
+                maxWidth={width - 115}
               >
                 <div className=" border border-black mr-2 h-full overflow-scroll">
                   <input
@@ -332,7 +336,7 @@ const Reserve = () => {
               }}
             >
               {
-                <div className='bg-blue'>
+                <div className='bg-blue h-full items-center text-center '>
                   <Tabs>
                     <TabList>
                       <Tab>Select VULs and Notes</Tab>
@@ -340,35 +344,36 @@ const Reserve = () => {
                       <Tab>Submit Form</Tab>
                     </TabList>
 
-                    <TabPanel>
-                      <div className="flex">
-                        <div>
-                          <UserForm
+                    <TabPanel >
+                      <div className='flex items-center justify-center'>
+                        <DualTimeSelector
+                          timeList={timeList}
+                          setTimeList={setTimeList}
+                        />
+                      </div>
+                      {/* <UserForm
                             setUserForm={setUserForm}
                             setRequestedWeek={setRequestedWeek}
-                          />
-                          <input
-                            type="text"
-                            className='w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl'
-                            onChange={(e) =>
-                              setUserForm({
-                                ...userForm,
-                                [e.target.name]: e.target.value,
-                              })
-                            }
-                            name="Notes"
-                            placeholder="Notes"
-                          />
-                        </div>
-                      </div>
-                      <DualTimeSelector
-                        timeList={timeList}
-                        setTimeList={setTimeList}
+                          /> */}
+                      <input
+                        type="multiline"
+                        className='xl:w-3/4 lg:2-11/12 shadow-2xl pl-10 pr-10 m-10 w-3/4  border border-black'
+                        onChange={(e) =>
+                          setUserForm({
+                            ...userForm,
+                            [e.target.name]: e.target.value,
+                          })
+                        }
+                        name="Notes"
+                        placeholder="Notes"
                       />
+
                       {/* TODO, make the input wok for all items  */}
 
                     </TabPanel>
-                    <TabPanel>
+
+                    <TabPanel >
+                        <div className={'overflow-scroll h-96 flex items-center justify-center'}>
                       {selectedData.length !== 0 ? (
                         <ListTableNoCheck
                           data={selectedData}
@@ -379,6 +384,7 @@ const Reserve = () => {
                       ) : (
                         'Please close this form and select threats from main display...'
                       )}
+                      </div>
                     </TabPanel>
 
                     <TabPanel>
@@ -386,7 +392,8 @@ const Reserve = () => {
                         <div>
                           <h1>User Data</h1>
                           <div className="flex">
-                            POC:{' '}
+                            <label className="mr-2">POC: </label>
+
                             {userForm.POC ? (
                               <div className="">{userForm.POC}</div>
                             ) : (
@@ -396,7 +403,8 @@ const Reserve = () => {
                             )}
                           </div>
                           <div className="flex">
-                            ContactDSN:{' '}
+                            <label className="mr-2">Contact DSN: </label>
+
                             {userForm.ContactDSN ? (
                               <div className="">{userForm.ContactDSN}</div>
                             ) : (
@@ -406,7 +414,7 @@ const Reserve = () => {
                             )}
                           </div>
                           <div className="flex">
-                            Squadron:{' '}
+                            <label className="mr-2">Squadron: </label>
                             {userForm.Squadron ? (
                               <div className="">{userForm.Squadron}</div>
                             ) : (
