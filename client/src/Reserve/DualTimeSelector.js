@@ -63,7 +63,6 @@ function DualTimeSelector({ timeList, setTimeList }) {
           value={endTime}
           onChange={handleEndTimeChange}
         />
-
       </div>
       <button
         className="font-bold p-1 m-1 rounded bg-accent"
@@ -75,7 +74,10 @@ function DualTimeSelector({ timeList, setTimeList }) {
       <ul>
         {timeList.map((time, index) => (
           <li key={index}>
-            <CloseButton name={"✖️"} onClick={() => handleRemoveTimeClick(index)} />
+            <CloseButton
+              name={'✖️'}
+              onClick={() => handleRemoveTimeClick(index)}
+            />
             {time.name}: {time.start} - {time.end}
           </li>
         ))}
