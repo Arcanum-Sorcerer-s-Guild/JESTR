@@ -29,8 +29,7 @@ import { GiVirtualMarker } from 'react-icons/gi';
 const Asset = () => {
   const [assets, setAssets] = useState([]);
   const [currAsset, setCurrAsset] = useState();
-  const [assets, setAssets] = useState([]);
-  const [currAsset, setCurrAsset] = useState();
+
   let params = useParams();
   const [timeLine, setTimeLine] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -58,21 +57,14 @@ const Asset = () => {
     if (page === 'prev' && parseInt(params.id) !== 1) {
       navigate(`/Asset/${parseInt(params.id) - 1}`);
       setToggle(!toggle);
-    if (page === 'prev' && parseInt(params.id) !== 1) {
-      navigate(`/Asset/${parseInt(params.id) - 1}`);
-      setToggle(!toggle);
     }
-    if (page === 'next' && parseInt(params.id) + 1 !== assets.length + 1) {
-      navigate(`/Asset/${parseInt(params.id) + 1}`);
-      setToggle(!toggle);
+
     if (page === 'next' && parseInt(params.id) + 1 !== assets.length + 1) {
       navigate(`/Asset/${parseInt(params.id) + 1}`);
       setToggle(!toggle);
     }
-  };
   };
 
-  useEffect(() => {
   useEffect(() => {
     if (currAsset !== undefined) {
       setTimeLine([
@@ -102,7 +94,6 @@ const Asset = () => {
         { name: 'ETIC', time: DateTime.fromISO(currAsset.ETIC) },
       ]);
     }
-  }, [currAsset]);
   }, [currAsset]);
 
   const handleDelete = (e) => {
@@ -324,11 +315,17 @@ const Asset = () => {
                   <h5 className="md:text-sm text-sm text-gray-dark font-semibold uppercase">
                     System Information
                   </h5>
-                  <div className='flex gap-4 mr-4'>
-                    <button className="cursor-pointer" onClick={() => setShowModal(true)}>
+                  <div className="flex gap-4 mr-4">
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => setShowModal(true)}
+                    >
                       <AiFillEdit />
                     </button>
-                    <button className="cursor-pointer" onClick={() => handleDelete()}>
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => handleDelete()}
+                    >
                       <AiFillDelete />
                     </button>
                   </div>
@@ -348,24 +345,24 @@ const Asset = () => {
         </div>
       ) : (
         <>
-          {/* <div className="flex mt-10 justify-center items-center">
+          <div className="flex mt-10 justify-center items-center text-text">
             <button
               className="ml-5 mr-10"
               onClick={() => {
                 changePage('prev');
               }}
             >
-              <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full">
-                <FiArrowLeft className="mt-10" />
+              <div className="block rounded-lg content-center h-full">
+              <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
               </div>
             </button>
             <h1 className="text-4xl">Unable to locate requested entry!</h1>
             <button className="ml-10" onClick={() => changePage('next')}>
-              <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full ">
-                <FiArrowRight className="mt-10" />
+              <div className="block rounded-lg content-center h-full ">
+              <GrFormNext className="bg-gray-light text-lg rounded-full" />
               </div>
             </button>
-          </div> */}
+          </div>
         </>
       )}
     </>

@@ -108,7 +108,7 @@ const EditAsset = ({ showModal, setShowModal, asset }) => {
                     <div className="flex w-1/2">
                       <span className="mr-2">Equip: </span>
                       <input
-                        name="Serial"
+                        name="Equip"
                         className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
                         defaultValue={asset.Equipment}
@@ -117,7 +117,7 @@ const EditAsset = ({ showModal, setShowModal, asset }) => {
                     <div className="flex w-1/2">
                       <span className="mr-2">Threat: </span>
                       <input
-                        name="Serial"
+                        name="Threat"
                         className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
                         defaultValue={asset.Threat}
