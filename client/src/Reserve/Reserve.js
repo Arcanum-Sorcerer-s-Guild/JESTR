@@ -252,9 +252,9 @@ const Reserve = () => {
   }, [dateForm]);
 
   //TODO
-  const sendForm =  (payload) => {
-    payload.map( (x) => {
-         fetch(`${listUrl}/GetByTitle('Reservations')/items`, {
+  const sendForm = (payload) => {
+    payload.map((x) => {
+      fetch(`${listUrl}/GetByTitle('Reservations')/items`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify([x]),
@@ -373,17 +373,17 @@ const Reserve = () => {
                     </TabPanel>
 
                     <TabPanel >
-                        <div className={'overflow-scroll h-96 flex items-center justify-center'}>
-                      {selectedData.length !== 0 ? (
-                        <ListTableNoCheck
-                          data={selectedData}
-                          columns={formNewColumns}
-                          selected={selected}
-                          setSelected={setSelected}
-                        />
-                      ) : (
-                        'Please close this form and select threats from main display...'
-                      )}
+                      <div className={'overflow-scroll h-96 flex items-center justify-center'}>
+                        {selectedData.length !== 0 ? (
+                          <ListTableNoCheck
+                            data={selectedData}
+                            columns={formNewColumns}
+                            selected={selected}
+                            setSelected={setSelected}
+                          />
+                        ) : (
+                          'Please close this form and select threats from main display...'
+                        )}
                       </div>
                     </TabPanel>
 

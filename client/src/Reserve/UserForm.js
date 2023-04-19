@@ -51,7 +51,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
           <div className='p-1 w-full'>
             <label className="text-text text-center underline block text-sm font-medium text-gray-700">
               Squadron
-              </label>
+            </label>
             <UserDropDown
               dropDownItems={squadronDDOpts}
               dropdown={squadronDD}
@@ -61,7 +61,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
           <div className='p-1 w-full'>
             <label className="text-text text-center underline block text-sm font-medium text-gray-700">
               POC
-              </label>
+            </label>
             <input
               type="text"
               className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md    sm:text-sm"
@@ -73,7 +73,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
             <div className='p-1 w-full'>
               <label className="text-text text-center underline block text-sm font-medium text-gray-700">
                 Squadron
-                </label>
+              </label>
               <input
                 type="text"
                 className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md    sm:text-sm"

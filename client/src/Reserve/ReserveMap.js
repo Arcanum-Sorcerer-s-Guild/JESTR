@@ -102,7 +102,7 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
             source={xyz({
               url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             })}
-            // zIndex={-1}
+          // zIndex={-1}
           />
           {geoArray.length > 0 ? (
             geoArray.map((geoObject, index) => {
