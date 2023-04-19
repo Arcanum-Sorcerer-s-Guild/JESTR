@@ -149,7 +149,7 @@ const generateAssets = (numAssets = globalNumAssets) => {
       ThreatType: ['Manned', 'Unmanned'][randomIncRange(0, 1)],
       SystemInformation: `${faker.hacker.noun()} issues`, // "some string"
       StatusDate: generateFakeDate('2023-03-01', '2023-3-20'),
-      Status: ['RED', 'AMBER', 'GREEN', 'NA'][randomIncRange(0, 3)], // RED ||AMBER || GREEN || NA
+      Status: ['RED', 'AMBER', 'GREEN', 'N/A'][randomIncRange(0, 3)], // RED ||AMBER || GREEN || N/A
       ETIC: generateFakeDate('2023-03-01', '2024-3-20'), // 2022-11-02T19:44:06Z
       Remarks: generateFakeParagraph(), // "some string"
       Schedulable: randomIncRange(1, 100) < 20 ? false : true, // true/false
