@@ -266,7 +266,7 @@ const Reserve = () => {
 
   return (
     <>
-      <div className='container mx-auto h-screen'>
+      <div className="container mx-auto h-screen">
         <div className="flex justify-center px-6 my-6 bg-tertiary rounded">
           <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
             <div className="flex flex-row">
