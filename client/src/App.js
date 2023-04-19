@@ -24,7 +24,7 @@ function App() {
   const listUrl = 'http://localhost:3001/_api/web/lists';
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
+    const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       setUserdata(foundUser);
@@ -54,14 +54,14 @@ function App() {
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
         <div className="bg-gunmetal h-auto">
-          {!localStorage.getItem("user") && (
+          {!localStorage.getItem('user') && (
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/Register" element={<Register />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           )}
-          {localStorage.getItem("user") && (
+          {localStorage.getItem('user') && (
             <Routes>
               {/* <Route path = "/Users" element={<Users/>}/> */}
               <Route path="/" element={<Home />} />
