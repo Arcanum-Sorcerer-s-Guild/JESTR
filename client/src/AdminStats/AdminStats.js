@@ -6,16 +6,24 @@ import OperationalBar from './Charts/OperationalBar.js';
 import EventLine from './Charts/EventLine.js';
 import SquadronRadar from './Charts/SquadronRadar.js'
 import DateRangeSelector from './DateRangeSelector.js';
+import UserDoughnut from './Charts/UserDoughnut'
 
 const AdminStats = () => {
   const { listUrl } = useContext(Context);
   const [reserveList, setReserveList] = useState([]);
   const [assetList, setAssetList] = useState([]);
+  const [userList,setUserList] = useState([])
 
   const [dateRange, setDateRange] = useState({
     start: DateTime.local(),
     end: DateTime.local(),
   });
+
+  useEffect(()=>{
+    fetch(`http://localhost:3001/user/list`, {credentials: 'include'})
+    .then(res=>res.json())
+    .then(data=>setUserList(data))
+  },[])
 
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Reservations')/items`, {
@@ -67,6 +75,7 @@ const AdminStats = () => {
         <h1 className="text-center text-4xl mb-5 mt-5">Asset Statistics</h1>
         <div className="flex flex-row gap-16">
           <OperationalBar assetList={assetList} />
+          <UserDoughnut userList={userList} />
         </div>
       </div>
     </>

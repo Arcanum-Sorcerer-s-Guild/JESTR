@@ -11,10 +11,6 @@ import { GiAntiAircraftGun } from 'react-icons/gi'
 import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import { FaTools } from 'react-icons/fa'
 
-
-
-
-
 const Asset = () => {
   const [assets,setAssets] = useState([])
   const [currAsset,setCurrAsset] = useState()

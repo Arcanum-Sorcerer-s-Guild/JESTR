@@ -53,7 +53,7 @@ function App() {
     <div className="bg-gunmetal h-screen">
       <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
         <NavBar />
-        <div className='bg-gunmetal h-auto'>
+        <div className="bg-gunmetal h-auto">
           {!localStorage.getItem("user") && (
             <Routes>
               <Route path="/Login" element={<Login />} />
@@ -72,7 +72,7 @@ function App() {
               <Route path="/AllAssets" element={<AllAssets />} />
               <Route path="/Asset/:id" element={<Asset />} />
               <Route path="/Admin" element={<AdminStats />} />
-              <Route path='/Book' element={<MyBook />} />
+              <Route path="/Book" element={<MyBook />} />
             </Routes>
           )}
         </div>
