@@ -41,7 +41,7 @@ const Home = () => {
     <div className="flex flex-col">
       <div className="flex justify-center gap-10 mt-5 mb-5"> 
         <button className="border border-black bg-primary rounded-lg p-3 w-1/12" onClick={()=>setSelectedDate(selectedDate.minus({Day:1}))}>Previous</button>
-        <input type="date" onChange={handleDateSelection} value={selectedDate.toFormat('yyyy-MM-dd')}/> 
+        {selectedDate !== undefined ? <input type="date" onChange={handleDateSelection} value={selectedDate.toFormat('yyyy-MM-dd')}/> : <></> }
         <button className="border border-black bg-primary rounded-lg p-3 w-1/12" onClick={()=>setSelectedDate(selectedDate.plus({Day:1}))}>Next</button>
         
       </div>

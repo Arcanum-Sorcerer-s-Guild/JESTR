@@ -2,6 +2,8 @@ import React, { useRef } from 'react'
 import 'chartjs-adapter-luxon'
 import { Bar, getElementAtEvent } from 'react-chartjs-2';
 import { DateTime } from 'luxon';
+
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,7 +24,6 @@ ChartJS.register(
 
 const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
   const chartRef = useRef()
-  // let startDay = DateTime.now().startOf('day')
   let startDay = selectedDate
   let endDay = startDay.plus({Day:1})
 
@@ -53,7 +54,9 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
   }
 
   const options = {
+  
     indexAxis: 'y' ,
+    
     scales: {
       x: {
         min: '06:00',       //DateTime.now().toFormat('hh:mm'), //'2022-02-01',
@@ -61,10 +64,20 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
         type: 'time',
         time: {
           unit: 'hour',
+        },
+        // grid: {
+        //   color: "green"
+        // },
+        ticks: {
+          color: "green"
         }
       },
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+        ticks: {
+          color: "green"
+        }
+        
       }
     },
     elements: {
@@ -73,6 +86,7 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
       },
     },
     responsive: true,
+
     plugins: {
       legend: false,
       title: {
@@ -86,7 +100,7 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
     labels: labelsDayOne,
     datasets: [
       {
-      label: `Conflicts`,
+      backgroundColor: "green",
       data: dataArrayDayOne,
       barPercentage: .25,
   }]
@@ -96,6 +110,7 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
     labels: labelsDayTwo,
     datasets: [
       {
+      backgroundColor: "green",
       data: dataArrayDayTwo,
       barPercentage: .25,
   }]
