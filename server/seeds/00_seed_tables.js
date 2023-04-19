@@ -173,8 +173,8 @@ const generateAssets = (numAssets = globalNumAssets) => {
       CoordRecordedDate: generateFakeDate('2020-03-01', '2020-08-01'), // 2022-11-02T19:44:06Z
       created: generateFakeDate('2023-03-01', '2023-3-20'),
       modified: generateFakeDate('2023-08-01', '2023-10-01'),
-      AuthorId: 1,
-      EditorId: 1,
+      AuthorId: randomIncRange(1, 6),
+      EditorId: randomIncRange(1, 6),
     });
   }
   return assets;
