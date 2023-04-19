@@ -4,8 +4,6 @@ import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
 export const AssetsContext = React.createContext();
 
-
-
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
@@ -29,12 +27,12 @@ const AllAssets = () => {
   const updateInventory = async () => {
     // Retrieves all database assets
     await fetch(`${listUrl}/GetByTitle('Assets')/items`, {
-      credentials: 'include'
+      credentials: 'include',
     })
       .then((res) => res.json())
       .then((items) => {
         setCurrAssets(items.d.results);
-      })
+      });
   };
 
   // // Helper function to convert coordinates from the DD format to the DMS format
@@ -63,48 +61,51 @@ const AllAssets = () => {
 
   // Updates the displayed inventory on initial page load and when the assets list is changed
   useEffect(() => {
-    updateInventory()
+    updateInventory();
   }, []);
-
 
   // Formats the list of all assets
   return (
     <div className="max-w-6xl mx-auto">
       {userData.IsSiteAdmin ? (
-      <AssetsContext.Provider value={{ currAssets, setCurrAssets }}>
-        <div className="mt-4 rounded-md shadow-md bg-purple text-text text-center max-w-2x1">
-          <button type="button" className="font-semibold">
-            Add Asset
-          </button>
-        </div>
-        <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-          <h3 className="font-semibold">All Assets</h3>
-        </div>
-        <div className>
-          <div className="mt-2">
-            <div className="mt-2 flex flex-col">
-              <div className="my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
-                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                  <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
-                    <div>Total Assets: {currAssets.length}</div>
-                    <div className="flex-wrap flex-col">
-                      {currAssets.map(card => {
-                        return (
-                          <span key={card.Id} className="m-5 hover:scale-110" onClick={() => navigate(`/Asset/${card.Id}`)}>
-                            {card.Equipment}
-                            {card.Range}
-                            {card.SiteLocation}
-                          </span>
-                        )
-                      })}
+        <AssetsContext.Provider value={{ currAssets, setCurrAssets }}>
+          <div className="mt-4 rounded-md shadow-md bg-purple text-text text-center max-w-2x1">
+            <button type="button" className="font-semibold">
+              Add Asset
+            </button>
+          </div>
+          <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
+            <h3 className="font-semibold">All Assets</h3>
+          </div>
+          <div className>
+            <div className="mt-2">
+              <div className="mt-2 flex flex-col">
+                <div className="my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
+                  <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="shadow-lg overflow-hidden border-b sm:rounded-lg">
+                      <div>Total Assets: {currAssets.length}</div>
+                      <div className="flex-wrap flex-col">
+                        {currAssets.map((card) => {
+                          return (
+                            <span
+                              key={card.Id}
+                              className="m-5 hover:scale-110"
+                              onClick={() => navigate(`/Asset/${card.Id}`)}
+                            >
+                              {card.Equipment}
+                              {card.Range}
+                              {card.SiteLocation}
+                            </span>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </AssetsContext.Provider>
+        </AssetsContext.Provider>
       ) : (
         <></>
       )}
@@ -114,4 +115,3 @@ const AllAssets = () => {
 
 // Exports AllAssets for usability
 export default AllAssets;
-

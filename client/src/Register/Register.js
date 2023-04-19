@@ -36,6 +36,8 @@ const Register = () => {
         if ('Id' in data) {
           setUserdata(data);
           // alert('Login Successful')
+          //Set Local Storage
+          localStorage.setItem('user', JSON.stringify(data))
           navigate('/');
         } else if (password1 !== password2) alert("Passwords don't match");
         else if (data.message === 'LoginName already taken...')
