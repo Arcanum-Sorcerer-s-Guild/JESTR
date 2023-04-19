@@ -20,8 +20,6 @@ ChartJS.register(
   Legend
 );
 
-
-
 const TimeLineChart = ({conflictArray,currRes,setAltRes,setShowModal}) => {
   const chartRef = useRef()
   
@@ -103,12 +101,3 @@ const TimeLineChart = ({conflictArray,currRes,setAltRes,setShowModal}) => {
 }
 
 export default TimeLineChart
-
-
-
-
-
-
-
-
-
