@@ -60,6 +60,8 @@ const NavBar = () => {
       .then((data) => {
         if (data.message === 'logout successful') {
           setUserdata({});
+          // Clear Session Storage
+          localStorage.clear();
           navigate('/Login');
         }
       });
@@ -68,9 +70,8 @@ const NavBar = () => {
   let loggedIn = (
     <Link
       to="Login"
-      className={`${
-        !open && 'hidden'
-      } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
+      className={`${!open && 'hidden'
+        } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
     >
       <FaUserCircle className="mr-2" />
       <span onClick={signOut}>Sign Out</span>
@@ -79,9 +80,8 @@ const NavBar = () => {
 
   let adminLink = (
     <Link
-      className={`flex ${
-        userData.IsSiteAdmin === true ? '' : 'hidden'
-      } p-4 items-center hover:text-text`}
+      className={`flex ${userData.IsSiteAdmin === true ? '' : 'hidden'
+        } p-4 items-center hover:text-text`}
       to="/Admin"
     >
       <RiAdminFill className="mr-2" /> <span className>Admin</span>
@@ -100,9 +100,8 @@ const NavBar = () => {
         </div>
         <div
           className={`md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full md:visible 
-        left-0 right-0 bg-gunmetal/75 md:bg-gunmetal text-pink text-sm ${
-          !open && 'hidden'
-        } duration-300`}
+        left-0 right-0 bg-gunmetal/75 md:bg-gunmetal text-pink text-sm ${!open && 'hidden'
+            } duration-300`}
         >
           <div className={`${!userData.Title ? 'hidden' : ''}`}>
             {navLinks.map((link, i) => (
