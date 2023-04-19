@@ -353,13 +353,13 @@ const Asset = () => {
               }}
             >
               <div className="block rounded-lg content-center h-full">
-              <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
+                <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
               </div>
             </button>
             <h1 className="text-4xl">Unable to locate requested entry!</h1>
             <button className="ml-10" onClick={() => changePage('next')}>
               <div className="block rounded-lg content-center h-full ">
-              <GrFormNext className="bg-gray-light text-lg rounded-full" />
+                <GrFormNext className="bg-gray-light text-lg rounded-full" />
               </div>
             </button>
           </div>

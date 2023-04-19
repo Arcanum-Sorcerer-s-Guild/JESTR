@@ -206,7 +206,7 @@ const EditAsset = ({ showModal, setShowModal, asset }) => {
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
-                  </div>
+                    </div>
                   </div>
                 </div>
               </div>
