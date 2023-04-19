@@ -266,7 +266,7 @@ const Reserve = () => {
 
   return (
     <>
-      <div className='container mx-auto h-screen'>
+      <div className="container mx-auto h-screen">
         <div className="flex justify-center px-6 my-6 bg-tertiary rounded">
           <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
             <div className="flex flex-row">
@@ -573,7 +573,7 @@ const CollapsibleChild = ({
                           : ``
                       }
                       ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
-                      ${asset.Status === 'NA' ? `border-gray bg-gray/40` : ``}
+                      ${asset.Status === 'N/A' ? `border-gray bg-gray/40` : ``}
                     `}
                     >
                       <span className="font-medium pl-1">{`${asset.ThreatType.toUpperCase()}`}</span>
