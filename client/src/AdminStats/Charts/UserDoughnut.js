@@ -26,7 +26,6 @@ const UserDoughnut = ({ userList }) => {
 
   return (
     <>
-      {console.log(userList)}
       {userList.length > 0 ? (
         <>
           <div className="flex flex-col">

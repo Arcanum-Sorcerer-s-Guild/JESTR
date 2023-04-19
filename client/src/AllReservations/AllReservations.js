@@ -130,7 +130,7 @@ const AllReservations = () => {
                   </thead>
                   <tbody className="bg-text divide-y divide-y-gray/75">
                     {reservations.map((list, i) => (
-                      <tr key={i}>
+                      <tr key={i} onClick={()=>navigate(`/Reservation/${list.Id}`)}>
                         <td className="text-center text-m">
                           {list.SiteLocation}
                         </td>
