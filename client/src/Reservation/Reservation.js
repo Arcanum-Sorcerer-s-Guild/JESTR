@@ -8,6 +8,7 @@ import ResModal from './ResModal.js'
 
 
 
+
 const Reservation = () => {
   const params = useParams()
   const [resArray,setResArray] = useState([])
@@ -112,21 +113,21 @@ const Reservation = () => {
             </div>
             </button>
           </div> 
-          <div className="flex flex-row w-full gap-10 h-1/2">
+          <div className="flex flex-row w-full gap-10 h-1/2 w-1/2">
                         {/* <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden"></div> */}
                         <div className=" block rounded-lg bg-bluer/25 border border-black w-1/2 h-full p-10">
                           { conflictArray.length > 0 && JSON.stringify(currRes) !== '{}' ? <TimeLineChart conflictArray={conflictArray} currRes={currRes} altRes={altRes} setAltRes={setAltRes} setShowModal={setShowModal}/> : <></>}
                         </div>
 
-          <div className="flex flex-row gap-5">
-            <div className="flex flex-col gap-5">
+          
+            <div className="flex flex-col gap-5 w-1/2">
               <div className="block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden w-full h-1/2">
                 <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">Conflicting Reservations</h1>
                 <div className="flex flex-col content-between h-max">
                   <div>
-                    <table class="table-fixed w-full">
-                      <thread className="flex break-words w-full ml-5 gap-10 ">
-                      <tr className="flex flex-row justify-center">
+                    <table class="table-auto w-full"> 
+                      <thread >
+                      <tr className="grid-container grid grid-cols-9">
                         <th >ID</th>
                         <th>Squadron</th>
                         <th>POC</th>
@@ -136,19 +137,19 @@ const Reservation = () => {
                         <th>Date</th>
                       </tr>
                       </thread>
-                    <tbody>
+                     <tbody >
                     {conflictArray.filter(conflict=>
                       {if(currRes.start >= conflict.start && currRes.start < conflict.end || currRes.end > conflict.start && currRes.end < conflict.end) return(conflict)}
                     ).map((res,index)=> {
                       return(<>
                         {res.Id !== currRes.Id ?
-                        <tr onClick={()=>handleAltResClick(res)} key={index}> 
-                          <td>{res.Id}</td>
-                          <td>{res.Squadron}</td>
-                          <td>{res.POC}</td>
-                          <td>{res.start.toFormat('hh:mm')}</td>
-                          <td>{res.end.toFormat('hh:mm')}</td>
-                          <td>{res.start.toFormat('dd MMM yyyy')}</td>
+                        <tr className="grid-container grid grid-cols-9 " onClick={()=>handleAltResClick(res)} key={index}> 
+                          <td className="col-span-1">{res.Id}</td>
+                          <td className="col-span-2">{res.Squadron}</td>
+                          <td className="col-span-2">{res.POC}</td>
+                          <td className="col-span-1">{res.start.toFormat('hh:mm')}</td>
+                          <td className="col-span-1">{res.end.toFormat('hh:mm')}</td>
+                          <td className="col-span-1">{res.start.toFormat('dd MMM yyyy')}</td>
                         </tr>
                         : <></>} 
                         </>)})
@@ -170,10 +171,9 @@ const Reservation = () => {
           </div>
 
         </div>
-            {/* <div>{`Current: ${currRes.start.toFormat('hh:mm')} ${currRes.end.toFormat('hh:mm')}`}</div> */}
-            {/* {conflictArray.length > 0 ? conflictArray.map(conflict=><div>{`${conflict.Squadron}: ${conflict.start.toFormat('hh:mm')} ${conflict.end.toFormat('hh:mm')}`}</div>) : <></>} */}
+
             
-      </div>
+      
         
 
 
