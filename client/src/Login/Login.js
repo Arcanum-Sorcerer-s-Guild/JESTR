@@ -26,15 +26,15 @@ const Login = () => {
       body: JSON.stringify(formJSON),
     };
 
-    console.log(requestOptions.body)
-
     fetch(`http://localhost:3001/user/login`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if ('Id' in data) {
           setUserdata(data);
           // alert('Login Successful')
+          // Add session item for user
+          // TODO add session key for comparison
+          localStorage.setItem('user', JSON.stringify(data))
           navigate('/');
         } else alert('Login failed. Please try again');
       })
