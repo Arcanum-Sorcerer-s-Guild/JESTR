@@ -1,9 +1,9 @@
 .ol-map {
-  min-width: 400px;
+  min-width: 600px;
   min-height: 400px;
   /* margin: 50px; */
-  height: 20vh;
-  width: 20vw;
+  height: 60vh;
+  width: 50vw;
 }
 
 .ol-control {
