@@ -98,7 +98,6 @@ const MP = () => {
               <td className="text-sm">{list.SiteLocation}</td>
               <td className="text-sm">
                 <Link to={'/Asset'}>
-                  {' '}
                   {list.Threat} ({list.Equipment})
                 </Link>
               </td>

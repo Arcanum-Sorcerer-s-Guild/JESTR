@@ -1,14 +1,6 @@
 import HTMLFlipBook from 'react-pageflip';
 import React, { useState, useEffect, useRef } from 'react';
 import { DateTime } from 'luxon';
-import './book.css';
-import Marquee from 'react-fast-marquee';
-
-//icons
-import {
-  CgArrowsExpandDownLeft,
-  CgArrowsExpandDownRight,
-} from 'react-icons/cg';
 
 const MyBook = () => {
   const [reservations, setReservations] = useState([]);
@@ -89,51 +81,31 @@ const MyBook = () => {
   const book = useRef();
   return (
     <div className="container mx-auto h-screen">
-      <div className="flex flex-col justify-center px-6">
-        <div className="mt-3 justify-center text-center">
-          <div className="flex justify-between text-green gap-2 m-2">
+      <div className="flex justify-center px-6">
+        <div className="w-full xl:w-full lg:w-12/12 flex flex-col shadow-2xl">
+          <div className="h-8 mt-6 rounded-sm text-center">
+            {' '}
+            <span className="font-medium text-text text-lg w-max">
+              Todays date: {currentDate}
+            </span>
+          </div>
+          <div className="flex justify-around h-8 mt-6 rounded-sm">
             <button
-              className="inline-flex"
+              className="bg-green top-2 left-64 rounded-md p-1"
               onClick={() => book.current.pageFlip().flipPrev()}
             >
-              <CgArrowsExpandDownLeft className="text-lg" />
-              <span className="text-xs">Previous</span>
+              Previous page
             </button>
-            <Marquee
-              play={true}
-              pauseOnHover={true}
-              direction="right"
-              speed={20}
-              loop={0}
-              gradient={true}
-              gradientColor={[255, 73, 219]}
-              className="rounded"
-            >
-              <div className="text-xs text-text">
-                <h2>
-                  {' '}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aperiam, facere.
-                </h2>
-              </div>
-              <div className="text-xs text-text ml-4">
-                <h2>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloribus, ipsum.
-                </h2>
-              </div>
-            </Marquee>
+            <span className="font-medium text-text text-lg w-max ">
+              Current Page: {currentPage}
+            </span>
             <button
-              className="inline-flex"
+              className="bg-green top-2 right-64 rounded-md p-1 "
               onClick={() => book.current.pageFlip().flipNext()}
             >
-              <span className="text-xs">Next</span>
-              <CgArrowsExpandDownRight className="text-lg" />
+              Next page
             </button>
           </div>
-        </div>
-        <div className="w-full flex-col shadow-2xl">
-          {/* 2560 × 1272 */}
           <HTMLFlipBook
             width={400}
             height={400}
@@ -151,18 +123,18 @@ const MyBook = () => {
             ref={book}
             responsive={false}
             onFlip={handlePageChange}
-            className="rounded-r-md"
+            className="mt-10 rounded-r-md"
           >
-            {localData2.map((item, index) => {
+            {localData2.map((item, i) => {
               return (
-                <div className="page h-11 rounded-md">
+                <div className="bg-text h-11 border-r border-gray-dark border-2 rounded-md">
                   <table>
                     <thead>
-                      <tr className="border-b border-dotted">
+                      <tr>
                         {headers.map((header, i) => (
                           <th
                             key={i}
-                            className="glow text-xs text-center px-8 pt-10 pb-2 text-pink divide "
+                            className="p-10 mt-7 text-center text-xs font-medium uppercase tracking-wider"
                           >
                             {header.name}
                           </th>
@@ -187,17 +159,7 @@ const MyBook = () => {
                                 .toLocal()
                                 .toFormat('yyyy MMM dd')}
                             </td>
-                            <td
-                              className={`glow-td text-center text-m ${
-                                list.Status === 'Approved'
-                                  ? 'text-green/50'
-                                  : list.Status === 'Pending'
-                                  ? 'text-purple/50'
-                                  : list.Status === 'Rejected'
-                                  ? 'text-pink/50'
-                                  : ''
-                              }`}
-                            >
+                            <td className="text-center text-m">
                               {list.Status}
                             </td>
                           </tr>
@@ -210,39 +172,9 @@ const MyBook = () => {
             })}
           </HTMLFlipBook>
         </div>
-        <div className="flex justify-between text-sm m-2 text-green gap-2">
-          <h2> Current date: {currentDate}</h2>
-          <h2>Current Page: {currentPage}</h2>
-        </div>
       </div>
     </div>
   );
 };
 
 export default MyBook;
-
-{
-  /* <div className="h-8 mt-6 rounded-sm text-center">
-{' '}
-<span className="font-medium text-text text-lg w-max">
-  Todays date: {currentDate}
-</span>
-</div>
-<div className="flex justify-around h-8 mt-6 rounded-sm">
-<button
-  className="bg-green top-2 left-64 rounded-md p-1"
-  onClick={() => book.current.pageFlip().flipPrev()}
->
-  Previous page
-</button>
-<span className="font-medium text-text text-lg w-max ">
-  Current Page: {currentPage}
-</span>
-<button
-  className="bg-green top-2 right-64 rounded-md p-1 "
-  onClick={() => book.current.pageFlip().flipNext()}
->
-  Next page
-</button>
-</div> */
-}
