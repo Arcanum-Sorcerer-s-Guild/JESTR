@@ -68,12 +68,12 @@ const AllAssets = () => {
               <span className="mt-2 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
                 <span className="flex flex-wrap flex-row justify-center">
                   <span className="ml-auto mr-16 flex flex-wrap flex-col">
-                    <div className="p-1 w-36 text-text text-center rounded-md">
+                    <div className="p-1 w-36 text-grey-lighter text-center rounded-md text-gray-light">
                       Total Assets: {currAssets.length}
                     </div>
                     <button
                       type="button"
-                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      className="p-1 w-36 bg-secondary text-center rounded-md text-gray-light"
                       onClick={() => setShowModal(true)}
                     >
                       Add Asset
@@ -85,14 +85,14 @@ const AllAssets = () => {
                   <span className="mx-16 flex flex-wrap flex-col">
                     <label
                       htmlFor="SortAssets"
-                      className="p-1 w-36 text-text text-center rounded-md"
+                      className="p-1 w-36 text-center rounded-md text-gray-light"
                     >
                       Sort Assets by:
                     </label>
                     <select
                       name="SortAssets"
                       id="sortAssets"
-                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      className="p-1 w-36 bg-secondary text-gray-light text-center rounded-md"
                       onChange={() => {
                         setSortField(
                           document.getElementById('sortAssets').value
@@ -117,13 +117,13 @@ const AllAssets = () => {
                   <span className="mx-16 flex flex-wrap flex-col">
                     <label
                       htmlFor="assets"
-                      className="p-1 w-36 text-text text-center rounded-md"
+                      className="p-1 w-36 text-gray-light text-center rounded-md"
                     >
                       Sort Order:
                     </label>
                     <button
                       type="button"
-                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      className="p-1 w-36 bg-secondary text-gray-light text-center rounded-md"
                       onClick={() => {
                         setSortOrder(!sortOrder);
                         setCurrPage(1);
@@ -136,14 +136,14 @@ const AllAssets = () => {
                   <span className="ml-16 mr-auto flex flex-wrap flex-col">
                     <label
                       htmlFor="DisplayPerPage"
-                      className="p-1 w-36 text-text text-center rounded-md"
+                      className="p-1 w-36 text-gray-light text-center rounded-md"
                     >
                       Assets per Page:
                     </label>
                     <select
                       name="DisplayPerPage"
                       id="DisplayPerPage"
-                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      className="p-1 w-36 bg-secondary text-gray-light text-center rounded-md"
                       defaultValue={`${itemsPerPage}`}
                       onChange={() => {
                         setItemsPerPage(
@@ -265,16 +265,16 @@ const AllAssets = () => {
                     return (
                       <span
                         key={card.Id}
-                        className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
-                      w-64 h-68 p-1 shadow-lg rounded-md text-sm"
+                        className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-blue-darker border-primary border-2
+                      w-64 h-68 p-1 shadow-lg rounded-md text-sm "
                         onClick={() => navigate(`/Asset/${card.Id}`)}
                       >
-                        <pre className="text-gunmetal">
-                          <span className="mx-auto">
+                        <pre className="text-gray-light">
+                          <span className="flex flex-row mx-auto text-base justify-between mb-0">
                             <span className="font-semibold">
-                              {`Serial#:\t`}
+                              {`Serial#:`}
                             </span>
-                            <span>{` ${card.Serial}`}</span>
+                            <span className="">{`${card.Serial}`}</span>
                           </span>
                           <br />
 
@@ -288,69 +288,61 @@ const AllAssets = () => {
                             />
                           </span>
 
-                          <span className="mx-auto">
-                            <span className="font-semibold">
-                              {`Range:\t\t`}
-                            </span>
-                            <span>{` ${card.Range}`}</span>
-                          </span>
-                          <br />
-
-                          <span className="mx-auto">
-                            <span className="font-semibold">
-                              {`Location:\t`}
-                            </span>
-                            <span>{` ${card.SiteLocation}`}</span>
-                          </span>
-                          <br />
-
-                          <span className="mx-auto">
-                            <span className="font-semibold">
-                              {`Equipment:\t`}
-                            </span>
-                            <span>{` ${card.Equipment}`}</span>
-                          </span>
-                          <br />
-
-                          <span className="mx-auto">
-                            <span className="font-semibold">
-                              {`Threat:\t\t`}
-                            </span>
-                            <span>{` ${card.Threat}`}</span>
-                          </span>
-                          <br />
-
-                          <span className="mx-auto">
-                            <span className="font-semibold">{`Type:\t\t`}</span>
-                            <span>{` ${card.ThreatType}`}</span>
-                          </span>
-                          <br />
-
-                          <div className="flex flex-row">
-                            <p className="flex items-center">
+                          <div className="flex flex-col justify-start ml-1">
+                            <span className="ml-1">
                               <span className="font-semibold">
-                                {`Operational: `}
+                                {`Range:\t   `}
+                              </span>
+                              <span>{`${card.Range}`}</span>
+                            </span>
+
+                            <span className="ml-1">
+                              <span className="font-semibold">
+                                {`Location:  `}
+                              </span>
+                              <span>{`${card.SiteLocation}`}</span>
+                            </span>
+
+                            <span className="ml-1">
+                              <span className="font-semibold">
+                                {`Equipment: `}
+                              </span>
+                              <span>{`${card.Equipment}`}</span>
+                            </span>
+
+                            <span className="ml-1">
+                              <span className="font-semibold">
+                                {`Threat:\t   `}
+                              </span>
+                              <span>{`${card.Threat}`}</span>
+                            </span>
+
+                            <span className="ml-1">
+                              <span className="font-semibold">{`Type:\t   `}</span>
+                              <span>{`${card.ThreatType}`}</span>
+                            </span>
+                          </div>
+
+                          <div className="mt-4 flex flex-row items-center">
+                            <p className="flex items-center">
+                              <span className="ml-2">
+                                {`Operational:`}
                               </span>
                               <span className="text-lg">
                                 {card.Operational ? (
-                                  <AiFillCheckCircle className="text-green bg-text rounded-full" />
+                                  <AiFillCheckCircle className="text-green bg-blue-darker rounded-full" />
                                 ) : (
-                                  <AiFillCloseCircle className="text-red/60 bg-text rounded-full" />
+                                  <AiFillCloseCircle className="text-red/60 bg-blue-darker rounded-full opacity-50" />
                                 )}
                               </span>
-                            </p>
-                          </div>
-
-                          <div className="flex flex-row">
-                            <p className="flex items-center">
-                              <span className="font-semibold">
-                                {`Schedulable: `}
+                              <span className="ml-1">
+                                {`Schedulable:`}
                               </span>
                               <span className="text-lg">
                                 {card.Schedulable ? (
-                                  <AiFillCheckCircle className="text-green bg-text rounded-full" />
+                                  <AiFillCheckCircle className="text-green bg-blue-darker rounded-full mr-auto" />
                                 ) : (
-                                  <AiFillCloseCircle className="text-red/60 bg-text rounded-full" />
+                                  <AiFillCloseCircle className="text-red/60 bg-blue-darker rounded-full mr-auto opacity-50" />
                                 )}
                               </span>
                             </p>
@@ -360,35 +352,35 @@ const AllAssets = () => {
                     );
                   })}
               </div>
-              <div className="flex flex-row">
+              <div className="mt-5 flex flex-row">
                 <p className="flex items-center mx-auto">
                   <button type="button" className="ml-1 text-xl">
                     {currPage > 1 ? (
                       <MdKeyboardArrowLeft
-                        className="ml-auto p-1 w-8 h-8 bg-text rounded-full"
+                        className="ml-auto p-1 w-8 h-8 bg-gray-light rounded-full"
                         onClick={() => prevPageFunc()}
                       />
                     ) : (
-                      <MdKeyboardArrowLeft className="ml-auto p-1 w-8 h-8 bg-text rounded-full" />
+                      <MdKeyboardArrowLeft className="ml-auto p-1 w-8 h-8 bg-gray-light rounded-full" />
                     )}
                   </button>
-                  <span className="mr-1 p-1 w-28 text-text text-center text-xl rounded-md">
+                  <span className="mr-1 p-1 w-28 text-gray-light text-center text-xl rounded-md">
                     Prev Page
                   </span>
-                  <span className="mx-4 w-8 h-8 text-gunmetal bg-text text-center text-xl rounded-full font-semibold">
+                  <span className="mx-4 w-8 h-8 text-gunmetal bg-gray-light text-center text-xl rounded-full font-semibold">
                     {currPage}
                   </span>
-                  <span className="ml-1 p-1 w-28 text-text text-center text-xl rounded-md">
+                  <span className="ml-1 p-1 w-28 text-gray-light text-center text-xl rounded-md">
                     Next Page
                   </span>
                   <button type="button" className="ml-1 text-xl">
                     {currAssets.length / (currPage * itemsPerPage) > 1 ? (
                       <MdKeyboardArrowRight
-                        className="mr-auto p-1 w-8 h-8 bg-text rounded-full"
+                        className="mr-auto p-1 w-8 h-8 bg-gray-light rounded-full"
                         onClick={() => nextPageFunc()}
                       />
                     ) : (
-                      <MdKeyboardArrowRight className="mr-auto p-1 w-8 h-8 bg-text rounded-full" />
+                      <MdKeyboardArrowRight className="mr-auto p-1 w-8 h-8 bg-gray-light rounded-full" />
                     )}
                   </button>
                 </p>
@@ -396,11 +388,11 @@ const AllAssets = () => {
               <AddAsset showModal={showModal} setShowModal={setShowModal} />
             </div>
           ) : (
-            <h1 className="text-text text-center m-auto">Loading...</h1>
+            <h1 className="text-gray-light text-center m-auto">Loading...</h1>
           )}
         </div>
       ) : (
-        <h1 className="text-text text-center text-4xl mt-150">
+        <h1 className="text-gray-light text-center text-4xl mt-150">
           You do not have permission to view this page
         </h1>
       )}
