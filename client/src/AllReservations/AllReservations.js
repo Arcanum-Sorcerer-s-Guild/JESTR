@@ -37,10 +37,10 @@ const AllReservations = () => {
         setReservations(data.d.results.sort((a, b) => {
           const dateA = DateTime.fromISO(a.EventDate).toLocal();
           const dateB = DateTime.fromISO(b.EventDate).toLocal();
-          if (dateA < dateB) {
+          if (dateA > dateB) {
             return -1;
           }
-          if (dateA > dateB) {
+          if (dateA < dateB) {
             return 1;
           }
           return 0;
