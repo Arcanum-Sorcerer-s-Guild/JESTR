@@ -164,44 +164,87 @@ const AllAssets = () => {
                     return (
                       <span
                         key={card.Id}
-                        className="m-3 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
-                      w-64 h-68 p-1 shadow-lg rounded-md text-center"
+                        className="m-3 hover:scale-110 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
+                      w-64 h-68 p-1 shadow-lg rounded-md text-sm"
                         onClick={() => navigate(`/Asset/${card.Id}`)}
                       >
                         <pre className="text-gunmetal">
-                          <span className="font-semibold">Serial#:</span>
-                          {` ${card.Serial}`}
+                          <span className="mx-auto">
+                            <span className="font-semibold">
+                              {`Serial#:\t`}
+                            </span>
+                            <span>
+                              {` ${card.Serial}`}
+                            </span>
+                          </span>
                           <br />
+
                           <span className="font-semibold content-center items-center align-middle">
                             <img
                               src={`/weaponImages/${
                                 (originalAssets.indexOf(card) % 18) + 1
                               }.png`}
                               alt="AA Gun"
-                              className="h-16 w-28 mx-auto rounded-md"
+                              className="h-32 w-60 mx-auto rounded-md"
                             />
                           </span>
-                          <span className="font-semibold">Range:</span>
-                          {` ${card.Range}`}
+
+                          <span className="mx-auto">
+                            <span className="font-semibold">
+                              {`Range:\t\t`}
+                            </span>
+                            <span>
+                              {` ${card.Range}`}
+                            </span>
+                          </span>
                           <br />
-                          <span className="font-semibold">Location:</span>
-                          {` ${card.SiteLocation}`}
+
+                          <span className="mx-auto">
+                            <span className="font-semibold">
+                              {`Location:\t`}
+                            </span>
+                            <span>
+                              {` ${card.SiteLocation}`}
+                            </span>
+                          </span>
                           <br />
-                          <span className="font-semibold">Equipment:</span>
-                          {` ${card.Equipment}`}
+
+                          <span className="mx-auto">
+                            <span className="font-semibold">
+                              {`Equipment:\t`}
+                            </span>
+                            <span>
+                              {` ${card.Equipment}`}
+                            </span>
+                          </span>
                           <br />
-                          <span className="font-semibold">Threat:</span>
-                          {` ${card.Threat}`}
+
+                          <span className="mx-auto">
+                            <span className="font-semibold">
+                              {`Threat:\t\t`}
+                            </span>
+                            <span>
+                              {` ${card.Threat}`}
+                            </span>
+                          </span>
                           <br />
-                          <span className="font-semibold">Threat Type:</span>
-                          {` ${card.ThreatType}`}
+
+                          <span className="mx-auto">
+                            <span className="font-semibold">
+                              {`Type:\t\t`}
+                            </span>
+                            <span>
+                              {` ${card.ThreatType}`}
+                            </span>
+                          </span>
                           <br />
+
                           <div className="flex flex-row">
-                            <p className="flex items-center mx-auto">
-                              <span className="font-semibold text-center">
-                              Operational:
+                            <p className="flex items-center">
+                              <span className="font-semibold ml-1">
+                                {`Operational:  `}
                               </span>
-                              <span className="ml-1 text-xl">
+                              <span className="ml-1 text-lg">
                                 {card.Operational ? (
                                   <AiFillCheckCircle className="text-green bg-text rounded-full" />
                                 ) : (
@@ -210,12 +253,13 @@ const AllAssets = () => {
                               </span>
                             </p>
                           </div>
+
                           <div className="flex flex-row">
-                            <p className="flex items-center mx-auto">
-                              <span className="font-semibold text-center">
-                                Schedulable:
+                            <p className="flex items-center">
+                              <span className="font-semibold ml-1">
+                                {`Schedulable:  `}
                               </span>
-                              <span className="ml-1 text-xl">
+                              <span className="ml-1 text-lg">
                                 {card.Schedulable ? (
                                   <AiFillCheckCircle className="text-green bg-text rounded-full" />
                                 ) : (
