@@ -74,6 +74,7 @@ Insert gif or link to demo
   | red | ![#ff0000](https://via.placeholder.com/10/ff0000?text=+) #ff0000 |
   | green | ![#13ce66](https://via.placeholder.com/10/13ce66?text=+) #13ce66 |
   | yellow | ![#ffc82c](https://via.placeholder.com/10/ffc82c?text=+) #ffc82c |
+  | greener | ![#16F834](https://via.placeholder.com/10/16F834?text=+) #16F834 |
   | black | ![#000000](https://via.placeholder.com/10/000000?text=+) #000000 |
   | 'gray-dark | ![#273444](https://via.placeholder.com/10/273444?text=+) #273444 |
   | gray | ![#8492a6](https://via.placeholder.com/10/8492a6?text=+) #8492a6 |
