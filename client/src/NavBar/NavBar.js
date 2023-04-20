@@ -16,7 +16,7 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'QuickLook', to: '/', text: 'Quick Look', icon: <FaEye /> },
-    { name: 'Reserve', to: '/', text: 'ESTR', icon: <FaMapMarkedAlt /> },
+    { name: 'Reserve', to: '/', text: 'Scheduler', icon: <FaMapMarkedAlt /> },
     { name: 'AllAssets', to: '/', text: 'Assets', icon: <FiRadio /> },
     {
       name: 'AllReservations',
@@ -94,7 +94,9 @@ const NavBar = () => {
           <div className="text-blue"></div>
           <div className="flex text-pink text-2xl">
             <GiFrostfire />
-            <Link to={'/'} className="text-blue">JESTR</Link>
+            <Link to={'/'} className="text-blue">
+              JESTR
+            </Link>
           </div>
         </div>
         <div

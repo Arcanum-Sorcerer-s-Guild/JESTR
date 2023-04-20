@@ -84,19 +84,6 @@ const Asset = () => {
         { name: 'Asset Modified', time: DateTime.fromISO(currAsset.modified) },
         { name: 'ETIC', time: DateTime.fromISO(currAsset.ETIC) },
       ]);
-      setTimeLine([
-        {
-          name: 'Coordinate Recorded',
-          time: DateTime.fromISO(currAsset.CoordRecordedDate),
-        },
-        {
-          name: 'Status Recorded',
-          time: DateTime.fromISO(currAsset.StatusDate),
-        },
-        { name: 'Asset Created', time: DateTime.fromISO(currAsset.created) },
-        { name: 'Asset Modified', time: DateTime.fromISO(currAsset.modified) },
-        { name: 'ETIC', time: DateTime.fromISO(currAsset.ETIC) },
-      ]);
     }
   }, [currAsset]);
 
@@ -138,11 +125,11 @@ const Asset = () => {
                               <div className="flex text-xs gap-1 text-gray-light">
                                 <span>
                                   {' '}
-                                  {event.time.toFormat(
-                                    'dd - MMM - yyyy'
-                                  )} @{' '}
+                                  {event.time.toFormat('dd  MMM  yyyy')} @{' '}
                                 </span>
-                                <span>{`${event.time.toFormat('hh:mm')}`}</span>
+                                <span>{`${event.time.toFormat(
+                                  'hh:mm'
+                                )} Z`}</span>
                               </div>
                             </div>
                           </li>
@@ -234,7 +221,7 @@ const Asset = () => {
                             <span className="font-semibold mr-2 uppercase py-2">
                               Status:
                             </span>
-                                {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
+                            {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
                             <span
                               className={`text-center text-xs px-4 rounded-md ${
                                 currAsset.Status === 'RED'
@@ -290,7 +277,7 @@ const Asset = () => {
                     <div className="bg-cover p-4">
                       <img
                         alt={`${params.id}`}
-                        src={`http://localhost:3000/images/${(params.id).toString()}.jpg`}
+                        src={`http://localhost:3000/images/${params.id.toString()}.jpg`}
                         className="rounded shadow-lg border border-gray-light"
                       />
                       <span className="p-2 float-right text-xs text-gray-light/50">{`asset id: ${currAsset.Id}`}</span>

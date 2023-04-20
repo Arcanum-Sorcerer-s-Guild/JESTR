@@ -27,7 +27,14 @@ const OperationalBar = ({ assetList }) => {
           datasets: [
             {
               data: assetBarData,
-              backgroundColor: ['#36A2EB','#FF6384','#4BC0C0','#FF9F40','#9966FF','#FFCD56'],
+              backgroundColor: [
+                '#36A2EB',
+                '#FF6384',
+                '#4BC0C0',
+                '#FF9F40',
+                '#9966FF',
+                '#FFCD56',
+              ],
             },
           ],
         });
@@ -37,7 +44,9 @@ const OperationalBar = ({ assetList }) => {
   return (
     <>
       <div className="flex flex-col ">
-        <h3 className="flex text-2xl mb-2 justify-center text-text">Operational vs Non Operational Assets</h3>
+        <h3 className="flex text-2xl mb-2 justify-center text-text">
+          Operational vs Non Operational Assets
+        </h3>
         <div>
           {operationalBarData ? (
             <Bar
@@ -52,14 +61,14 @@ const OperationalBar = ({ assetList }) => {
                 scales: {
                   x: {
                     grid: {
-                      color: "green"
-                    }
+                      color: 'green',
+                    },
                   },
                   y: {
                     grid: {
-                      color: "green"
+                      color: 'green',
                     },
-                  }
+                  },
                 },
               }}
               data={operationalBarData}
