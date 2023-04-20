@@ -30,8 +30,20 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
   let startDay = selectedDate
   let endDay = startDay.plus({Day:1})
 
-  let resDayOne = resArray.filter((res) => res.start.toFormat('dd MMM yyyy') === startDay.toFormat('dd MMM yyyy'));
-  let resDayTwo = resArray.filter((res)=> res.start.toFormat('dd MMM yyyy') === endDay.toFormat('dd MMM yyyy'))
+  let resDayOne = resArray.filter((res) => res.start.toFormat('dd MMM yyyy') === startDay.toFormat('dd MMM yyyy')).sort((a,b)=> {
+    if (a.Squadron.toLowerCase() > b.Squadron.toLowerCase()) {
+      return 1 
+    } else {
+      return -1
+    }
+  })
+  let resDayTwo = resArray.filter((res)=> res.start.toFormat('dd MMM yyyy') === endDay.toFormat('dd MMM yyyy')).sort((a,b)=> {
+    if (a.Squadron.toLowerCase() > b.Squadron.toLowerCase()) {
+      return 1 
+    } else {
+      return -1
+    }
+  })
 
   let labelsDayOne = resDayOne.map(res=>`${res.Squadron}: #${res.Id}`);
   let labelsDayTwo = resDayTwo.map(res=>`${res.Squadron}: #${res.Id}`);
@@ -39,19 +51,46 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
   let dataArrayDayOne = resDayOne.map(res => ([res.start.toFormat('HH:mm'),res.end.toFormat('HH:mm')]))
   let dataArrayDayTwo = resDayTwo.map(res => ([res.start.toFormat('HH:mm'),res.end.toFormat('HH:mm')]))
 
-  // labels= ['Label 1','Label 2']
-  // dataArray = [['19 12:00','19 16:00'],['19 16:00','19 20:00']]
 
+  let squadrons = [... new Set(resArray.map(res=>res.Squadron))]
+  let colors = ['#36A2EB','#FF6384','#4BC0C0','#FF9F40','#9966FF','#FFCD56']
+
+  let sqColors = squadrons.reduce((acc,elem,index)=>{return({...acc,[elem]:colors[index]})},{} )
+
+  let colorsDayOne=resDayOne.map(res=> sqColors[res.Squadron] )
+  let colorsDayTwo=resDayTwo.map(res=> sqColors[res.Squadron])
+
+  const dataDayOne = {
+    labels: labelsDayOne,
+    datasets: [
+      {
+      backgroundColor: colorsDayOne,
+      data: dataArrayDayOne,
+      barPercentage: .25,
+      }]
+  }
+  
+    const dataDayTwo = {
+      labels: labelsDayTwo,
+      datasets: [
+        {
+        backgroundColor: colorsDayTwo,
+        data: dataArrayDayTwo,
+        barPercentage: .25,
+    }]
+    }
+  
   const onChartClick = (event) => {
     let element = getElementAtEvent(chartRef.current,event)[0]
-
     // if (element !== undefined) {
-    //   if (element.index === 0) setAltRes(currRes)
+      //   if (element.index === 0) setAltRes(currRes)
     //   else setAltRes(conflictArray[element.index -1])
     //   setShowModal(true)  
     // }
-
   }
+
+
+
 
   const options = {
   
@@ -96,46 +135,6 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
       },
     },
   };
-
-
-  let squadrons = [... new Set(resArray.map(res=>res.Squadron))]
-  let colors = ['#36A2EB','#FF6384','#4BC0C0','#FF9F40','#9966FF','#FFCD56']
-
-  let sqColors = squadrons.reduce((acc,elem,index)=>{return({...acc,[elem]:colors[index]})},{} )
-  // console.log(sqColors)
-
-  let colorsDayOne=resDayOne.map(res=> sqColors[res.Squadron] )
-  let colorsDayTwo=resDayTwo.map(res=> sqColors[res.Squadron])
-
-  console.log(colorsDayOne)
-
-
-
-const dataDayOne = {
-  labels: labelsDayOne,
-  datasets: [
-    {
-    backgroundColor: colorsDayOne,
-    data: dataArrayDayOne,
-    barPercentage: .25,
-    }]
-  
-
-
-}
-
-  const dataDayTwo = {
-    labels: labelsDayTwo,
-    datasets: [
-      {
-      backgroundColor: colorsDayTwo,
-      data: dataArrayDayTwo,
-      barPercentage: .25,
-  }]
-  }
-
-
-
 
   return(<>
     <div className="flex flex-row gap-32">
