@@ -241,10 +241,10 @@ const AllAssets = () => {
 
                           <div className="flex flex-row">
                             <p className="flex items-center">
-                              <span className="font-semibold ml-1">
-                                {`Operational:  `}
+                              <span className="font-semibold">
+                                {`Operational: `}
                               </span>
-                              <span className="ml-1 text-lg">
+                              <span className="text-lg">
                                 {card.Operational ? (
                                   <AiFillCheckCircle className="text-green bg-text rounded-full" />
                                 ) : (
@@ -256,10 +256,10 @@ const AllAssets = () => {
 
                           <div className="flex flex-row">
                             <p className="flex items-center">
-                              <span className="font-semibold ml-1">
-                                {`Schedulable:  `}
+                              <span className="font-semibold">
+                                {`Schedulable: `}
                               </span>
-                              <span className="ml-1 text-lg">
+                              <span className="text-lg">
                                 {card.Schedulable ? (
                                   <AiFillCheckCircle className="text-green bg-text rounded-full" />
                                 ) : (
