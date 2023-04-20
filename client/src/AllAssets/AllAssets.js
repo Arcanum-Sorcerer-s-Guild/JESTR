@@ -126,7 +126,7 @@ const AllAssets = () => {
                 }).map(card => {
                   return (
                     <span key={card.Id} className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
-                    w-64 h-48 p-1 shadow-lg rounded-md" onClick={() => navigate(`/Asset/${card.Id}`)}>
+                    w-64 h-48 p-1 shadow-lg rounded-md text-center" onClick={() => navigate(`/Asset/${card.Id}`)}>
                       <pre className="text-gunmetal">
                         <span className="font-semibold">Serial#:</span>
                         {` ${card.Serial}`}
