@@ -2,7 +2,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
-import { AiFillCloseCircle, AiFillCheckCircle, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/ai';
+import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
@@ -200,7 +201,7 @@ const AllAssets = () => {
                               <span className="font-semibold text-center">
                               Operational:
                               </span>
-                              <span className="ml-1">
+                              <span className="ml-1 text-xl">
                                 {card.Operational ? (
                                   <AiFillCheckCircle className="text-green bg-text rounded-full" />
                                 ) : (
@@ -214,7 +215,7 @@ const AllAssets = () => {
                               <span className="font-semibold text-center">
                                 Schedulable:
                               </span>
-                              <span className="ml-1">
+                              <span className="ml-1 text-xl">
                                 {card.Schedulable ? (
                                   <AiFillCheckCircle className="text-green bg-text rounded-full" />
                                 ) : (
@@ -228,37 +229,43 @@ const AllAssets = () => {
                     );
                   })}
               </div>
-              <span className="mt-0 flex mx-auto">
-                {currPage > 1 ? (
-                  <button
-                    type="button"
-                    className="ml-auto mr-1 p-1 w-20 bg-secondary text-text text-center rounded-md"
-                    onClick={() => prevPageFunc()}
-                  >
-                    Prev Page
-                  </button>
-                ) : (
-                  <span className="ml-auto mr-1 p-1 w-20 bg-secondary text-text text-center rounded-md opacity-50">
+              <div className="flex flex-row">
+                <p className="flex items-center mx-auto">
+                  <span className="ml-1 text-xl">
+                    {currPage > 1 ? (
+                      <MdKeyboardArrowLeft
+                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                        onClick={() => prevPageFunc()}
+                      />
+                    ) : (
+                      <MdKeyboardArrowLeft
+                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                      />
+                    )}
+                  </span>
+                  <span className="ml-1 mr-auto p-1 w-20 text-text text-center rounded-md">
                     Prev Page
                   </span>
-                )}
-                <span className="mx-1 p-1 text-text rounded-md ">
-                  {currPage}
-                </span>
-                {currAssets.length / (currPage * itemsPerPage) > 1 ? (
-                  <button
-                    type="button"
-                    className="ml-1 mr-auto p-1 w-20 bg-secondary text-text text-center rounded-md"
-                    onClick={() => nextPageFunc()}
-                  >
-                    Next Page
-                  </button>
-                ) : (
-                  <span className="ml-1 mr-auto p-1 w-20 bg-secondary text-text text-center rounded-md opacity-50">
+                  <span className="mx-1 p-1 text-text rounded-md ">
+                    {currPage}
+                  </span>
+                  <span className="ml-1 mr-auto p-1 w-20 text-text text-center rounded-md">
                     Next Page
                   </span>
-                )}
-              </span>
+                  <span className="ml-1 text-xl">
+                    {currAssets.length / (currPage * itemsPerPage) > 1 ? (
+                      <MdKeyboardArrowRight
+                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                        onClick={() => nextPageFunc()}
+                      />
+                    ) : (
+                      <MdKeyboardArrowRight
+                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                      />
+                    )}
+                  </span>
+                </p>
+              </div>
             </div>
           ) : (
             <h1 className="text-text text-center m-auto">Loading...</h1>
