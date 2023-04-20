@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
-
+import { AiFillCloseCircle, AiFillCheckCircle, AiFillSchedule } from 'react-icons/ai';
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
@@ -57,7 +57,7 @@ const AllAssets = () => {
 
   // Formats the list of all assets
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-screen-2xl mx-auto">
       {userData.IsSiteAdmin ? (
         <div>
           {currAssets !== [] ? (
@@ -76,24 +76,28 @@ const AllAssets = () => {
               <span className="mt-2 flex flex-wrap">
                 <label
                   htmlFor="SortAssets"
-                  className="ml-auto mr-1 p-1 w-28 bg-secondary text-text text-center rounded-md"
+                  className="ml-auto mr-1 p-1 w-36 bg-secondary text-text text-center rounded-md"
                 >
                   Sort Assets by:
                 </label>
                 <select
                   name="SortAssets"
                   id="sortAssets"
-                  className="ml-1 mr-3 p-1 w-28 bg-secondary text-text text-center rounded-md"
+                  className="ml-1 mr-3 p-1 w-36 bg-secondary text-text text-center rounded-md"
                   onChange={() => {
                     setSortField(document.getElementById('sortAssets').value);
                     setCurrPage(1);
                   }}
+                  defaultValue="Range"
                 >
+                  <option value="Serial">Serial</option>
                   <option value="Range">Range</option>
+                  <option value="SiteLocation">Location</option>
                   <option value="Equipment">Equipment</option>
                   <option value="Threat">Threat</option>
-                  <option value="SiteLocation">Site Location</option>
-                  <option value="Serial">Serial</option>
+                  <option value="ThreatType">Threat Type</option>
+                  <option value="Operational">Operational</option>
+                  <option value="Schedulable">Schedulable</option>
                 </select>
                 <label
                   htmlFor="assets"
@@ -113,14 +117,14 @@ const AllAssets = () => {
                 </button>
                 <label
                   htmlFor="DisplayPerPage"
-                  className="ml-3 mr-1 p-1 w-28 bg-secondary text-text text-center rounded-md"
+                  className="ml-3 mr-1 p-1 w-36 bg-secondary text-text text-center rounded-md"
                 >
                   Display:
                 </label>
                 <select
                   name="DisplayPerPage"
                   id="DisplayPerPage"
-                  className="ml-1 mr-auto p-1 w-28 bg-secondary text-text text-center rounded-md"
+                  className="ml-1 mr-auto p-1 w-36 bg-secondary text-text text-center rounded-md"
                   defaultValue={`${itemsPerPage}`}
                   onChange={() => {
                     setItemsPerPage(
@@ -137,7 +141,7 @@ const AllAssets = () => {
                   <option value="50">50</option>
                 </select>
               </span>
-              <div className="mt-4 mx-auto p-1 flex flex-wrap justify-center">
+              <div className="mt-4 max-w-screen-xl mx-auto p-1 flex flex-wrap flex-row justify-center">
                 {currAssets
                   .sort((a, b) => {
                     return (
@@ -160,7 +164,7 @@ const AllAssets = () => {
                       <span
                         key={card.Id}
                         className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
-                      w-64 h-48 p-1 shadow-lg rounded-md text-center"
+                      w-64 h-68 p-1 shadow-lg rounded-md text-center"
                         onClick={() => navigate(`/Asset/${card.Id}`)}
                       >
                         <pre className="text-gunmetal">
@@ -173,20 +177,52 @@ const AllAssets = () => {
                                 (originalAssets.indexOf(card) % 18) + 1
                               }.png`}
                               alt="AA Gun"
-                              className="h-16 w-28 mx-auto"
+                              className="h-16 w-28 mx-auto rounded-md"
                             />
                           </span>
+                          <span className="font-semibold">Range:</span>
+                          {` ${card.Range}`}
+                          <br />
+                          <span className="font-semibold">Location:</span>
+                          {` ${card.SiteLocation}`}
+                          <br />
                           <span className="font-semibold">Equipment:</span>
                           {` ${card.Equipment}`}
                           <br />
                           <span className="font-semibold">Threat:</span>
                           {` ${card.Threat}`}
                           <br />
-                          <span className="font-semibold">Range:</span>
-                          {` ${card.Range}`}
+                          <span className="font-semibold">Threat Type:</span>
+                          {` ${card.ThreatType}`}
                           <br />
-                          <span className="font-semibold">Location:</span>
-                          {` ${card.SiteLocation}`}
+                          <div className="flex flex-row">
+                            <p className="flex items-center mx-auto">
+                              <span className="font-semibold text-center">
+                              Operational:
+                              </span>
+                              <span className="ml-1">
+                                {card.Operational ? (
+                                  <AiFillCheckCircle className="text-green bg-text rounded-full" />
+                                ) : (
+                                  <AiFillCloseCircle className="text-red/60 bg-text rounded-full" />
+                                )}
+                              </span>
+                            </p>
+                          </div>
+                          <div className="flex flex-row">
+                            <p className="flex items-center mx-auto">
+                              <span className="font-semibold text-center">
+                                Schedulable:
+                              </span>
+                              <span className="ml-1">
+                                {card.Schedulable ? (
+                                  <AiFillCheckCircle className="text-green bg-text rounded-full" />
+                                ) : (
+                                  <AiFillCloseCircle className="text-red/60 bg-text rounded-full" />
+                                )}
+                              </span>
+                            </p>
+                          </div>
                         </pre>
                       </span>
                     );
