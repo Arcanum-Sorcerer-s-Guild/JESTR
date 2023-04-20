@@ -4,13 +4,15 @@ import Modal from './Modal';
 import TableHeader from './TableHeader';
 import ExportExcel from './Excelexport.js';
 import ExportPDF from './ExportPDF';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AllReservations = () => {
   const [reservations, setReservations] = useState([]);
   const [temp, setTemp] = useState([]);
   const [showModale, setShowModale] = useState(false);
   const [render, setRender] = useState(true);
+  const [pageSlice,setPageSlice] = useState([])
+  const params = useParams();
   const [modaleChildren, setModaleChildren] = useState(
     <div>this is a big'ol test</div>
   );
@@ -26,12 +28,15 @@ const AllReservations = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data.d.results);
         setReservations(data.d.results);
         setTemp(data.d.results);
-        console.log('rendered');
+
       });
   }, [render]);
+
+
+
+
 
   //This is for when an approver presses submit when changing the Reservation status
   const handleLogin = (e, id) => {
@@ -57,31 +62,47 @@ const AllReservations = () => {
   };
 
   const changeStatus = (status) => {
-    console.log('typeof status', typeof status);
     if (typeof status === typeof 10) {
       const newData = temp.filter((item) => {
         return item.AuthorId === status;
       });
       setReservations(newData);
-      console.log('hello', newData);
+      
     } else {
       const newData = temp.filter((item) => {
         if (status === 'All') return typeof item.Status === typeof 'hello';
         return item.Status === status;
       });
       setReservations(newData);
-      console.log('hello', newData);
     }
+    navigate('/AllReservations/1')
   };
 
-  return (
-    <div className="grid place-items-center">
-      <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-        <h1 className="text-5xl">All Reservations</h1>
+  const changePageClick = (page) => {
+    if (parseInt(params.page) !== 1 && page === 'prev' || parseInt(params.page) !== Math.floor(reservations.length / 10)  && page === 'next') {
+      if (page==='next') navigate(`/AllReservations/${parseInt(params.page) + 1}`)
+      if (page==='prev') navigate(`/AllReservations/${parseInt(params.page) - 1}`)
+      setPageSlice(reservations.slice((parseInt(params.page)-1) * 10, parseInt(params.page) * 10))
+    }
+  }
+
+  useEffect(()=> {
+    if(params.page !== undefined) setPageSlice(reservations.slice((parseInt(params.page)-1) * 10, parseInt(params.page) * 10))
+  },[reservations])
+
+  // const paginateReservations = (pageNumber) => {
+    
+  // }
+
+  return (<>
+     {/* <div className="grid place-items-center"> */}
+     <div className="flex flex-row justify-center">
+      <div className="mt-4 p-2 rounded-md shadow-md bg-purple/50 text-text text-center items-center">
+        <h1 className="text-5xl items-center mt-10">Reservations</h1>
       </div>
       <div className="items-center bg-gray-light m-4">
         <button
-          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
+          className="mt-10 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
           onClick={() => changeStatus('Pending')}
         >
           Pending
@@ -118,31 +139,38 @@ const AllReservations = () => {
       <div className="bg-gray-lighter m-4 text-xs italic">
         *To edit a Reservation please contact an Approver
       </div>
+    </div>
+
+
       <div className="mt-2">
-        <div className="mt-2 flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden content-center" id="table">
-                <table class=" text-center content-center" id="bestTable">
+
+        <div className="mt-2 flex flex-row justify-center">
+          {/* <div class="overflow-x-auto sm:-mx-6 lg:-mx-8"> */}
+            {/* <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8"> */}
+
+              <div class="flex overflow-hidden content-center justify-center" id="table">
+                <table class=" text-center content-center ml-32 mr-32 " id="bestTable">
+
                   {/* {console.log(document.getElementById('bestTable').rows.length, 'plz')} */}
-                  <thead className="bg-gray-light/100 text-gray/200">
+                  <thread className="bg-bluer/75 text-gray/200 items-center">
                     <TableHeader />
-                  </thead>
-                  <tbody className="bg-text divide-y divide-y-gray/75">
-                    {reservations.map((list, i) => (
-                      <tr key={i} onClick={()=>navigate(`/Reservation/${list.Id}`)}>
-                        <td className="text-center text-m">
+                  </thread>
+
+                  <tbody className="flex bg-bluer/75 divide-y bg-opacity-25 divide-y-gray/75 grid ">
+                    {pageSlice.length > 0 ? pageSlice.map((list, i) => (
+                      <tr key={i} className="hover:bg-primary/60 grid grid-cols-12 grid-container"onClick={()=>navigate(`/Reservation/${list.Id}`)}>
+                        <td className="text-center text-m col-span-2">
                           {list.SiteLocation}
                         </td>
-                        <td className="text-center text-m">
+                        <td className="text-center text-m col-span-2">
                           {list.Threat}({list.Equipment})
                         </td>
-                        <td className="text-center text-m">{list.Squadron}</td>
-                        <td className="text-center text-m m-11">
+                        <td className="text-center text-m col-span-2">{list.Squadron}</td>
+                        <td className="text-center text-m col-span-2">
                           {list.EventDate}
                         </td>
-                        <td className="text-center text-m">{list.EndDate}</td>
-                        <td className="text-center text-m">
+                        <td className="text-center text-m col-span-2">{list.EndDate}</td>
+                        <td className="text-center text-m col-span-2">
                           {userData.IsApprover === false ? (
                             list.Status
                           ) : list.Status === 'Approved' ? (
@@ -152,7 +180,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              className="bg-green py-2 px-4 rounded-full"
+                              className="bg-greener font-medium py-2 px-4 rounded-full col-span-2"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -206,7 +234,7 @@ const AllReservations = () => {
                               data-te-target="#exampleModal"
                               data-te-ripple-init
                               data-te-ripple-color="light"
-                              className="bg-red py-2 px-4 rounded-full"
+                              className="bg-red font-medium py-2 px-4 rounded-full"
                               onClick={() => {
                                 setModaleChildren(
                                   <>
@@ -310,7 +338,7 @@ const AllReservations = () => {
                           )}
                         </td>
                       </tr>
-                    ))}
+                    )):<></>}
                   </tbody>
                 </table>
               </div>
@@ -331,11 +359,26 @@ const AllReservations = () => {
             >
               {modaleChildren}
             </Modal>
-          </div>
-        </div>
       </div>
-    </div>
-  );
+
+      <div className="flex flex-row justify-center gap-10 mt-5">
+
+        <button className="bg-primary border border-black rounded-lg" onClick={()=>changePageClick('prev')}>
+          Prev Page
+        </button>
+
+        <span>{`${params.page} of ${Math.floor(reservations.length / 10)}`}</span>
+
+        <button className="bg-primary border border-black rounded-lg" onClick={()=>changePageClick('next')}>
+          Next Page
+        </button>
+
+      </div>
+
+        {/* </div> */}
+      {/* // </div> */}
+    {/* // </div> */}
+  </>);
 };
 
 export default AllReservations;

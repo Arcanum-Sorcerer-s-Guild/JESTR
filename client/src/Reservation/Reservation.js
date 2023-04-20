@@ -188,7 +188,7 @@ const Reservation = () => {
                     </h1>
                     <div className="flex flex-col content-between h-max">
                       <div>
-                        <table class="table-auto w-full">
+                        <table className="table-auto w-full">
                           <thread>
                             <tr className="grid-container grid grid-cols-9 border-b border-black">
                               <th className="col-span-1">ID</th>

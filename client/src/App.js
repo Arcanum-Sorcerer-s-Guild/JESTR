@@ -55,6 +55,7 @@ function App() {
             <Route path="/QuickLook" element={<MP />} />
             <Route path="/Reserve" element={<Reserve />} />
             <Route path="/AllReservations" element={<AllReservations />} />
+            <Route path="/AllReservations/:page" element={<AllReservations />} />
             <Route path="/Reservation/:id" element={<Reservation />} />
             <Route path="/AllAssets" element={<AllAssets />} />
             <Route path="/Asset/:id" element={<Asset />} />

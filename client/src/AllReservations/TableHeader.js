@@ -9,11 +9,11 @@ const TableHeader = () => {
         { name: 'Status' },
     ];
     return (
-        <tr>
+        <tr  className=" mix-blend-hard-light text-primary grid-container grid grid-cols-12 border-b border-black items-center">
             {headers.map((header, i) => (
                 <th
                     key={i}
-                    className="px-24 py-2 text-center text-xs font-medium uppercase tracking-wider"
+                    className="px-24 py-2 text-center text-xs font-medium uppercase tracking-wider col-span-2"
                 >
                     {header.name}
                 </th>

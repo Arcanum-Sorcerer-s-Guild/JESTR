@@ -16,6 +16,7 @@ const vaporwaveColors = {
   green: '#13ce66',
   yellow: '#ffc82c',
   black: '#000000',
+  greener: '#16F834',
   'gray-dark': '#273444',
   gray: '#8492a6',
   'gray-light': '#d3dce6',
