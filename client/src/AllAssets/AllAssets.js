@@ -19,6 +19,7 @@ const AllAssets = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
+
   // // Helper function to convert coordinates from the DD format to the DMS format
   // const convertDDtoDMS = (coord) => {
   //   return `${Math.trunc(Math.abs(coord))}\u00B0${Math.trunc(
