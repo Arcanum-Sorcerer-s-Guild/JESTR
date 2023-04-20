@@ -13,8 +13,12 @@ const EventLine = ({ dateRange, reserveList }) => {
 
   useEffect(() => {
     if (reserveList.length > 0) {
-      reserveList.sort((a, b) => {return a.date - b.date});
-      let daySpan = parseInt(dateRange.end.diff(dateRange.start).toFormat('dd'));
+      reserveList.sort((a, b) => {
+        return a.date - b.date;
+      });
+      let daySpan = parseInt(
+        dateRange.end.diff(dateRange.start).toFormat('dd')
+      );
       let reservations = [];
       let rangeTerm = '';
 
@@ -22,7 +26,8 @@ const EventLine = ({ dateRange, reserveList }) => {
         reservations = reserveList.filter(
           (res) =>
             res.date.startOf('day') >= dateRange.start.startOf('day') &&
-            res.date.startOf('day') < dateRange.start.startOf('day').plus({ day: 3 })
+            res.date.startOf('day') <
+              dateRange.start.startOf('day').plus({ day: 3 })
         );
         daySpan = 3;
         rangeTerm = 'Day';
@@ -41,10 +46,13 @@ const EventLine = ({ dateRange, reserveList }) => {
             let key = reservations[i].date.toFormat('EEE');
             typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
           }
-          let numDays = Object.keys(obj).length
-          for(let i = 1; i < 4 - numDays; i++) {
-            let key = reservations[reservations.length-1].date.plus({day:i}).toFormat('EEE')
-            obj[key] = 0}
+          let numDays = Object.keys(obj).length;
+          for (let i = 1; i < 4 - numDays; i++) {
+            let key = reservations[reservations.length - 1].date
+              .plus({ day: i })
+              .toFormat('EEE');
+            obj[key] = 0;
+          }
           setLineLabels({
             labels: Object.keys(obj),
             data: Object.values(obj),
@@ -58,11 +66,13 @@ const EventLine = ({ dateRange, reserveList }) => {
             let key = reservations[i].date.toFormat('EEE');
             typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
           }
-          
-          let numDays = Object.keys(obj).length
-          for(let i = 1; i < 8 - numDays; i++) {
-            let key = reservations[reservations.length-1].date.plus({day:i}).toFormat('EEE')
-            obj[key] = 0
+
+          let numDays = Object.keys(obj).length;
+          for (let i = 1; i < 8 - numDays; i++) {
+            let key = reservations[reservations.length - 1].date
+              .plus({ day: i })
+              .toFormat('EEE');
+            obj[key] = 0;
           }
 
           setLineLabels({
@@ -71,7 +81,6 @@ const EventLine = ({ dateRange, reserveList }) => {
             range: rangeTerm === '' ? 'Week' : 'Day',
           });
         }
-
 
         if (daySpan > 7 && daySpan <= 31) {
           let obj = {};
@@ -84,7 +93,6 @@ const EventLine = ({ dateRange, reserveList }) => {
             data: Object.values(obj),
             range: 'Span',
           });
-
         }
 
         if (daySpan > 31) {
@@ -94,16 +102,16 @@ const EventLine = ({ dateRange, reserveList }) => {
             typeof obj[key] === 'undefined' ? (obj[key] = 1) : obj[key]++;
           }
 
-          let numMonths = Object.keys(obj).length
-
+          let numMonths = Object.keys(obj).length;
 
           if (numMonths < 6) {
-            for(let i = 1; i < 6 - numMonths; i++) {
-              let key = reservations[reservations.length-1].date.plus({month:i}).toFormat('MMM')
-              obj[key] = 0
+            for (let i = 1; i < 6 - numMonths; i++) {
+              let key = reservations[reservations.length - 1].date
+                .plus({ month: i })
+                .toFormat('MMM');
+              obj[key] = 0;
             }
           }
-
 
           setLineLabels({
             labels: Object.keys(obj),
@@ -143,21 +151,20 @@ const EventLine = ({ dateRange, reserveList }) => {
 
                 plugins: {
                   legend: false,
-                  datalabels: { offset: -20, align: 'start', color:"pink" },
+                  datalabels: { offset: -20, align: 'start', color: 'pink' },
                 },
-                scales: { 
-                  x: { 
-                      suggestedMin: lineLabels.labels.length,
-                      grid: { color: "green" },
-                      ticks: {color:"pink"}
-                    },
-                  y: { 
-                    grid: { color: "green" },
-                    ticks: { color: "pink" }
-                  }
-                    },
-                  } 
-              }
+                scales: {
+                  x: {
+                    suggestedMin: lineLabels.labels.length,
+                    grid: { color: 'green' },
+                    ticks: { color: 'pink' },
+                  },
+                  y: {
+                    grid: { color: 'green' },
+                    ticks: { color: 'pink' },
+                  },
+                },
+              }}
               data={eventLineData}
             />
           ) : (
