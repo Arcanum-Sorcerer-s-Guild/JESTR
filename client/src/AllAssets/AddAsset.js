@@ -14,8 +14,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
   const [operational, setOperational] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -40,15 +39,11 @@ const EditAsset = ({ showModal, setShowModal }) => {
       body: JSON.stringify([inputs]),
     };
 
-    fetch(
-      `${listUrl}/GetByTitle('Assets')/items(1)`,
-      reqOpts
-    )
+    fetch(`${listUrl}/GetByTitle('Assets')/items(1)`, reqOpts)
       .then((res) => console.log(res.json()))
       .then(setShowModal(false));
-    navigate("/AllAssets");
+    navigate('/AllAssets');
   };
-
 
   return (
     <>
@@ -78,9 +73,9 @@ const EditAsset = ({ showModal, setShowModal }) => {
                         id="Serial"
                         className="bg-gray-light/60 w-full h-1/2 rounded-sm px-2 text-xs"
                         onChange={(e) => {
-                          handleChange(e)
+                          handleChange(e);
                         }}
-                        defaultValue={""}
+                        defaultValue={''}
                       />
                     </div>
                     <div className="flex w-1/2">
@@ -92,19 +87,11 @@ const EditAsset = ({ showModal, setShowModal }) => {
                         onChange={(e) => {
                           handleChange(e);
                         }}
-                        defaultValue={"Unmanned"}
+                        defaultValue={'Unmanned'}
                       >
-                        <option
-                          value="Unmanned"
-                        >
-                          UNMANNED
-                        </option>
+                        <option value="Unmanned">UNMANNED</option>
 
-                        <option
-                          value="Manned"
-                        >
-                          MANNED
-                        </option>
+                        <option value="Manned">MANNED</option>
                       </select>
                     </div>
                   </div>
@@ -115,7 +102,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                         name="Equip"
                         className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={""}
+                        defaultValue={''}
                       />
                     </div>
                     <div className="flex w-1/2">
@@ -124,7 +111,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                         name="Threat"
                         className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={""}
+                        defaultValue={''}
                       />
                     </div>
                   </div>
@@ -135,21 +122,21 @@ const EditAsset = ({ showModal, setShowModal }) => {
                         name="Latitude"
                         className="bg-gray-light/60 w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={""}
+                        defaultValue={''}
                       />
                       <span className="mx-2 ">Long: </span>
                       <input
                         name="Longitude"
                         className="bg-gray-light/60 w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={""}
+                        defaultValue={''}
                       />
                       <span className="mx-2">Elevation: </span>
                       <input
                         name="Elevation"
                         className="bg-gray-light/60 w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={""}
+                        defaultValue={''}
                       />
                     </div>
                   </div>
@@ -160,7 +147,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                       type="text"
                       className="bg-gray-light/70 rounded-sm text-xs border-none w-full mt-1"
                       onChange={(e) => handleChange(e)}
-                      defaultValue={""}
+                      defaultValue={''}
                     />
                   </div>
                   <div className="flex flex-col gap-2 bg-gray/70 rounded p-2 mt-2">
@@ -169,7 +156,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                       <input
                         name="Range"
                         className="bg-gray-light/60 w-full h-1/2 rounded-sm px-2 text-xs"
-                        defaultValue={""}
+                        defaultValue={''}
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
@@ -178,7 +165,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                       <input
                         name="Range"
                         className="bg-gray-light/60 w-full h-1/2 rounded-sm px-2 text-xs"
-                        defaultValue={""}
+                        defaultValue={''}
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
@@ -189,7 +176,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                       name="Curr Status"
                       className="bg-gray-light/60 rounded-sm px-2 text-xs"
                       onChange={(e) => handleChange(e)}
-                      defaultValue={""}
+                      defaultValue={''}
                     />
                     <div className="flex ml-4">
                       <div className="flex gap-1 mr-4">
@@ -222,7 +209,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                   <input
                     name="SystemInformation"
                     className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
-                    defaultValue={""}
+                    defaultValue={''}
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
@@ -232,7 +219,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                     className="rounded w-full text-xs border-gray"
                     rows="8"
                     cols="20"
-                    defaultValue={""}
+                    defaultValue={''}
                     onChange={(e) => handleChange(e)}
                   />
                   <button
@@ -272,6 +259,3 @@ const EditAsset = ({ showModal, setShowModal }) => {
 };
 
 export default EditAsset;
-
-
-
