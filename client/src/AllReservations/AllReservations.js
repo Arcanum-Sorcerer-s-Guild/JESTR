@@ -391,15 +391,13 @@ const AllReservations = () => {
             </h2>
           </div>
           <Modal
-                isvisible={showModale}
-                onClose={() => {
-                  setShowModale(false);
-                }}
-              >
-                {modaleChildren}
-              </Modal>
-     
-          
+            isvisible={showModale}
+            onClose={() => {
+              setShowModale(false);
+            }}
+          >
+            {modaleChildren}
+          </Modal>
         </div>
       </div>
     </div>

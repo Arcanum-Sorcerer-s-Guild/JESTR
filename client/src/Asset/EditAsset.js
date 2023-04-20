@@ -216,22 +216,24 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                         />
                       </div>
                     </div>
-                    </div>
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <p className="mr-2">Coordination Source: </p>
-                    <input
-                      name="CoordSource"
-                      type="text"
-                      className="bg-gray-dark rounded-sm text-xs border-none w-full mt-1"
-                      onChange={(e) => handleChange(e)}
-                      defaultValue={asset.CoordSource}
-                    />
                   </div>
                 </div>
-             
+                <div className="mt-2 text-xs">
+                  <p className="mr-2">Coordination Source: </p>
+                  <input
+                    name="CoordSource"
+                    type="text"
+                    className="bg-gray-dark rounded-sm text-xs border-none w-full mt-1"
+                    onChange={(e) => handleChange(e)}
+                    defaultValue={asset.CoordSource}
+                  />
+                </div>
+              </div>
+
               <div className="w-1/2 p-5">
-                <h3 className="font font-semibold text-center">System Information Remarks & Comments</h3>
+                <h3 className="font font-semibold text-center">
+                  System Information Remarks & Comments
+                </h3>
                 <div className="flex text-xs mt-2">
                   <span className="mr-2">Title: </span>
                   <input
