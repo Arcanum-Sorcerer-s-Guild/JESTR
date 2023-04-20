@@ -63,7 +63,99 @@ const AllAssets = () => {
         <div>
           {currAssets !== [] ? (
             <div className="mt-2 mx-auto">
-              <span className="mt-2 flex flex-wrap">
+              <span className="mt-2 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
+
+                <span className="ml-auto mr-16 flex flex-wrap flex-col">
+                  <div className="p-1 w-36 text-text text-center rounded-md">
+                    Total Assets: {currAssets.length}
+                  </div>
+                  <button
+                    type="button"
+                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                  >
+                    Add Asset
+                  </button>
+                </span>
+
+                <span className="mx-16 flex flex-wrap flex-col">
+                  <label
+                    htmlFor="SortAssets"
+                    className="p-1 w-36 text-text text-center rounded-md"
+                  >
+                    Sort Assets by:
+                  </label>
+                  <select
+                    name="SortAssets"
+                    id="sortAssets"
+                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                    onChange={() => {
+                      setSortField(document.getElementById('sortAssets').value);
+                      setCurrPage(1);
+                    }}
+                    defaultValue="Range"
+                  >
+                    <option value="Serial">Serial</option>
+                    <option value="Range">Range</option>
+                    <option value="SiteLocation">Location</option>
+                    <option value="Equipment">Equipment</option>
+                    <option value="Threat">Threat</option>
+                    <option value="ThreatType">Threat Type</option>
+                    <option value="Operational">Operational</option>
+                    <option value="Schedulable">Schedulable</option>
+                  </select>
+                </span>
+
+                <span className="mx-16 flex flex-wrap flex-col">
+                  <label
+                    htmlFor="assets"
+                    className="p-1 w-36 text-text text-center rounded-md"
+                  >
+                    Sort Order:
+                  </label>
+                  <button
+                    type="button"
+                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                    onClick={() => {
+                      setSortOrder(!sortOrder);
+                      setCurrPage(1);
+                    }}
+                  >
+                    {sortOrder ? 'Ascending' : 'Descending'}
+                  </button>
+                </span>
+
+                <span className="ml-16 mr-auto flex flex-wrap flex-col">
+                  <label
+                    htmlFor="DisplayPerPage"
+                    className="p-1 w-36 text-text text-center rounded-md"
+                  >
+                    Assets per Page:
+                  </label>
+                  <select
+                    name="DisplayPerPage"
+                    id="DisplayPerPage"
+                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                    defaultValue={`${itemsPerPage}`}
+                    onChange={() => {
+                      setItemsPerPage(
+                        document.getElementById('DisplayPerPage').value
+                      );
+                      setCurrPage(1);
+                    }}
+                  >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                  </select>
+                </span>
+              </span>
+
+
+
+              {/* <span className="mt-2 flex flex-wrap">
                 <div className="ml-auto mr-20 p-1 w-32 bg-secondary text-text text-center rounded-md">
                   Total Assets: {currAssets.length}
                 </div>
@@ -77,7 +169,7 @@ const AllAssets = () => {
               <span className="mt-2 flex flex-wrap">
                 <label
                   htmlFor="SortAssets"
-                  className="ml-auto mr-1 p-1 w-36 bg-secondary text-text text-center rounded-md"
+                  className="ml-auto mr-1 p-1 w-36 text-text text-center rounded-md"
                 >
                   Sort Assets by:
                 </label>
@@ -102,7 +194,7 @@ const AllAssets = () => {
                 </select>
                 <label
                   htmlFor="assets"
-                  className="ml-6 mr-1 p-1 w-28 bg-secondary text-text text-center rounded-md"
+                  className="ml-6 mr-1 p-1 w-28 text-text text-center rounded-md"
                 >
                   Sort Order:
                 </label>
@@ -118,7 +210,7 @@ const AllAssets = () => {
                 </button>
                 <label
                   htmlFor="DisplayPerPage"
-                  className="ml-6 mr-1 p-1 w-36 bg-secondary text-text text-center rounded-md"
+                  className="ml-6 mr-1 p-1 w-36 text-text text-center rounded-md"
                 >
                   Display:
                 </label>
@@ -141,7 +233,10 @@ const AllAssets = () => {
                   <option value="40">40</option>
                   <option value="50">50</option>
                 </select>
-              </span>
+              </span> */}
+
+
+
               <div className="mt-4 max-w-screen-xl mx-auto p-1 flex flex-wrap flex-row justify-center">
                 {currAssets
                   .sort((a, b) => {
@@ -164,7 +259,7 @@ const AllAssets = () => {
                     return (
                       <span
                         key={card.Id}
-                        className="m-3 hover:scale-110 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
+                        className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
                       w-64 h-68 p-1 shadow-lg rounded-md text-sm"
                         onClick={() => navigate(`/Asset/${card.Id}`)}
                       >
