@@ -55,24 +55,22 @@ const AdminStats = () => {
 
   return (
     <>
-        <div className="flex justify-center">
-          <DateRangeSelector dateRange={dateRange} setDateRange={setDateRange} />
-        </div>
+      <div className="flex justify-center">
+        <DateRangeSelector dateRange={dateRange} setDateRange={setDateRange} />
+      </div>
       <div className=" m-3 flex flex-row ">
-
-
         <div className="flex flex-col gap-5 justify-around flex-wrap w-screen m-5">
-          
           <div className="flex flex-row">
             <div className="w-1/3">
               <EventLine dateRange={dateRange} reserveList={reserveList} />
-                
             </div>
 
             <div className="w-1/3">
-              <ReservationSuccessPie dateRange={dateRange} reserveList={reserveList}/>
+              <ReservationSuccessPie
+                dateRange={dateRange}
+                reserveList={reserveList}
+              />
             </div>
-
 
             <div className="w-1/3">
               <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
@@ -81,22 +79,18 @@ const AdminStats = () => {
 
           <div className="flex flex-row">
             <div className="w-1/3">
-              <SquadronBubble reserveList={reserveList} dateRange={dateRange}/>
+              <SquadronBubble reserveList={reserveList} dateRange={dateRange} />
             </div>
-
 
             <div className="w-1/3">
               <OperationalBar assetList={assetList} />
             </div>
 
-            
             <div className="w-1/3">
               <UserDoughnut userList={userList} />
             </div>
           </div>
-
         </div>
-
       </div>
     </>
   );

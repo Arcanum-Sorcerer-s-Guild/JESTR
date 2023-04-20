@@ -2,20 +2,32 @@ import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
 const DateRangeSelector = ({ dateRange, setDateRange }) => {
-
   const dateInputChange = (e) => {
     let name = e.target.name;
     let value = DateTime.fromISO(e.target.value).toLocal();
 
-    if(name==='end') setDateRange({ start: dateRange.start, end: value})
-    if (name === 'start') setDateRange({ start: value, end: dateRange.end})
+    if (name === 'end') setDateRange({ start: dateRange.start, end: value });
+    if (name === 'start') setDateRange({ start: value, end: dateRange.end });
   };
 
   const dateSpanChange = (e) => {
-    if (e.target.name === 'day') setDateRange({ start: dateRange.start,end: dateRange.start });
-    if (e.target.name === 'week') setDateRange({start: dateRange.start,end: dateRange.start.plus({ day: 7 })});
-    if (e.target.name === 'month') setDateRange({start: dateRange.start,end:dateRange.start.plus({ month: 1 })});
-    if (e.target.name === 'year') setDateRange({start: dateRange.start,end: dateRange.start.plus({ year: 1 })});
+    if (e.target.name === 'day')
+      setDateRange({ start: dateRange.start, end: dateRange.start });
+    if (e.target.name === 'week')
+      setDateRange({
+        start: dateRange.start,
+        end: dateRange.start.plus({ day: 7 }),
+      });
+    if (e.target.name === 'month')
+      setDateRange({
+        start: dateRange.start,
+        end: dateRange.start.plus({ month: 1 }),
+      });
+    if (e.target.name === 'year')
+      setDateRange({
+        start: dateRange.start,
+        end: dateRange.start.plus({ year: 1 }),
+      });
   };
 
   return (
@@ -58,7 +70,6 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
             >
               Year
             </button>
-
           </div>
           <div className="flex flex-row justify-center gap-2 mt-2">
             <input
@@ -75,7 +86,6 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
               onChange={(e) => dateInputChange(e)}
               value={dateRange.end.toFormat('yyyy-MM-dd')}
             />
-
           </div>
         </div>
       </div>

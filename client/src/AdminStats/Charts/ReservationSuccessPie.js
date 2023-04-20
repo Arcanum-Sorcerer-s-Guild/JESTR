@@ -82,7 +82,9 @@ const ReservationSuccessPie = ({ dateRange, reserveList }) => {
     <>
       {' '}
       <div className="flex flex-col">
-        <h3 className="flex justify-center text-2xl mb-2 text-text">Total Approved vs Denied Reservations</h3>
+        <h3 className="flex justify-center text-2xl mb-2 text-text">
+          Total Approved vs Denied Reservations
+        </h3>
         <div>
           {reservationSuccessData ? (
             <Pie
@@ -104,9 +106,9 @@ const ReservationSuccessPie = ({ dateRange, reserveList }) => {
                     display: true,
                     position: 'bottom',
                     labels: {
-                        color: 'pink'
-                    }
-                  }
+                      color: 'pink',
+                    },
+                  },
                 },
               }}
               data={reservationSuccessData}
