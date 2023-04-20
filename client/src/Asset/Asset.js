@@ -37,6 +37,10 @@ const Asset = () => {
   const navigate = useNavigate();
   const { listUrl } = useContext(Context);
 
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items(${params.id})`, {
       credentials: 'include',
@@ -269,7 +273,7 @@ const Asset = () => {
                   </div>
                   {/* card-image-start */}
                   <div className="w-1/2">
-                    <div className="bg-cover p-4 my-10">
+                    <div className="bg-cover p-4">
                       <img
                         alt={`${params.id}`}
                         src={`http://localhost:3000/images/${(
@@ -277,7 +281,7 @@ const Asset = () => {
                         ).toString()}.jpg`}
                         className="rounded shadow-lg border border-gray-light"
                       />
-                      <span className="p-2 float-right text-xs text-gray-dark/50">{`asset id: ${currAsset.Id}`}</span>
+                      <span className="p-2 float-right text-xs text-gray-light/50">{`asset id: ${currAsset.Id}`}</span>
                     </div>
                   </div>
                   {/* card-image-end */}
@@ -336,6 +340,7 @@ const Asset = () => {
                   showModal={showModal}
                   setShowModal={setShowModal}
                   asset={currAsset}
+                  onClose={handleClose}
                 />
               </div>
               {/*  */}
