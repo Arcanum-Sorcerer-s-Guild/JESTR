@@ -17,7 +17,7 @@ const MyBook = () => {
   const [currentDate, setCurrentDate] = useState(
     DateTime.now().toFormat('yyyy MMM dd')
   );
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1 + '-' + 2);
   const sliceData = (arr) => {
     if (arr.length <= 10) return arr;
     const slicedArr = [];
@@ -56,12 +56,12 @@ const MyBook = () => {
               return eventDate >= today && eventDate <= tomorrow;
             })
             .sort((a, b) => {
-              const dateA = DateTime.fromISO(a.EventDate).toLocal();
-              const dateB = DateTime.fromISO(b.EventDate).toLocal();
-              if (dateA < dateB) {
+              const timeA = DateTime.fromISO(a.EventDate).toLocal().toFormat('HH:mm');
+              const timeB = DateTime.fromISO(b.EventDate).toLocal().toFormat('HH:mm');
+              if (timeA < timeB) {
                 return -1;
               }
-              if (dateA > dateB) {
+              if (timeA > timeB) {
                 return 1;
               }
               return 0;
@@ -80,12 +80,13 @@ const MyBook = () => {
     { name: 'Status' },
   ];
   const handlePageChange = (e) => {
-    setCurrentPage(book.current.pageFlip().getCurrentPageIndex() + 1);
+    setCurrentPage((e.data + 1) + '-' + (e.data + 2));
     if (e.data + 1 === localData.length || e.data === localData.length) {
       setCurrentDate(DateTime.now().plus({ days: 1 }).toFormat('yyyy MMM dd'));
     } else if (e.data + 1 < localData.length)
       setCurrentDate(DateTime.now().toFormat('yyyy MMM dd'));
   };
+
   const book = useRef();
   return (
     <div className="container mx-auto h-screen">
@@ -185,7 +186,10 @@ const MyBook = () => {
                             <td className="text-center text-m">
                               {DateTime.fromISO(list.EventDate)
                                 .toLocal()
-                                .toFormat('yyyy MMM dd')}
+                                .toFormat('dd MMM yyyy')} <br />
+                                {DateTime.fromISO(list.EventDate)
+                                .toLocal()
+                                .toFormat('hh:mm')} L
                             </td>
                             <td
                               className={`glow-td text-center text-m ${
