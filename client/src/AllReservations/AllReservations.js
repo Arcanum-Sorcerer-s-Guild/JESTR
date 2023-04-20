@@ -361,7 +361,7 @@ const AllReservations = () => {
               {modaleChildren}
             </Modal>
       </div>
-
+    
       <div className="flex flex-row justify-center gap-10 mt-5">
 
         <button className="bg-primary border border-black rounded-lg" onClick={()=>changePageClick('prev')}>

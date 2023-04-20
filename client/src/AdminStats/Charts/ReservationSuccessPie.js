@@ -82,12 +82,12 @@ const ReservationSuccessPie = ({ dateRange, reserveList }) => {
     <>
       {' '}
       <div className="flex flex-col">
-        <h3 className="text-2xl mb-2">Approved vs Denied Reservations</h3>
+        <h3 className="text-2xl mb-2 text-text">Approved vs Denied Reservations</h3>
         <div>
           {reservationSuccessData ? (
             <Pie
-              width={250}
-              height={250}
+              width={500}
+              height={500}
               options={{
                 maintainAspectRatio: false,
                 plugins: {

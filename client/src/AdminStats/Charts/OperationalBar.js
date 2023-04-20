@@ -36,18 +36,30 @@ const OperationalBar = ({ assetList }) => {
   }, [assetList]);
   return (
     <>
-      <div className="flex flex-col">
-        <h3 className="text-2xl mb-2">Operational vs Non Operational</h3>
+      <div className="flex flex-col ">
+        <h3 className="flex text-2xl mb-2 justify-center text-text">Operational vs Non Operational Assets</h3>
         <div>
           {operationalBarData ? (
             <Bar
-              width={250}
-              height={250}
+              width={500}
+              height={500}
               options={{
                 maintainAspectRatio: false,
                 responsive: true,
                 plugins: {
                   legend: false,
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      color: "green"
+                    }
+                  },
+                  y: {
+                    grid: {
+                      color: "green"
+                    },
+                  }
                 },
               }}
               data={operationalBarData}

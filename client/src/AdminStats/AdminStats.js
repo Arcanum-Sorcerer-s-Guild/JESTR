@@ -68,7 +68,7 @@ const AdminStats = () => {
         </div>
         <div className="flex flex-col text-center content-start">
 
-          <div className="flex flex-row gap-16 justify-around">
+          <div className="flex flex-row  justify-around">
             <ReservationSuccessPie
               dateRange={dateRange}
               reserveList={reserveList}
@@ -78,7 +78,7 @@ const AdminStats = () => {
           </div>
         </div>
 
-        <div className="flex flex-row gap-16 justify-around">
+        <div className="flex flex-row  justify-around">
           <OperationalBar assetList={assetList} />
           <UserDoughnut userList={userList} />
           <SquadronBubble reserveList={reserveList} dateRange={dateRange}/>

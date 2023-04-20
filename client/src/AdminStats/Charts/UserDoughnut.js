@@ -29,9 +29,9 @@ const UserDoughnut = ({ userList }) => {
       {userList.length > 0 ? (
         <>
           <div className="flex flex-col justify-center">
-            <h3 className="text-2xl mb-2 text-center">{`Users by Type`}</h3>
+            <h3 className="text-2xl mb-2 text-center text-text">{`Users by Type`}</h3>
             <div>
-              <Doughnut data={userData} />
+              <Doughnut data={userData} width={500} height={500}/>
             </div>
           </div>
         </>

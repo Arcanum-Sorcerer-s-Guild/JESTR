@@ -26,24 +26,70 @@ const SquadronBubble = ({reserveList,dateRange}) => {
 
   console.log(dateRange.start.toFormat('dd MMM yyyy'))
   console.log(dateRange.end.toFormat('dd MMM yyyy'))
+  console.log(daySpan)
 
   let squadronList = [... new Set (reservations.map(res=>res.squadron))]
-  
   let tempData = squadronList.map(sq=>reservations.filter(res=>res.squadron===sq))
-  
-  tempData = tempData.map(resArray=> { 
-    return({
-      x: resArray.filter(res=>res.status==='Rejected').length,
-      y: resArray.filter(res=>res.status==='Approved').length,
-      r: resArray.length,
+
+  if (daySpan < 50) {
+    tempData = tempData.map(resArray=> { 
+      return({
+        x: resArray.filter(res=>res.status==='Rejected').length,
+        y: resArray.filter(res=>res.status==='Approved').length,
+        r: resArray.length,
+      })
     })
-  })
+  } else {
+    tempData = tempData.map(resArray=> { 
+      return({
+        x: resArray.filter(res=>res.status==='Rejected').length / 10,
+        y: resArray.filter(res=>res.status==='Approved').length / 10,
+        r: resArray.length / 10,
+      })
+    })
+  }
+
 
   const options= {
+    maintainAspectRatio: false,
+    responsive: true,
+    scales: {
+      x: {
+        grid: {
+          color: "green"
+        },
+        ticks: {
+          color: "pink"
+        }
+      },
+      y: {
+        grid: {
+          color: "green"
+        },
+        ticks: {
+          color: "pink"
+        }
+      }
+    },
+    plugins: {
+      datalabels: {
+
+        color: 'pink',
+        formatter: function(value, context) {
+          console.log(value)
+          return daySpan > 50 ? value.r * 10 : value.r;
+        },
+        offset: -40,
+        align: 'start',
+      }
+  }
+    // plugins: {
+    //   legend: false,
+    // },
 
   }
 
-  console.log(tempData)
+
   // console.log(reserveList)
 
 
@@ -58,10 +104,10 @@ const SquadronBubble = ({reserveList,dateRange}) => {
 
   return(<>
         <div className="flex flex-col">
-          <h3 className="text-2xl mb-2">{`Success Reservations by Squadron`}</h3>
+          <h3 className=" flex justify-center text-2xl mb-2 text-text">{`Success Reservations by Squadron`}</h3>
           <div>
           {bubbleSquadronData ? <>  
-            <Bubble options={options} data={bubbleSquadronData} height={250} width={250} />  
+            <Bubble options={options} data={bubbleSquadronData} height={500} width={500} />  
           </>:<></>}
 
           </div>
