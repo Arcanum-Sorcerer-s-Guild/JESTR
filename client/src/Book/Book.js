@@ -91,9 +91,9 @@ const MyBook = () => {
     <div className="container mx-auto h-screen">
       <div className="flex flex-col justify-center px-6">
         <div className="mt-3 justify-center text-center">
-          <div className="flex justify-between text-green gap-2 m-2">
+          <div className="flex justify-between items-end text-green gap-2 m-2">
             <button
-              className="inline-flex"
+              className="inline-flex items-end"
               onClick={() => book.current.pageFlip().flipPrev()}
             >
               <CgArrowsExpandDownLeft className="text-lg" />
@@ -124,7 +124,7 @@ const MyBook = () => {
               </div>
             </Marquee>
             <button
-              className="inline-flex"
+              className="inline-flex items-end"
               onClick={() => book.current.pageFlip().flipNext()}
             >
               <span className="text-xs">Next</span>
