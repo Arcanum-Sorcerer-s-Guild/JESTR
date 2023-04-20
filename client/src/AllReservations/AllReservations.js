@@ -28,7 +28,7 @@ const AllReservations = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setReservations(data.d.results);
+        setReservations(data.d.results.sort());
         setTemp(data.d.results);
 
       });
@@ -80,19 +80,19 @@ const AllReservations = () => {
 
   const changePageClick = (page) => {
     if (parseInt(params.page) !== 1 && page === 'prev' || parseInt(params.page) !== Math.floor(reservations.length / 10)  && page === 'next') {
-      if (page==='next') navigate(`/AllReservations/${parseInt(params.page) + 1}`)
+      if (page==='next') navigate(`/AllReservations/${parseInt(params.page) + 1}`) 
       if (page==='prev') navigate(`/AllReservations/${parseInt(params.page) - 1}`)
-      setPageSlice(reservations.slice((parseInt(params.page)-1) * 10, parseInt(params.page) * 10))
     }
   }
 
   useEffect(()=> {
-    if(params.page !== undefined) setPageSlice(reservations.slice((parseInt(params.page)-1) * 10, parseInt(params.page) * 10))
-  },[reservations])
+    if(params.page !== undefined) {
+      setPageSlice(reservations.slice((parseInt(params.page)-1) * 10, parseInt(params.page) * 10).sort())
+    } else {
+      navigate('/AllReservations/1')
+    }  
+  },[reservations,params])
 
-  // const paginateReservations = (pageNumber) => {
-    
-  // }
 
   return (<>
      {/* <div className="grid place-items-center"> */}
