@@ -270,218 +270,66 @@ const Reserve = () => {
     });
   };
 
-  const CollapsibleChild = ({
-    range,
-    assets,
-    selected,
-    setSelected,
-    setCenter,
-  }) => {
-    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
-    const [selectAll, setSelectAll] = useState(false);
-
-    const handleChange = (name) => {
-      if (selected.includes(name)) {
-        const index = selected.indexOf(name);
-        setSelected(selected.filter((asset) => asset !== name));
-      } else {
-        setSelected([...selected, name]);
-      }
-    };
-
-    const selectRange = (e) => {
-      let allAssets = assets
-        .filter((asset) => asset.Range === range)
-        .map((asset) => asset.Serial);
-      let allIncluded = assets.reduce(
-        (acc, curr) => (acc ? selected.includes(curr.Serial) : false),
-        true
-      );
-      if (!allIncluded && e.target.checked)
-        setSelected([...selected, ...allAssets]);
-      if (allIncluded)
-        setSelected(selected.filter((asset) => !allAssets.includes(asset)));
-    };
-
-    const centerOnAsset = (lat, lon) => {
-      setCenter([Number(lon), Number(lat)]);
-    };
-
-    return (
-      <div>
-        <input
-          type="checkbox"
-          className="ml-3 mr-3"
-          checked={assets.reduce(
-            (acc, curr) => (acc ? selected.includes(curr.Serial) : false),
-            true
-          )}
-          onChange={(e) => selectRange(e)}
-        />
-        <button {...getToggleProps()}>
-          {isExpanded ? '↓ ' : '> '}Range: {range}
-        </button>
-        <section {...getCollapseProps()}>
-          {assets.map((asset) => {
-            return (
-              <>
-                <div
-                  key={asset.Serial}
-                  className={`mb-1 flex flex-row overflow whitespace-nowrap`}
-                >
-                  <div className="flex w-full">
-                    <div className="flex items-center min-w-[450px] ">
-                      <input
-                        className="ml-7 mr-3"
-                        checked={selected.includes(asset.Serial)}
-                        type="checkbox"
-                        onChange={() => handleChange(asset.Serial)}
-                      />
-                      <GiObservatory />
-                      <span className="font-medium w-1/3 ml-1 mr-3">
-                        {asset.Serial.toUpperCase()}
-                      </span>
-                      <div className="w-full flex justify-end">
-                        <button
-                          className=" w-full rounded-full p-1 text-sm bg-blue border border-black ml-2 mr-2 flex flex-row gap-1 items-center"
-                          onClick={() =>
-                            centerOnAsset(asset.Latitude, asset.Longitude)
-                          }
-                        >
-                          <IoLocationSharp />
-                          <span className="pl-1">{`${asset.dms
-                            .toString()
-                            .slice(0, 12)}${asset.dms
-                            .toString()
-                            .slice(24, 41)}${asset.dms
-                            .toString()
-                            .slice(-3, 57)}`}</span>
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-row min-w-2/3 items-center">
-                      <div className="flex flex-row items-center gap-1">
-                        <FaMountain />
-                        {`El: ${asset.Elevation}`}
-                      </div>
-                      <div
-                        className={`ml-2 flex justify-between border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
-                        ${
-                          asset.Status === 'AMBER'
-                            ? `border-yellow bg-yellow/40`
-                            : ``
-                        }
-                        ${
-                          asset.Status === 'GREEN'
-                            ? `border-green bg-green/40`
-                            : ``
-                        }
-                        ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
-                        ${
-                          asset.Status === 'N/A' ? `border-gray bg-gray/40` : ``
-                        }
-                      `}
-                      >
-                        <span className="font-medium pl-1">{`${asset.ThreatType.toUpperCase()}`}</span>
-                        <span className="pr-1">{`Equip: ${asset.Equipment}  Threat: ${asset.Threat} Status: ${asset.Status}`}</span>
-                      </div>
-
-                      <div className="flex flex-row ml-2 items-center font-medium">
-                        Schedulable: {asset.Schedulable ? <>✔️</> : <>❌</>}
-                      </div>
-                      <div className="flex flex-row ml-2 items-center font-medium">
-                        OpStatus: {asset.Operational ? <>✔️</> : <>❌</>}
-                      </div>
-                      <span className=" ml-3 whitespace-nowrap">{`Located at Site: ${asset.SiteLocation}`}</span>
-                    </div>
-                  </div>
-                </div>
-              </>
-            );
-          })}
-        </section>
-      </div>
-    );
-  };
-
   return (
-    <div className="overflow-x-auto">
-      <div className="bg-gray-100 flex items-center justify-center bg-gray-100">
-        <div className="w-full lg:w-5/6 shadow-xl">
-          {/* submenu-start */}
-          <div className="w-full bg-blue-darker relative rounded px-3 mt-6">
-            <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
-            <div className="justify-center items-center">
-              <div className="py-4 relative">
-                <UserForm
-                  setUserForm={setUserForm}
-                  setRequestedWeek={setRequestedWeek}
-                />
-              </div>
-              <div className="absolute top-2 right-2">
-                <ButtonOpen
-                  name={'Reserve'}
-                  onClick={() => setShowModale(true)}
-                />
-              </div>
-            </div>
-          </div>
-          {/* submenu-end */}
+    <>
+      <div className="justify-center flex">
+        <UserForm
+          setUserForm={setUserForm}
+          setRequestedWeek={setRequestedWeek}
+        />
+        <div className="flex items-center justify-center pt-5">
+          <ButtonOpen name={'Reserve'} onClick={() => setShowModale(true)} />
+        </div>
+      </div>
+      <div className="w-full p-3 mx-auto">
+        <div className="flex w-full  justify-center p-8 bg-tertiary rounded">
+          <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
+            <div className="flex flex-row pb-4">
+              <Resizable
+                className="border-double hover:border-dashed border-r-8 border-secondary mt-5 ml-5"
+                defaultSize={{
+                  width: 475,
+                  height: 700,
+                }}
+                minWidth={475}
+                minHeight={600}
+                maxHeight={20}
+                maxWidth={width - 115}
+              >
+                <div className=" border border-black mr-2 h-full overflow-scroll">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => selectAll(e)}
+                    className="ml-3 mr-3"
+                  />
+                  Select All
+                  {rangeList.length > 0 ? (
+                    rangeList.map((range) => (
+                      <CollapsibleChild
+                        key={range}
+                        range={range}
+                        selected={selected}
+                        setSelected={setSelected}
+                        setCenter={setCenter}
+                        assets={data.filter((asset) => asset.Range === range)}
+                      />
+                    ))
+                  ) : (
+                    <>Loading...</>
+                  )}
+                </div>
+              </Resizable>
 
-          {/* resizable-start */}
-          <div className="w-full mt-2 bg-blue-darker rounded p-2">
-            <div className="flex pb-4 overflow-hidden">
-              <div className='mr-2'>
-                <Resizable
-                  className="border-double hover:border-dashed border-r-8 border-secondary"
-                  defaultSize={{
-                    width: 475,
-                    height: 700,
-                  }}
-                  minWidth={475}
-                  minHeight={600}
-                  maxHeight={20}
-                  maxWidth={width - 300}
-                >
-                  <div className=" border border-black mr-2 h-full overflow-scroll">
-                    <input
-                      type="checkbox"
-                      onChange={(e) => selectAll(e)}
-                      className="ml-3 mr-3"
-                    />
-                    Select All
-                    {rangeList.length > 0 ? (
-                      rangeList.map((range) => (
-                        <CollapsibleChild
-                          key={range}
-                          range={range}
-                          selected={selected}
-                          setSelected={setSelected}
-                          setCenter={setCenter}
-                          assets={data.filter((asset) => asset.Range === range)}
-                        />
-                      ))
-                    ) : (
-                      <>Loading...</>
-                    )}
-                  </div>
-                </Resizable>
-              </div>
-              <div className='ml-2'>
-                <ReserveMap
-                  assetList={data}
-                  selected={selected}
-                  center={center}
-                  setCenter={setCenter}
-                />
-              </div>
+              <ReserveMap
+                assetList={data}
+                selected={selected}
+                center={center}
+                setCenter={setCenter}
+              />
             </div>
-          </div>
-          {/* resizable-end */}
 
-          {/* modal-start */}
-          <div>
+            {/* {console.log("selectedData", selectedData)}
+                {console.log(data)} */}
             <Modal
               isvisible={showModale}
               onClose={() => {
@@ -626,9 +474,141 @@ const Reserve = () => {
               }
             </Modal>
           </div>
-          {/* modal-end */}
         </div>
       </div>
+    </>
+  );
+};
+
+const CollapsibleChild = ({
+  range,
+  assets,
+  selected,
+  setSelected,
+  setCenter,
+}) => {
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+  const [selectAll, setSelectAll] = useState(false);
+
+  const handleChange = (name) => {
+    if (selected.includes(name)) {
+      const index = selected.indexOf(name);
+      setSelected(selected.filter((asset) => asset !== name));
+    } else {
+      setSelected([...selected, name]);
+    }
+  };
+
+  const selectRange = (e) => {
+    let allAssets = assets
+      .filter((asset) => asset.Range === range)
+      .map((asset) => asset.Serial);
+    let allIncluded = assets.reduce(
+      (acc, curr) => (acc ? selected.includes(curr.Serial) : false),
+      true
+    );
+    if (!allIncluded && e.target.checked)
+      setSelected([...selected, ...allAssets]);
+    if (allIncluded)
+      setSelected(selected.filter((asset) => !allAssets.includes(asset)));
+  };
+
+  const centerOnAsset = (lat, lon) => {
+    setCenter([Number(lon), Number(lat)]);
+  };
+
+  return (
+    <div>
+      <input
+        type="checkbox"
+        className="ml-3 mr-3"
+        checked={assets.reduce(
+          (acc, curr) => (acc ? selected.includes(curr.Serial) : false),
+          true
+        )}
+        onChange={(e) => selectRange(e)}
+      />
+      <button {...getToggleProps()}>
+        {isExpanded ? '↓ ' : '> '}Range: {range}
+      </button>
+      <section {...getCollapseProps()}>
+        {assets.map((asset) => {
+          return (
+            <>
+              <div
+                key={asset.Serial}
+                className={`mb-1 flex flex-row overflow whitespace-nowrap`}
+              >
+                <div className="flex w-full">
+                  <div className="flex items-center min-w-[450px] ">
+                    <input
+                      className="ml-7 mr-3"
+                      checked={selected.includes(asset.Serial)}
+                      type="checkbox"
+                      onChange={() => handleChange(asset.Serial)}
+                    />
+                    <GiObservatory />
+                    <span className="font-medium w-1/3 ml-1 mr-3">
+                      {asset.Serial.toUpperCase()}
+                    </span>
+                    <div className="w-full flex justify-end">
+                      <button
+                        className=" w-full rounded-full p-1 text-sm bg-blue border border-black ml-2 mr-2 flex flex-row gap-1 items-center"
+                        onClick={() =>
+                          centerOnAsset(asset.Latitude, asset.Longitude)
+                        }
+                      >
+                        <IoLocationSharp />
+                        <span className="pl-1">{`${asset.dms
+                          .toString()
+                          .slice(0, 12)}${asset.dms
+                          .toString()
+                          .slice(24, 41)}${asset.dms
+                          .toString()
+                          .slice(-3, 57)}`}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row min-w-2/3 items-center">
+                    <div className="flex flex-row items-center gap-1">
+                      <FaMountain />
+                      {`El: ${asset.Elevation}`}
+                    </div>
+                    <div
+                      className={`ml-2 flex justify-between border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
+                      ${
+                        asset.Status === 'AMBER'
+                          ? `border-yellow bg-yellow/40`
+                          : ``
+                      }
+                      ${
+                        asset.Status === 'GREEN'
+                          ? `border-green bg-green/40`
+                          : ``
+                      }
+                      ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
+                      ${asset.Status === 'N/A' ? `border-gray bg-gray/40` : ``}
+                    `}
+                    >
+                      <span className="font-medium pl-1">{`${asset.ThreatType.toUpperCase()}`}</span>
+                      <span className="pr-1">{`Equip: ${asset.Equipment}  Threat: ${asset.Threat} Status: ${asset.Status}`}</span>
+                    </div>
+
+                    <div className="flex flex-row ml-2 items-center font-medium">
+                      Schedulable: {asset.Schedulable ? <>✔️</> : <>❌</>}
+                    </div>
+                    <div className="flex flex-row ml-2 items-center font-medium">
+                      OpStatus: {asset.Operational ? <>✔️</> : <>❌</>}
+                    </div>
+                    <span className=" ml-3 whitespace-nowrap">{`Located at Site: ${asset.SiteLocation}`}</span>
+                  </div>
+                </div>
+              </div>
+            </>
+          );
+        })}
+      </section>
     </div>
   );
 };

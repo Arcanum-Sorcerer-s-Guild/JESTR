@@ -16,7 +16,7 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'QuickLook', to: '/', text: 'Quick Look', icon: <FaEye /> },
-    { name: 'Reserve', to: '/', text: 'ESTR', icon: <FaMapMarkedAlt /> },
+    { name: 'Reserve', to: '/', text: 'Scheduler', icon: <FaMapMarkedAlt /> },
     { name: 'AllAssets', to: '/', text: 'Assets', icon: <FiRadio /> },
     {
       name: 'AllReservations',
