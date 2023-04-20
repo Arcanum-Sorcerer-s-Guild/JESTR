@@ -278,33 +278,33 @@ const AllAssets = () => {
                   <span className="ml-1 text-xl">
                     {currPage > 1 ? (
                       <MdKeyboardArrowLeft
-                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                        className="ml-auto mr-1 p-1 w-8 h-8 bg-text rounded-full"
                         onClick={() => prevPageFunc()}
                       />
                     ) : (
                       <MdKeyboardArrowLeft
-                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                        className="ml-auto mr-1 p-1 w-8 h-8 bg-text rounded-full"
                       />
                     )}
                   </span>
-                  <span className="ml-1 mr-auto p-1 w-20 text-text text-center rounded-md">
+                  <span className="mx-1 p-1 w-28 text-text text-center text-xl rounded-md">
                     Prev Page
                   </span>
-                  <span className="mx-1 p-1 text-text rounded-md ">
+                  <span className="mx-1 w-8 h-8 text-gunmetal bg-text text-center text-xl rounded-full ">
                     {currPage}
                   </span>
-                  <span className="ml-1 mr-auto p-1 w-20 text-text text-center rounded-md">
+                  <span className="mx-1 p-1 w-28 text-text text-center text-xl rounded-md">
                     Next Page
                   </span>
                   <span className="ml-1 text-xl">
                     {currAssets.length / (currPage * itemsPerPage) > 1 ? (
                       <MdKeyboardArrowRight
-                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                        className="ml-1 mr-auto p-1 w-8 h-8 bg-text rounded-full"
                         onClick={() => nextPageFunc()}
                       />
                     ) : (
                       <MdKeyboardArrowRight
-                        className="ml-1 mr-auto p-1 bg-text rounded-full"
+                        className="ml-1 mr-auto p-1 w-8 h-8 bg-text rounded-full"
                       />
                     )}
                   </span>
