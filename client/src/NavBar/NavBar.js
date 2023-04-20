@@ -9,7 +9,6 @@ import { FaMapMarkedAlt, FaEye, FaUserCircle } from 'react-icons/fa';
 import { BsCardChecklist } from 'react-icons/bs';
 import { GiFrostfire } from 'react-icons/gi';
 
-
 const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context);
   const navigate = useNavigate();
@@ -68,7 +67,9 @@ const NavBar = () => {
   let loggedIn = (
     <Link
       to="Login"
-      className={`${!open ? 'hidden' : ''} duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
+      className={`${
+        !open ? 'hidden' : ''
+      } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
     >
       <FaUserCircle className="mr-2" />
       <span onClick={signOut}>Sign Out</span>
@@ -92,8 +93,8 @@ const NavBar = () => {
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
           <div className="text-blue"></div>
           <div className="flex text-pink text-2xl">
-            <GiFrostfire/>
-            <h1 className="text-blue">JESTR</h1>
+            <GiFrostfire />
+            <Link to={'/'} className="text-blue">JESTR</Link>
           </div>
         </div>
         <div
