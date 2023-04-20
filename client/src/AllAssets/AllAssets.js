@@ -4,17 +4,19 @@ import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
 import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import AddAsset from './AddAsset';
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const { listUrl } = useContext(Context);
-  const { userData } = React.useContext(Context);
+  const { userData } = useContext(Context);
   const [originalAssets, setOriginalAssets] = useState([]);
   const [currAssets, setCurrAssets] = useState([]);
   const [currPage, setCurrPage] = useState(1); // Page displays 9 assets per page
   const [sortField, setSortField] = useState('Range');
   const [sortOrder, setSortOrder] = useState(true); // True = Ascending, False = Descending
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   // // Helper function to convert coordinates from the DD format to the DMS format
@@ -75,10 +77,13 @@ const AllAssets = () => {
                     <button
                       type="button"
                       className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      onClick={() => setShowModal(true)}
                     >
                       Add Asset
                     </button>
                   </span>
+
+                  <span className=""></span>
 
                   <span className="mx-16 flex flex-wrap flex-col">
                     <label
@@ -414,6 +419,10 @@ const AllAssets = () => {
                   </button>
                 </p>
               </div>
+              <AddAsset
+                showModal={showModal}
+                setShowModal={setShowModal}
+              />
             </div>
           ) : (
             <h1 className="text-text text-center m-auto">Loading...</h1>
