@@ -19,7 +19,6 @@ const AllAssets = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-
   // // Helper function to convert coordinates from the DD format to the DMS format
   // const convertDDtoDMS = (coord) => {
   //   return `${Math.trunc(Math.abs(coord))}\u00B0${Math.trunc(
@@ -68,9 +67,6 @@ const AllAssets = () => {
             <div className="mt-2 mx-auto">
               <span className="mt-2 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
                 <span className="flex flex-wrap flex-row justify-center">
-
-
-
                   <span className="ml-auto mr-16 flex flex-wrap flex-col">
                     <div className="p-1 w-36 text-text text-center rounded-md">
                       Total Assets: {currAssets.length}
@@ -98,7 +94,9 @@ const AllAssets = () => {
                       id="sortAssets"
                       className="p-1 w-36 bg-secondary text-text text-center rounded-md"
                       onChange={() => {
-                        setSortField(document.getElementById('sortAssets').value);
+                        setSortField(
+                          document.getElementById('sortAssets').value
+                        );
                         setCurrPage(1);
                       }}
                       defaultValue="Range"
@@ -114,9 +112,6 @@ const AllAssets = () => {
                     </select>
                   </span>
                 </span>
-
-
-
 
                 <span className="flex flex-wrap flex-row justify-center">
                   <span className="mx-16 flex flex-wrap flex-col">
@@ -167,8 +162,6 @@ const AllAssets = () => {
                   </span>
                 </span>
               </span>
-
-
 
               {/* <span className="mt-2 flex flex-wrap">
                 <div className="ml-auto mr-20 p-1 w-32 bg-secondary text-text text-center rounded-md">
@@ -250,8 +243,6 @@ const AllAssets = () => {
                 </select>
               </span> */}
 
-
-
               <div className="mt-4 max-w-screen-xl mx-auto p-1 flex flex-wrap flex-row justify-center">
                 {currAssets
                   .sort((a, b) => {
@@ -283,9 +274,7 @@ const AllAssets = () => {
                             <span className="font-semibold">
                               {`Serial#:\t`}
                             </span>
-                            <span>
-                              {` ${card.Serial}`}
-                            </span>
+                            <span>{` ${card.Serial}`}</span>
                           </span>
                           <br />
 
@@ -303,9 +292,7 @@ const AllAssets = () => {
                             <span className="font-semibold">
                               {`Range:\t\t`}
                             </span>
-                            <span>
-                              {` ${card.Range}`}
-                            </span>
+                            <span>{` ${card.Range}`}</span>
                           </span>
                           <br />
 
@@ -313,9 +300,7 @@ const AllAssets = () => {
                             <span className="font-semibold">
                               {`Location:\t`}
                             </span>
-                            <span>
-                              {` ${card.SiteLocation}`}
-                            </span>
+                            <span>{` ${card.SiteLocation}`}</span>
                           </span>
                           <br />
 
@@ -323,9 +308,7 @@ const AllAssets = () => {
                             <span className="font-semibold">
                               {`Equipment:\t`}
                             </span>
-                            <span>
-                              {` ${card.Equipment}`}
-                            </span>
+                            <span>{` ${card.Equipment}`}</span>
                           </span>
                           <br />
 
@@ -333,19 +316,13 @@ const AllAssets = () => {
                             <span className="font-semibold">
                               {`Threat:\t\t`}
                             </span>
-                            <span>
-                              {` ${card.Threat}`}
-                            </span>
+                            <span>{` ${card.Threat}`}</span>
                           </span>
                           <br />
 
                           <span className="mx-auto">
-                            <span className="font-semibold">
-                              {`Type:\t\t`}
-                            </span>
-                            <span>
-                              {` ${card.ThreatType}`}
-                            </span>
+                            <span className="font-semibold">{`Type:\t\t`}</span>
+                            <span>{` ${card.ThreatType}`}</span>
                           </span>
                           <br />
 
@@ -392,9 +369,7 @@ const AllAssets = () => {
                         onClick={() => prevPageFunc()}
                       />
                     ) : (
-                      <MdKeyboardArrowLeft
-                        className="ml-auto p-1 w-8 h-8 bg-text rounded-full"
-                      />
+                      <MdKeyboardArrowLeft className="ml-auto p-1 w-8 h-8 bg-text rounded-full" />
                     )}
                   </button>
                   <span className="mr-1 p-1 w-28 text-text text-center text-xl rounded-md">
@@ -413,17 +388,12 @@ const AllAssets = () => {
                         onClick={() => nextPageFunc()}
                       />
                     ) : (
-                      <MdKeyboardArrowRight
-                        className="mr-auto p-1 w-8 h-8 bg-text rounded-full"
-                      />
+                      <MdKeyboardArrowRight className="mr-auto p-1 w-8 h-8 bg-text rounded-full" />
                     )}
                   </button>
                 </p>
               </div>
-              <AddAsset
-                showModal={showModal}
-                setShowModal={setShowModal}
-              />
+              <AddAsset showModal={showModal} setShowModal={setShowModal} />
             </div>
           ) : (
             <h1 className="text-text text-center m-auto">Loading...</h1>
