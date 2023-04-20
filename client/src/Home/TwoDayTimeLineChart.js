@@ -23,6 +23,9 @@ ChartJS.register(
 );
 
 const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
+
+  resArray.sort((a,b)=>a.Squadron > b.Squadron)
+  
   const chartRef = useRef()
   let startDay = selectedDate
   let endDay = startDay.plus({Day:1})
@@ -95,44 +98,37 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
   };
 
 
-  let squadronsDayOne = [... new Set(resDayOne.map(res=>res.Squadron))]
-  squadronsDayOne.sort()
-  let dataSets = squadronsDayOne.map(sq=>resDayOne.filter(res=>res.Squadron===sq))
+  let squadrons = [... new Set(resArray.map(res=>res.Squadron))]
+  let colors = ['#36A2EB','#FF6384','#4BC0C0','#FF9F40','#9966FF','#FFCD56']
 
-  var minMax = dataSets.map(set=> [
-    set.reduce((a,b)=>a.start < b.start ? a : b).start.toFormat('HH:mm'),
-    set.reduce((a,b)=>a.start > b.start ? a : b).end.toFormat('HH:mm')
-  ])  
+  let sqColors = squadrons.reduce((acc,elem,index)=>{return({...acc,[elem]:colors[index]})},{} )
+  // console.log(sqColors)
+
+  let colorsDayOne=resDayOne.map(res=> sqColors[res.Squadron] )
+  let colorsDayTwo=resDayTwo.map(res=> sqColors[res.Squadron])
+
+  console.log(colorsDayOne)
 
 
-  dataSets = [
+
+const dataDayOne = {
+  labels: labelsDayOne,
+  datasets: [
     {
-      label:squadronsDayOne,
-      data:minMax  
-    },
-
-  ]
-
-  const dataDayOne = {
-    labels: squadronsDayOne,
-    datasets: dataSets,
-  }
+    backgroundColor: colorsDayOne,
+    data: dataArrayDayOne,
+    barPercentage: .25,
+    }]
   
 
-// const dataDayOne = {
-//   labels: labelsDayOne,
-//   datasets: [{
-//     backgroundColor: "green",
-//     data: dataArrayDayOne,
-//     barPercentage: .25,
-//   }]
-// }
+
+}
 
   const dataDayTwo = {
     labels: labelsDayTwo,
     datasets: [
       {
-      backgroundColor: "green",
+      backgroundColor: colorsDayTwo,
       data: dataArrayDayTwo,
       barPercentage: .25,
   }]
