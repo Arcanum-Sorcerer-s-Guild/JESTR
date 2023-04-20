@@ -34,7 +34,6 @@ const AllReservations = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data.d.results);
         setReservations(data.d.results.sort((a, b) => {
           const dateA = DateTime.fromISO(a.EventDate).toLocal();
           const dateB = DateTime.fromISO(b.EventDate).toLocal();
