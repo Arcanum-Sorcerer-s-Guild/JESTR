@@ -167,7 +167,7 @@ const Reservation = () => {
                 {/* <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden"></div> */}
                 <div className=" block rounded-lg bg-bluer/25 border border-black w-1/2 h-full p-10">
                   {conflictArray.length > 0 &&
-                  JSON.stringify(currRes) !== '{}' ? (
+                  JSON.stringify(currRes) !== '{}' ? (<>
                     <TimeLineChart
                       conflictArray={conflictArray}
                       currRes={currRes}
@@ -175,7 +175,8 @@ const Reservation = () => {
                       setAltRes={setAltRes}
                       setShowModal={setShowModal}
                     />
-                  ) : (
+                    
+                  </>) : (
                     <></>
                   )}
                 </div>
@@ -187,7 +188,7 @@ const Reservation = () => {
                     </h1>
                     <div className="flex flex-col content-between h-max">
                       <div>
-                        <table class="table-auto w-full">
+                        <table className="table-auto w-full">
                           <thread>
                             <tr className="grid-container grid grid-cols-9 border-b border-black">
                               <th className="col-span-1">ID</th>
