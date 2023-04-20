@@ -17,7 +17,7 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'QuickLook', to: '/', text: 'Quick Look', icon: <FaEye /> },
-    { name: 'Reserve', to: '/', text: 'ESTR', icon: <FaMapMarkedAlt /> },
+    { name: 'Reserve', to: '/', text: 'Scheduler', icon: <FaMapMarkedAlt /> },
     { name: 'AllAssets', to: '/', text: 'Assets', icon: <FiRadio /> },
     {
       name: 'AllReservations',
@@ -94,8 +94,15 @@ const NavBar = () => {
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
           <div className="text-blue"></div>
           <div className="flex text-pink text-2xl">
+<<<<<<< HEAD
             <img src={GiFrostfire} />
             <Link to={'/'} className="text-blue">JESTR</Link>
+=======
+            <GiFrostfire />
+            <Link to={'/'} className="text-blue">
+              JESTR
+            </Link>
+>>>>>>> master
           </div>
         </div>
         <div

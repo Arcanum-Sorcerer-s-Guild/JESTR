@@ -167,16 +167,17 @@ const Reservation = () => {
                 {/* <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden"></div> */}
                 <div className=" block rounded-lg bg-bluer/25 border border-black w-1/2 h-full p-10">
                   {conflictArray.length > 0 &&
-                  JSON.stringify(currRes) !== '{}' ? (<>
-                    <TimeLineChart
-                      conflictArray={conflictArray}
-                      currRes={currRes}
-                      altRes={altRes}
-                      setAltRes={setAltRes}
-                      setShowModal={setShowModal}
-                    />
-                    
-                  </>) : (
+                  JSON.stringify(currRes) !== '{}' ? (
+                    <>
+                      <TimeLineChart
+                        conflictArray={conflictArray}
+                        currRes={currRes}
+                        altRes={altRes}
+                        setAltRes={setAltRes}
+                        setShowModal={setShowModal}
+                      />
+                    </>
+                  ) : (
                     <></>
                   )}
                 </div>
