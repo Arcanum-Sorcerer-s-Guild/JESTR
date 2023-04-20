@@ -102,10 +102,10 @@ const AllReservations = () => {
       </div>
       <div className="items-center bg-gray-light m-4">
         <button
-          className="mt-10 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus('Pending')}
+          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
+          onClick={() => changeStatus('All')}
         >
-          Pending
+          All
         </button>
         <button
           className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
@@ -114,23 +114,24 @@ const AllReservations = () => {
           Approved
         </button>
         <button
-          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus('Rejected')}
-        >
-          Rejected
-        </button>
-        <button
-          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus('All')}
-        >
-          All
-        </button>
-        <button
           className="mt-4 p-2 m-4 w-36 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
           onClick={() => changeStatus(userData.Id)}
         >
           My Reservations
         </button>
+        <button
+          className="mt-10 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
+          onClick={() => changeStatus('Pending')}
+        >
+          Pending
+        </button>
+        <button
+          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
+          onClick={() => changeStatus('Rejected')}
+        >
+          Rejected
+        </button>
+
       </div>
       <div className="items-center bg-gray-light m-4">
         <ExportExcel excelData={reservations} fileName={'Excel Export'} />
