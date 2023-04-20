@@ -94,15 +94,8 @@ const NavBar = () => {
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
           <div className="text-blue"></div>
           <div className="flex text-pink text-2xl">
-<<<<<<< HEAD
             <img src={GiFrostfire} />
             <Link to={'/'} className="text-blue">JESTR</Link>
-=======
-            <GiFrostfire />
-            <Link to={'/'} className="text-blue">
-              JESTR
-            </Link>
->>>>>>> master
           </div>
         </div>
         <div
