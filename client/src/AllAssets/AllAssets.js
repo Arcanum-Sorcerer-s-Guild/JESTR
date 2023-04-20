@@ -275,39 +275,39 @@ const AllAssets = () => {
               </div>
               <div className="flex flex-row">
                 <p className="flex items-center mx-auto">
-                  <span className="ml-1 text-xl">
+                  <button type="button" className="ml-1 text-xl">
                     {currPage > 1 ? (
                       <MdKeyboardArrowLeft
-                        className="ml-auto mr-1 p-1 w-8 h-8 bg-text rounded-full"
+                        className="ml-auto p-1 w-8 h-8 bg-text rounded-full"
                         onClick={() => prevPageFunc()}
                       />
                     ) : (
                       <MdKeyboardArrowLeft
-                        className="ml-auto mr-1 p-1 w-8 h-8 bg-text rounded-full"
+                        className="ml-auto p-1 w-8 h-8 bg-text rounded-full"
                       />
                     )}
-                  </span>
-                  <span className="mx-1 p-1 w-28 text-text text-center text-xl rounded-md">
+                  </button>
+                  <span className="mr-1 p-1 w-28 text-text text-center text-xl rounded-md">
                     Prev Page
                   </span>
-                  <span className="mx-1 w-8 h-8 text-gunmetal bg-text text-center text-xl rounded-full ">
+                  <span className="mx-4 w-8 h-8 text-gunmetal bg-text text-center text-xl rounded-full font-semibold">
                     {currPage}
                   </span>
-                  <span className="mx-1 p-1 w-28 text-text text-center text-xl rounded-md">
+                  <span className="ml-1 p-1 w-28 text-text text-center text-xl rounded-md">
                     Next Page
                   </span>
-                  <span className="ml-1 text-xl">
+                  <button type="button" className="ml-1 text-xl">
                     {currAssets.length / (currPage * itemsPerPage) > 1 ? (
                       <MdKeyboardArrowRight
-                        className="ml-1 mr-auto p-1 w-8 h-8 bg-text rounded-full"
+                        className="mr-auto p-1 w-8 h-8 bg-text rounded-full"
                         onClick={() => nextPageFunc()}
                       />
                     ) : (
                       <MdKeyboardArrowRight
-                        className="ml-1 mr-auto p-1 w-8 h-8 bg-text rounded-full"
+                        className="mr-auto p-1 w-8 h-8 bg-text rounded-full"
                       />
                     )}
-                  </span>
+                  </button>
                 </p>
               </div>
             </div>
