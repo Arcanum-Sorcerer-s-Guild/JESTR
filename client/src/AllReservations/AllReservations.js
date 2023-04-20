@@ -159,8 +159,8 @@ const AllReservations = () => {
 
                   <tbody className="flex bg-bluer/75 divide-y bg-opacity-25 divide-y-gray/75 grid ">
                     {pageSlice.length > 0 ? pageSlice.map((list, i) => (
-                      <tr key={i} className="hover:bg-primary/60 grid grid-cols-12 grid-container"onClick={()=>navigate(`/Reservation/${list.Id}`)}>
-                        <td className="text-center text-m col-span-2">
+                      <tr key={i} className="hover:bg-primary/60 grid grid-cols-12 grid-container">
+                        <td className="text-center text-m col-span-2" onClick={()=>navigate(`/Reservation/${list.Id}`)} >
                           {list.SiteLocation}
                         </td>
                         <td className="text-center text-m col-span-2">

@@ -7,6 +7,7 @@ import EventLine from './Charts/EventLine.js';
 import SquadronRadar from './Charts/SquadronRadar.js';
 import DateRangeSelector from './DateRangeSelector.js';
 import UserDoughnut from './Charts/UserDoughnut';
+import SquadronBubble from './Charts/SquadronBubble.js';
 
 const AdminStats = () => {
   const { listUrl } = useContext(Context);
@@ -61,12 +62,13 @@ const AdminStats = () => {
 
   return (
     <>
-      <div className="m-5">
-        <DateRangeSelector dateRange={dateRange} setDateRange={setDateRange} />
-
+      <div className=" m-3 flex flex-col gap-5">
+        <div className="flex justify-center">
+          <DateRangeSelector dateRange={dateRange} setDateRange={setDateRange} />
+        </div>
         <div className="flex flex-col text-center content-start">
-          <h1 className="text-center text-4xl mb-5">Reservation Statistics</h1>
-          <div className="flex flex-row gap-16">
+
+          <div className="flex flex-row gap-16 justify-around">
             <ReservationSuccessPie
               dateRange={dateRange}
               reserveList={reserveList}
@@ -75,10 +77,11 @@ const AdminStats = () => {
             <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
           </div>
         </div>
-        <h1 className="text-center text-4xl mb-5 mt-5">Asset Statistics</h1>
-        <div className="flex flex-row gap-16">
+
+        <div className="flex flex-row gap-16 justify-around">
           <OperationalBar assetList={assetList} />
           <UserDoughnut userList={userList} />
+          <SquadronBubble reserveList={reserveList} dateRange={dateRange}/>
         </div>
       </div>
     </>
