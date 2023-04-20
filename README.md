@@ -28,12 +28,12 @@ npm run start
 
 ## Authors
 
-- [David Bonilla](https://github.com/ddbonill)
-- [Jason Martin](https://github.com/matiassingers/awesome-readme)
+- [David Bonilla](https://github.com/ddbonilla)
+- [Jason Martin](https://github.com/JasonMartin85)
 - [Brandon Roques](https://github.com/Brandon-Roques)
-- [Kyle Hackett]('https://github.com/hackek)
-- [Jacob Steward]('https://github.com/JacobTheEldest)
-- [Joseph Hartsfield]('https://github.com/Harkerfield)
+- [Kyle Hackett](https://github.com/hackek)
+- [Jacob Steward](https://github.com/JacobTheEldest)
+- [Joseph Hartsfield](https://github.com/Harkerfield)
 
 ## Acknowledgements
 
