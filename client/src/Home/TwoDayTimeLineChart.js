@@ -34,15 +34,13 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
   let sqColors = squadrons.reduce((acc,elem,index)=>{return({...acc,[elem]:colors[index]})},{} )
 
 
-
   useEffect(()=>{
     fetch(
       "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
       { credentials: 'include' }
     )
       .then((res) => res.json())
-      .then((data) => {
-         
+      .then((data) => {   
         setReservations(
           data.d.results.map((res) => {
             return {
@@ -64,7 +62,6 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
       });
   },[])
 
-  
   const handleSquadronClick = (squadron) => {
     if (squadron === 'all') {
       setReservations(allReservations)
@@ -87,9 +84,6 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
     
   }
 
-
-  
-  
   useEffect(()=>{
     if (reservations.length > 0) { 
 
@@ -138,9 +132,6 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
     }
   },[reservations,resArray,selectedDate])
 
-
-
-
   let options = {
     indexAxis: 'y' ,
     scales: {
@@ -173,10 +164,13 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
     },
   };
 
+
+
   return(<>
   <div className="flex flex-col">
     <div className="flex flex-row gap-5 justify-center">
-      {Object.entries(sqColors).map(sq=>  <div 
+      {Object.entries(sqColors).map(sq=>  
+      <div 
       className="border border-black rounded-lg w-48 mt-4 text-center font-medium" 
       style={{backgroundColor:sq[1]}}
       onClick={()=>handleSquadronClick(sq[0])}
@@ -191,10 +185,12 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
       </div>
 
       <div>
-        <h1 className="text-xl text-center text-primary">{endDay.toFormat('EEE dd MMM')}</h1>
-        <Bar width={750} height={750} options={options} data={dataDayTwo} ref={chartRef} onClick={onChartClick}/>
+        <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">{endDay.toFormat('EEE dd MMM')}</h1>
+        {Object.keys(dataDayTwo).length > 0 ? <Bar width={500} height={500} options={options} data={dataDayOne} ref={chartRef} onClick={onChartClick}/> : <></>}
       </div>
     </div>
+    <button className="border border-black bg-bluer text-gray-light uppercase " onClick={()=>{handleSquadronClick('all')}}>See All Squadrons</button>
+  </div>
   </>)
 }
 
