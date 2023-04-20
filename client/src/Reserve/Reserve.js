@@ -432,7 +432,7 @@ const Reserve = () => {
           {/* resizable-start */}
           <div className="w-full mt-2 bg-blue-darker rounded p-2">
             <div className="flex pb-4 overflow-hidden">
-              <div className='mr-2'>
+              <div className="mr-2">
                 <Resizable
                   className="border-double hover:border-dashed border-r-8 border-secondary"
                   defaultSize={{
@@ -468,7 +468,7 @@ const Reserve = () => {
                   </div>
                 </Resizable>
               </div>
-              <div className='ml-2'>
+              <div className="ml-2">
                 <ReserveMap
                   assetList={data}
                   selected={selected}

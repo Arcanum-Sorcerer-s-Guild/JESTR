@@ -65,7 +65,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
               </label>
               <input
                 type="text"
-                placeholder='squadron name...'
+                placeholder="squadron name..."
                 className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md text-xs"
                 onChange={(e) => setSquadron(e.target.value)}
               />
@@ -90,7 +90,7 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
             </label>
             <input
               type="tel"
-              placeholder='xxx-xxx-xxxx'
+              placeholder="xxx-xxx-xxxx"
               className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md text-xs"
               onChange={(e) => setDSN(e.target.value)}
             />

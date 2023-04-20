@@ -94,7 +94,9 @@ const NavBar = () => {
           <div className="text-blue"></div>
           <div className="flex text-pink text-2xl">
             <GiFrostfire />
-            <Link to={'/'} className="text-blue">JESTR</Link>
+            <Link to={'/'} className="text-blue">
+              JESTR
+            </Link>
           </div>
         </div>
         <div
