@@ -8,6 +8,7 @@ export const AssetsContext = React.createContext();
 
 // Provides functionality for all assets
 const AllAssets = () => {
+
   // Tracks user info, current total items, and displayed asset info
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const { listUrl } = useContext(Context);
@@ -41,13 +42,12 @@ const AllAssets = () => {
   const updateInventory = async () => {
     // Retrieves all database assets
     await fetch(`${listUrl}/GetByTitle('Assets')/items`, {
-      credentials: 'include'
+      credentials: 'include',
     })
       .then((res) => res.json())
       .then((items) => {
         setCurrAssets(items.d.results);
-      })
-      .then(console.log(currAssets))
+      });
   };
 
   // Updates the displayed inventory on initial page load and when the assets list is changed
@@ -180,4 +180,3 @@ const AllAssets = () => {
 
 // Exports AllAssets for usability
 export default AllAssets;
-

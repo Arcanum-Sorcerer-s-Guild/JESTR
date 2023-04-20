@@ -26,7 +26,9 @@ function ListTableNoCheck({
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th className="p-8" {...column.getHeaderProps()}>
+                {column.render('Header')}
+              </th>
             ))}
           </tr>
         ))}
@@ -38,7 +40,9 @@ function ListTableNoCheck({
             <Fragment key={row.getRowProps().key}>
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  <td className="p-2" {...cell.getCellProps()}>
+                    {cell.render('Cell')}
+                  </td>
                 ))}
               </tr>
               {row.isExpanded ? (

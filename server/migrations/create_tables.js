@@ -28,7 +28,7 @@ exports.up = function (knex) {
         table
           .datetime('StatusDate', { useTz: false, precision: 0 })
           .defaultTo(knex.fn.now());
-        table.text('Status').nullable(); // RED ||AMBER || GREEN || NA
+        table.text('Status').nullable(); // RED ||AMBER || GREEN || N/A
         table
           .datetime('ETIC', { useTz: false, precision: 0 })
           .defaultTo(knex.fn.now()); // 2022-11-02T19:44:06Z
