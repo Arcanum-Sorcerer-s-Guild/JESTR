@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
-import { AiFillCloseCircle, AiFillCheckCircle, AiFillSchedule } from 'react-icons/ai';
+import { AiFillCloseCircle, AiFillCheckCircle, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/ai';
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
@@ -61,14 +61,14 @@ const AllAssets = () => {
       {userData.IsSiteAdmin ? (
         <div>
           {currAssets !== [] ? (
-            <div className="mx-auto">
+            <div className="mt-2 mx-auto">
               <span className="mt-2 flex flex-wrap">
-                <div className="ml-auto mr-16 p-1 w-32 bg-secondary text-text text-center rounded-md">
+                <div className="ml-auto mr-20 p-1 w-32 bg-secondary text-text text-center rounded-md">
                   Total Assets: {currAssets.length}
                 </div>
                 <button
                   type="button"
-                  className="ml-16 mr-auto p-1 w-32 bg-secondary text-text text-center rounded-md"
+                  className="ml-20 mr-auto p-1 w-32 bg-secondary text-text text-center rounded-md"
                 >
                   Add Asset
                 </button>
@@ -83,7 +83,7 @@ const AllAssets = () => {
                 <select
                   name="SortAssets"
                   id="sortAssets"
-                  className="ml-1 mr-3 p-1 w-36 bg-secondary text-text text-center rounded-md"
+                  className="ml-1 mr-6 p-1 w-36 bg-secondary text-text text-center rounded-md"
                   onChange={() => {
                     setSortField(document.getElementById('sortAssets').value);
                     setCurrPage(1);
@@ -101,13 +101,13 @@ const AllAssets = () => {
                 </select>
                 <label
                   htmlFor="assets"
-                  className="ml-3 mr-1 p-1 w-28 bg-secondary text-text text-center rounded-md"
+                  className="ml-6 mr-1 p-1 w-28 bg-secondary text-text text-center rounded-md"
                 >
                   Sort Order:
                 </label>
                 <button
                   type="button"
-                  className="ml-1 mr-3 p-1 w-28 bg-secondary text-text text-center rounded-md"
+                  className="ml-1 mr-6 p-1 w-28 bg-secondary text-text text-center rounded-md"
                   onClick={() => {
                     setSortOrder(!sortOrder);
                     setCurrPage(1);
@@ -117,7 +117,7 @@ const AllAssets = () => {
                 </button>
                 <label
                   htmlFor="DisplayPerPage"
-                  className="ml-3 mr-1 p-1 w-36 bg-secondary text-text text-center rounded-md"
+                  className="ml-6 mr-1 p-1 w-36 bg-secondary text-text text-center rounded-md"
                 >
                   Display:
                 </label>
@@ -163,7 +163,7 @@ const AllAssets = () => {
                     return (
                       <span
                         key={card.Id}
-                        className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
+                        className="m-3 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
                       w-64 h-68 p-1 shadow-lg rounded-md text-center"
                         onClick={() => navigate(`/Asset/${card.Id}`)}
                       >
