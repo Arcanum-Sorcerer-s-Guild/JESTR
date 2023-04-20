@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { DateTime } from 'luxon';
 import { Context } from '../App';
 import Modal from './Modal';
 import TableHeader from './TableHeader';
@@ -33,7 +34,17 @@ const AllReservations = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data.d.results);
-        setReservations(data.d.results);
+        setReservations(data.d.results.sort((a, b) => {
+          const dateA = DateTime.fromISO(a.EventDate).toLocal();
+          const dateB = DateTime.fromISO(b.EventDate).toLocal();
+          if (dateA < dateB) {
+            return -1;
+          }
+          if (dateA > dateB) {
+            return 1;
+          }
+          return 0;
+        }));
         setTemp(data.d.results);
         console.log('rendered');
       });
@@ -204,10 +215,10 @@ const AllReservations = () => {
                       </div>
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
-                      {list.EventDate}
+                      {DateTime.fromISO(list.EventDate).toFormat('dd MMM yyyy @ hh:mm')} Z
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
-                      {list.EndDate}
+                    {DateTime.fromISO(list.EndDate).toFormat('dd MMM yyyy  @ hh:mm')} Z
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
                       {userData.IsApprover === false ? (

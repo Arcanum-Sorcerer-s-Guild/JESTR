@@ -56,12 +56,12 @@ const MyBook = () => {
               return eventDate >= today && eventDate <= tomorrow;
             })
             .sort((a, b) => {
-              const timeA = DateTime.fromISO(a.EventDate).toLocal().toFormat('HH:mm');
-              const timeB = DateTime.fromISO(b.EventDate).toLocal().toFormat('HH:mm');
-              if (timeA < timeB) {
+              const dateA = DateTime.fromISO(a.EventDate).toLocal();
+              const dateB = DateTime.fromISO(b.EventDate).toLocal();
+              if (dateA < dateB) {
                 return -1;
               }
-              if (timeA > timeB) {
+              if (dateA > dateB) {
                 return 1;
               }
               return 0;
@@ -186,10 +186,7 @@ const MyBook = () => {
                             <td className="text-center text-m">
                               {DateTime.fromISO(list.EventDate)
                                 .toLocal()
-                                .toFormat('dd MMM yyyy')} <br />
-                                {DateTime.fromISO(list.EventDate)
-                                .toLocal()
-                                .toFormat('hh:mm')} L
+                                .toFormat('dd MMM @ hh:mm')} L
                             </td>
                             <td
                               className={`glow-td text-center text-m ${
