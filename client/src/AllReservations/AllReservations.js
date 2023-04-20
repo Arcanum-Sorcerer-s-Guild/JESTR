@@ -18,7 +18,6 @@ const AllReservations = () => {
   const [showModale, setShowModale] = useState(false);
   const [render, setRender] = useState(true);
   const [pageSlice,setPageSlice] = useState([])
-  const params = useParams();
   const [modaleChildren, setModaleChildren] = useState(
     <div>this is a big'ol test</div>
   );
