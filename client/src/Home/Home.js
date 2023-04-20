@@ -5,7 +5,6 @@ import TwoDayTimeLineChart from './TwoDayTimeLineChart.js';
 import { DateTime } from 'luxon';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
-
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Home = () => {
@@ -37,56 +36,60 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col">      
-    <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
+    <div className="flex flex-col">
+      <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
         <div className="w-full lg:w-5/6 shadow-xl">
           <div className="bg-blue-darker mb-4 relative rounded overflow-hidden flex justify-center pb-2">
             <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
             <div className="flex flex-row gap-5 items-center">
-
-              <button 
+              <button
                 className="flex items-center gap-1  bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
-                onClick={()=>setSelectedDate(selectedDate.minus({Day:1}))}>
+                onClick={() => setSelectedDate(selectedDate.minus({ Day: 1 }))}
+              >
                 <span>
                   <BiChevronLeft />
                 </span>
-                  Previous</button>
+                Previous
+              </button>
 
-              {selectedDate !== undefined ?
-               <input 
-                type="date" 
-                onChange={handleDateSelection} 
-                value={selectedDate.toFormat('yyyy-MM-dd')}
-                className="border-none bg-gray-dark rounded-md text-gray-light"/> 
-               : <></> }
-              
-              <button 
-                className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg" 
-                onClick={()=>setSelectedDate(selectedDate.plus({Day:1}))}>
+              {selectedDate !== undefined ? (
+                <input
+                  type="date"
+                  onChange={handleDateSelection}
+                  value={selectedDate.toFormat('yyyy-MM-dd')}
+                  className="border-none bg-gray-dark rounded-md text-gray-light"
+                />
+              ) : (
+                <></>
+              )}
+
+              <button
+                className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
+                onClick={() => setSelectedDate(selectedDate.plus({ Day: 1 }))}
+              >
                 Next
                 <span>
                   <BiChevronRight />
-                </span></button>
-
-                </div>
+                </span>
+              </button>
             </div>
           </div>
         </div>
- 
-      
-
-     
-        <div className="bg-blue-darker rounded-lg shadow-xl mt-5 mr-40 ml-40 overflow-hidden flex justify-center">
-      {selectedDate !== undefined ? <>
-      <TwoDayTimeLineChart resArray={resArray} selectedDate={selectedDate}/>
-      </>:<></>}
-        </div>
-
-
-
       </div>
-   
 
+      <div className="bg-blue-darker rounded-lg shadow-xl mt-5 mr-40 ml-40 overflow-hidden flex justify-center">
+        {selectedDate !== undefined ? (
+          <>
+            <TwoDayTimeLineChart
+              resArray={resArray}
+              selectedDate={selectedDate}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+    </div>
   );
 };
 
