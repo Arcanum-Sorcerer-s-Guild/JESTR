@@ -65,12 +65,9 @@ const AllAssets = () => {
         <div>
           {currAssets !== [] ? (
             <div className="mt-2 mx-auto">
-
-
               <div className="bg-gray-dark mb-4 mx-auto h-16 max-w-5xl relative rounded overflow-hidden">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 <div className="flex items justify-evenly">
-
                   <span className="mt-3 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
                     <span className="flex flex-wrap flex-row justify-center">
                       <span className="ml-auto mr-7 flex flex-wrap flex-col">
@@ -98,12 +95,20 @@ const AllAssets = () => {
                         >
                           <option value="Serial">Sort by: Serial</option>
                           <option value="Range">Sort by: Range</option>
-                          <option value="SiteLocation">Sort by: Location</option>
+                          <option value="SiteLocation">
+                            Sort by: Location
+                          </option>
                           <option value="Equipment">Sort by: Equipment</option>
                           <option value="Threat">Sort by: Threat</option>
-                          <option value="ThreatType">Sort by: Threat Type</option>
-                          <option value="Operational">Sort by: Operational</option>
-                          <option value="Schedulable">Sort by: Schedulable</option>
+                          <option value="ThreatType">
+                            Sort by: Threat Type
+                          </option>
+                          <option value="Operational">
+                            Sort by: Operational
+                          </option>
+                          <option value="Schedulable">
+                            Sort by: Schedulable
+                          </option>
                         </select>
                       </span>
                     </span>
@@ -144,11 +149,8 @@ const AllAssets = () => {
                       </span>
                     </span>
                   </span>
-
                 </div>
               </div>
-
-
 
               <div className="mt-4 max-w-screen-xl mx-auto p-1 flex flex-wrap flex-row justify-center">
                 {currAssets
@@ -178,16 +180,14 @@ const AllAssets = () => {
                       >
                         <pre className="text-gray-light">
                           <span className="flex flex-row mx-auto text-base justify-between mb-0">
-                            <span className="font-semibold">
-                              {`Serial#:`}
-                            </span>
+                            <span className="font-semibold">{`Serial#:`}</span>
                             <span className="">{`${card.Serial}`}</span>
                           </span>
                           <br />
 
                           <span className="font-semibold content-center items-center align-middle">
                             <img
-                              src={`http://localhost:3000/images/${(card.Id).toString()}.jpg`}
+                              src={`http://localhost:3000/images/${card.Id.toString()}.jpg`}
                               alt="AA Gun"
                               className="h-32 w-60 mx-auto rounded-md"
                             />
@@ -230,9 +230,7 @@ const AllAssets = () => {
 
                           <div className="mt-4 flex flex-row items-center">
                             <p className="flex items-center">
-                              <span className="ml-2">
-                                {`Operational:`}
-                              </span>
+                              <span className="ml-2">{`Operational:`}</span>
                               <span className="text-lg">
                                 {card.Operational ? (
                                   <AiFillCheckCircle className="text-green bg-blue-darker rounded-full" />
@@ -240,9 +238,7 @@ const AllAssets = () => {
                                   <AiFillCloseCircle className="text-red/60 bg-blue-darker rounded-full opacity-50" />
                                 )}
                               </span>
-                              <span className="ml-1">
-                                {`Schedulable:`}
-                              </span>
+                              <span className="ml-1">{`Schedulable:`}</span>
                               <span className="text-lg">
                                 {card.Schedulable ? (
                                   <AiFillCheckCircle className="text-green bg-blue-darker rounded-full mr-auto" />
