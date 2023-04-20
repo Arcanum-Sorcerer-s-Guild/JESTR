@@ -37,7 +37,6 @@ const Home = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
     <div className="flex flex-col">      
     <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
         <div className="w-full lg:w-5/6 shadow-xl">
@@ -88,46 +87,6 @@ const Home = () => {
       </div>
    
 
-=======
-    <div className="flex flex-col">
-      <div className="flex justify-center gap-10 mt-5 mb-5">
-        <button
-          className="border border-black bg-primary rounded-lg p-3 w-1/12"
-          onClick={() => setSelectedDate(selectedDate.minus({ Day: 1 }))}
-        >
-          Previous
-        </button>
-        {selectedDate !== undefined ? (
-          <input
-            type="date"
-            onChange={handleDateSelection}
-            value={selectedDate.toFormat('yyyy-MM-dd')}
-          />
-        ) : (
-          <></>
-        )}
-        <button
-          className="border border-black bg-primary rounded-lg p-3 w-1/12"
-          onClick={() => setSelectedDate(selectedDate.plus({ Day: 1 }))}
-        >
-          Next
-        </button>
-      </div>
-
-      <div className="flex h-screen overflow-hidden justify-center">
-        {selectedDate !== undefined ? (
-          <>
-            <TwoDayTimeLineChart
-              resArray={resArray}
-              selectedDate={selectedDate}
-            />
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
-    </div>
->>>>>>> master
   );
 };
 
