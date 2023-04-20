@@ -39,9 +39,6 @@ const EditAsset = ({ showModal, setShowModal }) => {
       body: JSON.stringify([inputs]),
     };
 
-    fetch(`${listUrl}/GetByTitle('Assets')/items(1)`, reqOpts)
-      .then((res) => console.log(res.json()))
-      .then(setShowModal(false));
     navigate('/AllAssets');
   };
 
