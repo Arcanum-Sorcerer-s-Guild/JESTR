@@ -90,7 +90,7 @@ const MyBook = () => {
   return (
     <div className="container mx-auto h-screen">
       <div className="flex flex-col justify-center px-6">
-        <div className="mt-5 justify-center text-center">
+        <div className="mt-3 justify-center text-center">
           <div className="flex justify-between text-green gap-2 m-2">
             <button
               className="inline-flex"
@@ -100,26 +100,29 @@ const MyBook = () => {
               <span className="text-xs">Previous</span>
             </button>
             <Marquee
-            play={true}
-            pauseOnHover={true}
-            direction="right"
-            speed={20}
-            loop={0}
-            gradient={true}
-            gradientColor={[255, 73, 219]}
-            className="rounded"
-          >
-            <div className="text-xs text-text">
-              <h2> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, facere.</h2>
-            </div>
-            <div className="text-xs text-text ml-4">
-              <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, ipsum.</h2>
-            </div>
-          </Marquee>
-            {/* <div className="flex gap-2">
-              <h2> Current date: {currentDate}</h2>
-              <h2>Current Page: {currentPage}</h2>
-            </div> */}
+              play={true}
+              pauseOnHover={true}
+              direction="right"
+              speed={20}
+              loop={0}
+              gradient={true}
+              gradientColor={[255, 73, 219]}
+              className="rounded"
+            >
+              <div className="text-xs text-text">
+                <h2>
+                  {' '}
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Aperiam, facere.
+                </h2>
+              </div>
+              <div className="text-xs text-text ml-4">
+                <h2>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Doloribus, ipsum.
+                </h2>
+              </div>
+            </Marquee>
             <button
               className="inline-flex"
               onClick={() => book.current.pageFlip().flipNext()}
@@ -184,7 +187,17 @@ const MyBook = () => {
                                 .toLocal()
                                 .toFormat('yyyy MMM dd')}
                             </td>
-                            <td className="text-center text-m">
+                            <td
+                              className={`glow-td text-center text-m ${
+                                list.Status === 'Approved'
+                                  ? 'text-green/50'
+                                  : list.Status === 'Pending'
+                                  ? 'text-purple/50'
+                                  : list.Status === 'Rejected'
+                                  ? 'text-pink/50'
+                                  : ''
+                              }`}
+                            >
                               {list.Status}
                             </td>
                           </tr>
@@ -196,6 +209,10 @@ const MyBook = () => {
               );
             })}
           </HTMLFlipBook>
+        </div>
+        <div className="flex justify-between text-sm m-2 text-green gap-2">
+          <h2> Current date: {currentDate}</h2>
+          <h2>Current Page: {currentPage}</h2>
         </div>
       </div>
     </div>

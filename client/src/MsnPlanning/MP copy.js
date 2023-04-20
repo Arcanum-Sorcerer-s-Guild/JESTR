@@ -97,8 +97,9 @@ const MP = () => {
             <tr className="odd:bg-blue/50 even:bg-blue/100">
               <td className="text-sm">{list.SiteLocation}</td>
               <td className="text-sm">
-                <Link to={'/Asset'}>
-                  {' '}
+                <Link 
+                  to={'/Asset'}  
+                >
                   {list.Threat} ({list.Equipment})
                 </Link>
               </td>

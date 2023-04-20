@@ -1,5 +1,5 @@
 .page {
-  /* background-color: hsl(200, 88%, 68%); */
+  background-color: hsl(200, 88%, 10%);
   color: #6494ab;
   border: solid 1px #346783;
   /* background-color: #e3d0b5;
@@ -12,6 +12,12 @@
 .glow {
   color: #fff;
   text-shadow: 
-    0 0 1px #fff, 0 0 1px #fff, 0 0 1px #fff, 0 0 5px rgb(255, 73, 219),
+    0 0 0px #fff, 0 0 0px #fff, 0 0 0px #fff, 0 0 5px rgb(255, 73, 219),
     0 0 1px #ff49db, 0 0 1px #ff49db, 0 0 1px #ff49db, 0 0 1px #ff49db;
+}
+
+.glow-td {
+  text-shadow: 
+    0 0 0px #d999f2, 0 0 0px #c3cafc, 0 0 5px #228061
+
 }
