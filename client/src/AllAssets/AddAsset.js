@@ -34,7 +34,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let reqOpts = {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: JSON.stringify([inputs]),
@@ -48,6 +48,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
       .then(setShowModal(false));
     navigate("/AllAssets");
   };
+
 
   return (
     <>
