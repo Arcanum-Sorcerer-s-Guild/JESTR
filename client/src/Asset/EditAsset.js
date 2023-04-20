@@ -75,7 +75,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                 <span>{`${asset.modified}`}</span>
               </div>
             </div>
-            <form className="flex justify-center" onSubmit={handleSubmit}>
+            <form className="flex justify-center p-4" onSubmit={handleSubmit}>
               <div className="flex flex-col">
                 <div className="flex flex-col w-full p-3">
                   <div className="rounded-lg flex flex-col">
@@ -86,12 +86,12 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                     <hr className="text-gray-light" />
                   </div>
 
-                  <div className="flex mt-4 gap-2">
+                  <div className="flex my-4 gap-2">
                     <div className="flex w-1/2">
                       <span className="mr-2">Serial: </span>
                       <input
                         name="Serial"
-                        className="bg-gray-dark w-full h-1/2 rounded-sm px-2 text-xs"
+                        className="bg-gray-dark w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
                         defaultValue={asset.Serial}
                       />
@@ -100,7 +100,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       <span className="mr-2">Type: </span>
                       <select
                         name="ThreatType"
-                        className="bg-gray-dark w-full h-1/2 rounded-sm px-2 text-xs border-none"
+                        className="bg-gray-dark w-full rounded-sm px-2 text-xs border-none"
                         onChange={(e) => handleChange(e)}
                       >
                         <option
@@ -229,7 +229,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                     />
                   </div>
                 </div>
-              </div>
+             
               <div className="w-1/2 p-5">
                 <h3 className="font font-semibold text-center">System Information Remarks & Comments</h3>
                 <div className="flex text-xs mt-2">

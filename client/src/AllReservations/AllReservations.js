@@ -390,6 +390,16 @@ const AllReservations = () => {
               *To edit a Reservation please contact an Approver
             </h2>
           </div>
+          <Modal
+                isvisible={showModale}
+                onClose={() => {
+                  setShowModale(false);
+                }}
+              >
+                {modaleChildren}
+              </Modal>
+     
+          
         </div>
       </div>
     </div>
