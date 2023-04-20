@@ -7,6 +7,7 @@ import EventLine from './Charts/EventLine.js';
 import SquadronRadar from './Charts/SquadronRadar.js';
 import DateRangeSelector from './DateRangeSelector.js';
 import UserDoughnut from './Charts/UserDoughnut';
+import SquadronBubble from './Charts/SquadronBubble.js';
 
 const AdminStats = () => {
   const { listUrl } = useContext(Context);
@@ -44,13 +45,6 @@ const AdminStats = () => {
       });
   }, []);
 
-  ///UNCOMMENT TO VALIDATE DATES IN CONSOLE///
-  // useEffect(()=>{
-  //   reserveList.sort((a,b)=>{return a.date - b.date})
-  //   reserveList.forEach((res)=>console.log(res.date.toFormat('dd MMM yyyy EEE')))
-
-  // },[reserveList])
-
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items`, { credentials: 'include' })
       .then((res) => res.json())
@@ -61,25 +55,48 @@ const AdminStats = () => {
 
   return (
     <>
-      <div className="m-5">
-        <DateRangeSelector dateRange={dateRange} setDateRange={setDateRange} />
+        <div className="flex justify-center">
+          <DateRangeSelector dateRange={dateRange} setDateRange={setDateRange} />
+        </div>
+      <div className=" m-3 flex flex-row ">
 
-        <div className="flex flex-col text-center content-start">
-          <h1 className="text-center text-4xl mb-5">Reservation Statistics</h1>
-          <div className="flex flex-row gap-16">
-            <ReservationSuccessPie
-              dateRange={dateRange}
-              reserveList={reserveList}
-            />
-            <EventLine dateRange={dateRange} reserveList={reserveList} />
-            <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
+
+        <div className="flex flex-col gap-5 justify-around flex-wrap w-screen m-5">
+          
+          <div className="flex flex-row">
+            <div className="w-1/3">
+              <EventLine dateRange={dateRange} reserveList={reserveList} />
+                
+            </div>
+
+            <div className="w-1/3">
+              <ReservationSuccessPie dateRange={dateRange} reserveList={reserveList}/>
+            </div>
+
+
+            <div className="w-1/3">
+              <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
+            </div>
           </div>
+
+          <div className="flex flex-row">
+            <div className="w-1/3">
+              <SquadronBubble reserveList={reserveList} dateRange={dateRange}/>
+            </div>
+
+
+            <div className="w-1/3">
+              <OperationalBar assetList={assetList} />
+            </div>
+
+            
+            <div className="w-1/3">
+              <UserDoughnut userList={userList} />
+            </div>
+          </div>
+
         </div>
-        <h1 className="text-center text-4xl mb-5 mt-5">Asset Statistics</h1>
-        <div className="flex flex-row gap-16">
-          <OperationalBar assetList={assetList} />
-          <UserDoughnut userList={userList} />
-        </div>
+
       </div>
     </>
   );

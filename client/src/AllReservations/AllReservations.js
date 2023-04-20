@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { DateTime } from 'luxon';
 import { Context } from '../App';
 import Modal from './Modal';
 import TableHeader from './TableHeader';
@@ -17,6 +18,7 @@ const AllReservations = () => {
   const [temp, setTemp] = useState([]);
   const [showModale, setShowModale] = useState(false);
   const [render, setRender] = useState(true);
+  const [pageSlice, setPageSlice] = useState([]);
   const [modaleChildren, setModaleChildren] = useState(
     <div>this is a big'ol test</div>
   );
@@ -32,10 +34,20 @@ const AllReservations = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data.d.results);
-        setReservations(data.d.results);
+        setReservations(
+          data.d.results.sort((a, b) => {
+            const dateA = DateTime.fromISO(a.EventDate).toLocal();
+            const dateB = DateTime.fromISO(b.EventDate).toLocal();
+            if (dateA > dateB) {
+              return -1;
+            }
+            if (dateA < dateB) {
+              return 1;
+            }
+            return 0;
+          })
+        );
         setTemp(data.d.results);
-        console.log('rendered');
       });
   }, [render]);
 
@@ -63,7 +75,6 @@ const AllReservations = () => {
   };
 
   const changeStatus = (status) => {
-    console.log('typeof status', typeof status);
     if (typeof status === typeof 10) {
       const newData = temp.filter((item) => {
         return item.AuthorId === status;
@@ -76,6 +87,7 @@ const AllReservations = () => {
       });
       setReservations(newData);
     }
+    navigate('/AllReservations/1');
   };
 
   //TODO site icons
@@ -204,10 +216,16 @@ const AllReservations = () => {
                       </div>
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
-                      {list.EventDate}
+                      {DateTime.fromISO(list.EventDate).toFormat(
+                        'dd MMM yyyy @ hh:mm'
+                      )}{' '}
+                      Z
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
-                      {list.EndDate}
+                      {DateTime.fromISO(list.EndDate).toFormat(
+                        'dd MMM yyyy  @ hh:mm'
+                      )}{' '}
+                      Z
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
                       {userData.IsApprover === false ? (

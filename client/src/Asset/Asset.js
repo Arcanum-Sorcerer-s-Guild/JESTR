@@ -84,19 +84,6 @@ const Asset = () => {
         { name: 'Asset Modified', time: DateTime.fromISO(currAsset.modified) },
         { name: 'ETIC', time: DateTime.fromISO(currAsset.ETIC) },
       ]);
-      setTimeLine([
-        {
-          name: 'Coordinate Recorded',
-          time: DateTime.fromISO(currAsset.CoordRecordedDate),
-        },
-        {
-          name: 'Status Recorded',
-          time: DateTime.fromISO(currAsset.StatusDate),
-        },
-        { name: 'Asset Created', time: DateTime.fromISO(currAsset.created) },
-        { name: 'Asset Modified', time: DateTime.fromISO(currAsset.modified) },
-        { name: 'ETIC', time: DateTime.fromISO(currAsset.ETIC) },
-      ]);
     }
   }, [currAsset]);
 
@@ -139,10 +126,10 @@ const Asset = () => {
                                 <span>
                                   {' '}
                                   {event.time.toFormat(
-                                    'dd - MMM - yyyy'
+                                    'dd  MMM  yyyy'
                                   )} @{' '}
                                 </span>
-                                <span>{`${event.time.toFormat('hh:mm')}`}</span>
+                                <span>{`${event.time.toFormat('hh:mm')} Z`}</span>
                               </div>
                             </div>
                           </li>
@@ -290,9 +277,7 @@ const Asset = () => {
                     <div className="bg-cover p-4">
                       <img
                         alt={`${params.id}`}
-                        src={`http://localhost:3000/images/${(
-                          params.id % 10
-                        ).toString()}.jpg`}
+                        src={`http://localhost:3000/images/${(params.id).toString()}.jpg`}
                         className="rounded shadow-lg border border-gray-light"
                       />
                       <span className="p-2 float-right text-xs text-gray-light/50">{`asset id: ${currAsset.Id}`}</span>
