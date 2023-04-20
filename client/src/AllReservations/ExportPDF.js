@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import { AiFillTool } from 'react-icons/ai';
 
 const ExportPDF = ({divId, title}) => {
     var doc = new jsPDF({
@@ -20,8 +21,13 @@ const ExportPDF = ({divId, title}) => {
     }
     return (
         <div>
-            <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" variant='contained'
-                onClick={(e) => saveDiv(divId)}>Save as pdf</button>
+            <button 
+                className='flex items-center gap-1 justify-center bg-blue-darker text-gray-light text-xs my-4 px-4 rounded-md shadow-lg' 
+                variant='contained'
+                onClick={(e) => saveDiv(divId)}
+            > 
+                <span><AiFillTool/></span>Save as pdf
+            </button>
         </div>
     );
 }

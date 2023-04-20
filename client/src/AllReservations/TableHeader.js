@@ -9,11 +9,11 @@ const TableHeader = () => {
         { name: 'Status' },
     ];
     return (
-        <tr>
+        <tr className="bg-gray-dark text-gray-light uppercase text-sm leading-normal">
             {headers.map((header, i) => (
                 <th
                     key={i}
-                    className="px-24 py-2 text-center text-xs font-medium uppercase tracking-wider"
+                    className="sticky top-0 py-3 px-6 text-left"
                 >
                     {header.name}
                 </th>

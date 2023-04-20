@@ -17,12 +17,12 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'QuickLook', to: '/', text: 'Quick Look', icon: <FaEye /> },
-    { name: 'AllAssets', to: '/', text: 'All Assets', icon: <FiRadio /> },
-    { name: 'Reserve', to: '/', text: 'Reserve', icon: <FaMapMarkedAlt /> },
+    { name: 'Reserve', to: '/', text: 'ESTR', icon: <FaMapMarkedAlt /> },
+    { name: 'AllAssets', to: '/', text: 'Assets', icon: <FiRadio /> },
     {
       name: 'AllReservations',
       to: '/',
-      text: 'All Reservations',
+      text: 'Reservations',
       icon: <BsCardChecklist />,
     },
   ];
@@ -124,7 +124,7 @@ const NavBar = () => {
           />
         </div>
       </div>
-      <div className="px-2 bg-blue shadow-pink">
+      <div className="px-2 bg-blue">
         <span className={`${!userData.Title ? 'hidden' : ''} text-xs italic`}>
           Currently Logged in as:{' '}
           <span className="font-semibold">{userData.Title}</span>

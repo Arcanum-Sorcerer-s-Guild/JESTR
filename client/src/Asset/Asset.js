@@ -136,7 +136,12 @@ const Asset = () => {
                               </div>
                               <span className="py-2">{event.name}</span>
                               <div className="flex text-xs gap-1 text-gray-light">
-                                <span> {event.time.toFormat('dd - MMM - yyyy')} @ </span>
+                                <span>
+                                  {' '}
+                                  {event.time.toFormat(
+                                    'dd - MMM - yyyy'
+                                  )} @{' '}
+                                </span>
                                 <span>{`${event.time.toFormat('hh:mm')}`}</span>
                               </div>
                             </div>
@@ -154,7 +159,7 @@ const Asset = () => {
             <div className="card-map flex gap-2 mb-4">
               {/* map-start */}
               <div className="w-fit h-fit block bg-cover relative overflow-hidden border border-gray shadow-xl rounded-lg">
-              <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
+                <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
                 <AssetMap
                   serial={currAsset.Serial}
                   center={[currAsset.Longitude, currAsset.Latitude]}
@@ -229,13 +234,22 @@ const Asset = () => {
                             <span className="font-semibold mr-2 uppercase py-2">
                               Status:
                             </span>
+                                {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
                             <span
-                              className={`text-text px-1 rounded-full bg-gray`}
-                            >{`${currAsset.Status}`}</span>
+                              className={`text-center text-xs px-4 rounded-md ${
+                                currAsset.Status === 'RED'
+                                  ? 'bg-red/50'
+                                  : currAsset.Status === 'AMBER'
+                                  ? 'bg-yellow/50'
+                                  : currAsset.Status === 'GREEN'
+                                  ? 'bg-green/50'
+                                  : 'bg-gray'
+                              }`}
+                            >
+                              {`${currAsset.Status}`}
+                            </span>
                           </p>
                         </div>
-
-                        {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
 
                         <div className="flex flex-row text-xs mt-2">
                           <p className="flex items-center text-gray-light/70">
@@ -357,13 +371,13 @@ const Asset = () => {
               }}
             >
               <div className="block rounded-lg content-center h-full">
-              <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
+                <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
               </div>
             </button>
             <h1 className="text-4xl">Unable to locate requested entry!</h1>
             <button className="ml-10" onClick={() => changePage('next')}>
               <div className="block rounded-lg content-center h-full ">
-              <GrFormNext className="bg-gray-light text-lg rounded-full" />
+                <GrFormNext className="bg-gray-light text-lg rounded-full" />
               </div>
             </button>
           </div>
