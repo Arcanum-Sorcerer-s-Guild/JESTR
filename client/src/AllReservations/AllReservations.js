@@ -17,6 +17,7 @@ const AllReservations = () => {
   const [temp, setTemp] = useState([]);
   const [showModale, setShowModale] = useState(false);
   const [render, setRender] = useState(true);
+  const [pageSlice,setPageSlice] = useState([])
   const [modaleChildren, setModaleChildren] = useState(
     <div>this is a big'ol test</div>
   );
@@ -32,12 +33,15 @@ const AllReservations = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data.d.results);
-        setReservations(data.d.results);
+        setReservations(data.d.results.sort());
         setTemp(data.d.results);
-        console.log('rendered');
+
       });
   }, [render]);
+
+
+
+
 
   //This is for when an approver presses submit when changing the Reservation status
   const handleLogin = (e, id) => {
@@ -63,7 +67,6 @@ const AllReservations = () => {
   };
 
   const changeStatus = (status) => {
-    console.log('typeof status', typeof status);
     if (typeof status === typeof 10) {
       const newData = temp.filter((item) => {
         return item.AuthorId === status;
@@ -76,6 +79,7 @@ const AllReservations = () => {
       });
       setReservations(newData);
     }
+    navigate('/AllReservations/1')
   };
 
   //TODO site icons

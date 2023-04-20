@@ -290,9 +290,7 @@ const Asset = () => {
                     <div className="bg-cover p-4">
                       <img
                         alt={`${params.id}`}
-                        src={`http://localhost:3000/images/${(
-                          params.id % 10
-                        ).toString()}.jpg`}
+                        src={`http://localhost:3000/images/${(params.id).toString()}.jpg`}
                         className="rounded shadow-lg border border-gray-light"
                       />
                       <span className="p-2 float-right text-xs text-gray-light/50">{`asset id: ${currAsset.Id}`}</span>
