@@ -2,7 +2,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
-export const AssetsContext = React.createContext();
 
 
 
@@ -13,20 +12,11 @@ const AllAssets = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const { listUrl } = useContext(Context);
   const { userData } = React.useContext(Context);
+  const [originalAssets, setOriginalAssets] = useState([]);
   const [currAssets, setCurrAssets] = useState([]);
   const [currPage, setCurrPage] = useState(1); // Page displays 9 assets per page
   const [sortField, setSortField] = useState('Range');
   const [sortOrder, setSortOrder] = useState(true); // True = Ascending, False = Descending
-  const columns = [
-    { label: 'Site Location', accessor: 'SiteLocation', sortable: true },
-    { label: 'Range', accessor: 'Range', sortable: true },
-    { label: 'Latitude', accessor: 'Latitude', sortable: true },
-    { label: 'Longitude', accessor: 'Longitude', sortable: true },
-    { label: 'Elevation', accessor: 'Elevation', sortable: true },
-    { label: 'Serial', accessor: 'Serial', sortable: true },
-    { label: 'Threat', accessor: 'Threat', sortable: true },
-    { label: 'Equipment', accessor: 'Equipment', sortable: true },
-  ];
   const navigate = useNavigate();
 
 
@@ -46,7 +36,8 @@ const AllAssets = () => {
     })
       .then((res) => res.json())
       .then((items) => {
-        setCurrAssets(items.d.results);
+        setOriginalAssets(items.d.results);
+        setCurrAssets([...items.d.results]);
       });
   };
 
@@ -109,46 +100,53 @@ const AllAssets = () => {
                   <option value="5">5</option>
                   <option value="10">10</option>
                   <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
                   <option value="50">50</option>
                 </select>
               </span>
               <div className="mt-4 mx-auto p-1 flex flex-wrap justify-center">
-                {currAssets.sort((a,b) => {
-                  return (
-                    a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
-                      numeric: true,
-                    }) * (sortOrder ? 1 : -1)
-                  );
+                {
+                  currAssets.sort((a,b) => {
+                    return (
+                      a[sortField].toString().localeCompare(b[sortField].toString(), 'en', {
+                        numeric: true,
+                      }) * (sortOrder ? 1 : -1)
+                    );
+                  }
+                  ).filter(asset => {
+                    let currIndex = currAssets.indexOf(asset)+1 // adjusted for 0-indexing
+                    return currIndex >= 1+itemsPerPage*(currPage-1) && currIndex <= itemsPerPage*(currPage);
+                  }).map(card => {
+                    return (
+                      <span key={card.Id} className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
+                      w-64 h-48 p-1 shadow-lg rounded-md text-center" onClick={() => navigate(`/Asset/${card.Id}`)}>
+                        <pre className="text-gunmetal">
+                          <span className="font-semibold">Serial#:</span>
+                          {` ${card.Serial}`}
+                          <br/>
+                          <span className="font-semibold content-center items-center align-middle">
+                            {console.log(card.Serial)}
+                            {console.log(currAssets.indexOf(card))}
+                            {console.log(originalAssets.indexOf(card))}
+                            <img src={`/weaponImages/${originalAssets.indexOf(card)%18+1}.png`} alt="AA Gun" className="h-16 w-28 mx-auto"/>
+                          </span>
+                          <span className="font-semibold">Equipment:</span>
+                          {` ${card.Equipment}`}
+                          <br/>
+                          <span className="font-semibold">Threat:</span>
+                          {` ${card.Threat}`}
+                          <br/>
+                          <span className="font-semibold">Range:</span>
+                          {` ${card.Range}`}
+                          <br/>
+                          <span className="font-semibold">Location:</span>
+                          {` ${card.SiteLocation}`}
+                        </pre>
+                      </span>
+                    )
+                  })
                 }
-                ).filter(asset => {
-                  let currIndex = currAssets.indexOf(asset)+1 // adjusted for 0-indexing
-                  return currIndex >= 1+itemsPerPage*(currPage-1) && currIndex <= itemsPerPage*(currPage);
-                }).map(card => {
-                  return (
-                    <span key={card.Id} className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-tertiary border-primary border-2
-                    w-64 h-48 p-1 shadow-lg rounded-md text-center" onClick={() => navigate(`/Asset/${card.Id}`)}>
-                      <pre className="text-gunmetal">
-                        <span className="font-semibold">Serial#:</span>
-                        {` ${card.Serial}`}
-                        <br/>
-                        <span className="font-semibold content-center items-center align-middle">
-                          <img src="https://www.vtg.admin.ch/content/vtg-internet/en/einsatzmittel/boden-luft/35mm-flab-kan-63-90-flt-gt-75-951/_jcr_content/operatingresourcesImage/image.transform.1498651685437/image_588_368/image.6051_133.png" alt="AA Gun" className="h-16 w-40 mx-auto"/>
-                        </span>
-                        <span className="font-semibold">Equipment:</span>
-                        {` ${card.Equipment}`}
-                        <br/>
-                        <span className="font-semibold">Threat:</span>
-                        {` ${card.Threat}`}
-                        <br/>
-                        <span className="font-semibold">Range:</span>
-                        {` ${card.Range}`}
-                        <br/>
-                        <span className="font-semibold">Location:</span>
-                        {` ${card.SiteLocation}`}
-                      </pre>
-                    </span>
-                  )
-                })}
               </div>
               <span className="mt-0 flex mx-auto">
                 {
