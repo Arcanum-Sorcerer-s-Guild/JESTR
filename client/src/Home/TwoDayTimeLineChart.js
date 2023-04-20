@@ -29,8 +29,6 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
 
   let resDayOne = resArray.filter((res) => res.start.toFormat('dd MMM yyyy') === startDay.toFormat('dd MMM yyyy'));
   let resDayTwo = resArray.filter((res)=> res.start.toFormat('dd MMM yyyy') === endDay.toFormat('dd MMM yyyy'))
-  console.log('Day One',resDayOne)
-  console.log('Day Two',resDayTwo)
 
   let labelsDayOne = resDayOne.map(res=>`${res.Squadron}: #${res.Id}`);
   let labelsDayTwo = resDayTwo.map(res=>`${res.Squadron}: #${res.Id}`);
@@ -38,7 +36,6 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
   let dataArrayDayOne = resDayOne.map(res => ([res.start.toFormat('HH:mm'),res.end.toFormat('HH:mm')]))
   let dataArrayDayTwo = resDayTwo.map(res => ([res.start.toFormat('HH:mm'),res.end.toFormat('HH:mm')]))
 
-  console.log(labelsDayOne,dataArrayDayOne)
   // labels= ['Label 1','Label 2']
   // dataArray = [['19 12:00','19 16:00'],['19 16:00','19 20:00']]
 
@@ -65,6 +62,7 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
         time: {
           unit: 'hour',
         },
+        stacked: true,
         // grid: {
         //   color: "green"
         // },
@@ -96,15 +94,39 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
     },
   };
 
+
+  let squadronsDayOne = [... new Set(resDayOne.map(res=>res.Squadron))]
+  squadronsDayOne.sort()
+  let dataSets = squadronsDayOne.map(sq=>resDayOne.filter(res=>res.Squadron===sq))
+
+  var minMax = dataSets.map(set=> [
+    set.reduce((a,b)=>a.start < b.start ? a : b).start.toFormat('HH:mm'),
+    set.reduce((a,b)=>a.start > b.start ? a : b).end.toFormat('HH:mm')
+  ])  
+
+
+  dataSets = [
+    {
+      label:squadronsDayOne,
+      data:minMax  
+    },
+
+  ]
+
   const dataDayOne = {
-    labels: labelsDayOne,
-    datasets: [
-      {
-      backgroundColor: "green",
-      data: dataArrayDayOne,
-      barPercentage: .25,
-  }]
-}
+    labels: squadronsDayOne,
+    datasets: dataSets,
+  }
+  
+
+// const dataDayOne = {
+//   labels: labelsDayOne,
+//   datasets: [{
+//     backgroundColor: "green",
+//     data: dataArrayDayOne,
+//     barPercentage: .25,
+//   }]
+// }
 
   const dataDayTwo = {
     labels: labelsDayTwo,
