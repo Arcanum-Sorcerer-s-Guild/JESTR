@@ -67,13 +67,13 @@ const AllAssets = () => {
             <div className="mt-2 mx-auto">
 
 
-              <div className="bg-gray-dark mb-4 mx-auto h-14 max-w-5xl relative rounded overflow-hidden">
+              <div className="bg-gray-dark mb-4 mx-auto h-16 max-w-5xl relative rounded overflow-hidden">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 <div className="flex items justify-evenly">
 
-                  <span className="mt-2 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
+                  <span className="mt-3 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
                     <span className="flex flex-wrap flex-row justify-center">
-                      <span className="ml-auto mr-5 flex flex-wrap flex-col">
+                      <span className="ml-auto mr-7 flex flex-wrap flex-col">
                         <button
                           type="button"
                           className="p-1 w-48 h-7 text-sm bg-secondary text-center rounded-md text-gray-light"
@@ -83,7 +83,7 @@ const AllAssets = () => {
                         </button>
                       </span>
                       <span className=""></span>
-                      <span className="mx-5 flex flex-wrap flex-col">
+                      <span className="mx-7 flex flex-wrap flex-col">
                         <select
                           name="SortAssets"
                           id="sortAssets"
@@ -108,7 +108,7 @@ const AllAssets = () => {
                       </span>
                     </span>
                     <span className="flex flex-wrap flex-row justify-center">
-                      <span className="mx-5 flex flex-wrap flex-col">
+                      <span className="mx-7 flex flex-wrap flex-col">
                         <button
                           type="button"
                           className="p-1 w-48 h-7 text-sm bg-secondary text-gray-light text-center rounded-md"
@@ -121,7 +121,7 @@ const AllAssets = () => {
                         </button>
                       </span>
 
-                      <span className="ml-5 mr-auto flex flex-wrap flex-col">
+                      <span className="ml-7 mr-auto flex flex-wrap flex-col">
                         <select
                           name="DisplayPerPage"
                           id="DisplayPerPage"
