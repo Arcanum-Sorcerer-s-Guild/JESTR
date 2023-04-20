@@ -24,14 +24,10 @@ const SquadronBubble = ({reserveList,dateRange}) => {
     }
   
 
-  console.log(dateRange.start.toFormat('dd MMM yyyy'))
-  console.log(dateRange.end.toFormat('dd MMM yyyy'))
-  console.log(daySpan)
-
   let squadronList = [... new Set (reservations.map(res=>res.squadron))]
   let tempData = squadronList.map(sq=>reservations.filter(res=>res.squadron===sq))
 
-  if (daySpan < 50) {
+  if (daySpan < 60) {
     tempData = tempData.map(resArray=> { 
       return({
         x: resArray.filter(res=>res.status==='Rejected').length,
@@ -48,6 +44,7 @@ const SquadronBubble = ({reserveList,dateRange}) => {
       })
     })
   }
+  console.log(daySpan)
 
 
   const options= {
@@ -76,11 +73,17 @@ const SquadronBubble = ({reserveList,dateRange}) => {
 
         color: 'pink',
         formatter: function(value, context) {
-          console.log(value)
-          return daySpan > 50 ? value.r * 10 : value.r;
+          return daySpan >= 60 ? value.r * 10 : value.r;
         },
         offset: -40,
         align: 'start',
+      },
+      legend: {
+        display: false,
+        position: 'bottom',
+        labels: {
+            color: 'pink'
+        }
       }
   }
     // plugins: {
@@ -89,22 +92,18 @@ const SquadronBubble = ({reserveList,dateRange}) => {
 
   }
 
-
-  // console.log(reserveList)
-
-
   const bubbleSquadronData = {
     datasets: [{
-      label: 'Squadrons',
+      label: squadronList,
       data: tempData,
-      backgroundColor: 'rgb(255, 99, 132)'
+      backgroundColor: ['#36A2EB','#FF6384','#4BC0C0','#FF9F40','#9966FF','#FFCD56'],
     }]
   };
 
 
   return(<>
         <div className="flex flex-col">
-          <h3 className=" flex justify-center text-2xl mb-2 text-text">{`Success Reservations by Squadron`}</h3>
+          <h3 className=" flex justify-center text-2xl mb-2 text-text">{`Successful Reservations by Squadron`}</h3>
           <div>
           {bubbleSquadronData ? <>  
             <Bubble options={options} data={bubbleSquadronData} height={500} width={500} />  

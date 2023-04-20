@@ -368,7 +368,7 @@ const AllReservations = () => {
           Prev Page
         </button>
 
-        <span>{`${params.page} of ${Math.floor(reservations.length / 10)}`}</span>
+        <span className="text-text">{`${params.page} of ${Math.floor(reservations.length / 10)}`}</span>
 
         <button className="bg-primary border border-black rounded-lg" onClick={()=>changePageClick('next')}>
           Next Page

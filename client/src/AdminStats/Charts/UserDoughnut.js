@@ -24,6 +24,14 @@ const UserDoughnut = ({ userList }) => {
     ],
   };
 
+  const options ={
+    plugins : {
+      legend: {
+        labels: {color: 'pink'}
+      }
+    }
+  }
+
   return (
     <>
       {userList.length > 0 ? (
@@ -31,7 +39,7 @@ const UserDoughnut = ({ userList }) => {
           <div className="flex flex-col justify-center">
             <h3 className="text-2xl mb-2 text-center text-text">{`Users by Type`}</h3>
             <div>
-              <Doughnut data={userData} width={500} height={500}/>
+              <Doughnut data={userData} width={500} height={500} options={options}/>
             </div>
           </div>
         </>

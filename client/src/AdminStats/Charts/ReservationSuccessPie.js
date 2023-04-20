@@ -82,7 +82,7 @@ const ReservationSuccessPie = ({ dateRange, reserveList }) => {
     <>
       {' '}
       <div className="flex flex-col">
-        <h3 className="text-2xl mb-2 text-text">Approved vs Denied Reservations</h3>
+        <h3 className="flex justify-center text-2xl mb-2 text-text">Total Approved vs Denied Reservations</h3>
         <div>
           {reservationSuccessData ? (
             <Pie
@@ -95,11 +95,18 @@ const ReservationSuccessPie = ({ dateRange, reserveList }) => {
                     display: function (context) {
                       return context.dataset.data[context.dataIndex] !== 0;
                     },
-                    color: 'black',
+                    color: 'pink',
                     formatter: Math.round,
                     offset: -20,
                     align: 'start',
                   },
+                  legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: 'pink'
+                    }
+                  }
                 },
               }}
               data={reservationSuccessData}

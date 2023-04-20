@@ -27,7 +27,7 @@ const OperationalBar = ({ assetList }) => {
           datasets: [
             {
               data: assetBarData,
-              backgroundColor: 'rgba(53, 162, 235, 0.5)',
+              backgroundColor: ['#36A2EB','#FF6384','#4BC0C0','#FF9F40','#9966FF','#FFCD56'],
             },
           ],
         });

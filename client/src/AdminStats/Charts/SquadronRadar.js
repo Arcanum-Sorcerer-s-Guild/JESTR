@@ -49,7 +49,7 @@ const SquadronRadar = ({dateRange, reserveList}) => {
 
   return(<>
       <div className="flex flex-col">
-        <h3 className="text-2xl mb-2 text-text">Squadron Site Usage</h3>
+        <h3 className="flex justify-center text-2xl mb-2 text-text">Site Usage by Squadron</h3>
           <div>
             {Object.keys(squadronRangeData).length>0 
             ? <Radar 
@@ -63,15 +63,26 @@ const SquadronRadar = ({dateRange, reserveList}) => {
                   r: {
                     angleLines: {color:"green"},
                     grid: {color:"green"},
-                    ticks: {color:"pink"},
+                    ticks: {color:"pink", backdropColor: "transparent"},
+                    pointLabels: {color:"pink"},
+                    
+
                   },
                   x: { ticks: {color:"pink"}},
                   y: { ticks: {color:"pink"}}
                   // grid: {color:"green"}
                     // gridLines: {color: 'transparent'},
                     // angleLines: { color: 'transparent'}
+                  },
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: 'bottom',
+                      labels: {
+                          color: 'pink'
+                      }
+                    }
                   }
-
                 //  scales: {
                 //   x: {
                 //     grid: {
