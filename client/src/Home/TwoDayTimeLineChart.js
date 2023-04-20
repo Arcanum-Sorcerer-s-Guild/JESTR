@@ -3,7 +3,6 @@ import 'chartjs-adapter-luxon'
 import { Bar, getElementAtEvent } from 'react-chartjs-2';
 import { DateTime } from 'luxon';
 
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -169,7 +168,7 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
       legend: false,
       title: {
         display: false,
-        text: ` Reservations` ,
+        text: ` Reservations`,
       },
     },
   };
@@ -191,17 +190,12 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
         {Object.keys(dataDayOne).length > 0 ? <Bar width={500} height={500} options={options} data={dataDayOne} ref={chartRef} onClick={onChartClick}/> : <></>}
       </div>
 
-      <div className= "flex justify-center flex-col ">
-        <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">{endDay.toFormat('EEE dd MMM')}</h1>
-        {Object.keys(dataDayTwo).length > 0 ? <Bar width={500} height={500} options={options} data={dataDayTwo} ref={chartRef} onClick={onChartClick}/> : <></> }
+      <div>
+        <h1 className="text-xl text-center text-primary">{endDay.toFormat('EEE dd MMM')}</h1>
+        <Bar width={750} height={750} options={options} data={dataDayTwo} ref={chartRef} onClick={onChartClick}/>
       </div>
-    </div>  
-
-    <button className="border border-black bg-bluer text-gray-light uppercase " onClick={()=>{handleSquadronClick('all')}}>See All Squadrons</button>
-   
-
-  </div>
+    </div>
   </>)
 }
 
-export default TwoDayTimeLineChart
+export default TwoDayTimeLineChart;
