@@ -132,20 +132,32 @@ const EventLine = ({ dateRange, reserveList }) => {
   return (
     <>
       <div className="flex flex-col">
-        <h3 className="text-2xl mb-2">{`Reservations by ${lineLabels.range}`}</h3>
+        <h3 className="flex justify-center text-2xl mb-2 text-text">{`Reservations by ${lineLabels.range}`}</h3>
         <div>
           {eventLineData ? (
             <Line
-              width={250}
-              height={250}
+              width={500}
+              height={500}
               options={{
                 maintainAspectRatio: false,
+
                 plugins: {
                   legend: false,
-                  datalabels: { offset: -20, align: 'start' },
+                  datalabels: { offset: -20, align: 'start', color:"pink" },
                 },
-                scales: { x: { suggestedMin: lineLabels.labels.length } },
-              }}
+                scales: { 
+                  x: { 
+                      suggestedMin: lineLabels.labels.length,
+                      grid: { color: "green" },
+                      ticks: {color:"pink"}
+                    },
+                  y: { 
+                    grid: { color: "green" },
+                    ticks: { color: "pink" }
+                  }
+                    },
+                  } 
+              }
               data={eventLineData}
             />
           ) : (

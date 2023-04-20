@@ -280,9 +280,7 @@ const AllAssets = () => {
 
                           <span className="font-semibold content-center items-center align-middle">
                             <img
-                              src={`/weaponImages/${
-                                (originalAssets.indexOf(card) % 18) + 1
-                              }.png`}
+                              src={`http://localhost:3000/images/${(card.Id).toString()}.jpg`}
                               alt="AA Gun"
                               className="h-32 w-60 mx-auto rounded-md"
                             />
