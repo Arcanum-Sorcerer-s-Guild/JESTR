@@ -1,5 +1,6 @@
 import * as FileSaver from 'file-saver';
 import XLSX from 'sheetjs-style';
+import { AiFillTool } from 'react-icons/ai';
 
 const ExportExcel = ({excelData, fileName}) => {
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -14,8 +15,13 @@ const ExportExcel = ({excelData, fileName}) => {
     }
     return ( 
         <div title="Excel Export">
-            <button className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center" variant='contained'
-                onClick={(e) => exportToExcel(fileName)}>Excel Export</button>
+            <button 
+                className='flex items-center gap-1 justify-center bg-blue-darker text-gray-light text-xs my-4 px-4 rounded-md shadow-lg' 
+                variant='contained'
+                onClick={(e) => exportToExcel(fileName)}
+            >
+                <span><AiFillTool/></span>Save as CSV
+            </button>
         </div>
      );
 }

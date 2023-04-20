@@ -14,8 +14,6 @@ import MyBook from './Book/Book';
 
 import { Routes, Route, UseNavigate, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import QuickLook from './Home/QuickLook.js';
-import MP from './Home/MP';
 export const Context = React.createContext();
 
 function App() {

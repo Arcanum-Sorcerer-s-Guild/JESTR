@@ -9,6 +9,7 @@ const vaporwaveColors = {
   text: '#FFFFFF',
   blue: '#1fb6ff',
   bluer: '	#1E90FF',
+  'blue-darker': '#032130',
   purple: '#7e5bef',
   pink: '#ff49db',
   orange: '#ff7849',

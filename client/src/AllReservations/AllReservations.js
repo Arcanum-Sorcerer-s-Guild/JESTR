@@ -4,7 +4,13 @@ import Modal from './Modal';
 import TableHeader from './TableHeader';
 import ExportExcel from './Excelexport.js';
 import ExportPDF from './ExportPDF';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import imgpl from './Yetti.png';
+import './allres.css';
+
+//icons
+import { GiTargetShot } from 'react-icons/gi';
+import { BiTargetLock, BiSort } from 'react-icons/bi';
 
 const AllReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -67,7 +73,6 @@ const AllReservations = () => {
         return item.AuthorId === status;
       });
       setReservations(newData);
-      
     } else {
       const newData = temp.filter((item) => {
         if (status === 'All') return typeof item.Status === typeof 'hello';
@@ -78,308 +83,330 @@ const AllReservations = () => {
     navigate('/AllReservations/1')
   };
 
-  const changePageClick = (page) => {
-    if (parseInt(params.page) !== 1 && page === 'prev' || parseInt(params.page) !== Math.floor(reservations.length / 10)  && page === 'next') {
-      if (page==='next') navigate(`/AllReservations/${parseInt(params.page) + 1}`) 
-      if (page==='prev') navigate(`/AllReservations/${parseInt(params.page) - 1}`)
-    }
-  }
+  //TODO site icons
+  const squadronIcons = [
+    { sqd: 'The Black Company', icon: '' },
+    { sqd: 'Soul Breakers', icon: '' },
+    { sqd: 'Forsaken', icon: '' },
+    { sqd: 'Legion', icon: '' },
+    { sqd: 'Bonehunters', icon: '' },
+    { sqd: 'Bridgeburners', icon: '' },
+    { sqd: '', icon: '' },
+  ];
 
-  useEffect(()=> {
-    if(params.page !== undefined) {
-      setPageSlice(reservations.slice((parseInt(params.page)-1) * 10, parseInt(params.page) * 10).sort())
-    } else {
-      navigate('/AllReservations/1')
-    }  
-  },[reservations,params])
+  const headers = [
+    { name: 'Site Location' },
+    { name: 'Threat (Equipment)' },
+    { name: 'Squadron' },
+    { name: 'Start Date' },
+    { name: 'End Date' },
+    { name: 'Status' },
+  ];
 
+  return (
+    <div className="overflow-x-auto">
+      <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
+        <div className="w-full lg:w-5/6 shadow-xl">
+          <div className="bg-gray-dark mb-4 relative rounded overflow-hidden">
+            <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
+            <div className="flex items justify-evenly">
+              <button
+                className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
+                onClick={() => changeStatus('Pending')}
+              >
+                <span>
+                  <BiSort />
+                </span>
+                Pending
+              </button>
+              <button
+                className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
+                onClick={() => changeStatus('Approved')}
+              >
+                <span>
+                  <BiSort />
+                </span>
+                Approved
+              </button>
+              <button
+                className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
+                onClick={() => changeStatus('Rejected')}
+              >
+                <span>
+                  <BiSort />
+                </span>
+                Rejected
+              </button>
+              <button
+                className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
+                onClick={() => changeStatus('All')}
+              >
+                <span>
+                  <BiSort />
+                </span>
+                All
+              </button>
+              <button
+                className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
+                onClick={() => changeStatus(userData.Id)}
+              >
+                <span>
+                  <BiSort />
+                </span>
+                My Reservations
+              </button>
 
-  return (<>
-     {/* <div className="grid place-items-center"> */}
-     <div className="flex flex-row justify-center">
-      <div className="mt-4 p-2 rounded-md shadow-md bg-purple/50 text-text text-center items-center">
-        <h1 className="text-5xl items-center mt-10">Reservations</h1>
-      </div>
-      <div className="items-center bg-gray-light m-4">
-        <button
-          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus('All')}
-        >
-          All
-        </button>
-        <button
-          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus('Approved')}
-        >
-          Approved
-        </button>
-        <button
-          className="mt-4 p-2 m-4 w-36 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus(userData.Id)}
-        >
-          My Reservations
-        </button>
-        <button
-          className="mt-10 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus('Pending')}
-        >
-          Pending
-        </button>
-        <button
-          className="mt-4 p-2 m-4 w-32 rounded-md shadow-md bg-blue hover:bg-bluer text-text text-center"
-          onClick={() => changeStatus('Rejected')}
-        >
-          Rejected
-        </button>
+              <ExportExcel excelData={reservations} fileName={'Excel Export'} />
+              <ExportPDF divId={'table'} title={'hello world'} />
+            </div>
+          </div>
 
-      </div>
-      <div className="items-center bg-gray-light m-4">
-        <ExportExcel excelData={reservations} fileName={'Excel Export'} />
-        <ExportPDF divId={'table'} title={'hello world'} />
-      </div>
-      <div className="bg-gray-lighter m-4 text-xs italic">
-        *To edit a Reservation please contact an Approver
+          <div className="tableFixHead bg-blue-darker shadow-md rounded">
+            <table className="min-w-max w-full table-auto relative">
+              <thead className="">
+                <tr className="text-gray-light uppercase text-sm leading-normal">
+                  {headers.map((header, i) => (
+                    <th
+                      key={i}
+                      className="res-th py-3 px-6 text-left bg-gray-dark"
+                    >
+                      {header.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="text-gray-light text-sm font-light m-0">
+                {reservations.map((list, i) => (
+                  <tr
+                    key={i}
+                    className="border-b border-gray-dark hover:bg-black/30"
+                  >
+                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <GiTargetShot className="text-blue" />
+                        <span>{list.SiteLocation}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <BiTargetLock className="text-pink" />
+                        <span>
+                          {/* //TODO link to assets */}
+                          {list.Threat} ({list.Equipment})
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <div className="mr">
+                          <img
+                            src={imgpl}
+                            alt="sqdr"
+                            className="w-6 h-6 rounded-full hover:scale-110"
+                          />
+                        </div>
+                        <span>{list.Squadron}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                      {list.EventDate}
+                    </td>
+                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                      {list.EndDate}
+                    </td>
+                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                      {userData.IsApprover === false ? (
+                        <div
+                          className={`text-center text-m ${
+                            list.Status === 'Approved'
+                              ? 'text-green'
+                              : list.Status === 'Pending'
+                              ? 'text-purple'
+                              : list.Status === 'Rejected'
+                              ? 'text-pink'
+                              : ''
+                          }`}
+                        >
+                          {list.Status}
+                        </div>
+                      ) : list.Status === 'Approved' ? (
+                        <button
+                          type="button"
+                          data-te-toggle="modal"
+                          data-te-target="#exampleModal"
+                          data-te-ripple-init
+                          data-te-ripple-color="light"
+                          className="hover:scale-110"
+                          onClick={() => {
+                            setModaleChildren(
+                              <>
+                                <form onSubmit={handleLogin}>
+                                  <label htmlFor="Notes">Remarks</label>
+                                  <input
+                                    name="Notes"
+                                    type="text"
+                                    placeholder="Enter Remarks Here..."
+                                  />
+                                  <label htmlFor="Status">
+                                    Choose a Status
+                                  </label>
+                                  <select name="Status" id="Status">
+                                    <option
+                                      value="Rejected"
+                                      defaultValue={'Rejected'}
+                                    >
+                                      Reject
+                                    </option>
+                                    <option value="Approved">Approve</option>
+                                  </select>
+                                  <input
+                                    name="Id"
+                                    value={list.Id}
+                                    hidden
+                                    type="text"
+                                    placeholder="Enter Remarks Here..."
+                                  />
+                                  <button type="submit" className="">
+                                    <span className=""></span>
+                                    submit
+                                  </button>
+                                </form>
+                              </>
+                            );
+                            setShowModale(true);
+                          }}
+                        >
+                          <div className="bg-green/50 text-gray-light py-1 px-3 rounded-full text-xs">
+                            {list.Status}
+                          </div>
+                        </button>
+                      ) : list.Status === 'Rejected' ? (
+                        <button
+                          type="button"
+                          data-te-toggle="modal"
+                          data-te-target="#exampleModal"
+                          data-te-ripple-init
+                          data-te-ripple-color="light"
+                          className="hover:scale-110"
+                          onClick={() => {
+                            setModaleChildren(
+                              <>
+                                <form onSubmit={handleLogin}>
+                                  <label htmlFor="Notes">Remarks</label>
+                                  <input
+                                    name="Notes"
+                                    type="text"
+                                    placeholder="Enter Remarks Here..."
+                                  />
+                                  <label htmlFor="Status">
+                                    Choose a Status
+                                  </label>
+                                  <select name="Status" id="Status">
+                                    <option
+                                      value="Rejected"
+                                      defaultValue={'Rejected'}
+                                    >
+                                      Reject
+                                    </option>
+                                    <option value="Approved">Approve</option>
+                                  </select>
+                                  <input
+                                    name="Id"
+                                    value={list.Id}
+                                    hidden
+                                    type="text"
+                                    placeholder="Enter Remarks Here..."
+                                  />
+                                  <button type="submit" className="">
+                                    <span className=""></span>
+                                    submit
+                                  </button>
+                                </form>
+                              </>
+                            );
+                            setShowModale(true);
+                          }}
+                        >
+                          <div className="bg-pink/50 text-gray-light py-1 px-3 rounded-full text-xs">
+                            {list.Status}
+                          </div>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          data-te-toggle="modal"
+                          data-te-target="#exampleModal"
+                          data-te-ripple-init
+                          data-te-ripple-color="light"
+                          className="hover:scale-110"
+                          onClick={() => {
+                            setModaleChildren(
+                              <>
+                                <form onSubmit={handleLogin}>
+                                  <label htmlFor="Notes">Remarks</label>
+                                  <input
+                                    name="Notes"
+                                    type="text"
+                                    placeholder="Enter Remarks Here..."
+                                  />
+                                  <label htmlFor="Status">
+                                    Choose a Status
+                                  </label>
+                                  <select name="Status" id="Status">
+                                    <option
+                                      value="Rejected"
+                                      defaultValue={'Rejected'}
+                                    >
+                                      Reject
+                                    </option>
+                                    <option value="Approved">Approve</option>
+                                  </select>
+                                  <input
+                                    name="Id"
+                                    value={list.Id}
+                                    hidden
+                                    type="text"
+                                    placeholder="Enter Remarks Here..."
+                                  />
+                                  <button type="submit" className="">
+                                    <span className=""></span>
+                                    submit
+                                  </button>
+                                </form>
+                              </>
+                            );
+                            setShowModale(true);
+                          }}
+                        >
+                          <div className="bg-purple/50 text-gray-light py-1 px-3 rounded-full text-xs">
+                            {list.Status}
+                          </div>
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="bg-gray-dark p-2  relative overflow-hidden rounded">
+            <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
+            <h2 className="text-green text-xs italic pb-1 mb-1">
+              *To edit a Reservation please contact an Approver
+            </h2>
+          </div>
+          <Modal
+            isvisible={showModale}
+            onClose={() => {
+              setShowModale(false);
+            }}
+          >
+            {modaleChildren}
+          </Modal>
+        </div>
       </div>
     </div>
-
-
-      <div className="mt-2">
-
-        <div className="mt-2 flex flex-row justify-center">
-          {/* <div class="overflow-x-auto sm:-mx-6 lg:-mx-8"> */}
-            {/* <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8"> */}
-
-              <div class="flex overflow-hidden content-center justify-center" id="table">
-                <table class=" text-center content-center ml-32 mr-32 " id="bestTable">
-
-                  {/* {console.log(document.getElementById('bestTable').rows.length, 'plz')} */}
-                  <thread className="bg-bluer/75 text-gray/200 items-center">
-                    <TableHeader />
-                  </thread>
-
-                  <tbody className="flex bg-bluer/75 divide-y bg-opacity-25 divide-y-gray/75 grid ">
-                    {pageSlice.length > 0 ? pageSlice.map((list, i) => (
-                      <tr key={i} className="hover:bg-primary/60 grid grid-cols-12 grid-container">
-                        <td className="text-center text-m col-span-2" onClick={()=>navigate(`/Reservation/${list.Id}`)} >
-                          {list.SiteLocation}
-                        </td>
-                        <td className="text-center text-m col-span-2">
-                          {list.Threat}({list.Equipment})
-                        </td>
-                        <td className="text-center text-m col-span-2">{list.Squadron}</td>
-                        <td className="text-center text-m col-span-2">
-                          {list.EventDate}
-                        </td>
-                        <td className="text-center text-m col-span-2">{list.EndDate}</td>
-                        <td className="text-center text-m col-span-2">
-                          {userData.IsApprover === false ? (
-                            list.Status
-                          ) : list.Status === 'Approved' ? (
-                            <button
-                              type="button"
-                              data-te-toggle="modal"
-                              data-te-target="#exampleModal"
-                              data-te-ripple-init
-                              data-te-ripple-color="light"
-                              className="bg-greener font-medium py-2 px-4 rounded-full col-span-2"
-                              onClick={() => {
-                                setModaleChildren(
-                                  <>
-                                    <form onSubmit={handleLogin}>
-                                      <label htmlFor="Notes">Remarks</label>
-                                      <input
-                                        name="Notes"
-                                        type="text"
-                                        placeholder="Enter Remarks Here..."
-                                      />
-                                      <label htmlFor="Status">
-                                        Choose a Status
-                                      </label>
-                                      <select name="Status" id="Status">
-                                        <option
-                                          value="Rejected"
-                                          defaultValue={'Rejected'}
-                                        >
-                                          Reject
-                                        </option>
-                                        <option value="Approved">
-                                          Approve
-                                        </option>
-                                      </select>
-                                      <input
-                                        name="Id"
-                                        value={list.Id}
-                                        hidden
-                                        type="text"
-                                        placeholder="Enter Remarks Here..."
-                                      />
-                                      <button
-                                        type="submit"
-                                        className="group relative flex w-full justify-center rounded-md bg-green px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                      >
-                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
-                                        submit
-                                      </button>
-                                    </form>
-                                  </>
-                                );
-                                setShowModale(true);
-                              }}
-                            >
-                              {list.Status}
-                            </button>
-                          ) : list.Status === 'Rejected' ? (
-                            <button
-                              type="button"
-                              data-te-toggle="modal"
-                              data-te-target="#exampleModal"
-                              data-te-ripple-init
-                              data-te-ripple-color="light"
-                              className="bg-red font-medium py-2 px-4 rounded-full"
-                              onClick={() => {
-                                setModaleChildren(
-                                  <>
-                                    <form onSubmit={handleLogin}>
-                                      <label htmlFor="Notes">Remarks</label>
-                                      <input
-                                        name="Notes"
-                                        type="text"
-                                        placeholder="Enter Remarks Here..."
-                                      />
-                                      <label htmlFor="Status">
-                                        Choose a Status
-                                      </label>
-                                      <select name="Status" id="Status">
-                                        <option
-                                          value="Rejected"
-                                          defaultValue={'Rejected'}
-                                        >
-                                          Reject
-                                        </option>
-                                        <option value="Approved">
-                                          Approve
-                                        </option>
-                                      </select>
-                                      <input
-                                        name="Id"
-                                        value={list.Id}
-                                        hidden
-                                        type="text"
-                                        placeholder="Enter Remarks Here..."
-                                      />
-                                      <button
-                                        type="submit"
-                                        className="group relative flex w-full justify-center rounded-md bg-green px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                      >
-                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
-                                        submit
-                                      </button>
-                                    </form>
-                                  </>
-                                );
-                                setShowModale(true);
-                              }}
-                            >
-                              {list.Status}
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              data-te-toggle="modal"
-                              data-te-target="#exampleModal"
-                              data-te-ripple-init
-                              data-te-ripple-color="light"
-                              className="bg-gray py-2 px-4 rounded-full"
-                              onClick={() => {
-                                setModaleChildren(
-                                  <>
-                                    <form onSubmit={handleLogin}>
-                                      <label htmlFor="Notes">Remarks</label>
-                                      <input
-                                        name="Notes"
-                                        type="text"
-                                        placeholder="Enter Remarks Here..."
-                                      />
-                                      <label htmlFor="Status">
-                                        Choose a Status
-                                      </label>
-                                      <select name="Status" id="Status">
-                                        <option
-                                          value="Rejected"
-                                          defaultValue={'Rejected'}
-                                        >
-                                          Reject
-                                        </option>
-                                        <option value="Approved">
-                                          Approve
-                                        </option>
-                                      </select>
-                                      <input
-                                        name="Id"
-                                        value={list.Id}
-                                        hidden
-                                        type="text"
-                                        placeholder="Enter Remarks Here..."
-                                      />
-                                      <button
-                                        type="submit"
-                                        className="group relative flex w-full justify-center rounded-md bg-green px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                      >
-                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
-                                        submit
-                                      </button>
-                                    </form>
-                                  </>
-                                );
-                                setShowModale(true);
-                              }}
-                            >
-                              {list.Status}
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    )):<></>}
-                  </tbody>
-                </table>
-              </div>
-              <Modal
-                isvisible={showModale}
-                onClose={() => {
-                  setShowModale(false);
-                }}
-              >
-                {modaleChildren}
-              </Modal>
-            </div>
-            <Modal
-              isvisible={showModale}
-              onClose={() => {
-                setShowModale(false);
-              }}
-            >
-              {modaleChildren}
-            </Modal>
-      </div>
-    
-      <div className="flex flex-row justify-center gap-10 mt-5">
-
-        <button className="bg-primary border border-black rounded-lg" onClick={()=>changePageClick('prev')}>
-          Prev Page
-        </button>
-
-        <span className="text-text">{`${params.page} of ${Math.floor(reservations.length / 10)}`}</span>
-
-        <button className="bg-primary border border-black rounded-lg" onClick={()=>changePageClick('next')}>
-          Next Page
-        </button>
-
-      </div>
-
-        {/* </div> */}
-      {/* // </div> */}
-    {/* // </div> */}
-  </>);
+  );
 };
 
 export default AllReservations;

@@ -37,6 +37,10 @@ const Asset = () => {
   const navigate = useNavigate();
   const { listUrl } = useContext(Context);
 
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   useEffect(() => {
     fetch(`${listUrl}/GetByTitle('Assets')/items(${params.id})`, {
       credentials: 'include',
@@ -112,11 +116,11 @@ const Asset = () => {
           <div className="flex flex-col">
             <div className="timeline mb-2">
               {/* timeline-start */}
-              <div className="w-full block bg-text relative overflow-hidden shadow-xl rounded-lg p-4">
+              <div className="w-full block bg-blue-darker relative overflow-hidden shadow-xl rounded-lg p-4">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 <ol
                   key={Math.random()}
-                  className="flex justify-between border-t-2 border-dashed border-opacity-20 border-purple mx-4"
+                  className="flex justify-between border-t-2 border-dashed border-opacity-30 border-purple mx-4"
                 >
                   {timeLine.length > 0 ? (
                     [...timeLine]
@@ -131,11 +135,14 @@ const Asset = () => {
                                 <GiVirtualMarker className="text-gray-light" />
                               </div>
                               <span className="py-2">{event.name}</span>
-                              <div className="flex text-xs gap-1 text-gray-dark">
-                                <span>{`${event.time.toFormat('hh:mm')}`}</span>
+                              <div className="flex text-xs gap-1 text-gray-light">
                                 <span>
-                                  {event.time.toFormat('dd / MM / yyyy')}
+                                  {' '}
+                                  {event.time.toFormat(
+                                    'dd - MMM - yyyy'
+                                  )} @{' '}
                                 </span>
+                                <span>{`${event.time.toFormat('hh:mm')}`}</span>
                               </div>
                             </div>
                           </li>
@@ -152,6 +159,7 @@ const Asset = () => {
             <div className="card-map flex gap-2 mb-4">
               {/* map-start */}
               <div className="w-fit h-fit block bg-cover relative overflow-hidden border border-gray shadow-xl rounded-lg">
+                <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
                 <AssetMap
                   serial={currAsset.Serial}
                   center={[currAsset.Longitude, currAsset.Latitude]}
@@ -160,27 +168,27 @@ const Asset = () => {
               {/* map-end */}
 
               {/* card-start */}
-              <div className="w-3/4 min-h-fit bg-text relative block overflow-hidden shadow-xl rounded-lg p-6">
-                <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-dark" />
+              <div className="w-3/4 min-h-fit bg-blue-darker relative block overflow-hidden shadow-xl rounded-lg p-6">
+                <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
 
                 <div className="card-header">
-                  <h5 className="md:text-lg text-sm text-gray-dark font-semibold uppercase">
+                  <h5 className="md:text-lg text-sm text-gray-light font-semibold uppercase">
                     {`${currAsset.ThreatType} ${currAsset.Equipment} (${currAsset.Threat})`}
                   </h5>
-                  <hr className="text-gray-dark/70" />
-                  <p className="mt-1 text-xs text-gray-dark/70">{`${currAsset.Range} | ${currAsset.SiteLocation}`}</p>
+                  <hr className="text-gray-light/70" />
+                  <p className="mt-1 text-xs text-gray-light/70">{`${currAsset.Range} | ${currAsset.SiteLocation}`}</p>
                 </div>
 
                 {/* card-content-start */}
                 <div className="flex mt-5 px-6">
                   <div className="w-3/4">
-                    <div className="w-full flex flex-col space-y-4 text-gray-dark/50">
+                    <div className="w-full flex flex-col space-y-4 text-gray-light/50">
                       <div className="range & data">
-                        <p className="text-gray-dark uppercase text-sm">
+                        <p className="text-blue uppercase text-sm">
                           Range & Equipment Data:{' '}
                         </p>
-                        <div className="flex flex-row text-xs mt-2">
-                          <p className="flex items-center text-gray-dark/70">
+                        <div className="flex flex-row text-xs mt-1">
+                          <p className="flex items-center text-gray-light/70">
                             <BiTargetLock className="mr-3" />
                             <span className="font-semibold mr-2 uppercase py-2">
                               Coordinates:
@@ -195,8 +203,8 @@ const Asset = () => {
                           </p>
                         </div>
 
-                        <div className="flex flex-row text-xs mt-2">
-                          <p className="flex items-center text-gray-dark/70">
+                        <div className="flex flex-row text-xs mt-1">
+                          <p className="flex items-center text-gray-light/70">
                             <SiSemaphoreci className="mr-3" />
                             <span className="font-semibold mr-2 uppercase py-2">
                               Elevation:
@@ -206,7 +214,7 @@ const Asset = () => {
                         </div>
 
                         <div className="flex flex-row text-xs mt-2">
-                          <p className="flex items-center text-gray-dark/70">
+                          <p className="flex items-center text-gray-light/70">
                             <BsMagic className="mr-3" />
                             <span className="font-semibold mr-2 uppercase">
                               Measured:
@@ -216,26 +224,35 @@ const Asset = () => {
                         </div>
                       </div>
                       <div className="status py-5">
-                        <p className="text-gray-dark uppercase text-sm">
+                        <p className="text-blue uppercase text-sm">
                           Asset Status:{' '}
                         </p>
 
                         <div className="flex flex-row text-xs mb-2">
-                          <p className="flex items-center text-gray-dark/70">
+                          <p className="flex items-center text-gray-light/70">
                             <HiDocumentReport className="mr-3" />
                             <span className="font-semibold mr-2 uppercase py-2">
                               Status:
                             </span>
+                                {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
                             <span
-                              className={`text-text px-1 rounded-full bg-gray`}
-                            >{`${currAsset.Status}`}</span>
+                              className={`text-center text-xs px-4 rounded-md ${
+                                currAsset.Status === 'RED'
+                                  ? 'bg-red/50'
+                                  : currAsset.Status === 'AMBER'
+                                  ? 'bg-yellow/50'
+                                  : currAsset.Status === 'GREEN'
+                                  ? 'bg-green/50'
+                                  : 'bg-gray'
+                              }`}
+                            >
+                              {`${currAsset.Status}`}
+                            </span>
                           </p>
                         </div>
 
-                        {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
-
                         <div className="flex flex-row text-xs mt-2">
-                          <p className="flex items-center text-gray-dark/70">
+                          <p className="flex items-center text-gray-light/70">
                             <HiOutlineStatusOnline className="mr-3" />
                             <span className="font-semibold mr-2 uppercase">
                               Operational:
@@ -250,7 +267,7 @@ const Asset = () => {
                           </p>
                         </div>
                         <div className="flex flex-row text-xs mt-2">
-                          <p className="flex items-center text-gray-dark/70">
+                          <p className="flex items-center text-gray-light/70">
                             <AiFillSchedule className="mr-3" />
                             <span className="font-semibold mr-2 uppercase py-2">
                               Schedulable:
@@ -270,7 +287,7 @@ const Asset = () => {
                   </div>
                   {/* card-image-start */}
                   <div className="w-1/2">
-                    <div className="bg-cover p-4 my-10">
+                    <div className="bg-cover p-4">
                       <img
                         alt={`${params.id}`}
                         src={`http://localhost:3000/images/${(
@@ -278,18 +295,18 @@ const Asset = () => {
                         ).toString()}.jpg`}
                         className="rounded shadow-lg border border-gray-light"
                       />
-                      <span className="p-2 float-right text-xs text-gray-dark/50">{`asset id: ${currAsset.Id}`}</span>
+                      <span className="p-2 float-right text-xs text-gray-light/50">{`asset id: ${currAsset.Id}`}</span>
                     </div>
                   </div>
                   {/* card-image-end */}
                 </div>
-                <div className="card-footer flex w-full border-t text-xs text-gray-dark/50 mt-10">
+                <div className="card-footer flex w-full border-t text-xs text-gray-light/50 mt-10">
                   <span className="p-2">{`serial: ${currAsset.Serial}`}</span>
                   <span className="p-2">|</span>
                   <span className="p-2">{`author id: ${currAsset.AuthorId}`}</span>
                 </div>
                 {/* card-nav-start */}
-                <div className="nav-btns flex justify-between text-pink/60 text-x mt-4">
+                <div className="nav-btns flex justify-between text-pink text-xs mt-4">
                   <button className="flex" onClick={() => changePage('prev')}>
                     <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
                     <span className="ml-2">Previous Asset </span>
@@ -307,12 +324,12 @@ const Asset = () => {
               {/* card-end  */}
             </div>
 
-            <div className="w-full flex flex-col space-y-4 text-gray-dark/80 text-xs">
+            <div className="w-full flex flex-col space-y-4 text-gray-light/80 text-xs">
               {/* */}
-              <div className="w-full block bg-gray-light relative overflow-hidden border border-gray-light shadow-xl rounded-lg p-2">
-                <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-dark" />
+              <div className="w-full block bg-blue-darker relative overflow-hidden shadow-xl rounded-lg p-2">
+                <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
                 <div className="flex justify-between">
-                  <h5 className="md:text-sm text-sm text-gray-dark font-semibold uppercase">
+                  <h5 className="md:text-sm text-sm text-gray-light font-semibold uppercase">
                     System Information
                   </h5>
                   <div className="flex gap-4 mr-4">
@@ -331,12 +348,13 @@ const Asset = () => {
                   </div>
                 </div>
                 <hr />
-                <p className="font-semibold uppercase">{`${currAsset.SystemInformation}`}</p>
+                <p className="text-xs uppercase">{`${currAsset.SystemInformation}`}</p>
                 <p className="mb-4 py-2 px-2">{`Remarks: ${currAsset.Remarks}`}</p>
                 <EditAsset
                   showModal={showModal}
                   setShowModal={setShowModal}
                   asset={currAsset}
+                  onClose={handleClose}
                 />
               </div>
               {/*  */}
