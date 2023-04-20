@@ -272,3 +272,6 @@ const EditAsset = ({ showModal, setShowModal }) => {
 };
 
 export default EditAsset;
+
+
+
