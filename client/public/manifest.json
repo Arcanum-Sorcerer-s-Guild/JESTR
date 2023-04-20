@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "JESTR",
+  "name": "JESTR",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "ArcanumIconP.png",
       "sizes": "32x32",
       "type": "image/x-icon"
     }
