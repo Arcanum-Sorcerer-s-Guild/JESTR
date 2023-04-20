@@ -64,92 +64,101 @@ const AllAssets = () => {
           {currAssets !== [] ? (
             <div className="mt-2 mx-auto">
               <span className="mt-2 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
+                <span className="flex flex-wrap flex-row justify-center">
 
-                <span className="ml-auto mr-16 flex flex-wrap flex-col">
-                  <div className="p-1 w-36 text-text text-center rounded-md">
-                    Total Assets: {currAssets.length}
-                  </div>
-                  <button
-                    type="button"
-                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
-                  >
-                    Add Asset
-                  </button>
+
+
+                  <span className="ml-auto mr-16 flex flex-wrap flex-col">
+                    <div className="p-1 w-36 text-text text-center rounded-md">
+                      Total Assets: {currAssets.length}
+                    </div>
+                    <button
+                      type="button"
+                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                    >
+                      Add Asset
+                    </button>
+                  </span>
+
+                  <span className="mx-16 flex flex-wrap flex-col">
+                    <label
+                      htmlFor="SortAssets"
+                      className="p-1 w-36 text-text text-center rounded-md"
+                    >
+                      Sort Assets by:
+                    </label>
+                    <select
+                      name="SortAssets"
+                      id="sortAssets"
+                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      onChange={() => {
+                        setSortField(document.getElementById('sortAssets').value);
+                        setCurrPage(1);
+                      }}
+                      defaultValue="Range"
+                    >
+                      <option value="Serial">Serial</option>
+                      <option value="Range">Range</option>
+                      <option value="SiteLocation">Location</option>
+                      <option value="Equipment">Equipment</option>
+                      <option value="Threat">Threat</option>
+                      <option value="ThreatType">Threat Type</option>
+                      <option value="Operational">Operational</option>
+                      <option value="Schedulable">Schedulable</option>
+                    </select>
+                  </span>
                 </span>
 
-                <span className="mx-16 flex flex-wrap flex-col">
-                  <label
-                    htmlFor="SortAssets"
-                    className="p-1 w-36 text-text text-center rounded-md"
-                  >
-                    Sort Assets by:
-                  </label>
-                  <select
-                    name="SortAssets"
-                    id="sortAssets"
-                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
-                    onChange={() => {
-                      setSortField(document.getElementById('sortAssets').value);
-                      setCurrPage(1);
-                    }}
-                    defaultValue="Range"
-                  >
-                    <option value="Serial">Serial</option>
-                    <option value="Range">Range</option>
-                    <option value="SiteLocation">Location</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="Threat">Threat</option>
-                    <option value="ThreatType">Threat Type</option>
-                    <option value="Operational">Operational</option>
-                    <option value="Schedulable">Schedulable</option>
-                  </select>
-                </span>
 
-                <span className="mx-16 flex flex-wrap flex-col">
-                  <label
-                    htmlFor="assets"
-                    className="p-1 w-36 text-text text-center rounded-md"
-                  >
-                    Sort Order:
-                  </label>
-                  <button
-                    type="button"
-                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
-                    onClick={() => {
-                      setSortOrder(!sortOrder);
-                      setCurrPage(1);
-                    }}
-                  >
-                    {sortOrder ? 'Ascending' : 'Descending'}
-                  </button>
-                </span>
 
-                <span className="ml-16 mr-auto flex flex-wrap flex-col">
-                  <label
-                    htmlFor="DisplayPerPage"
-                    className="p-1 w-36 text-text text-center rounded-md"
-                  >
-                    Assets per Page:
-                  </label>
-                  <select
-                    name="DisplayPerPage"
-                    id="DisplayPerPage"
-                    className="p-1 w-36 bg-secondary text-text text-center rounded-md"
-                    defaultValue={`${itemsPerPage}`}
-                    onChange={() => {
-                      setItemsPerPage(
-                        document.getElementById('DisplayPerPage').value
-                      );
-                      setCurrPage(1);
-                    }}
-                  >
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                  </select>
+
+                <span className="flex flex-wrap flex-row justify-center">
+                  <span className="mx-16 flex flex-wrap flex-col">
+                    <label
+                      htmlFor="assets"
+                      className="p-1 w-36 text-text text-center rounded-md"
+                    >
+                      Sort Order:
+                    </label>
+                    <button
+                      type="button"
+                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      onClick={() => {
+                        setSortOrder(!sortOrder);
+                        setCurrPage(1);
+                      }}
+                    >
+                      {sortOrder ? 'Ascending' : 'Descending'}
+                    </button>
+                  </span>
+
+                  <span className="ml-16 mr-auto flex flex-wrap flex-col">
+                    <label
+                      htmlFor="DisplayPerPage"
+                      className="p-1 w-36 text-text text-center rounded-md"
+                    >
+                      Assets per Page:
+                    </label>
+                    <select
+                      name="DisplayPerPage"
+                      id="DisplayPerPage"
+                      className="p-1 w-36 bg-secondary text-text text-center rounded-md"
+                      defaultValue={`${itemsPerPage}`}
+                      onChange={() => {
+                        setItemsPerPage(
+                          document.getElementById('DisplayPerPage').value
+                        );
+                        setCurrPage(1);
+                      }}
+                    >
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                      <option value="40">40</option>
+                      <option value="50">50</option>
+                    </select>
+                  </span>
                 </span>
               </span>
 
