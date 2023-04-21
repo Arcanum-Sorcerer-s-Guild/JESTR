@@ -56,7 +56,7 @@ const AdminStats = () => {
   return (
     <div className="overflow-x-auto">
       <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
-        <div className="w-full shadow-xl bg-blue">
+        <div className="w-full shadow-xl">
           <div className="flex justify-center">
             <div>
               <DateRangeSelector
@@ -65,21 +65,29 @@ const AdminStats = () => {
               />
             </div>
           </div>
-
-          <div className='w-1/3 bg-blue-darker rounded-lg px-4'>
-            <EventLine dateRange={dateRange} reserveList={reserveList} />
+          <div className="flex px-5">
+            <div className="w-1/3 bg-blue-darker rounded-lg px-4">
+              <EventLine dateRange={dateRange} reserveList={reserveList} />
+            </div>
+            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+              <ReservationSuccessPie
+                dateRange={dateRange}
+                reserveList={reserveList}
+              />
+            </div>
+            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+              <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
+            </div>
+            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+              <SquadronBubble reserveList={reserveList} dateRange={dateRange} />
+            </div>
+            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+              <OperationalBar assetList={assetList} />
+            </div>
+            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+              <UserDoughnut userList={userList} />
+            </div>
           </div>
-
-          <ReservationSuccessPie
-            dateRange={dateRange}
-            reserveList={reserveList}
-          />
-          <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
-
-          <SquadronBubble reserveList={reserveList} dateRange={dateRange} />
-
-          <OperationalBar assetList={assetList} />
-          <UserDoughnut userList={userList} />
         </div>
       </div>
     </div>
