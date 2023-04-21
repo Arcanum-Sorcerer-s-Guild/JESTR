@@ -134,7 +134,7 @@ const MyBook = () => {
                 <Marquee
                   play={true}
                   pauseOnHover={true}
-                  direction="right"
+                  direction="left"
                   speed={20}
                   loop={0}
                   gradient={true}
@@ -143,15 +143,12 @@ const MyBook = () => {
                 >
                   <div className="text-xs text-text">
                     <h2>
-                      {' '}
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Aperiam, facere.
+                      Please see an Admin to delete or update a reservation.
                     </h2>
                   </div>
                   <div className="text-xs text-text ml-4">
                     <h2>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Doloribus, ipsum.
+                    Please see an Admin to delete or update a reservation.
                     </h2>
                   </div>
                 </Marquee>
@@ -220,15 +217,14 @@ const MyBook = () => {
                                     L
                                   </td>
                                   <td
-                                    className={`glow-td text-center text-m ${
-                                      list.Status === 'Approved'
+                                    className={`glow-td text-center text-m ${list.Status === 'Approved'
                                         ? 'text-green/50'
                                         : list.Status === 'Pending'
-                                        ? 'text-purple/50'
-                                        : list.Status === 'Rejected'
-                                        ? 'text-pink/50'
-                                        : ''
-                                    }`}
+                                          ? 'text-purple/50'
+                                          : list.Status === 'Rejected'
+                                            ? 'text-pink/50'
+                                            : ''
+                                      }`}
                                   >
                                     {list.Status}
                                   </td>

@@ -27,15 +27,16 @@ let styles = {
   }),
 };
 
-const AssetMap = ({ serial,center }) => {
+const AssetMap = ({ serial, center, style }) => {
   const [zoom, setZoom] = useState(10);
   const [geoObj, setGeoObj] = useState([]);
 
 
   useEffect(() => {
-    if(center) {
-    setGeoObj(
-      {   type: 'Feature',
+    if (center) {
+      setGeoObj(
+        {
+          type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [center[0], center[1]],
@@ -43,8 +44,8 @@ const AssetMap = ({ serial,center }) => {
           properties: {
             name: serial,
           },
-       })
-      }
+        })
+    }
   }, [center]);
 
 
@@ -52,15 +53,15 @@ const AssetMap = ({ serial,center }) => {
 
 
   return (<>
-    {Object.keys(geoObj).length > 0 ? 
-    <div className="w-full h-full">
-      <Map center={fromLonLat(center)} zoom={zoom}>
-        <Layers>
-          <TileLayer
-            source={xyz({
-              url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            })}
-          />
+    {Object.keys(geoObj).length > 0 ?
+      <div className="w-full h-full">
+        <Map center={fromLonLat(center)} zoom={zoom} style={style}>
+          <Layers>
+            <TileLayer
+              source={xyz({
+                url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+              })}
+            />
 
             <VectorLayer
               source={vector({
@@ -70,15 +71,15 @@ const AssetMap = ({ serial,center }) => {
               })}
             />
 
-          <KMLVectorLayer zIndex={99} />
-        </Layers>
-        <Controls>
-          <FullScreenControl />
-          <ZoomControl />
-        </Controls>
-      </Map>
-    </div>
-    : <></>}
-    </>);
+            <KMLVectorLayer zIndex={99} />
+          </Layers>
+          <Controls>
+            <FullScreenControl />
+            <ZoomControl />
+          </Controls>
+        </Map>
+      </div>
+      : <></>}
+  </>);
 };
 export default AssetMap;

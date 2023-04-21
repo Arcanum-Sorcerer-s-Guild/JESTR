@@ -274,6 +274,7 @@ const Reserve = () => {
     });
   };
 
+
   return (
     <div className="overflow-x-auto">
       <div className="bg-gray-100 flex items-center justify-center bg-gray-100">
@@ -323,7 +324,7 @@ const Reserve = () => {
                       <h2 className='text-gray-light font-semibold'>Select All</h2>
                     </div>
                     <hr className='text-secondary ml-2 mt-1'/>
-
+                  
                     {rangeList.length > 0 ? (
                       rangeList.map((range) => (
                         <CollapsibleChild
@@ -341,12 +342,15 @@ const Reserve = () => {
                   </div>
                 </Resizable>
               </div>
-              <div className="m-2 p-6 rounded bg-gray-dark">
+             
+              <div className="m-1 p-1 rounded bg-gray-dark">
+          
                 <ReserveMap
                   assetList={data}
                   selected={selected}
                   center={center}
                   setCenter={setCenter}
+                  style={{ height: '600px', width: '650px' }}
                 />
               </div>
             </div>

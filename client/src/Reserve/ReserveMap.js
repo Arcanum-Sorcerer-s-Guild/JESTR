@@ -50,7 +50,7 @@ let styles = new Style({
   // }),
 });
 
-const ReserveMap = ({ assetList, selected, center, setCenter }) => {
+const ReserveMap = ({ assetList, selected, center, setCenter, style }) => {
   const [zoom, setZoom] = useState(8);
   const [geoArray, setGeoArray] = useState([]);
   const [selectedAssets] = useState([]);
@@ -96,7 +96,7 @@ const ReserveMap = ({ assetList, selected, center, setCenter }) => {
 
   return (
     <div className="w-full h-full">
-      <Map center={fromLonLat(center)} zoom={zoom}>
+      <Map center={fromLonLat(center)} zoom={zoom} style={style}>
         <Layers>
           <TileLayer
             source={xyz({

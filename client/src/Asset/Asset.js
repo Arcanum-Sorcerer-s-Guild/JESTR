@@ -145,11 +145,12 @@ const Asset = () => {
 
             <div className="card-map flex gap-2 mb-4">
               {/* map-start */}
-              <div className="w-fit h-fit block bg-cover relative overflow-hidden border border-gray shadow-xl rounded-lg">
+              <div className="w-fit h-fit block bg-cover relative border border-gray shadow-xl rounded-lg">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
                 <AssetMap
                   serial={currAsset.Serial}
                   center={[currAsset.Longitude, currAsset.Latitude]}
+                  style={{ height: '600px', width: '500px' }}
                 />
               </div>
               {/* map-end */}
