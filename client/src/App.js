@@ -62,7 +62,7 @@ function App() {
           {localStorage.getItem('user') && (
             <Routes>
               {/* <Route path = "/Users" element={<Users/>}/> */}
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<MyBook />} />
               <Route path="/QuickLook" element={<MyBook />} />
               <Route path="/Reserve" element={<Reserve />} />
               <Route path="/AllReservations" element={<AllReservations />} />

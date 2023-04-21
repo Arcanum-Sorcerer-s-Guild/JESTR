@@ -3,9 +3,19 @@ import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import TimeLineChart from './TimeLineChart.js';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 import ResModal from './ResModal.js';
 import { Context } from '../App';
+import imgpl from '../AllReservations/Yetti.png';
+import { BsTelephoneFill, BsCalendar3 } from 'react-icons/bs';
+import {
+  AiFillCloseCircle,
+  AiFillCheckCircle,
+  AiOutlineNumber,
+} from 'react-icons/ai';
+import { BiCurrentLocation } from 'react-icons/bi';
+
+import { MdOutlinePendingActions } from 'react-icons/md';
 
 const Reservation = () => {
   const params = useParams();
@@ -107,37 +117,111 @@ const Reservation = () => {
 
       {currRes !== undefined ? (
         <>
-          <div className="w-full h-screen block text shadow-lg p-2 ">
-            <div className="flex flex-col gap-10">
-              <div className="flex flex-row w-full justify-center gap-5">
-                <button className="ml-5" onClick={() => changePage('prev')}>
-                  <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full">
-                    <FiArrowLeft className="mt-10" />
-                  </div>
-                </button>
+          <div className="w-full h-screen block text shadow-lg p-2">
+            <div className="flex flex-col h-full">
+              <div className="flex flex-row w-full justify-center gap-6 mt-3">
+                <div className="mt-5">
+                  <button onClick={() => changePage('prev')}>
+                    <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full ">
+                      <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
+                    </div>
+                  </button>
+                </div>
 
-                <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden flex flex-col">
-                  <h2 className="text-xl">{`ID: ${currRes.Id}`}</h2>
-                  <div>{`Author: ${currRes.AuthorId}`}</div>
-                  <div>{`Editor: ${currRes.EditorId}`}</div>
+                {/* ID SECTION */}
+                <div className="bg-blue-darker mb-4 relative rounded flex justify-around pb-2 flex-row w-1/4">
+                  <h2 className="flex flex-row items-center gap-2 text-3xl text-gray-light font-semibold ml-4">
+                    <AiOutlineNumber />
+                    {` ${currRes.Id}`}
+                  </h2>
+
+                  <div className="flex flex-row text-xs ">
+                    <p className="flex flex-row items-center text-gray-light/70">
+                      <span className="text-lg ml-1 flex flex-row gap-2 items-center">
+                        {currRes.Status === 'Approved' ? (
+                          <>
+                            <AiFillCheckCircle className="text-green" />{' '}
+                            Approved
+                          </>
+                        ) : (
+                          <></>
+                        )}
+
+                        {currRes.Status === 'Rejected' ? (
+                          <>
+                            <AiFillCloseCircle className="text-red/60" />{' '}
+                            Rejected
+                          </>
+                        ) : (
+                          <></>
+                        )}
+
+                        {currRes.Status === 'Pending' ? (
+                          <>
+                            <MdOutlinePendingActions className="text-yellow/60" />{' '}
+                            Pending
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </span>
+                    </p>
+                  </div>
+
+                  {/* <hr className="text-gray-light/70" /> */}
+                  {/* <div className="text-gray-light/70">{`Author: ${currRes.AuthorId}`}</div>
+                  <div className="text-gray-light/70">{`Editor: ${currRes.EditorId}`}</div> */}
+                  <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 </div>
-                <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden flex flex-col">
-                  <div>{`Squadron: ${currRes.Squadron}`}</div>
-                  <div>{`Point of Contact: ${currRes.POC}`}</div>
-                  <div>{`DSN: ${currRes.ContactDSN}`}</div>
+
+                {/* SQUADRON INFO SECTION */}
+                <div className="bg-blue-darker mb-4 relative rounded  flex justify-center pb-2 flex-row w-1/4 justify-center gap-16">
+                  <div className="flex flex-row text-gray-light items-center">
+                    <img
+                      src={imgpl}
+                      alt="sqdr"
+                      className="w-6 h-6 rounded-full hover:scale-110 mr-3"
+                    />
+                    {` ${currRes.Squadron}`}
+                  </div>
+                  <div className="flex flex-row gap-5 items-center">
+                    <BsTelephoneFill className="text-text" size={25} />
+                    <div className="flex flex-col">
+                      <div className="text-gray-light">{`${currRes.POC}`}</div>
+                      <div className="text-gray-light">{`${currRes.ContactDSN}`}</div>
+                    </div>
+                  </div>
+                  <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 </div>
-                <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden flex flex-col">
+
+                {/* TIME AND LOCATION */}
+                <div className="bg-blue-darker mb-4 relative rounded  flex justify-center pb-2 flex-col w-1/4 ">
                   {currRes.start !== undefined ? (
-                    <div>{`${currRes.start.toFormat(
-                      'dd MMM yyyy'
-                    )} from ${currRes.start.toFormat(
-                      'hh:mm'
-                    )} to ${currRes.end.toFormat('hh:mm')}`}</div>
+                    <>
+                      <div className="flex justify-between">
+                        <div className="text-gray-light text-xl ml-3 flex flex-row items-center gap-1">
+                          <BiCurrentLocation /> {` ${currRes.Range}`}
+                        </div>
+                        <div className="text-gray-light text-xl mr-3 flex flex-row items-center gap-3">
+                          <BsCalendar3 />
+                          {`${currRes.start.toFormat('dd MMM yyyy')}`}
+                        </div>
+                      </div>
+                      <hr className="text-gray-light" a />
+                      <div className="flex justify-between">
+                        <div className="text-gray-light text-xs ml-10">{`${currRes.SiteLocation}`}</div>
+                        <div className="text-gray-light text-xs mr-2">
+                          {`${currRes.start.toFormat(
+                            'hh:mm a'
+                          )} to ${currRes.end.toFormat('hh:mm a')}`}
+                        </div>
+                      </div>
+                    </>
                   ) : (
                     <></>
                   )}
-                  <div>{`Status: ${currRes.Status}`}</div>
-                  {userData.IsSiteAdmin ? (
+
+                  {/* {userData.IsSiteAdmin ? (
                     <div className="flex flex-row justify-center gap-10 ">
                       <button
                         className="border border-black rounded bg-bluer h-8 p-1"
@@ -154,120 +238,152 @@ const Reservation = () => {
                     </div>
                   ) : (
                     <></>
-                  )}
+                  )} */}
+                  <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 </div>
 
                 <button onClick={() => changePage('next')}>
-                  <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full ">
-                    <FiArrowRight className="mt-10" />
+                  <div>
+                    <GrFormNext className="bg-gray-light text-lg rounded-full" />
                   </div>
                 </button>
               </div>
-              <div className="flex flex-row w-full gap-10 h-1/2 w-1/2">
-                {/* <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden"></div> */}
-                <div className=" block rounded-lg bg-bluer/25 border border-black w-1/2 h-full p-10">
-                  {conflictArray.length > 0 &&
-                  JSON.stringify(currRes) !== '{}' ? (
-                    <>
-                      <TimeLineChart
-                        conflictArray={conflictArray}
-                        currRes={currRes}
-                        altRes={altRes}
-                        setAltRes={setAltRes}
-                        setShowModal={setShowModal}
-                      />
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </div>
 
-                <div className="flex flex-col gap-5 w-1/2">
-                  <div className="block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden w-full h-1/2">
-                    <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">
-                      Conflicting Reservations
-                    </h1>
-                    <div className="flex flex-col content-between h-max">
-                      <div>
-                        <table className="table-auto w-full">
-                          <thread>
-                            <tr className="grid-container grid grid-cols-9 border-b border-black">
-                              <th className="col-span-1">ID</th>
-                              <th className="col-span-1">Squadron</th>
-                              <th className="col-span-2">POC</th>
-                              <th className="col-span-1">DSN</th>
-                              <th className="col-span-1">Start Time</th>
-                              <th className="col-span-1">End Time</th>
-                              <th className="col-span-1">Date</th>
-                              <th className="col-span-1">Status</th>
-                            </tr>
-                          </thread>
-                          <tbody>
-                            {conflictArray
-                              .filter((conflict) => {
-                                if (
-                                  (currRes.start >= conflict.start &&
-                                    currRes.start < conflict.end) ||
-                                  (currRes.end > conflict.start &&
-                                    currRes.end < conflict.end)
-                                )
-                                  return conflict;
-                              })
-                              .map((res, index) => {
-                                return (
-                                  <>
-                                    {res.Id !== currRes.Id ? (
-                                      <tr
-                                        className="grid-container grid grid-cols-9 border-b border-gray/50"
-                                        onClick={() => handleAltResClick(res)}
-                                        key={index}
-                                      >
-                                        <td className="col-span-1">{res.Id}</td>
-                                        <td className="col-span-1">
-                                          {res.Squadron}
-                                        </td>
-                                        <td className="col-span-2">
-                                          {res.POC}
-                                        </td>
-                                        <td className="col-span-1">
-                                          {res.ContactDSN}
-                                        </td>
-                                        <td className="col-span-1">
-                                          {res.start.toFormat('hh:mm')}
-                                        </td>
-                                        <td className="col-span-1">
-                                          {res.end.toFormat('hh:mm')}
-                                        </td>
-                                        <td className="col-span-1">
-                                          {res.start.toFormat('dd MMM yyyy')}
-                                        </td>
-                                        <td className="col-span-1">
-                                          {res.Status}
-                                        </td>
-                                      </tr>
-                                    ) : (
-                                      <></>
-                                    )}
-                                  </>
-                                );
-                              })}
-                          </tbody>
-                        </table>
+              <div className="flex w-full justify-center h-3/4 ">
+                <div className="flex flex-row gap-3 h-full w-10/12">
+                  {/* <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden"></div> */}
+                  {/* TIMELINE CHART */}
+                  <div className=" block bg-blue-darker mb-6 relative rounded overflow-hidden w-1/2 pb-5 h-full p-1 pl-6">
+                    <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
+
+                    {conflictArray.length > 0 &&
+                    JSON.stringify(currRes) !== '{}' ? (
+                      <>
+                        <TimeLineChart
+                          conflictArray={conflictArray}
+                          currRes={currRes}
+                          altRes={altRes}
+                          setAltRes={setAltRes}
+                          setShowModal={setShowModal}
+                          toggle={toggle}
+                          setToggle={setToggle}
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-2 w-1/2 h-full">
+                    {/* CONFLICTS TABLE */}
+                    <div className="block bg-blue-darker relative rounded overflow-hiddenk text-center overflow-hidden w-full h-full">
+                      <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
+
+                      <h1 className="flex justify-center text-xl font-medium border-b-2 text-gray-light">
+                        {/* between ${currRes.start.toFormat('hh:mm')} to ${currRes.end.toFormat('hh:mm')}` */}
+                        {Object.keys(currRes).length > 0 ? (
+                          `Conflicting Reservations `
+                        ) : (
+                          <></>
+                        )}
+                      </h1>
+                      <div className="flex flex-col content-between h-max">
+                        <div>
+                          <table className="table-auto w-full">
+                            <thread>
+                              <tr className="text-gray-light uppercase text-sm leading-normal grid-container grid grid-cols-9">
+                                <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark text-center">
+                                  ID
+                                </th>
+                                <th className="col-span-2 res-th py-3 px-6 text-left bg-gray-dark text-center">
+                                  Squadron
+                                </th>
+                                <th className="col-span-2 res-th py-3 px-6 text-left bg-gray-dark text-center">
+                                  POC
+                                </th>
+                                <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark">
+                                  DSN
+                                </th>
+                                <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark">
+                                  Start Time
+                                </th>
+                                <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark">
+                                  End Time
+                                </th>
+                                <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark">
+                                  Status
+                                </th>
+                              </tr>
+                            </thread>
+                            <tbody className="text-gray-light text-sm font-light m-0">
+                              {conflictArray
+                                .filter((conflict) => {
+                                  if (
+                                    (currRes.start >= conflict.start &&
+                                      currRes.start < conflict.end) ||
+                                    (currRes.end > conflict.start &&
+                                      currRes.end < conflict.end)
+                                  )
+                                    return conflict;
+                                })
+                                .map((res, index) => {
+                                  return (
+                                    <>
+                                      {res.Id !== currRes.Id ? (
+                                        <tr
+                                          className=" hover:bg-black/30 grid-container grid grid-cols-9 border-b border-gray-dark "
+                                          onClick={() => {
+                                            navigate(`/Reservation/${res.Id}`);
+                                            setToggle(!toggle);
+                                          }}
+                                          key={index}
+                                        >
+                                          <td className="col-span-1">
+                                            {res.Id}
+                                          </td>
+                                          <td className="col-span-2">
+                                            {res.Squadron}
+                                          </td>
+                                          <td className="col-span-2">
+                                            {res.POC}
+                                          </td>
+                                          <td className="col-span-1">
+                                            {res.ContactDSN}
+                                          </td>
+                                          <td className="col-span-1">
+                                            {res.start.toFormat('hh:mm a')}
+                                          </td>
+                                          <td className="col-span-1">
+                                            {res.end.toFormat('hh:mm a')}
+                                          </td>
+                                          <td className="col-span-1">
+                                            {res.Status}
+                                          </td>
+                                        </tr>
+                                      ) : (
+                                        <></>
+                                      )}
+                                    </>
+                                  );
+                                })}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
+                    {/* {Object.keys(currRes).length > 0 ? (
+                      <div className="block bg-blue-darker mb-4 relative rounded overflow-hidden text-center overflow-hidden w-full h-1/2">
+                        <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">
+                          {`${currRes.ThreatType.toUpperCase()} ${
+                            currRes.Equipment
+                          } as ${currRes.Threat} `}
+                        </h1>
+                        {`${currRes.Notes}`}
+                      </div>
+                    ) : (
+                      <></>
+                    )} */}
                   </div>
-                  {Object.keys(currRes).length > 0 ? (
-                    <div className="block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden w-full h-1/2">
-                      <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">
-                        {`${currRes.ThreatType.toUpperCase()} ${
-                          currRes.Equipment
-                        } as ${currRes.Threat} `}
-                      </h1>
-                      {`${currRes.Notes}`}
-                    </div>
-                  ) : (
-                    <></>
-                  )}
                 </div>
               </div>
             </div>

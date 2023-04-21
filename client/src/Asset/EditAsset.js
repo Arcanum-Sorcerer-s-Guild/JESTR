@@ -143,16 +143,16 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       />
                     </div>
                   </div>
-                    <div className="mt-2 text-xs">
-                      <p className="mr-2 text-center">Coordination Source </p>
-                      <input
-                        name="CoordSource"
-                        type="text"
-                        className="bg-gray-dark rounded-sm text-xs border-none w-full mt-1"
-                        onChange={(e) => handleChange(e)}
-                        defaultValue={asset.CoordSource}
-                      />
-                    </div>
+                  <div className="mt-2 text-xs">
+                    <p className="mr-2 text-center">Coordination Source </p>
+                    <input
+                      name="CoordSource"
+                      type="text"
+                      className="bg-gray-dark rounded-sm text-xs border-none w-full mt-1"
+                      onChange={(e) => handleChange(e)}
+                      defaultValue={asset.CoordSource}
+                    />
+                  </div>
                   <div className="flex flex-col gap-2 bg-gray/70 rounded p-2 mt-2">
                     <div className="flex">
                       <span className="mr-2">Lat: </span>

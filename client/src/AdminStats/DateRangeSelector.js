@@ -69,7 +69,7 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
           </button>
         </div>
         <div className="pickers w-1/2 flex justify-center items-center text-center mb-4">
-          <div className='w-fit'>
+          <div className="w-fit">
             <span className="text-gray-light text-xs">Start Date:</span>
             <input
               name="start"
@@ -81,7 +81,7 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
             />
           </div>
 
-          <div className='w-fit'>
+          <div className="w-fit">
             <span className="text-gray-light text-xs">End Date:</span>
             <input
               name="end"

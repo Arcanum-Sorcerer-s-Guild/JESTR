@@ -56,16 +56,17 @@ function ListTableNoCheck({
                   {...row.getRowProps()}
                 >
                   {row.cells.map((cell) => (
-                    <td className="py-2 px-6 text-left text-purple whitespace-nowrap" 
-                      {...cell.getCellProps()}>
+                    <td
+                      className="py-2 px-6 text-left text-purple whitespace-nowrap"
+                      {...cell.getCellProps()}
+                    >
                       {cell.render('Cell')}
                     </td>
                   ))}
                 </tr>
                 {row.isExpanded ? (
                   <tr>
-                    <td 
-                    colSpan={tableColumns.length + 1}>
+                    <td colSpan={tableColumns.length + 1}>
                       <SubRowComponent data={row.original} />
                     </td>
                   </tr>
