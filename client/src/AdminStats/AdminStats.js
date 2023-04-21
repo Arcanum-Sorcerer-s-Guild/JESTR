@@ -54,45 +54,35 @@ const AdminStats = () => {
   }, []);
 
   return (
-    <>
-      <div className="flex justify-center">
-        <DateRangeSelector dateRange={dateRange} setDateRange={setDateRange} />
-      </div>
-      <div className=" m-3 flex flex-row ">
-        <div className="flex flex-col gap-5 justify-around flex-wrap w-screen m-5">
-          <div className="flex flex-row">
-            <div className="w-1/3">
-              <EventLine dateRange={dateRange} reserveList={reserveList} />
-            </div>
-
-            <div className="w-1/3">
-              <ReservationSuccessPie
+    <div className="overflow-x-auto">
+      <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
+        <div className="w-full shadow-xl bg-blue">
+          <div className="flex justify-center">
+            <div>
+              <DateRangeSelector
                 dateRange={dateRange}
-                reserveList={reserveList}
+                setDateRange={setDateRange}
               />
             </div>
-
-            <div className="w-1/3">
-              <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
-            </div>
           </div>
 
-          <div className="flex flex-row">
-            <div className="w-1/3">
-              <SquadronBubble reserveList={reserveList} dateRange={dateRange} />
-            </div>
-
-            <div className="w-1/3">
-              <OperationalBar assetList={assetList} />
-            </div>
-
-            <div className="w-1/3">
-              <UserDoughnut userList={userList} />
-            </div>
+          <div className='w-1/3 bg-blue-darker rounded-lg px-4'>
+            <EventLine dateRange={dateRange} reserveList={reserveList} />
           </div>
+
+          <ReservationSuccessPie
+            dateRange={dateRange}
+            reserveList={reserveList}
+          />
+          <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
+
+          <SquadronBubble reserveList={reserveList} dateRange={dateRange} />
+
+          <OperationalBar assetList={assetList} />
+          <UserDoughnut userList={userList} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

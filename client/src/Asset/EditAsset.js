@@ -100,7 +100,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       <span className="mr-2">Type: </span>
                       <select
                         name="ThreatType"
-                        className="bg-gray-dark w-full rounded-sm px-2 text-xs border-none"
+                        className="bg-gray-dark w-full rounded-sm text-xs border-none"
                         onChange={(e) => handleChange(e)}
                       >
                         <option
@@ -143,6 +143,16 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       />
                     </div>
                   </div>
+                    <div className="mt-2 text-xs">
+                      <p className="mr-2 text-center">Coordination Source </p>
+                      <input
+                        name="CoordSource"
+                        type="text"
+                        className="bg-gray-dark rounded-sm text-xs border-none w-full mt-1"
+                        onChange={(e) => handleChange(e)}
+                        defaultValue={asset.CoordSource}
+                      />
+                    </div>
                   <div className="flex flex-col gap-2 bg-gray/70 rounded p-2 mt-2">
                     <div className="flex">
                       <span className="mr-2">Lat: </span>
@@ -168,7 +178,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       />
                     </div>
                   </div>
-                  <div className="flex gap-2 bg-gray/70 rounded p-2 mt-2">
+                  <div className="flex gap-2 bg-gray/70 rounded p-2">
                     <div className="flex w-1/2">
                       <span className="mr-2">Range:</span>
                       <input
@@ -188,7 +198,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       />
                     </div>
                   </div>
-                  <div className="flex gap-2 bg-gray/70 rounded p-2 mt-2">
+                  <div className="flex gap-2 bg-gray/70 rounded p-2 ">
                     <span className="mr-2">Current Status:</span>
                     <input
                       name="Curr Status"
@@ -217,16 +227,6 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="mt-2 text-xs">
-                  <p className="mr-2">Coordination Source: </p>
-                  <input
-                    name="CoordSource"
-                    type="text"
-                    className="bg-gray-dark rounded-sm text-xs border-none w-full mt-1"
-                    onChange={(e) => handleChange(e)}
-                    defaultValue={asset.CoordSource}
-                  />
                 </div>
               </div>
 
