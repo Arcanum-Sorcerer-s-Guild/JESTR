@@ -10,7 +10,7 @@ import AllReservations from './AllReservations/AllReservations.js';
 import AllAssets from './AllAssets/AllAssets.js';
 import Asset from './Asset/Asset.js';
 import AdminStats from './AdminStats/AdminStats.js';
-import MyBook from './Book/Book';
+import MyBook from './Book/MyBook';
 
 import { Routes, Route, UseNavigate, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';

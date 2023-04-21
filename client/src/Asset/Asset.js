@@ -27,6 +27,7 @@ import {
 import { GiVirtualMarker } from 'react-icons/gi';
 
 const Asset = () => {
+  //TODO This dosnt work...
   const [assets, setAssets] = useState([]);
   const [currAsset, setCurrAsset] = useState();
 
@@ -48,7 +49,7 @@ const Asset = () => {
       .then((res) => res.json())
       .then((data) => {
         let val = data.d;
-        setCurrAsset(undefined);
+        // setCurrAsset(undefined);
         val.dms = new DmsCoordinates(
           Number(data.d.Latitude),
           Number(data.d.Longitude)
@@ -62,8 +63,10 @@ const Asset = () => {
       navigate(`/Asset/${parseInt(params.id) - 1}`);
       setToggle(!toggle);
     }
-
-    if (page === 'next' && parseInt(params.id) + 1 !== assets.length + 1) {
+    // console.log("curr id",parseInt(params.id))
+    // console.log("last asset id",assets)
+      // TODO This dosnt work...
+    if (page === 'next' && parseInt(params.id) + 1 !== assets + 1) {
       navigate(`/Asset/${parseInt(params.id) + 1}`);
       setToggle(!toggle);
     }
@@ -145,11 +148,18 @@ const Asset = () => {
 
             <div className="card-map flex gap-2 mb-4">
               {/* map-start */}
-              <div className="w-fit h-fit block bg-cover relative overflow-hidden border border-gray shadow-xl rounded-lg">
+              <div className="w-fit h-fit block bg-cover relative border border-gray shadow-xl rounded-lg">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
+                
                 <AssetMap
-                  serial={currAsset.Serial}
-                  center={[currAsset.Longitude, currAsset.Latitude]}
+                  currAsset={currAsset}
+                  
+                  style={{
+                    minWidth: '10px',
+                    minHeight: '10px',
+                    height: '68vh',
+                    width: '25vw'
+                  }}
                 />
               </div>
               {/* map-end */}
@@ -183,10 +193,10 @@ const Asset = () => {
                             <span>{`${currAsset.dms
                               .toString()
                               .slice(0, 12)}${currAsset.dms
-                              .toString()
-                              .slice(24, 41)}${currAsset.dms
-                              .toString()
-                              .slice(-3, 57)}`}</span>
+                                .toString()
+                                .slice(24, 41)}${currAsset.dms
+                                  .toString()
+                                  .slice(-3, 57)}`}</span>
                           </p>
                         </div>
 
@@ -223,15 +233,14 @@ const Asset = () => {
                             </span>
                             {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
                             <span
-                              className={`text-center text-xs px-4 rounded-md ${
-                                currAsset.Status === 'RED'
+                              className={`text-center text-xs px-4 rounded-md ${currAsset.Status === 'RED'
                                   ? 'bg-red/50'
                                   : currAsset.Status === 'AMBER'
-                                  ? 'bg-yellow/50'
-                                  : currAsset.Status === 'GREEN'
-                                  ? 'bg-green/50'
-                                  : 'bg-gray'
-                              }`}
+                                    ? 'bg-yellow/50'
+                                    : currAsset.Status === 'GREEN'
+                                      ? 'bg-green/50'
+                                      : 'bg-gray'
+                                }`}
                             >
                               {`${currAsset.Status}`}
                             </span>
