@@ -29,8 +29,9 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
   const [dataDayTwo, setDataDayTwo] = useState({});
   const [dateRange, setDateRange] = useState({
     start: DateTime.now(),
-    end: DateTime.now().plus({ Day: 1 }),
+    // end: DateTime.now().plus({ Day: 1 }),
   });
+  const [toggle,setToggle] = useState(false)
   const [sqColors, setSqColors] = useState({});
   const chartRef = useRef();
   // let startDay = selectedDate
@@ -121,7 +122,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
         .filter(
           (res) =>
             res.start.toFormat('dd MMM yyyy') ===
-            dateRange.end.toFormat('dd MMM yyyy')
+            dateRange.start.plus({Day:1}).toFormat('dd MMM yyyy')
         )
         .sort((a, b) => {
           if (a.Squadron.toLowerCase() > b.Squadron.toLowerCase()) {
@@ -166,6 +167,8 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
         ],
       });
     }
+    setToggle(!toggle)
+
   }, [reservations, resArray, dateRange]);
 
   let options = {
@@ -211,6 +214,9 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
 
   return (
     <>
+    {console.log(dateRange.start.toFormat('dd MMM yyyy hh:mm'))}
+    {console.log('one',dataDayOne)}
+    {console.log('two',dataDayTwo)}
       <div className="flex flex-col">
         <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
           <div className="w-full lg:w-5/6 shadow-xl">
@@ -219,12 +225,14 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
               <div className="flex flex-row gap-5 items-center">
                 <button
                   className="flex items-center gap-1  bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
-                  onClick={() =>
+                  onClick={() => 
                     setDateRange({
                       start: dateRange.start.minus({ Day: 1 }),
-                      end: dateRange.end.minus({ Day: 1 }),
+                      // end: dateRange.end.minus({ Day: 1 }),
                     })
+                   
                   }
+                  
                 >
                   <span>
                     <BiChevronLeft />
@@ -241,11 +249,12 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
 
                 <button
                   className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
-                  onClick={() =>
+                  onClick={() => 
                     setDateRange({
                       start: dateRange.start.plus({ Day: 1 }),
-                      end: dateRange.end.plus({ Day: 1 }),
+                      // end: dateRange.end.plus({ Day: 1 }),
                     })
+                  
                   }
                 >
                   Next
@@ -303,7 +312,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
 
             <div className="flex flex-col justify-center">
               <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">
-                {dateRange.end.toFormat('EEE dd MMM')}
+                {dateRange.start.plus({Day:1}).toFormat('EEE dd MMM')}
               </h1>
               {Object.keys(dataDayTwo).length > 0 ? (
                 <Bar
