@@ -343,14 +343,19 @@ const Reserve = () => {
                 </Resizable>
               </div>
              
-              <div className="m-2 p-6 rounded bg-gray-dark">
+              <div className="ml-2 p-6 rounded bg-gray-dark">
           
                 <ReserveMap
                   assetList={data}
                   selected={selected}
                   center={center}
                   setCenter={setCenter}
-                  style={{ height: '600px', width: '650px' }}
+                  style={{
+                    minWidth: '10px',
+                    minHeight: '10px',
+                    height: '60vh',
+                    width: '50vw'
+                  }}
                 />
               </div>
             </div>
