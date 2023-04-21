@@ -14,7 +14,6 @@ import ZoomControl from '../Map/Controls/ZoomControl.js';
 import KML from 'ol/format/KML.js';
 import VectorSource from 'ol/source/Vector.js';
 import KMLVectorLayer from '../Map/Layers/KMLVectorLayer.js';
-import { json } from 'react-router-dom';
 
 let styles = {
   MultiPolygon: new Style({
@@ -57,7 +56,7 @@ const AssetMap = ({ currAsset, style }) => {
     <>
       {Object.keys(geoObj).length > 0 ? (
         <div className="w-full h-full">
-          {center}
+ 
           <Map center={center} zoom={zoom} style={style}>
             <Layers>
               <TileLayer
