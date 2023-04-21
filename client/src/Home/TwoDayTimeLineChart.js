@@ -197,6 +197,9 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
         display: false,
         text: ` Reservations`,
       },
+      datalabels: {
+        display: false
+    },
     },
   };
 

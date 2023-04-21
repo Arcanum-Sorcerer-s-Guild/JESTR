@@ -3,10 +3,24 @@ import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import TimeLineChart from './TimeLineChart.js';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 import ResModal from './ResModal.js';
 import { Context } from '../App';
 import imgpl from '../AllReservations/Yetti.png';
+import { BsTelephoneFill } from 'react-icons/bs'
+import {
+  AiFillSchedule,
+  AiFillCloseCircle,
+  AiFillCheckCircle,
+} from 'react-icons/ai';
+import {
+  HiOutlineStatusOnline,
+  HiDocumentReport,
+  HiOutlineDotsHorizontal,
+} from 'react-icons/hi';
+
+import { MdOutlinePendingActions } from 'react-icons/md'
+
 
 const Reservation = () => {
   const params = useParams();
@@ -110,52 +124,77 @@ const Reservation = () => {
         <>
           <div className="w-full h-screen block text shadow-lg p-2">
             <div className="flex flex-col h-full">
-              <div className="flex flex-row w-full justify-center gap-2 mt-3">
+              <div className="flex flex-row w-full justify-center gap-6 mt-3">
 
-              <div>
-              <button onClick={() => changePage('prev')}>
+              <div className="mt-5">
+                <button onClick={() => changePage('prev')}>
                   <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full ">
-                    <FiArrowLeft className="mt-10" />
+                    <GrFormPrevious className="bg-gray-light text-lg rounded-full" />
                   </div>
                 </button>
               </div>
 
 
                 {/* ID SECTION */}
-                <div className="bg-blue-darker mb-4 relative rounded flex justify-center pb-2 flex-col w-1/4">
-                  <h2 className="md:text-lg text-sm text-gray-light font-semibold uppercase">{`ID: ${currRes.Id}`}</h2>
-                  <hr className="text-gray-light/70" />
-                  <div className="text-gray-light/70">{`Author: ${currRes.AuthorId}`}</div>
-                  <div className="text-gray-light/70">{`Editor: ${currRes.EditorId}`}</div>
+                <div className="bg-blue-darker mb-4 relative rounded flex justify-around pb-2 flex-row w-1/4">
+                  <h2 className="text-3xl text-gray-light font-semibold mt-1 ml-4">{` #${currRes.Id}`}</h2>
+                  
+                  <div className="flex flex-row text-xs ">
+                          <p className="flex flex-row items-center text-gray-light/70">
+
+                            <span className="text-lg ml-1 flex flex-row gap-2 items-center">
+                              {currRes.Status === 'Approved' ? (<>
+                                <AiFillCheckCircle className="text-green" /> Approved 
+                                </>) : <></> }
+
+                              {currRes.Status === 'Rejected' ? (<>
+                                <AiFillCloseCircle className="text-red/60" /> Rejected
+                                </>) : <></>}
+
+                              {currRes.Status === 'Pending' ? (<>
+                                <MdOutlinePendingActions className="text-yellow/60"/> Pending
+                                </>) :<></>}
+                            </span>
+                          </p>
+                        </div>
+
+
+
+                  {/* <hr className="text-gray-light/70" /> */}
+                  {/* <div className="text-gray-light/70">{`Author: ${currRes.AuthorId}`}</div>
+                  <div className="text-gray-light/70">{`Editor: ${currRes.EditorId}`}</div> */}
                   <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 </div>
 
                 {/* SQUADRON INFO SECTION */}
                 <div className="bg-blue-darker mb-4 relative rounded  flex justify-center pb-2 flex-row w-1/4 justify-center gap-16">
                   
-                  <div className="flex flex-row text-gray-light">  
+                  <div className="flex flex-row text-gray-light items-center">  
                     <img src={imgpl} alt="sqdr" className="w-6 h-6 rounded-full hover:scale-110 mr-3" />
                     {` ${currRes.Squadron}`}
                   </div>
-                  <div className="flex flex-col">
-                    <div className="text-gray-light">{`POC: ${currRes.POC}`}</div>
-                    <div className="text-gray-light">{`DSN: ${currRes.ContactDSN}`}</div>
+                  <div className="flex flex-row gap-5 items-center">
+                    <BsTelephoneFill className="text-text" size={25}/>
+                    <div className="flex flex-col">
+                      <div className="text-gray-light">{`${currRes.POC}`}</div>
+                      <div className="text-gray-light">{`${currRes.ContactDSN}`}</div>
+                    </div>
                   </div>
                   <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 </div>
 
                 {/* APPROVE STATUS */}
-                <div className="bg-blue-darker mb-4 relative rounded  flex justify-center pb-2 flex-col w-1/4">
+                <div className="bg-blue-darker mb-4 relative rounded  flex justify-center pb-2 flex-col w-1/4 ">
                   {currRes.start !== undefined ? (<>
-                    <div className="text-gray-light text-xl">{`${currRes.start.toFormat('dd MMM yyyy')}`}</div>
+                    <div className="text-gray-light text-xl ml-3">{`${currRes.start.toFormat('dd MMM yyyy')}`}</div>
                     <hr className="text-gray-light"a/>
-                    <div className="text-gray-light text-xs">
+                    <div className="text-gray-light text-xs ml-4">
                       {`${currRes.start.toFormat('hh:mm a')} to ${currRes.end.toFormat('hh:mm a')}`}
                       </div> 
                     </>) : (
                     <></>
                   )}
-                  <div className="text-gray-light">{`Status: ${currRes.Status}`}</div>
+                 
                   {/* {userData.IsSiteAdmin ? (
                     <div className="flex flex-row justify-center gap-10 ">
                       <button
@@ -178,10 +217,12 @@ const Reservation = () => {
                 </div>
 
                 <button onClick={() => changePage('next')}>
-                  <div className="block rounded-lg bg-bluer/25 border border-black content-center h-full ">
-                    <FiArrowRight className="mt-10" />
+                  <div>
+                  <GrFormNext className="bg-gray-light text-lg rounded-full" />
                   </div>
                 </button>
+              
+              
               </div>
 
               <div className="flex w-full justify-center h-3/4 ">
@@ -201,6 +242,8 @@ const Reservation = () => {
                           altRes={altRes}
                           setAltRes={setAltRes}
                           setShowModal={setShowModal}
+                          toggle={toggle}
+                          setToggle={setToggle}
                         />
                       </>
                     ) : (
@@ -210,7 +253,7 @@ const Reservation = () => {
 
                   <div className="flex flex-col gap-2 w-1/2 h-full">
                     {/* CONFLICTS TABLE */}
-                    <div className="block bg-blue-darker mb-4 relative rounded overflow-hiddenk text-center overflow-hidden w-full h-full">
+                    <div className="block bg-blue-darker relative rounded overflow-hiddenk text-center overflow-hidden w-full h-full">
                     <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
 
                       <h1 className="flex justify-center text-xl font-medium border-b-2 text-gray-light">
@@ -234,10 +277,8 @@ const Reservation = () => {
                               {conflictArray
                                 .filter((conflict) => {
                                   if (
-                                    (currRes.start >= conflict.start &&
-                                      currRes.start < conflict.end) ||
-                                    (currRes.end > conflict.start &&
-                                      currRes.end < conflict.end)
+                                    (currRes.start >= conflict.start && currRes.start < conflict.end) ||
+                                    (currRes.end > conflict.start && currRes.end < conflict.end)
                                   )
                                     return conflict;
                                 })
@@ -247,7 +288,11 @@ const Reservation = () => {
                                       {res.Id !== currRes.Id ? (
                                         <tr
                                           className=" hover:bg-black/30 grid-container grid grid-cols-9 border-b border-gray-dark "
-                                          onClick={() => handleAltResClick(res)}
+                                          onClick={() => {
+                                            navigate(`/Reservation/${res.Id}`)
+                                            setToggle(!toggle)
+                                          }
+                                          }
                                           key={index}
                                         >
                                           <td className="col-span-1">

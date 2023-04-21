@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import 'chartjs-adapter-luxon';
 import { Bar, getElementAtEvent } from 'react-chartjs-2';
 import { DateTime } from 'luxon';
+import { useNavigate } from 'react-router-dom'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,9 +21,10 @@ ChartJS.register(
   Legend
 );
 
-const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
+const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal, setToggle, toggle }) => {
   const chartRef = useRef();
-
+  const navigate = useNavigate()
+  
   // conflictArray.unshift(currRes)
 
   let labels = conflictArray.map(
@@ -35,6 +37,10 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
     conflict.start.toFormat('HH:mm'),
     conflict.end.toFormat('HH:mm'),
   ]);
+
+
+
+
   // if (conflictArray.includes(currRes) === false) conflictArray.unshift(currRes)
   labels.unshift(`Reservation #${currRes.Id}`);
   colorArray.unshift('rgba(0,0,255)');
@@ -47,9 +53,11 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
     let element = getElementAtEvent(chartRef.current, event)[0];
 
     if (element !== undefined) {
-      if (element.index === 0) setAltRes(currRes);
-      else setAltRes(conflictArray[element.index - 1]);
-      setShowModal(true);
+      if (element.index === 0) return
+      else {
+        navigate(`/Reservation/${conflictArray[element.index-1].Id}`)
+        setToggle(!toggle)
+      }
     }
   };
 
@@ -83,8 +91,10 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
         text: `All reservations (including #${currRes.Id}) on ${currRes.start.toFormat('dd MMM yyyy')}`,
         color: 'pink'
       },
+      datalabels: {
+        display: false
     },
-  };
+  }}
 
   const data = {
     labels,
@@ -93,7 +103,6 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
         label: `Conflicts`,
         data: dataArray,
         backgroundColor: colorArray,
-        barPercentage: 0.25,
       },
       //     {
       //     label: `Conflicts`,
