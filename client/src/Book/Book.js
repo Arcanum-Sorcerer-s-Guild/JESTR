@@ -1,7 +1,7 @@
 import HTMLFlipBook from 'react-pageflip';
 import React, { useState, useEffect, useRef } from 'react';
 import { DateTime } from 'luxon';
-import Home from '../Home/Home';
+import TwoDayTimeLineChart from '../Home/TwoDayTimeLineChart.js';
 import './book.css';
 import Marquee from 'react-fast-marquee';
 
@@ -248,7 +248,7 @@ const MyBook = () => {
               </div>
             </>
           ) : (
-            <Home />
+            <TwoDayTimeLineChart />
           )}
         </div>
       </div>
