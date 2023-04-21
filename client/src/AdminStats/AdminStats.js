@@ -65,7 +65,7 @@ const AdminStats = () => {
               />
             </div>
           </div>
-          <div className="flex px-5">
+          <div className="flex flex-col px-5">
             <div className="w-1/3 bg-blue-darker rounded-lg px-4">
               <EventLine dateRange={dateRange} reserveList={reserveList} />
             </div>
