@@ -44,7 +44,10 @@ function App() {
       .then((data) => {
         setUserdata(data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+      localStorage.clear();
+      });
+      
   }, []);
 
   return (
