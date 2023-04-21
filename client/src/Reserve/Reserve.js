@@ -325,7 +325,7 @@ const Reserve = () => {
                         <h2 className="text-gray-light font-light">
                           Select All
                         </h2>
-                        <div className='bg-purple'>
+                        <div className="bg-purple">
                           <ButtonOpen
                             name={'Reserve'}
                             onClick={() => setShowModale(true)}
@@ -347,7 +347,7 @@ const Reserve = () => {
                         />
                       ))
                     ) : (
-                      <div className='text-gray-light'>Loading...</div>
+                      <div className="text-gray-light">Loading...</div>
                     )}
                   </div>
                 </Resizable>

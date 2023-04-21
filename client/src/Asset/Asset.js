@@ -65,7 +65,7 @@ const Asset = () => {
     }
     // console.log("curr id",parseInt(params.id))
     // console.log("last asset id",assets)
-      // TODO This dosnt work...
+    // TODO This dosnt work...
     if (page === 'next' && parseInt(params.id) + 1 !== assets + 1) {
       navigate(`/Asset/${parseInt(params.id) + 1}`);
       setToggle(!toggle);
@@ -150,15 +150,14 @@ const Asset = () => {
               {/* map-start */}
               <div className="w-fit h-fit block bg-cover relative border border-gray shadow-xl rounded-lg">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
-                
+
                 <AssetMap
                   currAsset={currAsset}
-                  
                   style={{
                     minWidth: '10px',
                     minHeight: '10px',
                     height: '68vh',
-                    width: '25vw'
+                    width: '25vw',
                   }}
                 />
               </div>
@@ -193,10 +192,10 @@ const Asset = () => {
                             <span>{`${currAsset.dms
                               .toString()
                               .slice(0, 12)}${currAsset.dms
-                                .toString()
-                                .slice(24, 41)}${currAsset.dms
-                                  .toString()
-                                  .slice(-3, 57)}`}</span>
+                              .toString()
+                              .slice(24, 41)}${currAsset.dms
+                              .toString()
+                              .slice(-3, 57)}`}</span>
                           </p>
                         </div>
 
@@ -233,14 +232,15 @@ const Asset = () => {
                             </span>
                             {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
                             <span
-                              className={`text-center text-xs px-4 rounded-md ${currAsset.Status === 'RED'
+                              className={`text-center text-xs px-4 rounded-md ${
+                                currAsset.Status === 'RED'
                                   ? 'bg-red/50'
                                   : currAsset.Status === 'AMBER'
-                                    ? 'bg-yellow/50'
-                                    : currAsset.Status === 'GREEN'
-                                      ? 'bg-green/50'
-                                      : 'bg-gray'
-                                }`}
+                                  ? 'bg-yellow/50'
+                                  : currAsset.Status === 'GREEN'
+                                  ? 'bg-green/50'
+                                  : 'bg-gray'
+                              }`}
                             >
                               {`${currAsset.Status}`}
                             </span>
