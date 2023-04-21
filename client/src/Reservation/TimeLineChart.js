@@ -30,9 +30,11 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal, setTog
   let labels = conflictArray.map(
     (conflict) => `${conflict.Squadron}: #${conflict.Id}`
   );
-  let colorArray = conflictArray.map((conflict) =>
-    conflict.Status === 'Approved' ? 'rgba(0,255,0)' : 'rgba(255,0,0'
-  );
+  let colorArray = conflictArray.map((conflict) => {
+    if (conflict.Status === 'Approved') return 'rgba(0,255,0)'
+    if (conflict.Status === 'Rejected') return 'rgba(255,0,0)'
+    if (conflict.Status === 'Pending') return 'rgba(244, 208, 63, 1)' 
+});
   let dataArray = conflictArray.map((conflict) => [
     conflict.start.toFormat('HH:mm'),
     conflict.end.toFormat('HH:mm'),
@@ -89,7 +91,7 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal, setTog
       title: {
         display: true,
         text: `All reservations (including #${currRes.Id}) on ${currRes.start.toFormat('dd MMM yyyy')}`,
-        color: 'pink'
+        color: 'white'
       },
       datalabels: {
         display: false

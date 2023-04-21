@@ -214,9 +214,6 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
 
   return (
     <>
-    {console.log(dateRange.start.toFormat('dd MMM yyyy hh:mm'))}
-    {console.log('one',dataDayOne)}
-    {console.log('two',dataDayTwo)}
       <div className="flex flex-col">
         <div className="mt-5 bg-gray-100 flex items-center justify-center bg-gray-100">
           <div className="w-full lg:w-5/6 shadow-xl">

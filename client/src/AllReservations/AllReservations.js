@@ -26,6 +26,7 @@ const AllReservations = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     fetch(
       "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
       {
