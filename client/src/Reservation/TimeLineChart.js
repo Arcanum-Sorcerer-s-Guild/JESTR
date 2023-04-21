@@ -90,7 +90,7 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal, setTog
       legend: false,
       title: {
         display: true,
-        text: `All reservations (including #${currRes.Id}) on ${currRes.start.toFormat('dd MMM yyyy')}`,
+        text: `Reservations on ${currRes.start.toFormat('dd MMM yyyy')}`,
         color: 'white'
       },
       datalabels: {

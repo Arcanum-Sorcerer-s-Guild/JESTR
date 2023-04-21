@@ -11,6 +11,7 @@ import { BsTelephoneFill, BsCalendar3 } from 'react-icons/bs'
 import {
   AiFillCloseCircle,
   AiFillCheckCircle,
+  AiOutlineNumber,
 } from 'react-icons/ai';
 import { BiCurrentLocation } from 'react-icons/bi';
 
@@ -132,7 +133,7 @@ const Reservation = () => {
 
                 {/* ID SECTION */}
                 <div className="bg-blue-darker mb-4 relative rounded flex justify-around pb-2 flex-row w-1/4">
-                  <h2 className="text-3xl text-gray-light font-semibold mt-1 ml-4">{` #${currRes.Id}`}</h2>
+                  <h2 className="flex flex-row items-center gap-2 text-3xl text-gray-light font-semibold ml-4"><AiOutlineNumber/>{` ${currRes.Id}`}</h2>
                   
                   <div className="flex flex-row text-xs ">
                           <p className="flex flex-row items-center text-gray-light/70">
@@ -231,7 +232,7 @@ const Reservation = () => {
 
                   {/* <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden"></div> */}
                 {/* TIMELINE CHART */}
-                  <div className=" block bg-blue-darker mb-6 relative rounded overflow-hidden w-1/2 h-full p-1 pl-6">
+                  <div className=" block bg-blue-darker mb-6 relative rounded overflow-hidden w-1/2 pb-5 h-full p-1 pl-6">
                   <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
 
                     {conflictArray.length > 0 &&
@@ -258,7 +259,8 @@ const Reservation = () => {
                     <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
 
                       <h1 className="flex justify-center text-xl font-medium border-b-2 text-gray-light">
-                        { Object.keys(currRes).length > 0 ? `Conflicting Reservations on ${currRes.start.toFormat('dd MMM yyyy')}`: <></>}
+                        {/* between ${currRes.start.toFormat('hh:mm')} to ${currRes.end.toFormat('hh:mm')}` */}
+                        { Object.keys(currRes).length > 0 ? `Conflicting Reservations `: <></>}
                       </h1>
                       <div className="flex flex-col content-between h-max">
                         <div>
