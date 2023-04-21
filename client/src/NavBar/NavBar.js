@@ -96,7 +96,7 @@ const NavBar = () => {
           <div className="flex text-pink text-2xl">
             <span className="mr-1">
               {' '}
-              <GiFrostfire/>
+              <GiFrostfire />
               {/* <img src={GiFrostfire} /> */}
             </span>
             <Link to={'/QuickLook'} className="text-blue">
