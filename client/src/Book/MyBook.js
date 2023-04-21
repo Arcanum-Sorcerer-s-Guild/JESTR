@@ -118,7 +118,6 @@ const MyBook = () => {
           value={toggle}
           onChange={() => setToggle(!toggle)}
         />
-
       </div>
 
       <div className="flex flex-col justify-center px-6">
@@ -219,14 +218,15 @@ const MyBook = () => {
                                     L
                                   </td>
                                   <td
-                                    className={`glow-td text-center text-m ${list.Status === 'Approved'
-                                      ? 'text-green/50'
-                                      : list.Status === 'Pending'
+                                    className={`glow-td text-center text-m ${
+                                      list.Status === 'Approved'
+                                        ? 'text-green/50'
+                                        : list.Status === 'Pending'
                                         ? 'text-purple/50'
                                         : list.Status === 'Rejected'
-                                          ? 'text-pink/50'
-                                          : ''
-                                      }`}
+                                        ? 'text-pink/50'
+                                        : ''
+                                    }`}
                                   >
                                     {list.Status}
                                   </td>

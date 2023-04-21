@@ -274,7 +274,6 @@ const Reserve = () => {
     });
   };
 
-
   return (
     <div className="overflow-x-auto">
       <div className="bg-gray-100 flex items-center justify-center bg-gray-100">
@@ -321,10 +320,12 @@ const Reserve = () => {
                         className="ml-3 mr-3 border-none"
                         onChange={(e) => selectAll(e)}
                       />
-                      <h2 className='text-gray-light font-semibold'>Select All</h2>
+                      <h2 className="text-gray-light font-semibold">
+                        Select All
+                      </h2>
                     </div>
-                    <hr className='text-secondary ml-2 mt-1'/>
-                  
+                    <hr className="text-secondary ml-2 mt-1" />
+
                     {rangeList.length > 0 ? (
                       rangeList.map((range) => (
                         <CollapsibleChild
@@ -342,9 +343,8 @@ const Reserve = () => {
                   </div>
                 </Resizable>
               </div>
-             
+
               <div className="ml-2 p-6 rounded bg-gray-dark">
-          
                 <ReserveMap
                   assetList={data}
                   selected={selected}
@@ -354,7 +354,7 @@ const Reserve = () => {
                     minWidth: '10px',
                     minHeight: '10px',
                     height: '60vh',
-                    width: '50vw'
+                    width: '50vw',
                   }}
                 />
               </div>
@@ -553,7 +553,7 @@ const CollapsibleChild = ({
   };
 
   return (
-    <div className='p-2'>
+    <div className="p-2">
       <input
         type="checkbox"
         className="ml-3 mr-3 border-none"
@@ -565,7 +565,8 @@ const CollapsibleChild = ({
       />
       <button className="text-gray-light" {...getToggleProps()}>
         {isExpanded ? '⬇️' : '➡️ '}
-        <span className='mr-2'>Range: </span>{range}
+        <span className="mr-2">Range: </span>
+        {range}
       </button>
       <section {...getCollapseProps()}>
         {assets.map((asset) => {

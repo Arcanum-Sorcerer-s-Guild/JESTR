@@ -37,7 +37,7 @@ const Reservation = () => {
       });
   }, [toggle]);
 
-  useEffect(() => { }, [toggle]);
+  useEffect(() => {}, [toggle]);
 
   useEffect(() => {
     if (resArray.length > 0) {
@@ -167,7 +167,7 @@ const Reservation = () => {
                 {/* <div className="w-1/6 block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden"></div> */}
                 <div className=" block rounded-lg bg-bluer/25 border border-black w-1/2 h-full p-10">
                   {conflictArray.length > 0 &&
-                    JSON.stringify(currRes) !== '{}' ? (
+                  JSON.stringify(currRes) !== '{}' ? (
                     <>
                       <TimeLineChart
                         conflictArray={conflictArray}
@@ -259,8 +259,9 @@ const Reservation = () => {
                   {Object.keys(currRes).length > 0 ? (
                     <div className="block rounded-lg bg-bluer/25 border border-black text-center overflow-hidden w-full h-1/2">
                       <h1 className="flex justify-center text-xl font-medium border-b-2 border-black">
-                        {`${currRes.ThreatType.toUpperCase()} ${currRes.Equipment
-                          } as ${currRes.Threat} `}
+                        {`${currRes.ThreatType.toUpperCase()} ${
+                          currRes.Equipment
+                        } as ${currRes.Threat} `}
                       </h1>
                       {`${currRes.Notes}`}
                     </div>

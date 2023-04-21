@@ -40,7 +40,7 @@ const Map = ({ children, zoom, center, style }) => {
   }, [center]);
   return (
     <MapContext.Provider value={{ map }}>
-      <div ref={mapRef} className='w-fit h-fit' style={style}>
+      <div ref={mapRef} className="w-fit h-fit" style={style}>
         {children}
       </div>
     </MapContext.Provider>
