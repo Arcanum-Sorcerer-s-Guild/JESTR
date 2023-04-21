@@ -112,6 +112,7 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
     let colorsDayOne=resDayOne.map(res=> sqColors[res.Squadron])
     let colorsDayTwo=resDayTwo.map(res=> sqColors[res.Squadron])
 
+    console.log(labelsDayOne,labelsDayTwo)
 
     setDataDayOne({
       labels: labelsDayOne,
@@ -177,7 +178,6 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
       >{sq[0]}</div> )}
       
     </div>
-
     <div className="flex flex-row w-screen justify-center mt-10 gap-32 bg-blue-darker mb-5">
       <div className="flex flex-col justify-center "> 
         <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">{startDay.toFormat('EEE dd MMM')}</h1>
@@ -186,7 +186,7 @@ const TwoDayTimeLineChart = ({resArray,selectedDate}) => {
 
       <div>
         <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">{endDay.toFormat('EEE dd MMM')}</h1>
-        {Object.keys(dataDayTwo).length > 0 ? <Bar width={500} height={500} options={options} data={dataDayOne} ref={chartRef} onClick={onChartClick}/> : <></>}
+        {Object.keys(dataDayTwo).length > 0 ? <Bar width={500} height={500} options={options} data={dataDayTwo} ref={chartRef} onClick={onChartClick}/> : <></>}
       </div>
     </div>
     <button className="border border-black bg-bluer text-gray-light uppercase " onClick={()=>{handleSquadronClick('all')}}>See All Squadrons</button>
