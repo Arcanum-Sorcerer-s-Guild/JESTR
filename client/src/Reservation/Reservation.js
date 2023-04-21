@@ -274,7 +274,7 @@ const Reservation = () => {
                     )}
                   </div>
 
-                  <div className="flex flex-col gap-2 w-1/2 h-full">
+                  <div className="flex flex-col gap-2 w-3/2 h-full">
                     {/* CONFLICTS TABLE */}
                     <div className="block bg-blue-darker relative rounded overflow-hiddenk text-center overflow-hidden w-full h-full">
                       <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
@@ -289,16 +289,16 @@ const Reservation = () => {
                       </h1>
                       <div className="flex flex-col content-between h-max">
                         <div>
-                          <table className="table-auto w-full">
+                          <table className="table-auto w-full text-xs">
                             <thread>
-                              <tr className="text-gray-light uppercase text-sm leading-normal grid-container grid grid-cols-9">
-                                <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark text-center">
+                              <tr className="text-gray-light uppercase font-light  text-xs leading-normal grid-container grid grid-cols-9">
+                                <th className="col-span-1 res-th py-3 px-6 bg-gray-dark text-center">
                                   ID
                                 </th>
-                                <th className="col-span-2 res-th py-3 px-6 text-left bg-gray-dark text-center">
+                                <th className="col-span-2 res-th py-3 px-6 bg-gray-dark text-center">
                                   Squadron
                                 </th>
-                                <th className="col-span-2 res-th py-3 px-6 text-left bg-gray-dark text-center">
+                                <th className="col-span-2 res-th py-3 px-6 bg-gray-dark text-center">
                                   POC
                                 </th>
                                 <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark">
@@ -310,12 +310,12 @@ const Reservation = () => {
                                 <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark">
                                   End Time
                                 </th>
-                                <th className="col-span-1 res-th py-3 px-6 text-left bg-gray-dark">
+                                <th className="col-span-1 res-th py-3 px-6 text-center bg-gray-dark">
                                   Status
                                 </th>
                               </tr>
                             </thread>
-                            <tbody className="text-gray-light text-sm font-light m-0">
+                            <tbody className="text-gray-light text-xs font-light m-0">
                               {conflictArray
                                 .filter((conflict) => {
                                   if (

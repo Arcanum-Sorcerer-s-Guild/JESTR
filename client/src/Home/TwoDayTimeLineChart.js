@@ -31,7 +31,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
     start: DateTime.now(),
     // end: DateTime.now().plus({ Day: 1 }),
   });
-  const [toggle,setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
   const [sqColors, setSqColors] = useState({});
   const chartRef = useRef();
   // let startDay = selectedDate
@@ -122,7 +122,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
         .filter(
           (res) =>
             res.start.toFormat('dd MMM yyyy') ===
-            dateRange.start.plus({Day:1}).toFormat('dd MMM yyyy')
+            dateRange.start.plus({ Day: 1 }).toFormat('dd MMM yyyy')
         )
         .sort((a, b) => {
           if (a.Squadron.toLowerCase() > b.Squadron.toLowerCase()) {
@@ -167,8 +167,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
         ],
       });
     }
-    setToggle(!toggle)
-
+    setToggle(!toggle);
   }, [reservations, resArray, dateRange]);
 
   let options = {
@@ -201,13 +200,13 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
         text: ` Reservations`,
       },
       datalabels: {
-        display: false
-    },
+        display: false,
+      },
     },
   };
 
   const handleDateSelection = (e) => {
-    setDateRange({start:DateTime.fromISO(e.target.value).toLocal()});
+    setDateRange({ start: DateTime.fromISO(e.target.value).toLocal() });
   };
 
   // return(<></>)
@@ -222,14 +221,12 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
               <div className="flex flex-row gap-5 items-center">
                 <button
                   className="flex items-center gap-1  bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
-                  onClick={() => 
+                  onClick={() =>
                     setDateRange({
                       start: dateRange.start.minus({ Day: 1 }),
                       // end: dateRange.end.minus({ Day: 1 }),
                     })
-                   
                   }
-                  
                 >
                   <span>
                     <BiChevronLeft />
@@ -246,12 +243,11 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
 
                 <button
                   className="flex items-center gap-1 justify-center bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
-                  onClick={() => 
+                  onClick={() =>
                     setDateRange({
                       start: dateRange.start.plus({ Day: 1 }),
                       // end: dateRange.end.plus({ Day: 1 }),
                     })
-                  
                   }
                 >
                   Next
@@ -265,76 +261,74 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
         </div>
       </div>
 
-    <div className="flex justify-center">
-      <div className="bg-blue-darker w-full lg:w-5/6 rounded-lg shadow-xl flex justify-center">
-        <div className="flex flex-col justify-center">
-          
-          <div className="flex flex-row justify-center flex-wrap ">
-            <div className="flex flex-row flex-wrap w-5/6 gap-3 justify-center">
-            {Object.keys(sqColors).length > 0 ? (
-              Object.entries(sqColors).map((sq) => (
-                <div
-                  className="border border-black rounded-lg w-48 mt-3 text-center font-medium"
-                  style={{ backgroundColor: sq[1] }}
-                  onClick={() => handleSquadronClick(sq[0])}
-                >
-                  {sq[0]}
-                </div>
-              ))
-            ) : (
-              <></>
-            )}
+      <div className="flex justify-center">
+        <div className="bg-blue-darker w-full lg:w-5/6 rounded-lg shadow-xl flex justify-center">
+          <div className="flex flex-col justify-center">
+            <div className="flex flex-row justify-center flex-wrap ">
+              <div className="flex flex-row flex-wrap w-5/6 gap-3 justify-center">
+                {Object.keys(sqColors).length > 0 ? (
+                  Object.entries(sqColors).map((sq) => (
+                    <div
+                      className=" cursor-pointer rounded-lg w-40 mt-3 text-center font-xs"
+                      style={{ backgroundColor: sq[1] }}
+                      onClick={() => handleSquadronClick(sq[0])}
+                    >
+                      {sq[0]}
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
+
+            <div className="flex flex-row justify-center mt-5 gap-32 bg-blue-darker mb-5 overflow-hidden">
+              <div className="flex flex-col justify-center ">
+                <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">
+                  {dateRange.start.toFormat('EEE dd MMM')}
+                </h1>
+                {Object.keys(dataDayOne).length > 0 ? (
+                  <Bar
+                    width={500}
+                    height={500}
+                    options={options}
+                    data={dataDayOne}
+                    ref={chartRef}
+                    onClick={onChartClick}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+
+              <div className="flex flex-col justify-center">
+                <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">
+                  {dateRange.start.plus({ Day: 1 }).toFormat('EEE dd MMM')}
+                </h1>
+                {Object.keys(dataDayTwo).length > 0 ? (
+                  <Bar
+                    width={500}
+                    height={500}
+                    options={options}
+                    data={dataDayTwo}
+                    ref={chartRef}
+                    onClick={onChartClick}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+            <button
+              className="rounded mb-3 bg-bluer text-gray-light uppercase "
+              onClick={() => {
+                handleSquadronClick('all');
+              }}
+            >
+              See All Squadrons
+            </button>
           </div>
-
-
-          <div className="flex flex-row justify-center mt-5 gap-32 bg-blue-darker mb-5 overflow-hidden">
-            <div className="flex flex-col justify-center ">
-              <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">
-                {dateRange.start.toFormat('EEE dd MMM')}
-              </h1>
-              {Object.keys(dataDayOne).length > 0 ? (
-                <Bar
-                  width={500}
-                  height={500}
-                  options={options}
-                  data={dataDayOne}
-                  ref={chartRef}
-                  onClick={onChartClick}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-
-            <div className="flex flex-col justify-center">
-              <h1 className="text-md text-primary bg-pink/25 rounded-lg px-10 text-gray-light uppercase text-center">
-                {dateRange.start.plus({Day:1}).toFormat('EEE dd MMM')}
-              </h1>
-              {Object.keys(dataDayTwo).length > 0 ? (
-                <Bar
-                  width={500}
-                  height={500}
-                  options={options}
-                  data={dataDayTwo}
-                  ref={chartRef}
-                  onClick={onChartClick}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-          </div>
-          <button
-            className="border border-black bg-bluer text-gray-light uppercase "
-            onClick={() => {
-              handleSquadronClick('all');
-            }}
-          >
-            See All Squadrons
-          </button>
         </div>
-      </div>
       </div>
     </>
   );

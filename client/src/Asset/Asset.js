@@ -102,7 +102,7 @@ const Asset = () => {
   return (
     <>
       {currAsset !== undefined ? (
-        <div className="w-[80%] container mx-auto h-screen my-6">
+        <div className="w-[80%] container mx-auto h-screen mt-2">
           <div className="flex flex-col">
             <div className="timeline mb-2">
               {/* timeline-start */}
@@ -156,7 +156,7 @@ const Asset = () => {
                   style={{
                     minWidth: '10px',
                     minHeight: '10px',
-                    height: '68vh',
+                    height: '65vh',
                     width: '25vw',
                   }}
                 />
