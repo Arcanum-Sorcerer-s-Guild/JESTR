@@ -104,7 +104,7 @@ const Reservation = () => {
         setShowModal={setShowModal}
         altRes={altRes}
       />
-      
+
       {currRes !== undefined ? (
         <>
           <div className="w-full h-screen block text shadow-lg p-2 ">

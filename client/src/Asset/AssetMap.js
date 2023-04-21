@@ -56,7 +56,6 @@ const AssetMap = ({ currAsset, style }) => {
     <>
       {Object.keys(geoObj).length > 0 ? (
         <div className="w-full h-full">
- 
           <Map center={center} zoom={zoom} style={style}>
             <Layers>
               <TileLayer
