@@ -91,9 +91,10 @@ function DualTimeSelector({ timeList, setTimeList }) {
                   </button>
                 </div>
                 <div className="flex px-4">
-                <span className='text-secondary mr-2'>{time.name}:</span>
-                <span>{time.start} - {time.end}</span>
-                   
+                  <span className="text-secondary mr-2">{time.name}:</span>
+                  <span>
+                    {time.start} - {time.end}
+                  </span>
                 </div>
               </div>
             </li>
