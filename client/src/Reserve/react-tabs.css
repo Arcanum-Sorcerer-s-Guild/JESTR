@@ -3,8 +3,8 @@
 }
 
 .react-tabs__tab-list {
-  border-bottom: 1px solid #aaa;
-  margin: 0 0 10px;
+  border-bottom: 1px solid #7e5bef;
+  margin: 0 0 20px;
   padding: 0;
 }
 
@@ -20,9 +20,8 @@
 }
 
 .react-tabs__tab--selected {
-  background: #FF6EC7;
-  border-color: #A74FFF;
-  color: black;
+  background: #7e5bef;
+  color: #d3dce6;
   border-radius: 5px 5px 0 0;
 }
 
@@ -42,7 +41,7 @@
   left: -4px;
   right: -4px;
   bottom: -5px;
-  background: #000000;
+  background: #5c43b0;
 }
 
 .react-tabs__tab-panel {

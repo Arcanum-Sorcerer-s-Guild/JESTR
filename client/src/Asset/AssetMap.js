@@ -14,7 +14,6 @@ import ZoomControl from '../Map/Controls/ZoomControl.js';
 import KML from 'ol/format/KML.js';
 import VectorSource from 'ol/source/Vector.js';
 import KMLVectorLayer from '../Map/Layers/KMLVectorLayer.js';
-import { json } from 'react-router-dom';
 
 let styles = {
   MultiPolygon: new Style({
@@ -39,60 +38,52 @@ const AssetMap = ({ currAsset, style }) => {
     setCenter(fromLonLat([currAsset.Longitude, currAsset.Latitude]));
   }, [currAsset]);
 
-
   useEffect(() => {
     //center={[currAsset.Longitude, currAsset.Latitude]}
-    setGeoObj(
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [selAsset.Longitude, selAsset.Latitude],
-        },
-        properties: {
-          name: selAsset.serial,
-        },
-      })
-
-
+    setGeoObj({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [selAsset.Longitude, selAsset.Latitude],
+      },
+      properties: {
+        name: selAsset.serial,
+      },
+    });
   }, [selAsset]);
 
+  return (
+    <>
+      {Object.keys(geoObj).length > 0 ? (
+        <div className="w-full h-full">
+          <Map center={center} zoom={zoom} style={style}>
+            <Layers>
+              <TileLayer
+                source={xyz({
+                  url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                })}
+              />
 
+              <VectorLayer
+                source={vector({
+                  features: new GeoJSON().readFeatures(geoObj, {
+                    featureProjection: get('EPSG:3857'),
+                  }),
+                })}
+              />
 
-
-
-  return (<>
-
-    {Object.keys(geoObj).length > 0 ?
-      <div className="w-full h-full">
-
-        {center}
-        <Map center={center} zoom={zoom} style={style}>
-          <Layers>
-            <TileLayer
-              source={xyz({
-                url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-              })}
-            />
-
-            <VectorLayer
-              source={vector({
-                features: new GeoJSON().readFeatures(geoObj, {
-                  featureProjection: get('EPSG:3857'),
-                }),
-              })}
-            />
-
-            <KMLVectorLayer zIndex={99} />
-          </Layers>
-          <Controls>
-            <FullScreenControl />
-            <ZoomControl />
-          </Controls>
-        </Map>
-      </div>
-      : <></>}
-
-  </>);
+              <KMLVectorLayer zIndex={99} />
+            </Layers>
+            <Controls>
+              <FullScreenControl />
+              <ZoomControl />
+            </Controls>
+          </Map>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  );
 };
 export default AssetMap;

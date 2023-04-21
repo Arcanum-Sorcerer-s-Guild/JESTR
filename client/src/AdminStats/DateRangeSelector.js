@@ -31,57 +31,62 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
   };
 
   return (
-    <>
-      <div className="mb-5 mt-5 flex flex-row justify-center">
-        <div>
-          <div
-            className="inline-flex gap-2 rounded-md shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] "
-            role="group"
+    <div className="bg-gray-dark mb-4 relative rounded overflow-hidden">
+      <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
+      <div className="flex  w-full">
+        <div className="buttons flex w-full justify-center items-center mt-2">
+          <button
+            name="day"
+            type="button"
+            className="bg-pink/50 text-xs px-8 py-2 rounded w-1/2 my-4 mx-8 text-gray-light uppercase active:bg-secondary"
+            onClick={(e) => dateSpanChange(e)}
           >
-            <button
-              type="button"
-              className="inline-block rounded-l rounded-r bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
-              name="day"
-              onClick={(e) => dateSpanChange(e)}
-            >
-              Day
-            </button>
-            <button
-              type="button"
-              className="inline-block rounded-l rounded-r bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
-              name="week"
-              onClick={(e) => dateSpanChange(e)}
-            >
-              Week
-            </button>
-            <button
-              type="button"
-              className="inline-block rounded-l rounded-r bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
-              name="month"
-              onClick={(e) => dateSpanChange(e)}
-            >
-              Month
-            </button>
-            <button
-              type="button"
-              className="inline-block rounded-r rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 active:bg-secondary"
-              name="year"
-              onClick={(e) => dateSpanChange(e)}
-            >
-              Year
-            </button>
-          </div>
-          <div className="flex flex-row justify-center gap-2 mt-2">
+            Day
+          </button>
+          <button
+            name="week"
+            type="button"
+            className="bg-pink/50 text-xs px-8 py-2 rounded w-1/2 my-4 mx-8 text-gray-light uppercase active:bg-secondary"
+            onClick={(e) => dateSpanChange(e)}
+          >
+            Week
+          </button>
+          <button
+            name="month"
+            type="button"
+            className="bg-pink/50 text-xs px-8 py-2 rounded w-1/2 my-4 mx-8 text-gray-light uppercase active:bg-secondary"
+            onClick={(e) => dateSpanChange(e)}
+          >
+            Month
+          </button>
+          <button
+            name="year"
+            type="button"
+            className="bg-pink/50 text-xs px-8 py-2 rounded w-1/2 my-4 mx-8 text-gray-light uppercase active:bg-secondary"
+            onClick={(e) => dateSpanChange(e)}
+          >
+            Year
+          </button>
+        </div>
+        <div className="pickers w-1/2 flex justify-center items-center text-center mb-4">
+          <div className='w-fit'>
+            <span className="text-gray-light text-xs">Start Date:</span>
             <input
               name="start"
               type="date"
+              className="w-fit text-xs bg-pink/50 border-none rounded text-gray-light"
               defaultValue={dateRange.start.toFormat('yyyy-MM-dd')}
               onChange={(e) => dateInputChange(e)}
               max={dateRange.end.toFormat('yyyy-MM-dd')}
             />
+          </div>
+
+          <div className='w-fit'>
+            <span className="text-gray-light text-xs">End Date:</span>
             <input
               name="end"
               type="date"
+              className="w-fit text-xs bg-pink/50 border-none rounded text-gray-light ml-2"
               min={dateRange.start.toFormat('yyyy-MM-dd')}
               onChange={(e) => dateInputChange(e)}
               value={dateRange.end.toFormat('yyyy-MM-dd')}
@@ -89,7 +94,7 @@ const DateRangeSelector = ({ dateRange, setDateRange }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
