@@ -14,6 +14,7 @@ import ZoomControl from '../Map/Controls/ZoomControl.js';
 import KML from 'ol/format/KML.js';
 import VectorSource from 'ol/source/Vector.js';
 import KMLVectorLayer from '../Map/Layers/KMLVectorLayer.js';
+import { json } from 'react-router-dom';
 
 let styles = {
   MultiPolygon: new Style({
@@ -27,35 +28,46 @@ let styles = {
   }),
 };
 
-const AssetMap = ({ serial, center, style }) => {
+const AssetMap = ({ currAsset, style }) => {
   const [zoom, setZoom] = useState(10);
-  const [geoObj, setGeoObj] = useState([]);
+  const [selAsset, setSelAsset] = useState([]);
+  const [geoObj, setGeoObj] = useState({});
+  const [center, setCenter] = useState([]);
+
+  useEffect(() => {
+    setSelAsset(currAsset);
+    setCenter(fromLonLat([currAsset.Longitude, currAsset.Latitude]));
+  }, [currAsset]);
 
 
   useEffect(() => {
-    if (center) {
-      setGeoObj(
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [center[0], center[1]],
-          },
-          properties: {
-            name: serial,
-          },
-        })
-    }
-  }, [center]);
+    //center={[currAsset.Longitude, currAsset.Latitude]}
+    setGeoObj(
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [selAsset.Longitude, selAsset.Latitude],
+        },
+        properties: {
+          name: selAsset.serial,
+        },
+      })
+
+
+  }, [selAsset]);
 
 
 
 
 
   return (<>
+
     {Object.keys(geoObj).length > 0 ?
       <div className="w-full h-full">
-        <Map center={fromLonLat(center)} zoom={zoom} style={style}>
+
+        {center}
+        <Map center={center} zoom={zoom} style={style}>
           <Layers>
             <TileLayer
               source={xyz({
@@ -80,6 +92,7 @@ const AssetMap = ({ serial, center, style }) => {
         </Map>
       </div>
       : <></>}
+
   </>);
 };
 export default AssetMap;
