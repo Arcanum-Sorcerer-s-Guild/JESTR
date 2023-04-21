@@ -63,9 +63,11 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
         time: {
           unit: 'hour',
         },
+        ticks: { color: 'grey' },
       },
       y: {
         beginAtZero: true,
+        ticks: { color: 'grey' },
       },
     },
     elements: {
@@ -78,7 +80,8 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
       legend: false,
       title: {
         display: true,
-        text: ` Reservations on ${currRes.start.toFormat('dd MMM yyyy')}`,
+        text: `All reservations (including #${currRes.Id}) on ${currRes.start.toFormat('dd MMM yyyy')}`,
+        color: 'pink'
       },
     },
   };
@@ -105,8 +108,8 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal }) => {
   return (
     <>
       <Bar
-        width={350}
-        height={350}
+        width={400}
+        height={400}
         options={options}
         data={data}
         ref={chartRef}

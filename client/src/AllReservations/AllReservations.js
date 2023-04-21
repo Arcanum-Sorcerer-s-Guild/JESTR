@@ -189,12 +189,12 @@ const AllReservations = () => {
                     className="border-b border-gray-dark hover:bg-black/30"
                   >
                     <td className="py-3 px-6 text-left whitespace-nowrap">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2" onClick={()=>navigate(`/Reservation/${list.Id}`)}> 
                         <GiTargetShot className="text-blue" />
                         <span>{list.SiteLocation}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
                       <div className="flex items-center gap-2">
                         <BiTargetLock className="text-pink" />
                         <span>
@@ -203,7 +203,7 @@ const AllReservations = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
                       <div className="flex items-center gap-2">
                         <div className="mr">
                           <img
@@ -215,13 +215,13 @@ const AllReservations = () => {
                         <span>{list.Squadron}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
                       {DateTime.fromISO(list.EventDate).toFormat(
                         'dd MMM yyyy @ hh:mm'
                       )}{' '}
                       Z
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
                       {DateTime.fromISO(list.EndDate).toFormat(
                         'dd MMM yyyy  @ hh:mm'
                       )}{' '}
