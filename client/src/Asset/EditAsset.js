@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DmsCoordinates, { parseDms } from 'dms-conversion';
 
 //icons
 import { AiFillCloseCircle } from 'react-icons/ai';
 
-const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
+const EditAsset = ({ showModal, setShowModal, asset, onClose, setCurrAsset, currAsset }) => {
   const [inputs, setInputs] = useState();
   const [schedulable, setSchedulable] = useState();
   const [operational, setOperational] = useState();
+  const [modalAsset,setModalAsset] = useState({});
   const navigate = useNavigate();
 
   const handleClose = (e) => {
@@ -46,13 +48,28 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
       `http://localhost:3001/_api/web/lists/GetByTitle('Assets')/items(${asset.Id})`,
       reqOpts
     )
-      .then((res) => console.log(res.json()))
+      .then((res) => res.json())
+      .then((data) => {
+        let val = data.d;
+        // setCurrAsset(undefined);
+        val.dms = new DmsCoordinates(
+          Number(data.d.Latitude),
+          Number(data.d.Longitude)
+        );
+        setCurrAsset(val);
+      })
       .then(setShowModal(false));
-    navigate(0);
+    
   };
+
+  useEffect(()=>{
+    setModalAsset(currAsset)
+  },[currAsset])
 
   return (
     <>
+      { Object.keys(modalAsset) > 0 !== undefined ? <>
+      
       <div className={showModal ? '' : 'hidden'}>
         <div
           id="wrapper"
@@ -64,15 +81,15 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
             <div className="flex justify-around text-xs text-gray-light/50 bg-gray-dark p-3">
               <div>
                 <span className="mr-2">ETIC:</span>
-                <span>{`${asset.ETIC}`}</span>
+                <span>{`${modalAsset.ETIC}`}</span>
               </div>
               <div>
                 <span className="mr-2">Created:</span>
-                <span>{`${asset.created}`}</span>
+                <span>{`${modalAsset.created}`}</span>
               </div>
               <div>
                 <span className="mr-2">Modified:</span>
-                <span>{`${asset.modified}`}</span>
+                <span>{`${modalAsset.modified}`}</span>
               </div>
             </div>
             <form className="flex justify-center p-4" onSubmit={handleSubmit}>
@@ -81,7 +98,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                   <div className="rounded-lg flex flex-col">
                     <div className="flex">
                       <span className="font-bold">Entry Id:</span>
-                      <span className="px-2">{`${asset.Id}`}</span>
+                      <span className="px-2">{`${modalAsset.Id}`}</span>
                     </div>
                     <hr className="text-gray-light" />
                   </div>
@@ -93,7 +110,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                         name="Serial"
                         className="bg-gray-dark w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={asset.Serial}
+                        defaultValue={modalAsset.Serial}
                       />
                     </div>
                     <div className="flex w-1/2">
@@ -130,7 +147,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                         name="Equip"
                         className="bg-gray-dark w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={asset.Equipment}
+                        defaultValue={modalAsset.Equipment}
                       />
                     </div>
                     <div className="flex w-1/2">
@@ -139,7 +156,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                         name="Threat"
                         className="bg-gray-dark w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={asset.Threat}
+                        defaultValue={modalAsset.Threat}
                       />
                     </div>
                   </div>
@@ -150,7 +167,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       type="text"
                       className="bg-gray-dark rounded-sm text-xs border-none w-full mt-1"
                       onChange={(e) => handleChange(e)}
-                      defaultValue={asset.CoordSource}
+                      defaultValue={modalAsset.CoordSource}
                     />
                   </div>
                   <div className="flex flex-col gap-2 bg-gray/70 rounded p-2 mt-2">
@@ -160,21 +177,21 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                         name="Latitude"
                         className="bg-gray-dark w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={asset.Latitude}
+                        defaultValue={modalAsset.Latitude}
                       />
                       <span className="mx-2 ">Long: </span>
                       <input
                         name="Longitude"
                         className="bg-gray-dark w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={asset.Longitude}
+                        defaultValue={modalAsset.Longitude}
                       />
                       <span className="mx-2">Elevation: </span>
                       <input
                         name="Elevation"
                         className="bg-gray-dark w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
-                        defaultValue={asset.Elevation}
+                        defaultValue={modalAsset.Elevation}
                       />
                     </div>
                   </div>
@@ -184,7 +201,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       <input
                         name="Range"
                         className="bg-gray-dark w-full rounded-sm px-2 text-xs"
-                        defaultValue={asset.Range}
+                        defaultValue={modalAsset.Range}
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
@@ -193,7 +210,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       <input
                         name="Range"
                         className="bg-gray-dark w-full rounded-sm px-2 text-xs"
-                        defaultValue={asset.SiteLocation}
+                        defaultValue={modalAsset.SiteLocation}
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
@@ -204,7 +221,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                       name="Curr Status"
                       className="bg-gray-dark rounded-sm px-2 text-xs"
                       onChange={(e) => handleChange(e)}
-                      defaultValue={asset.Status}
+                      defaultValue={modalAsset.Status}
                     />
                     <div className="flex ml-4">
                       <div className="flex gap-1 mr-4">
@@ -239,7 +256,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                   <input
                     name="SystemInformation"
                     className="bg-gray-dark w-full rounded-sm px-2 text-xs"
-                    defaultValue={asset.SystemInformation}
+                    defaultValue={modalAsset.SystemInformation}
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
@@ -249,7 +266,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
                     className="rounded w-full text-xs bg-gray-dark border-none"
                     rows="9"
                     cols="50"
-                    defaultValue={asset.Remarks}
+                    defaultValue={modalAsset.Remarks}
                     onChange={(e) => handleChange(e)}
                   />
                   <button
@@ -270,6 +287,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose }) => {
           </div>
         </div>
       </div>
+     </> : <></> }
     </>
   );
 };
