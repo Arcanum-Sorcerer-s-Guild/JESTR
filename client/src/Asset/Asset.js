@@ -150,7 +150,12 @@ const Asset = () => {
                 <AssetMap
                   serial={currAsset.Serial}
                   center={[currAsset.Longitude, currAsset.Latitude]}
-                  style={{ height: '600px', width: '500px' }}
+                  style={{
+                    minWidth: '10px',
+                    minHeight: '10px',
+                    height: '68vh',
+                    width: '15vw'
+                  }}
                 />
               </div>
               {/* map-end */}
@@ -184,10 +189,10 @@ const Asset = () => {
                             <span>{`${currAsset.dms
                               .toString()
                               .slice(0, 12)}${currAsset.dms
-                              .toString()
-                              .slice(24, 41)}${currAsset.dms
-                              .toString()
-                              .slice(-3, 57)}`}</span>
+                                .toString()
+                                .slice(24, 41)}${currAsset.dms
+                                  .toString()
+                                  .slice(-3, 57)}`}</span>
                           </p>
                         </div>
 
@@ -224,15 +229,14 @@ const Asset = () => {
                             </span>
                             {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
                             <span
-                              className={`text-center text-xs px-4 rounded-md ${
-                                currAsset.Status === 'RED'
+                              className={`text-center text-xs px-4 rounded-md ${currAsset.Status === 'RED'
                                   ? 'bg-red/50'
                                   : currAsset.Status === 'AMBER'
-                                  ? 'bg-yellow/50'
-                                  : currAsset.Status === 'GREEN'
-                                  ? 'bg-green/50'
-                                  : 'bg-gray'
-                              }`}
+                                    ? 'bg-yellow/50'
+                                    : currAsset.Status === 'GREEN'
+                                      ? 'bg-green/50'
+                                      : 'bg-gray'
+                                }`}
                             >
                               {`${currAsset.Status}`}
                             </span>
