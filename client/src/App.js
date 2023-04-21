@@ -45,7 +45,8 @@ function App() {
         setUserdata(data);
       })
       .catch((err) => {
-      localStorage.clear();
+        console.log(err)
+        localStorage.clear();
       });
       
   }, []);
