@@ -154,7 +154,7 @@ const Asset = () => {
                     minWidth: '10px',
                     minHeight: '10px',
                     height: '68vh',
-                    width: '15vw'
+                    width: '25vw'
                   }}
                 />
               </div>
