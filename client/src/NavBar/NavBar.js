@@ -94,7 +94,10 @@ const NavBar = () => {
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
           <div className="text-blue"></div>
           <div className="flex text-pink text-2xl">
-          <span className='mr-2'> <img src={GiFrostfire} /></span>
+            <span className="mr-2">
+              {' '}
+              <img src={GiFrostfire} />
+            </span>
             <Link to={'/QuickLook'} className="text-blue">
               JESTR
             </Link>
@@ -129,7 +132,9 @@ const NavBar = () => {
         </div>
       </div>
       <div className="px-2 bg-blue">
-        <span className={`${!userData.Title ? 'hidden' : ''} text-xs px-2 italic`}>
+        <span
+          className={`${!userData.Title ? 'hidden' : ''} text-xs px-2 italic`}
+        >
           Currently Logged in as:{' '}
           <span className="font-semibold">{userData.Title}</span>
         </span>

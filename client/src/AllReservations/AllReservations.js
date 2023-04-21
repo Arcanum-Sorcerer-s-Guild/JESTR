@@ -188,13 +188,19 @@ const AllReservations = () => {
                     key={i}
                     className="border-b border-gray-dark hover:bg-black/30"
                   >
-                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
+                    <td
+                      className="py-3 px-6 text-left whitespace-nowrap"
+                      onClick={() => navigate(`/Reservation/${list.Id}`)}
+                    >
                       <div className="flex items-center gap-2">
                         <GiTargetShot className="text-blue" />
                         <span>{list.SiteLocation}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
+                    <td
+                      className="py-3 px-6 text-left whitespace-nowrap"
+                      onClick={() => navigate(`/Reservation/${list.Id}`)}
+                    >
                       <div className="flex items-center gap-2">
                         <BiTargetLock className="text-pink" />
                         <span>
@@ -203,7 +209,10 @@ const AllReservations = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
+                    <td
+                      className="py-3 px-6 text-left whitespace-nowrap"
+                      onClick={() => navigate(`/Reservation/${list.Id}`)}
+                    >
                       <div className="flex items-center gap-2">
                         <div className="mr">
                           <img
@@ -215,13 +224,19 @@ const AllReservations = () => {
                         <span>{list.Squadron}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
+                    <td
+                      className="py-3 px-6 text-left whitespace-nowrap"
+                      onClick={() => navigate(`/Reservation/${list.Id}`)}
+                    >
                       {DateTime.fromISO(list.EventDate).toFormat(
                         'dd MMM yyyy @ hh:mm'
                       )}{' '}
                       Z
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap" onClick={()=>navigate(`/Reservation/${list.Id}`)}>
+                    <td
+                      className="py-3 px-6 text-left whitespace-nowrap"
+                      onClick={() => navigate(`/Reservation/${list.Id}`)}
+                    >
                       {DateTime.fromISO(list.EndDate).toFormat(
                         'dd MMM yyyy  @ hh:mm'
                       )}{' '}
@@ -253,18 +268,33 @@ const AllReservations = () => {
                           onClick={() => {
                             setModaleChildren(
                               <>
-                                <form onSubmit={handleLogin} className='px-2 justify-center'>
-                                  <label htmlFor="Notes" className='text-gray-light'>Remarks</label>
+                                <form
+                                  onSubmit={handleLogin}
+                                  className="px-2 justify-center"
+                                >
+                                  <label
+                                    htmlFor="Notes"
+                                    className="text-gray-light"
+                                  >
+                                    Remarks
+                                  </label>
                                   <input
                                     name="Notes"
                                     type="text"
-                                    className='ml-2 border-none w-1/2 bg-gray-dark text-gray rounded'
+                                    className="ml-2 border-none w-1/2 bg-gray-dark text-gray rounded"
                                     placeholder="Enter Remarks Here..."
                                   />
-                                  <label htmlFor="Status" className='ml-2 text-gray-light'>
+                                  <label
+                                    htmlFor="Status"
+                                    className="ml-2 text-gray-light"
+                                  >
                                     Choose a Status
                                   </label>
-                                  <select name="Status" id="Status" className='ml-2 border-none bg-gray-dark text-gray rounded'>
+                                  <select
+                                    name="Status"
+                                    id="Status"
+                                    className="ml-2 border-none bg-gray-dark text-gray rounded"
+                                  >
                                     <option
                                       value="Rejected"
                                       defaultValue={'Rejected'}
@@ -280,7 +310,10 @@ const AllReservations = () => {
                                     type="text"
                                     placeholder="Enter Remarks Here..."
                                   />
-                                  <button type="submit" className="ml-6 w-40 p-2 rounded bg-purple text-gray-light">
+                                  <button
+                                    type="submit"
+                                    className="ml-6 w-40 p-2 rounded bg-purple text-gray-light"
+                                  >
                                     <span className=""></span>
                                     submit
                                   </button>

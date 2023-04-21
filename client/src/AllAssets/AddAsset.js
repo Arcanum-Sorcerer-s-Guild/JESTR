@@ -51,12 +51,17 @@ const EditAsset = ({ showModal, setShowModal }) => {
         >
           <div className="relative overflow-hidden bg-blue-darker rounded">
             <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
-            <form className="flex justify-center text-xs" onSubmit={handleSubmit}>
+            <form
+              className="flex justify-center text-xs"
+              onSubmit={handleSubmit}
+            >
               <div className="flex flex-col">
                 <div className="flex flex-col w-full p-5">
                   <div className="rounded-lg flex flex-col">
                     <div className="flex">
-                      <span className="font-bold text-gray-light">Entry Id:</span>
+                      <span className="font-bold text-gray-light">
+                        Entry Id:
+                      </span>
                       <span className="px-2 text-gray-light">{`AUTO GENERATED`}</span>
                     </div>
                     <hr className="text-gray-light" />
@@ -199,7 +204,9 @@ const EditAsset = ({ showModal, setShowModal }) => {
                 </div>
               </div>
               <div className="w-1/3 p-5">
-                <h3 className="font font-semibold text-gray">System Information</h3>
+                <h3 className="font font-semibold text-gray">
+                  System Information
+                </h3>
                 <hr className="text-gray-light" />
                 <div className="flex text-xs mt-2">
                   <span className="mr-2 text-gray">info: </span>

@@ -25,8 +25,7 @@ import ButtonOpen from './ButtonOpen';
 
 //icons
 import { GrFormPrevious, GrFormNext, GrDown, GrUp } from 'react-icons/gr';
-import { AiFillCloseCircle, AiFillCheckCircle, } from 'react-icons/ai';
-
+import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 
 let formColumns = [
   {
@@ -467,7 +466,7 @@ const Reserve = () => {
                               <p className="">{userForm.ContactDSN}</p>
                             ) : (
                               <p className="text-pink">
-                                None...  contact info is required
+                                None... contact info is required
                               </p>
                             )}
                           </div>
@@ -673,10 +672,28 @@ const CollapsibleChild = ({
                     </div>
 
                     <div className="flex flex-row ml-2 items-center font-medium">
-                      Schedulable: {asset.Schedulable ? <><AiFillCheckCircle className='ml-2 text-green'/></> : <><AiFillCloseCircle className='ml-2 text-red/50'/></>}
+                      Schedulable:{' '}
+                      {asset.Schedulable ? (
+                        <>
+                          <AiFillCheckCircle className="ml-2 text-green" />
+                        </>
+                      ) : (
+                        <>
+                          <AiFillCloseCircle className="ml-2 text-red/50" />
+                        </>
+                      )}
                     </div>
                     <div className="flex flex-row ml-2 items-center font-medium">
-                      OpStatus: {asset.Operational ? <><AiFillCheckCircle className='ml-2 text-green'/></> : <><AiFillCloseCircle className='ml-2 text-red/50'/></>}
+                      OpStatus:{' '}
+                      {asset.Operational ? (
+                        <>
+                          <AiFillCheckCircle className="ml-2 text-green" />
+                        </>
+                      ) : (
+                        <>
+                          <AiFillCloseCircle className="ml-2 text-red/50" />
+                        </>
+                      )}
                     </div>
                     <span className=" ml-3 whitespace-nowrap">{`Located at Site: ${asset.SiteLocation}`}</span>
                   </div>
