@@ -7,8 +7,8 @@ import { FiMenu, FiRadio } from 'react-icons/fi';
 import { RiAdminFill } from 'react-icons/ri';
 import { FaMapMarkedAlt, FaEye, FaUserCircle } from 'react-icons/fa';
 import { BsCardChecklist } from 'react-icons/bs';
-// import { GiFrostfire } from 'react-icons/gi';'
-import GiFrostfire from './ArcanumIconP.png';
+import { GiFrostfire } from 'react-icons/gi';
+// import GiFrostfire from './ArcanumIconP.png';
 
 const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context);
@@ -90,13 +90,14 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="flex px-4 border-b shadow-md items-center relative bg-gunmetal">
+      <div className="flex px-4 shadow-xl items-center relative bg-gunmetal">
         <div className="text-lg font-bold md:py-0 py-4 inline-flex gap-2">
           <div className="text-blue"></div>
           <div className="flex text-pink text-2xl">
-            <span className="mr-2">
+            <span className="mr-1">
               {' '}
-              <img src={GiFrostfire} />
+              <GiFrostfire/>
+              {/* <img src={GiFrostfire} /> */}
             </span>
             <Link to={'/QuickLook'} className="text-blue">
               JESTR

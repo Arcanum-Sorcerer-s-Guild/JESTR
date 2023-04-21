@@ -65,7 +65,7 @@ const AdminStats = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-3 px-5 gap-4">
+          <div className="grid grid-cols-3 px-5 gap-4 mb-2">
             <div className=" bg-blue-darker rounded-lg px-4">
               <EventLine dateRange={dateRange} reserveList={reserveList} />
             </div>

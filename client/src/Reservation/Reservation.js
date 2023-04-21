@@ -370,15 +370,15 @@ const Reservation = () => {
                           </div>
                           <div >
                             {userData.IsSiteAdmin ? (
-                              <div className="flex flex-row justify-center gap-10 ">
+                              <div className="flex flex-row justify-center gap-10 mt-2 text-gray-light border-none  ">
                                 <button
-                                  className="border border-black rounded bg-bluer h-8 p-1"
+                                  className=" rounded bg-purple h-8 p-1"
                                   onClick={() => updateReservations('Approved')}
                                 >
                                   Approve
                                 </button>
                                 <button
-                                  className="border border-black rounded bg-bluer h-8 p-1"
+                                  className=" rounded bg-purple border-none  h-8 p-1"
                                   onClick={() => updateReservations('Rejected')}
                                 >
                                   Deny
