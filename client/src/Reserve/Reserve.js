@@ -320,9 +320,11 @@ const Reserve = () => {
                         className="ml-3 mr-3 border-none"
                         onChange={(e) => selectAll(e)}
                       />
-                      <h2 className='text-gray-light font-semibold'>Select All</h2>
+                      <h2 className="text-gray-light font-semibold">
+                        Select All
+                      </h2>
                     </div>
-                    <hr className='text-secondary ml-2 mt-1'/>
+                    <hr className="text-secondary ml-2 mt-1" />
 
                     {rangeList.length > 0 ? (
                       rangeList.map((range) => (
@@ -544,7 +546,7 @@ const CollapsibleChild = ({
   };
 
   return (
-    <div className='p-2'>
+    <div className="p-2">
       <input
         type="checkbox"
         className="ml-3 mr-3 border-none"
@@ -555,8 +557,9 @@ const CollapsibleChild = ({
         onChange={(e) => selectRange(e)}
       />
       <button className="text-gray-light" {...getToggleProps()}>
-        {isExpanded ? '↓ ' : '> '}
-        <span className='mr-2'>Range: </span>{range}
+        {isExpanded ? '↓ ' : <span className="text-sm mr-2">{'>'}</span>}
+        <span className="mr-2 text-secondary">Range: </span>
+        {range}
       </button>
       <section {...getCollapseProps()}>
         {assets.map((asset) => {
@@ -564,28 +567,28 @@ const CollapsibleChild = ({
             <>
               <div
                 key={asset.Serial}
-                className={`mb-1 flex flex-row overflow whitespace-nowrap`}
+                className="mb-1 flex flex-row overflow whitespace-nowrap text-gray-light font-light mt-1"
               >
-                <div className="flex w-full">
-                  <div className="flex items-center min-w-[450px] ">
+                <div className="flex w-full text-xs">
+                  <div className="flex items-center min-w-[450px]">
                     <input
-                      className="ml-7 mr-3"
+                      className="ml-7 mr-3 border-none"
                       checked={selected.includes(asset.Serial)}
                       type="checkbox"
                       onChange={() => handleChange(asset.Serial)}
                     />
-                    <GiObservatory />
-                    <span className="font-medium w-1/3 ml-1 mr-3">
-                      {asset.Serial.toUpperCase()}
+                    <GiObservatory className="text-lg text-secondary/90" />
+                    <span className="ml-2 uppercase">
+                      {asset.Serial}
                     </span>
                     <div className="w-full flex justify-end">
                       <button
-                        className=" w-full rounded-full p-1 text-sm bg-blue border border-black ml-2 mr-2 flex flex-row gap-1 items-center"
+                        className=" w-full rounded-full px-2 bg-blue text-blue-darker ml-2 mr-2 flex flex-row gap-1 items-center"
                         onClick={() =>
                           centerOnAsset(asset.Latitude, asset.Longitude)
                         }
                       >
-                        <IoLocationSharp />
+                        <IoLocationSharp className='text-secondary'/>
                         <span className="pl-1">{`${asset.dms
                           .toString()
                           .slice(0, 12)}${asset.dms
@@ -599,26 +602,26 @@ const CollapsibleChild = ({
 
                   <div className="flex flex-row min-w-2/3 items-center">
                     <div className="flex flex-row items-center gap-1">
-                      <FaMountain />
+                      <FaMountain className='text-secondary'/>
                       {`El: ${asset.Elevation}`}
                     </div>
                     <div
-                      className={`ml-2 flex justify-between border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
+                      className={`ml-2 flex min-w-[450px] overflow:hidden whitespace-nowrap text-center px-4
                       ${
                         asset.Status === 'AMBER'
-                          ? `border-yellow bg-yellow/40`
+                          ? `bg-yellow/40 rounded-md border-none`
                           : ``
                       }
                       ${
                         asset.Status === 'GREEN'
-                          ? `border-green bg-green/40`
+                          ? `bg-green/40 rounded-md border-none`
                           : ``
                       }
-                      ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
-                      ${asset.Status === 'N/A' ? `border-gray bg-gray/40` : ``}
+                      ${asset.Status === 'RED' ? `bg-red/40 rounded-md border-none` : ``}
+                      ${asset.Status === 'N/A' ? `bg-gray/40 rounded-md border-none` : ``}
                     `}
                     >
-                      <span className="font-medium pl-1">{`${asset.ThreatType.toUpperCase()}`}</span>
+                      <span className="font-medium pl-1 uppercase mr-4">{`${asset.ThreatType}`}</span>
                       <span className="pr-1">{`Equip: ${asset.Equipment}  Threat: ${asset.Threat} Status: ${asset.Status}`}</span>
                     </div>
 
