@@ -207,7 +207,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
   };
 
   const handleDateSelection = (e) => {
-    // setSelectedDate(DateTime.fromISO(e.target.value).toLocal());
+    setDateRange({start:DateTime.fromISO(e.target.value).toLocal()});
   };
 
   // return(<></>)

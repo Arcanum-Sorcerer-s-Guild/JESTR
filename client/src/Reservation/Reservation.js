@@ -7,17 +7,12 @@ import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 import ResModal from './ResModal.js';
 import { Context } from '../App';
 import imgpl from '../AllReservations/Yetti.png';
-import { BsTelephoneFill } from 'react-icons/bs'
+import { BsTelephoneFill, BsCalendar3 } from 'react-icons/bs'
 import {
-  AiFillSchedule,
   AiFillCloseCircle,
   AiFillCheckCircle,
 } from 'react-icons/ai';
-import {
-  HiOutlineStatusOnline,
-  HiDocumentReport,
-  HiOutlineDotsHorizontal,
-} from 'react-icons/hi';
+import { BiCurrentLocation } from 'react-icons/bi';
 
 import { MdOutlinePendingActions } from 'react-icons/md'
 
@@ -183,14 +178,20 @@ const Reservation = () => {
                   <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 </div>
 
-                {/* APPROVE STATUS */}
+                {/* TIME AND LOCATION */}
                 <div className="bg-blue-darker mb-4 relative rounded  flex justify-center pb-2 flex-col w-1/4 ">
                   {currRes.start !== undefined ? (<>
-                    <div className="text-gray-light text-xl ml-3">{`${currRes.start.toFormat('dd MMM yyyy')}`}</div>
+                    <div className="flex justify-between">
+                      <div className="text-gray-light text-xl ml-3 flex flex-row items-center gap-1"><BiCurrentLocation/> {` ${currRes.Range}`}</div>
+                      <div className="text-gray-light text-xl mr-3 flex flex-row items-center gap-3"><BsCalendar3/>{`${currRes.start.toFormat('dd MMM yyyy')}`}</div>
+                    </div>
                     <hr className="text-gray-light"a/>
-                    <div className="text-gray-light text-xs ml-4">
-                      {`${currRes.start.toFormat('hh:mm a')} to ${currRes.end.toFormat('hh:mm a')}`}
-                      </div> 
+                    <div className="flex justify-between">
+                      <div className="text-gray-light text-xs ml-10">{`${currRes.SiteLocation}`}</div>
+                      <div className="text-gray-light text-xs mr-2">
+                        {`${currRes.start.toFormat('hh:mm a')} to ${currRes.end.toFormat('hh:mm a')}`}
+                        </div> 
+                    </div>
                     </>) : (
                     <></>
                   )}
