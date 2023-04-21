@@ -70,21 +70,21 @@ const AllAssets = () => {
                 <div className="flex items justify-evenly">
                   <span className="mt-3 max-w-screen-xl mx-auto flex flex-wrap flex-row justify-center">
                     <span className="flex flex-wrap flex-row justify-center">
-                      <span className="ml-auto mr-7 flex flex-wrap flex-col">
+                      <span className="ml-auto mr-9 flex flex-wrap flex-col">
                         <button
                           type="button"
-                          className="p-1 w-48 h-7 text-sm bg-secondary text-center rounded-md text-gray-light"
+                          className="p-1 w-48 h-7 text-sm bg-secondary text-center rounded-md text-gray-light border-none"
                           onClick={() => setShowModal(true)}
                         >
                           Add Asset
                         </button>
                       </span>
                       <span className=""></span>
-                      <span className="mx-7 flex flex-wrap flex-col">
+                      <span className="mx-9 flex flex-wrap flex-col">
                         <select
                           name="SortAssets"
                           id="sortAssets"
-                          className="p-1 w-48 h-7 text-sm bg-secondary text-gray-light text-center rounded-md"
+                          className="p-1 w-48 h-7 text-sm bg-secondary text-gray-light text-center rounded-md border-none"
                           onChange={() => {
                             setSortField(
                               document.getElementById('sortAssets').value
@@ -113,10 +113,10 @@ const AllAssets = () => {
                       </span>
                     </span>
                     <span className="flex flex-wrap flex-row justify-center">
-                      <span className="mx-7 flex flex-wrap flex-col">
+                      <span className="mx-9 flex flex-wrap flex-col">
                         <button
                           type="button"
-                          className="p-1 w-48 h-7 text-sm bg-secondary text-gray-light text-center rounded-md"
+                          className="p-1 w-48 h-7 text-sm bg-secondary text-gray-light text-center rounded-md border-none"
                           onClick={() => {
                             setSortOrder(!sortOrder);
                             setCurrPage(1);
@@ -126,11 +126,11 @@ const AllAssets = () => {
                         </button>
                       </span>
 
-                      <span className="ml-7 mr-auto flex flex-wrap flex-col">
+                      <span className="ml-9 mr-auto flex flex-wrap flex-col">
                         <select
                           name="DisplayPerPage"
                           id="DisplayPerPage"
-                          className="p-1 w-48 h-7 text-sm bg-secondary text-gray-light text-center rounded-md"
+                          className="p-1 w-48 h-7 text-sm bg-secondary text-gray-light text-center rounded-md border-none"
                           defaultValue={`${itemsPerPage}`}
                           onChange={() => {
                             setItemsPerPage(
@@ -175,48 +175,73 @@ const AllAssets = () => {
                       <span
                         key={card.Id}
                         className="m-2 hover:scale-105 hover:transition-transform hover:duration-150 border-separate bg-blue-darker border-primary border-2
-                      w-64 h-68 p-1 shadow-lg rounded-md text-sm "
+                      w-64 h-68 p-1 shadow-lg rounded-md text-xs "
                         onClick={() => navigate(`/Asset/${card.Id}`)}
                       >
-                        <pre className="text-gray-light">
-                          <span className="flex flex-row mx-auto text-base justify-between mb-0">
-                            <span className="font-semibold">{`Serial#:`}</span>
-                            <span className="">{`${card.Serial}`}</span>
-                          </span>
-                          <br />
-
-                          <span className="font-semibold content-center items-center align-middle">
+                        <div className="text-gray-light">
+                          <div className="flex mx-auto text-base justify-between items-center px-1">
+                            <span className="font-light">{`Serial#:`}</span>
+                            <span className="font-light text-xs">{`${card.Serial}`}</span>
+                          </div>
+                          <div className="mt-1 mb-2">
                             <img
                               src={`http://localhost:3000/images/${card.Id.toString()}.jpg`}
                               alt="AA Gun"
                               className="h-32 w-60 mx-auto rounded-md"
                             />
-                          </span>
+                          </div>
 
-                          <div className="flex flex-col justify-start ml-1">
-                            <span className="ml-1">
-                              <span className="font-semibold">
+                          <div className="flex justify-around bg-gray-dark rounded mx-1">
+                            <div className="flex flex-col p-2 text-xs">
+                              <span className="font-semibold mr-1">
+                                {`Range:\t   `}
+                              </span>
+                              <span className="font-semibold mr-1">
+                                {`Location:\t   `}
+                              </span>
+                              <span className="font-semibold mr-1">
+                                {`Equipment:\t   `}
+                              </span>
+                              <span className="font-semibold mr-1">
+                                {`Threat:\t   `}
+                              </span>
+                              <span className="font-semibold mr-1">
+                                {`Threat Type:\t   `}
+                              </span>
+                            </div>
+                            <div className="flex flex-col text-left p-2 text-xs">
+                              <span>{`${card.Range}`}</span>
+                              <span>{`${card.SiteLocation}`}</span>
+                              <span>{`${card.Equipment}`}</span>
+                              <span>{`${card.Threat}`}</span>
+                              <span>{`${card.ThreatType}`}</span>
+                            </div>
+                          </div>
+
+                          {/* <div className="flex flex-col justify-start p-1 mx-1 bg-gray-dark rounded">
+                            <span className="px-1  ">
+                              <span className="font-semibold mr-1">
                                 {`Range:\t   `}
                               </span>
                               <span>{`${card.Range}`}</span>
                             </span>
 
                             <span className="ml-1">
-                              <span className="font-semibold">
+                              <span className="font-semibold mr-1">
                                 {`Location:  `}
                               </span>
                               <span>{`${card.SiteLocation}`}</span>
                             </span>
 
                             <span className="ml-1">
-                              <span className="font-semibold">
+                              <span className="font-semibold mr-1">
                                 {`Equipment: `}
                               </span>
                               <span>{`${card.Equipment}`}</span>
                             </span>
 
                             <span className="ml-1">
-                              <span className="font-semibold">
+                              <span className="font-semibold mr-1">
                                 {`Threat:\t   `}
                               </span>
                               <span>{`${card.Threat}`}</span>
@@ -224,31 +249,52 @@ const AllAssets = () => {
 
                             <span className="ml-1">
                               <span className="font-semibold">{`Type:\t   `}</span>
-                              <span>{`${card.ThreatType}`}</span>
+                              <span className=''>{`${card.ThreatType}`}</span>
                             </span>
-                          </div>
+                          </div> */}
 
-                          <div className="mt-4 flex flex-row items-center">
-                            <p className="flex items-center">
-                              <span className="ml-2">{`Operational:`}</span>
-                              <span className="text-lg">
+                          <div className="mx-2 my-1 flex justify-between items-center">
+                            <div className="flex items-center">
+                              <span className="ml-2 mr-1 text-xs">{`Operational:`}</span>
+                              <span className="text-xs">
                                 {card.Operational ? (
                                   <AiFillCheckCircle className="text-green bg-blue-darker rounded-full" />
                                 ) : (
-                                  <AiFillCloseCircle className="text-red/60 bg-blue-darker rounded-full opacity-50" />
+                                  <AiFillCloseCircle className="text-red bg-blue-darker rounded-full opacity-80" />
                                 )}
                               </span>
-                              <span className="ml-1">{`Schedulable:`}</span>
-                              <span className="text-lg">
+                            </div>
+                            <div className="flex items-center">
+                              <span className="ml-2 mr-1 text-xs">{`Schedulable:`}</span>
+                              <span className="text-xs">
+                                {card.Schedulable ? (
+                                  <AiFillCheckCircle className="text-green bg-blue-darker rounded-full" />
+                                ) : (
+                                  <AiFillCloseCircle className="text-red bg-blue-darker rounded-full opacity-80" />
+                                )}
+                              </span>
+                            </div>
+
+                            {/* <p className="flex items-center">
+                              <span className="ml-2 text-xs">{`Operational:`}</span>
+                              <span className="text-xs">
+                                {card.Operational ? (
+                                  <AiFillCheckCircle className="text-green bg-blue-darker rounded-full" />
+                                ) : (
+                                  <AiFillCloseCircle className="text-red bg-blue-darker rounded-full opacity-80" />
+                                )}
+                              </span>
+                              <span className="ml-8 text-xs">{`Schedulable:`}</span>
+                              <span className="text-xs">
                                 {card.Schedulable ? (
                                   <AiFillCheckCircle className="text-green bg-blue-darker rounded-full mr-auto" />
                                 ) : (
-                                  <AiFillCloseCircle className="text-red/60 bg-blue-darker rounded-full mr-auto opacity-50" />
+                                  <AiFillCloseCircle className="text-red bg-blue-darker rounded-full mr-auto opacity-80" />
                                 )}
                               </span>
-                            </p>
+                            </p> */}
                           </div>
-                        </pre>
+                        </div>
                       </span>
                     );
                   })}
