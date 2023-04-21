@@ -103,8 +103,25 @@ const Reservation = () => {
       reqOpts
     )
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .then(setToggle(!toggle));
+      .then((data) => {
+        fetch(
+          "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
+          { credentials: 'include' }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setResArray(
+              data.d.results.map((res) => {
+                return {
+                  ...res,
+                  start: DateTime.fromISO(res.EventDate).toLocal(),
+                  end: DateTime.fromISO(res.EndDate).toLocal(),
+                };
+              })
+            );
+          });
+      })
+      
   };
 
   return (
@@ -221,24 +238,6 @@ const Reservation = () => {
                     <></>
                   )}
 
-                  {/* {userData.IsSiteAdmin ? (
-                    <div className="flex flex-row justify-center gap-10 ">
-                      <button
-                        className="border border-black rounded bg-bluer h-8 p-1"
-                        onClick={() => updateReservations('Approved')}
-                      >
-                        Approve
-                      </button>
-                      <button
-                        className="border border-black rounded bg-bluer h-8 p-1"
-                        onClick={() => updateReservations('Rejected')}
-                      >
-                        Deny
-                      </button>
-                    </div>
-                  ) : (
-                    <></>
-                  )} */}
                   <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
                 </div>
 
@@ -287,7 +286,7 @@ const Reservation = () => {
                           <></>
                         )}
                       </h1>
-                      <div className="flex flex-col content-between h-max">
+                      <div className="flex flex-col h-max">
                         <div>
                           <table className="table-auto w-full text-xs">
                             <thread>
@@ -368,7 +367,27 @@ const Reservation = () => {
                                 })}
                             </tbody>
                           </table>
-                        </div>
+                          </div>
+                          <div >
+                            {userData.IsSiteAdmin ? (
+                              <div className="flex flex-row justify-center gap-10 ">
+                                <button
+                                  className="border border-black rounded bg-bluer h-8 p-1"
+                                  onClick={() => updateReservations('Approved')}
+                                >
+                                  Approve
+                                </button>
+                                <button
+                                  className="border border-black rounded bg-bluer h-8 p-1"
+                                  onClick={() => updateReservations('Rejected')}
+                                >
+                                  Deny
+                                </button>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
                       </div>
                     </div>
                     {/* {Object.keys(currRes).length > 0 ? (
