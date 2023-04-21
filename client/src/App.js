@@ -10,7 +10,7 @@ import AllReservations from './AllReservations/AllReservations.js';
 import AllAssets from './AllAssets/AllAssets.js';
 import Asset from './Asset/Asset.js';
 import AdminStats from './AdminStats/AdminStats.js';
-import MyBook from './Book/Book';
+import MyBook from './Book/MyBook';
 
 import { Routes, Route, UseNavigate, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
@@ -66,8 +66,11 @@ function App() {
               <Route path="/QuickLook" element={<MyBook />} />
               <Route path="/Reserve" element={<Reserve />} />
               <Route path="/AllReservations" element={<AllReservations />} />
-              <Route path="/AllReservations/:page" element={<AllReservations />} />
-            <Route path="/Reservation/:id" element={<Reservation />} />
+              <Route
+                path="/AllReservations/:page"
+                element={<AllReservations />}
+              />
+              <Route path="/Reservation/:id" element={<Reservation />} />
               <Route path="/AllAssets" element={<AllAssets />} />
               <Route path="/Asset/:id" element={<Asset />} />
               <Route path="/Admin" element={<AdminStats />} />

@@ -7,7 +7,8 @@ import { FiMenu, FiRadio } from 'react-icons/fi';
 import { RiAdminFill } from 'react-icons/ri';
 import { FaMapMarkedAlt, FaEye, FaUserCircle } from 'react-icons/fa';
 import { BsCardChecklist } from 'react-icons/bs';
-import { GiFrostfire } from 'react-icons/gi';
+// import { GiFrostfire } from 'react-icons/gi';'
+import GiFrostfire from './ArcanumIconP.png';
 
 const NavBar = () => {
   const { userData, setUserdata } = React.useContext(Context);
@@ -16,7 +17,7 @@ const NavBar = () => {
 
   const navLinks = [
     { name: 'QuickLook', to: '/', text: 'Quick Look', icon: <FaEye /> },
-    { name: 'Reserve', to: '/', text: 'ESTR', icon: <FaMapMarkedAlt /> },
+    { name: 'Reserve', to: '/', text: 'Scheduler', icon: <FaMapMarkedAlt /> },
     { name: 'AllAssets', to: '/', text: 'Assets', icon: <FiRadio /> },
     {
       name: 'AllReservations',

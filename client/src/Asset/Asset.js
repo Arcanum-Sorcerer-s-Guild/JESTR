@@ -27,6 +27,7 @@ import {
 import { GiVirtualMarker } from 'react-icons/gi';
 
 const Asset = () => {
+  //TODO This dosnt work...
   const [assets, setAssets] = useState([]);
   const [currAsset, setCurrAsset] = useState();
 
@@ -48,7 +49,7 @@ const Asset = () => {
       .then((res) => res.json())
       .then((data) => {
         let val = data.d;
-        setCurrAsset(undefined);
+        // setCurrAsset(undefined);
         val.dms = new DmsCoordinates(
           Number(data.d.Latitude),
           Number(data.d.Longitude)
@@ -62,8 +63,10 @@ const Asset = () => {
       navigate(`/Asset/${parseInt(params.id) - 1}`);
       setToggle(!toggle);
     }
-
-    if (page === 'next' && parseInt(params.id) + 1 !== assets.length + 1) {
+    // console.log("curr id",parseInt(params.id))
+    // console.log("last asset id",assets)
+      // TODO This dosnt work...
+    if (page === 'next' && parseInt(params.id) + 1 !== assets + 1) {
       navigate(`/Asset/${parseInt(params.id) + 1}`);
       setToggle(!toggle);
     }
@@ -125,11 +128,11 @@ const Asset = () => {
                               <div className="flex text-xs gap-1 text-gray-light">
                                 <span>
                                   {' '}
-                                  {event.time.toFormat(
-                                    'dd  MMM  yyyy'
-                                  )} @{' '}
+                                  {event.time.toFormat('dd  MMM  yyyy')} @{' '}
                                 </span>
-                                <span>{`${event.time.toFormat('hh:mm')} Z`}</span>
+                                <span>{`${event.time.toFormat(
+                                  'hh:mm'
+                                )} Z`}</span>
                               </div>
                             </div>
                           </li>
@@ -145,11 +148,18 @@ const Asset = () => {
 
             <div className="card-map flex gap-2 mb-4">
               {/* map-start */}
-              <div className="w-fit h-fit block bg-cover relative overflow-hidden border border-gray shadow-xl rounded-lg">
+              <div className="w-fit h-fit block bg-cover relative border border-gray shadow-xl rounded-lg">
                 <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
+                
                 <AssetMap
-                  serial={currAsset.Serial}
-                  center={[currAsset.Longitude, currAsset.Latitude]}
+                  currAsset={currAsset}
+                  
+                  style={{
+                    minWidth: '10px',
+                    minHeight: '10px',
+                    height: '68vh',
+                    width: '25vw'
+                  }}
                 />
               </div>
               {/* map-end */}
@@ -183,10 +193,10 @@ const Asset = () => {
                             <span>{`${currAsset.dms
                               .toString()
                               .slice(0, 12)}${currAsset.dms
-                              .toString()
-                              .slice(24, 41)}${currAsset.dms
-                              .toString()
-                              .slice(-3, 57)}`}</span>
+                                .toString()
+                                .slice(24, 41)}${currAsset.dms
+                                  .toString()
+                                  .slice(-3, 57)}`}</span>
                           </p>
                         </div>
 
@@ -221,17 +231,16 @@ const Asset = () => {
                             <span className="font-semibold mr-2 uppercase py-2">
                               Status:
                             </span>
-                                {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
+                            {/* 'RED', 'AMBER', 'GREEN', 'N/A' */}
                             <span
-                              className={`text-center text-xs px-4 rounded-md ${
-                                currAsset.Status === 'RED'
+                              className={`text-center text-xs px-4 rounded-md ${currAsset.Status === 'RED'
                                   ? 'bg-red/50'
                                   : currAsset.Status === 'AMBER'
-                                  ? 'bg-yellow/50'
-                                  : currAsset.Status === 'GREEN'
-                                  ? 'bg-green/50'
-                                  : 'bg-gray'
-                              }`}
+                                    ? 'bg-yellow/50'
+                                    : currAsset.Status === 'GREEN'
+                                      ? 'bg-green/50'
+                                      : 'bg-gray'
+                                }`}
                             >
                               {`${currAsset.Status}`}
                             </span>
@@ -277,7 +286,7 @@ const Asset = () => {
                     <div className="bg-cover p-4">
                       <img
                         alt={`${params.id}`}
-                        src={`http://localhost:3000/images/${(params.id).toString()}.jpg`}
+                        src={`http://localhost:3000/images/${params.id.toString()}.jpg`}
                         className="rounded shadow-lg border border-gray-light"
                       />
                       <span className="p-2 float-right text-xs text-gray-light/50">{`asset id: ${currAsset.Id}`}</span>

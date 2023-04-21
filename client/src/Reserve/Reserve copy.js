@@ -22,10 +22,6 @@ import Modal from './Modal';
 import './react-tabs.css';
 import ButtonClose from './ButtonClose';
 import ButtonOpen from './ButtonOpen';
-
-//icons
-import { GrFormPrevious, GrFormNext, GrDown, GrUp } from 'react-icons/gr';
-
 let formColumns = [
   {
     Header: 'Equip',
@@ -275,95 +271,65 @@ const Reserve = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <div className="bg-gray-100 flex items-center justify-center bg-gray-100">
-        <div className="w-full lg:w-5/6 shadow-xl">
-          {/* submenu-start */}
-          <div className="w-full bg-blue-darker relative rounded px-3 mt-6">
-            <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
-            <div className="justify-center items-center">
-              <div className="py-4 relative">
-                <UserForm
-                  setUserForm={setUserForm}
-                  setRequestedWeek={setRequestedWeek}
-                />
-              </div>
-              <div className="absolute top-2 right-2">
-                <ButtonOpen
-                  name={'Reserve'}
-                  onClick={() => setShowModale(true)}
-                />
-              </div>
-            </div>
-          </div>
-          {/* submenu-end */}
-
-          {/* resizable-start */}
-          <div className="w-full mt-2 bg-blue-darker rounded p-2">
-            <div className="flex pb-4 overflow-hidden">
-              <div className="mr-1">
-                <Resizable
-                  className="border-double hover:border-dashed border-r-4 border-secondary"
-                  defaultSize={{
-                    width: 475,
-                    height: 700,
-                  }}
-                  minWidth={475}
-                  minHeight={600}
-                  maxHeight={20}
-                  maxWidth={width - 300}
-                >
-                  <div className="h-full overflow-scroll">
-                    <div className="flex items-center bg-secondary rounded-l">
-                      <input
-                        type="checkbox"
-                        className="ml-3 mr-3 border-none"
-                        onChange={(e) => selectAll(e)}
+    <>
+      <div className="justify-center flex">
+        <UserForm
+          setUserForm={setUserForm}
+          setRequestedWeek={setRequestedWeek}
+        />
+        <div className="flex items-center justify-center pt-5">
+          <ButtonOpen name={'Reserve'} onClick={() => setShowModale(true)} />
+        </div>
+      </div>
+      <div className="w-full p-3 mx-auto">
+        <div className="flex w-full  justify-center p-8 bg-tertiary rounded">
+          <div className="w-full xl:w-3/4 lg:2-11/12 flex shadow-2xl">
+            <div className="flex flex-row pb-4">
+              <Resizable
+                className="border-double hover:border-dashed border-r-8 border-secondary mt-5 ml-5"
+                defaultSize={{
+                  width: 475,
+                  height: 700,
+                }}
+                minWidth={475}
+                minHeight={600}
+                maxHeight={20}
+                maxWidth={width - 115}
+              >
+                <div className=" border border-black mr-2 h-full overflow-scroll">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => selectAll(e)}
+                    className="ml-3 mr-3"
+                  />
+                  Select All
+                  {rangeList.length > 0 ? (
+                    rangeList.map((range) => (
+                      <CollapsibleChild
+                        key={range}
+                        range={range}
+                        selected={selected}
+                        setSelected={setSelected}
+                        setCenter={setCenter}
+                        assets={data.filter((asset) => asset.Range === range)}
                       />
-                      <h2 className="text-gray-light font-semibold">
-                        Select All
-                      </h2>
-                    </div>
-                    <hr className="text-secondary ml-2 mt-1" />
+                    ))
+                  ) : (
+                    <>Loading...</>
+                  )}
+                </div>
+              </Resizable>
 
-                    {rangeList.length > 0 ? (
-                      rangeList.map((range) => (
-                        <CollapsibleChild
-                          key={range}
-                          range={range}
-                          selected={selected}
-                          setSelected={setSelected}
-                          setCenter={setCenter}
-                          assets={data.filter((asset) => asset.Range === range)}
-                        />
-                      ))
-                    ) : (
-                      <>Loading...</>
-                    )}
-                  </div>
-                </Resizable>
-              </div>
-
-              <div className="ml-2 p-6 rounded bg-gray-dark">
-                <ReserveMap
-                  assetList={data}
-                  selected={selected}
-                  center={center}
-                  setCenter={setCenter}
-                  style={{
-                    minWidth: '10px',
-                    minHeight: '10px',
-                    height: '60vh',
-                    width: '50vw',
-                  }}
-                />
-              </div>
+              <ReserveMap
+                assetList={data}
+                selected={selected}
+                center={center}
+                setCenter={setCenter}
+              />
             </div>
-          </div>
-          {/* resizable-end */}
 
-          {/* modal-start */}
-          <div>
+            {/* {console.log("selectedData", selectedData)}
+                {console.log(data)} */}
             <Modal
               isvisible={showModale}
               onClose={() => {
@@ -508,10 +474,9 @@ const Reserve = () => {
               }
             </Modal>
           </div>
-          {/* modal-end */}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -553,20 +518,18 @@ const CollapsibleChild = ({
   };
 
   return (
-    <div className="p-2">
+    <div>
       <input
         type="checkbox"
-        className="ml-3 mr-3 border-none"
+        className="ml-3 mr-3"
         checked={assets.reduce(
           (acc, curr) => (acc ? selected.includes(curr.Serial) : false),
           true
         )}
         onChange={(e) => selectRange(e)}
       />
-      <button className="text-gray-light" {...getToggleProps()}>
-        {isExpanded ? '⬇️' : '➡️ '}
-        <span className="mr-2">Range: </span>
-        {range}
+      <button {...getToggleProps()}>
+        {isExpanded ? '↓ ' : '> '}Range: {range}
       </button>
       <section {...getCollapseProps()}>
         {assets.map((asset) => {

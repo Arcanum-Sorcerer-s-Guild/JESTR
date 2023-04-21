@@ -47,10 +47,10 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
   return (
     <>
       <div className="text-center">
-        <div className="p-2 flex ">
-          <div className="p-1 w-full">
-            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
-              Squadron
+        <div className="flex ">
+          <div className="p-1.5 w-full">
+            <label className="text-gray-light text-left block text-xs font-light mb-0.5 ml-1">
+              Squadron:
             </label>
             <UserDropDown
               dropDownItems={squadronDDOpts}
@@ -58,49 +58,55 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
               setDropdown={setSquadronDD}
             />
           </div>
-          <div className="p-1 w-full">
-            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
-              POC
-            </label>
-            <input
-              type="text"
-              className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md    sm:text-sm"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
           {squadronDD === squadronDDOpts[0] ? (
-            <div className="p-1 w-full">
-              <label className="text-text text-center underline block text-sm font-medium text-gray-700">
-                Squadron
+            <div className="p-1.5 w-full">
+              <label className="text-gray-light text-left block text-xs font-light ml-1">
+                Squadron Name:
               </label>
               <input
                 type="text"
-                className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md    sm:text-sm"
+                placeholder="squadron name..."
+                className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md text-xs"
                 onChange={(e) => setSquadron(e.target.value)}
               />
             </div>
           ) : (
             <></>
           )}
-          <div className="p-1 w-full">
-            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
-              DSN
+          <div className="p-1.5 w-full">
+            <label className="text-gray-light text-left block text-xs font-light ml-1">
+              POC:
+            </label>
+            <input
+              type="text"
+              className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md    text-xs"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="p-1.5 w-full">
+            <label className="text-gray-light text-left block text-xs font-light ml-1">
+              DSN:
             </label>
             <input
               type="tel"
-              className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm"
+              placeholder="xxx-xxx-xxxx"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              minlength="9"
+              maxlength="14"
+              size="20"
+              className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md text-xs"
               onChange={(e) => setDSN(e.target.value)}
             />
           </div>
-          <div className="p-1 w-full">
-            <label className="text-text text-center underline block text-sm font-medium text-gray-700">
-              Week
+          <div className="p-1.5 w-full">
+            <label className="text-gray-light text-left block text-xs font-light ml-1">
+              Week:
             </label>
 
             <input
               type="week"
-              className="form-input relative w-full cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md sm:text-sm"
+              className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 text-left shadow-md text-xs"
               value={week}
               onChange={(e) => setWeek(e.target.value)}
             />

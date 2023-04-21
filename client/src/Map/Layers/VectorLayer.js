@@ -18,7 +18,8 @@ const VectorLayer = ({ source, style, zIndex = 0 }) => {
         map.removeLayer(vectorLayer);
       }
     };
-  }, [map]);
+    //Fuck this little shit....
+  }, [map, source]);
   return null;
 };
 
