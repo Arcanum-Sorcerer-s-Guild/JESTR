@@ -49,26 +49,31 @@ const EditAsset = ({ showModal, setShowModal }) => {
           id="wrapper"
           className="fixed inset-0 bg-gray bg-opacity-25 backdrop-blur-sm flex justify-center items-center"
         >
-          <div className="relative overflow-hidden bg-text rounded">
+          <div className="relative overflow-hidden bg-blue-darker rounded">
             <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
-            <form className="flex justify-center" onSubmit={handleSubmit}>
+            <form
+              className="flex justify-center text-xs"
+              onSubmit={handleSubmit}
+            >
               <div className="flex flex-col">
                 <div className="flex flex-col w-full p-5">
                   <div className="rounded-lg flex flex-col">
                     <div className="flex">
-                      <span className="font-bold">Entry Id:</span>
-                      <span className="px-2">{`AUTO GENERATED`}</span>
+                      <span className="font-bold text-gray-light">
+                        Entry Id:
+                      </span>
+                      <span className="px-2 text-gray-light">{`AUTO GENERATED`}</span>
                     </div>
-                    <hr className="text-gray" />
+                    <hr className="text-gray-light" />
                   </div>
 
-                  <div className="flex mt-4 gap-2">
+                  <div className="flex my-4 gap-2">
                     <div className="flex w-1/2">
-                      <span className="mr-2">Serial: </span>
+                      <span className="mr-2 text-gray">Serial: </span>
                       <input
                         name="Serial"
                         id="Serial"
-                        className="bg-gray-light/60 w-full h-1/2 rounded-sm px-2 text-xs"
+                        className="bg-gray-dark text-gray w-full rounded-sm px-2 text-xs"
                         onChange={(e) => {
                           handleChange(e);
                         }}
@@ -76,11 +81,11 @@ const EditAsset = ({ showModal, setShowModal }) => {
                       />
                     </div>
                     <div className="flex w-1/2">
-                      <span className="mr-2">Type: </span>
+                      <span className="mr-2 text-gray">Type: </span>
                       <select
                         name="ThreatType"
                         id="ThreatType"
-                        className="bg-gray-light/60 w-full h-1/2 rounded-sm px-2 text-xs border-none"
+                        className="bg-gray-dark text-gray w-full  rounded-sm px-2 text-xs border-none"
                         onChange={(e) => {
                           handleChange(e);
                         }}
@@ -94,89 +99,89 @@ const EditAsset = ({ showModal, setShowModal }) => {
                   </div>
                   <div className="flex gap-2">
                     <div className="flex w-1/2">
-                      <span className="mr-2">Equip: </span>
+                      <span className="mr-2 text-gray">Equip: </span>
                       <input
                         name="Equip"
-                        className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
+                        className="bg-gray-dark text-gray w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
                         defaultValue={''}
                       />
                     </div>
                     <div className="flex w-1/2">
-                      <span className="mr-2">Threat: </span>
+                      <span className="mr-2 text-gray">Threat: </span>
                       <input
                         name="Threat"
-                        className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
+                        className="bg-gray-dark text-gray w-full rounded-sm px-2 text-xs"
                         onChange={(e) => handleChange(e)}
                         defaultValue={''}
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col gap-2 bg-gray/70 rounded p-2 mt-2">
+                  <div className="flex flex-col gap-2 rounded p-2 mt-2">
                     <div className="flex">
-                      <span className="mr-2">Lat: </span>
+                      <span className="mr-2 text-gray">Lat: </span>
                       <input
                         name="Latitude"
-                        className="bg-gray-light/60 w-1/2 rounded-sm text-xs border-none text-center"
+                        className="bg-gray-dark text-gray w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
                         defaultValue={''}
                       />
-                      <span className="mx-2 ">Long: </span>
+                      <span className="mx-2 text-gray ">Long: </span>
                       <input
                         name="Longitude"
-                        className="bg-gray-light/60 w-1/2 rounded-sm text-xs border-none text-center"
+                        className="bg-gray-dark text-gray w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
                         defaultValue={''}
                       />
-                      <span className="mx-2">Elevation: </span>
+                      <span className="mx-2 text-gray">Elevation: </span>
                       <input
                         name="Elevation"
-                        className="bg-gray-light/60 w-1/2 rounded-sm text-xs border-none text-center"
+                        className="bg-gray-dark text-gray w-1/2 rounded-sm text-xs border-none text-center"
                         onChange={(e) => handleChange(e)}
                         defaultValue={''}
                       />
                     </div>
                   </div>
                   <div className="mt-2 text-xs">
-                    <p className="mr-2">Coordination Source: </p>
+                    <p className="mr-2 text-gray">Coordination Source: </p>
                     <input
                       name="CoordSource"
                       type="text"
-                      className="bg-gray-light/70 rounded-sm text-xs border-none w-full mt-1"
+                      className="bg-gray-dark text-gray rounded-sm text-xs border-none w-full mt-1"
                       onChange={(e) => handleChange(e)}
                       defaultValue={''}
                     />
                   </div>
-                  <div className="flex flex-col gap-2 bg-gray/70 rounded p-2 mt-2">
+                  <div className="flex flex-col gap-2 rounded p-2 mt-2">
                     <div className="flex flex-col">
-                      <span className="mb-2">Range:</span>
+                      <span className="mb-2 text-gray">Range:</span>
                       <input
                         name="Range"
-                        className="bg-gray-light/60 w-full h-1/2 rounded-sm px-2 text-xs"
+                        className="bg-gray-dark text-gray w-full h-1/2 rounded-sm px-2 text-xs"
                         defaultValue={''}
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="mb-2">Site Location:</span>
+                      <span className="mb-2 text-gray">Site Location:</span>
                       <input
                         name="Range"
-                        className="bg-gray-light/60 w-full h-1/2 rounded-sm px-2 text-xs"
+                        className="bg-gray-dark text-gray w-full h-1/2 rounded-sm px-2 text-xs"
                         defaultValue={''}
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
                   </div>
                   <div className="flex my-2">
-                    <span className="mr-2">Current Status:</span>
+                    <span className="mr-2 text-gray">Current Status:</span>
                     <input
                       name="Curr Status"
-                      className="bg-gray-light/60 rounded-sm px-2 text-xs"
+                      className="bg-gray-dark text-gray rounded-sm px-2 text-xs"
                       onChange={(e) => handleChange(e)}
                       defaultValue={''}
                     />
                     <div className="flex ml-4">
-                      <div className="flex gap-1 mr-4">
+                      <div className="flex gap-1 mr-4 text-gray">
                         <span>Ops Status</span>
                         <input
                           type="checkBox"
@@ -185,7 +190,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 text-gray">
                         <span>Schedulable</span>
                         <input
                           type="checkBox"
@@ -198,14 +203,16 @@ const EditAsset = ({ showModal, setShowModal }) => {
                   </div>
                 </div>
               </div>
-              <div className="w-1/2 p-5">
-                <h3 className="font font-semibold">System Information</h3>
-                <hr className="text-gray" />
+              <div className="w-1/3 p-5">
+                <h3 className="font font-semibold text-gray">
+                  System Information
+                </h3>
+                <hr className="text-gray-light" />
                 <div className="flex text-xs mt-2">
-                  <span className="mr-2">info: </span>
+                  <span className="mr-2 text-gray">info: </span>
                   <input
                     name="SystemInformation"
-                    className="bg-gray-light/60 w-full rounded-sm px-2 text-xs"
+                    className="bg-gray-dark text-gray w-full rounded-sm px-2 text-xs"
                     defaultValue={''}
                     onChange={(e) => handleChange(e)}
                   />
@@ -213,7 +220,7 @@ const EditAsset = ({ showModal, setShowModal }) => {
                 <div className="mt-2">
                   <textarea
                     name="Remarks"
-                    className="rounded w-full text-xs border-gray"
+                    className="rounded w-full text-xs bg-gray-dark text-gray"
                     rows="8"
                     cols="20"
                     defaultValue={''}
@@ -221,12 +228,12 @@ const EditAsset = ({ showModal, setShowModal }) => {
                   />
                   <button
                     onClick={handleSubmit}
-                    className="block rounded-lg bg-blue text-text text-semibold p-2 justify-center w-full"
+                    className="block rounded-lg bg-blue text-text text-semibold mt-2 p-2 justify-center w-full"
                   >
                     Submit
                   </button>
                 </div>
-                <div className="flex flex-col gap-1 text-xs text-gray-dark/50 mt-2 bg-gray-light/70 rounded p-2">
+                <div className="flex flex-col gap-1 text-xs mt-2 bg-gray-dark text-gray rounded p-2">
                   <div>
                     <span className="mr-2">ETIC:</span>
                     <span>{``}</span>

@@ -170,7 +170,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose, setCurrAsset, curr
                       defaultValue={modalAsset.CoordSource}
                     />
                   </div>
-                  <div className="flex flex-col gap-2 bg-gray/70 rounded p-2 mt-2">
+                  <div className="flex flex-col gap-2 rounded p-2 mt-2">
                     <div className="flex">
                       <span className="mr-2">Lat: </span>
                       <input
@@ -195,7 +195,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose, setCurrAsset, curr
                       />
                     </div>
                   </div>
-                  <div className="flex gap-2 bg-gray/70 rounded p-2">
+                  <div className="flex gap-2 rounded p-2">
                     <div className="flex w-1/2">
                       <span className="mr-2">Range:</span>
                       <input
@@ -215,7 +215,7 @@ const EditAsset = ({ showModal, setShowModal, asset, onClose, setCurrAsset, curr
                       />
                     </div>
                   </div>
-                  <div className="flex gap-2 bg-gray/70 rounded p-2 ">
+                  <div className="flex gap-2 rounded p-2 ">
                     <span className="mr-2">Current Status:</span>
                     <input
                       name="Curr Status"
