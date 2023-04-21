@@ -564,7 +564,7 @@ const CollapsibleChild = ({
         onChange={(e) => selectRange(e)}
       />
       <button className="text-gray-light" {...getToggleProps()}>
-        {isExpanded ? '↓ ' : '> '}
+        {isExpanded ? '⬇️' : '➡️ '}
         <span className='mr-2'>Range: </span>{range}
       </button>
       <section {...getCollapseProps()}>

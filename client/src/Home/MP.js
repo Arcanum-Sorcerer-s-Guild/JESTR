@@ -25,7 +25,7 @@ const MP = () => {
       });
   }, []);
 
-  console.log('lists', lists);
+  // console.log('lists', lists);
 
   return (
     <div className="max-w-6xl mx-auto">

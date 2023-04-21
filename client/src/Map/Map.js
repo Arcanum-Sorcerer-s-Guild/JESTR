@@ -9,7 +9,11 @@ const Map = ({ children, zoom, center, style }) => {
   // on component mount
   useEffect(() => {
     let options = {
-      view: new ol.View({ zoom, center }),
+      view: new ol.View({
+        zoom,
+        center,
+        maxZoom: 18,
+      }),
       layers: [],
       controls: [],
       overlays: [],
