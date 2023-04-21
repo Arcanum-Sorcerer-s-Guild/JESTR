@@ -61,6 +61,17 @@ const Asset = () => {
   const changePage = (page) => {
     if (page === 'prev' && parseInt(params.id) !== 1) {
       navigate(`/Asset/${parseInt(params.id) - 1}`);
+      fetch(`${listUrl}/GetByTitle('Assets')/items(${params.id})`, {
+        credentials: 'include',
+      }).then((data) => {
+        let val = data.d;
+        // setCurrAsset(undefined);
+        val.dms = new DmsCoordinates(
+          Number(data.d.Latitude),
+          Number(data.d.Longitude)
+        );
+        setCurrAsset(val);
+      });
       setToggle(!toggle);
     }
     // console.log("curr id",parseInt(params.id))
@@ -68,6 +79,17 @@ const Asset = () => {
     // TODO This dosnt work...
     if (page === 'next' && parseInt(params.id) + 1 !== assets + 1) {
       navigate(`/Asset/${parseInt(params.id) + 1}`);
+      fetch(`${listUrl}/GetByTitle('Assets')/items(${params.id})`, {
+        credentials: 'include',
+      }).then((data) => {
+        let val = data.d;
+        // setCurrAsset(undefined);
+        val.dms = new DmsCoordinates(
+          Number(data.d.Latitude),
+          Number(data.d.Longitude)
+        );
+        setCurrAsset(val);
+      });
       setToggle(!toggle);
     }
   };
@@ -349,6 +371,8 @@ const Asset = () => {
                   setShowModal={setShowModal}
                   asset={currAsset}
                   onClose={handleClose}
+                  setCurrAsset={setCurrAsset}
+                  currAsset={currAsset}
                 />
               </div>
               {/*  */}
