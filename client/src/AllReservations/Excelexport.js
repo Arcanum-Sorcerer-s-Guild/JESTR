@@ -20,7 +20,7 @@ const ExportExcel = ({excelData, fileName}) => {
                 variant='contained'
                 onClick={(e) => exportToExcel(fileName)}
             >
-                <span><AiFillTool/></span>Save as CSV
+                <span><AiFillTool/></span>Export to Excel
             </button>
         </div>
      );

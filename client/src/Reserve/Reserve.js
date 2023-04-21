@@ -25,7 +25,8 @@ import ButtonOpen from './ButtonOpen';
 
 //icons
 import { GrFormPrevious, GrFormNext, GrDown, GrUp } from 'react-icons/gr';
-import { AiFillCloseCircle } from 'react-icons/ai';
+import { AiFillCloseCircle, AiFillCheckCircle, } from 'react-icons/ai';
+
 
 let formColumns = [
   {
@@ -325,12 +326,6 @@ const Reserve = () => {
                         <h2 className="text-gray-light font-light">
                           Select All
                         </h2>
-                        <div className="bg-purple">
-                          <ButtonOpen
-                            name={'Reserve'}
-                            onClick={() => setShowModale(true)}
-                          />
-                        </div>
                       </div>
                     </div>
                     <hr className="text-secondary ml-2 mt-1" />
@@ -351,6 +346,14 @@ const Reserve = () => {
                     )}
                   </div>
                 </Resizable>
+                <div className="bg-secondary rounded-l w-full float-right">
+                  <div className="pl-48">
+                    <ButtonOpen
+                      name={'Reserve'}
+                      onClick={() => setShowModale(true)}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="ml-2 p-6 rounded bg-gray-dark">
@@ -464,7 +467,7 @@ const Reserve = () => {
                               <p className="">{userForm.ContactDSN}</p>
                             ) : (
                               <p className="text-pink">
-                                None... A email is required
+                                None...  contact info is required
                               </p>
                             )}
                           </div>
@@ -670,10 +673,10 @@ const CollapsibleChild = ({
                     </div>
 
                     <div className="flex flex-row ml-2 items-center font-medium">
-                      Schedulable: {asset.Schedulable ? <>✔️</> : <>❌</>}
+                      Schedulable: {asset.Schedulable ? <><AiFillCheckCircle className='ml-2 text-green'/></> : <><AiFillCloseCircle className='ml-2 text-red/50'/></>}
                     </div>
                     <div className="flex flex-row ml-2 items-center font-medium">
-                      OpStatus: {asset.Operational ? <>✔️</> : <>❌</>}
+                      OpStatus: {asset.Operational ? <><AiFillCheckCircle className='ml-2 text-green'/></> : <><AiFillCloseCircle className='ml-2 text-red/50'/></>}
                     </div>
                     <span className=" ml-3 whitespace-nowrap">{`Located at Site: ${asset.SiteLocation}`}</span>
                   </div>

@@ -274,7 +274,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
             {Object.keys(sqColors).length > 0 ? (
               Object.entries(sqColors).map((sq) => (
                 <div
-                  className="border border-black rounded-lg w-48 mt-3 text-center font-medium"
+                  className=" cursor-pointer rounded-lg w-40 mt-3 text-center font-xs"
                   style={{ backgroundColor: sq[1] }}
                   onClick={() => handleSquadronClick(sq[0])}
                 >
@@ -326,7 +326,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
             </div>
           </div>
           <button
-            className="border border-black bg-bluer text-gray-light uppercase "
+            className="rounded mb-3 bg-bluer text-gray-light uppercase "
             onClick={() => {
               handleSquadronClick('all');
             }}

@@ -164,7 +164,7 @@ const AllReservations = () => {
               </button>
 
               <ExportExcel excelData={reservations} fileName={'Excel Export'} />
-              <ExportPDF divId={'table'} title={'hello world'} />
+              {/* <ExportPDF divId={'table'} title={'hello world'} /> */}
             </div>
           </div>
 
@@ -253,17 +253,18 @@ const AllReservations = () => {
                           onClick={() => {
                             setModaleChildren(
                               <>
-                                <form onSubmit={handleLogin}>
-                                  <label htmlFor="Notes">Remarks</label>
+                                <form onSubmit={handleLogin} className='px-2 justify-center'>
+                                  <label htmlFor="Notes" className='text-gray-light'>Remarks</label>
                                   <input
                                     name="Notes"
                                     type="text"
+                                    className='ml-2 border-none w-1/2 bg-gray-dark text-gray rounded'
                                     placeholder="Enter Remarks Here..."
                                   />
-                                  <label htmlFor="Status">
+                                  <label htmlFor="Status" className='ml-2 text-gray-light'>
                                     Choose a Status
                                   </label>
-                                  <select name="Status" id="Status">
+                                  <select name="Status" id="Status" className='ml-2 border-none bg-gray-dark text-gray rounded'>
                                     <option
                                       value="Rejected"
                                       defaultValue={'Rejected'}
@@ -279,7 +280,7 @@ const AllReservations = () => {
                                     type="text"
                                     placeholder="Enter Remarks Here..."
                                   />
-                                  <button type="submit" className="">
+                                  <button type="submit" className="ml-6 w-40 p-2 rounded bg-purple text-gray-light">
                                     <span className=""></span>
                                     submit
                                   </button>
