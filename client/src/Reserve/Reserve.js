@@ -343,7 +343,7 @@ const Reserve = () => {
                 </Resizable>
               </div>
              
-              <div className="m-1 p-1 rounded bg-gray-dark">
+              <div className="m-2 p-6 rounded bg-gray-dark">
           
                 <ReserveMap
                   assetList={data}
