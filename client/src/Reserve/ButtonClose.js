@@ -3,7 +3,7 @@ import React from 'react';
 export default function ButtonClose({ name, onClick }) {
   return (
     <button
-      className="h-6 w-6 m-2 text=xxl text-center border rounded content-center  bg-primary"
+      className="m-2 text-sm text-center rounded-full w-5 content-center bg-gray-dark text-gray-light"
       onClick={() => onClick()}
     >
       {name}

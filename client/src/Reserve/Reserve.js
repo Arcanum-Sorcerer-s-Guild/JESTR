@@ -25,6 +25,7 @@ import ButtonOpen from './ButtonOpen';
 
 //icons
 import { GrFormPrevious, GrFormNext, GrDown, GrUp } from 'react-icons/gr';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 let formColumns = [
   {
@@ -288,12 +289,12 @@ const Reserve = () => {
                   setRequestedWeek={setRequestedWeek}
                 />
               </div>
-              <div className="absolute top-2 right-2">
+              {/* <div className="absolute top-2 right-2">
                 <ButtonOpen
                   name={'Reserve'}
                   onClick={() => setShowModale(true)}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           {/* submenu-end */}
@@ -320,9 +321,17 @@ const Reserve = () => {
                         className="ml-3 mr-3 border-none"
                         onChange={(e) => selectAll(e)}
                       />
-                      <h2 className="text-gray-light font-semibold">
-                        Select All
-                      </h2>
+                      <div className="flex gap-72">
+                        <h2 className="text-gray-light font-light">
+                          Select All
+                        </h2>
+                        <div className='bg-purple'>
+                          <ButtonOpen
+                            name={'Reserve'}
+                            onClick={() => setShowModale(true)}
+                          />
+                        </div>
+                      </div>
                     </div>
                     <hr className="text-secondary ml-2 mt-1" />
 
@@ -338,7 +347,7 @@ const Reserve = () => {
                         />
                       ))
                     ) : (
-                      <>Loading...</>
+                      <div className='text-gray-light'>Loading...</div>
                     )}
                   </div>
                 </Resizable>
@@ -364,37 +373,40 @@ const Reserve = () => {
               }}
             >
               {
-                <div className="bg-blue h-full items-center text-center ">
+                <div className="w-full h-full items-center text-center uppercase bg-blue-darker rounded">
                   <Tabs>
                     <TabList>
-                      <Tab>Select VULs and Notes</Tab>
+                      <Tab>Select VULs</Tab>
                       <Tab>Week Data</Tab>
                       <Tab>Submit Form</Tab>
                     </TabList>
 
                     <TabPanel>
-                      <div className="flex items-center justify-center">
-                        <DualTimeSelector
-                          timeList={timeList}
-                          setTimeList={setTimeList}
+                      <div className="flex flex-cols w-full items-center justify-center">
+                        <div className="flex">
+                          <DualTimeSelector
+                            timeList={timeList}
+                            setTimeList={setTimeList}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-center">
+                        <textarea
+                          name="Notes"
+                          rows="5"
+                          column="50"
+                          placeholder="Notes"
+                          className="m-10 bg-gray-dark border-none rounded text-xs w-[500px]"
+                          onChange={(e) =>
+                            setUserForm({
+                              ...userForm,
+                              [e.target.name]: e.target.value,
+                            })
+                          }
                         />
                       </div>
-                      {/* <UserForm
-                            setUserForm={setUserForm}
-                            setRequestedWeek={setRequestedWeek}
-                          /> */}
-                      <input
-                        type="multiline"
-                        className="xl:w-3/4 lg:2-11/12 shadow-2xl pl-10 pr-10 m-10 w-3/4  border border-black"
-                        onChange={(e) =>
-                          setUserForm({
-                            ...userForm,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
-                        name="Notes"
-                        placeholder="Notes"
-                      />
+
+                      <div className="flex"></div>
 
                       {/* TODO, make the input wok for all items  */}
                     </TabPanel>
@@ -413,88 +425,107 @@ const Reserve = () => {
                             setSelected={setSelected}
                           />
                         ) : (
-                          'Please close this form and select threats from main display...'
+                          <div className="w-[500px]">
+                            <p className="text-xs">
+                              'Please close this form and select threats from
+                              main display...'
+                            </p>
+                          </div>
                         )}
                       </div>
                     </TabPanel>
 
                     <TabPanel>
-                      <>
+                      <div className="w-full px-5">
+                        <div className="p-4 border-b">
+                          <h2 className="text-md text-purple">User Data</h2>
+                        </div>
                         <div>
-                          <h1>User Data</h1>
-                          <div className="flex">
-                            <label className="mr-2">POC: </label>
-
+                          <div className="grid grid-cols-2 hover:bg-gray-dark space-y-1 p-4 border-b uppercase">
+                            <p className="">POC </p>
                             {userForm.POC ? (
-                              <div className="">{userForm.POC}</div>
+                              <p className="">{userForm.POC}</p>
                             ) : (
-                              <div className="border-red bg-red/40">
+                              <p className="text-pink">
                                 None... A username is required
-                              </div>
+                              </p>
                             )}
                           </div>
-                          <div className="flex">
-                            <label className="mr-2">Contact DSN: </label>
-
+                          <div className="grid grid-cols-2 hover:bg-gray-dark space-y-1 p-4 border-b">
+                            <p className="">Contact DSN </p>
                             {userForm.ContactDSN ? (
-                              <div className="">{userForm.ContactDSN}</div>
+                              <p className="">{userForm.ContactDSN}</p>
                             ) : (
-                              <div className="border-red bg-red/40">
+                              <p className="text-pink">
                                 None... A email is required
-                              </div>
+                              </p>
                             )}
                           </div>
-                          <div className="flex">
-                            <label className="mr-2">Squadron: </label>
-                            {userForm.Squadron ? (
-                              <div className="">{userForm.Squadron}</div>
+                          <div className="grid grid-cols-2 hover:bg-gray-dark space-y-1 p-4 border-b">
+                            <p className="">Squadron </p>
+                            {userForm.ContactDSN ? (
+                              <p className="">{userForm.Squadron}</p>
                             ) : (
-                              <div className="border-red bg-red/40">
+                              <p className="text-pink">
                                 None... A Squadron is required
-                              </div>
+                              </p>
                             )}
                           </div>
+                        </div>
+
+                        <div className="p-4 border-b">
+                          <h2 className="text-md text-blue">Request</h2>
                         </div>
                         <div>
-                          <h1>Requests</h1>
-                          {itemsToSubmit.map(
-                            (
-                              {
-                                id,
-                                Range,
-                                SiteLocation,
-                                Threat,
-                                Equipment,
-                                ThreatType,
-                                EventDate,
-                                EndDate,
-                              },
-                              index
-                            ) => (
-                              <ol>
-                                <div className="flex">
-                                  {index}
-                                  {Range}
-                                  {SiteLocation}
-                                  {Threat}
-                                  {Equipment}
-                                  {ThreatType}
-                                  {EventDate}
-                                  {EndDate}
-                                </div>
-                              </ol>
-                            )
-                          )}
+                          <div className="grid hover:bg-gray-dark space-y-1 p-4 border-b uppercase">
+                            {itemsToSubmit.map(
+                              (
+                                {
+                                  id,
+                                  Range,
+                                  SiteLocation,
+                                  Threat,
+                                  Equipment,
+                                  ThreatType,
+                                  EventDate,
+                                  EndDate,
+                                },
+                                index
+                              ) => (
+                                <ol>
+                                  <li className="flex">
+                                    <span className="sr-only">{index}</span>
+                                    <span className="mr-1 text-purple">
+                                      {Range}
+                                    </span>
+                                    <span className="mr-1 text-blue">
+                                      {SiteLocation}
+                                    </span>
+                                    <span className="mr-1 text-pink">
+                                      {Threat}
+                                    </span>
+                                    <span className="mr-1 text-yellow">
+                                      {Equipment} ({ThreatType}){' '}
+                                    </span>
+                                    <span className="mr-1 bg-green rounded-full text-blue-darker px-3">
+                                      {' '}
+                                      {EventDate} - {EndDate}
+                                    </span>
+                                  </li>
+                                </ol>
+                              )
+                            )}
+                          </div>
+                          <div className="my-4">
+                            <button
+                              className="bg-purple text-gray-lighter px-4 rounded-md mt-2"
+                              onClick={() => sendForm(itemsToSubmit)}
+                            >
+                              Submit
+                            </button>
+                          </div>
                         </div>
-                        <button
-                          className={
-                            'bg-gunmetal text-pink flex items-center text-center justify-between p-4 shadow-md shadow-pink/50'
-                          }
-                          onClick={() => sendForm(itemsToSubmit)}
-                        >
-                          Submit
-                        </button>
-                      </>
+                      </div>
                     </TabPanel>
                   </Tabs>
                 </div>
@@ -578,9 +609,7 @@ const CollapsibleChild = ({
                       onChange={() => handleChange(asset.Serial)}
                     />
                     <GiObservatory className="text-lg text-secondary/90" />
-                    <span className="ml-2 uppercase">
-                      {asset.Serial}
-                    </span>
+                    <span className="ml-2 uppercase">{asset.Serial}</span>
                     <div className="w-full flex justify-end">
                       <button
                         className=" w-full rounded-full px-2 bg-blue text-blue-darker ml-2 mr-2 flex flex-row gap-1 items-center"
@@ -588,7 +617,7 @@ const CollapsibleChild = ({
                           centerOnAsset(asset.Latitude, asset.Longitude)
                         }
                       >
-                        <IoLocationSharp className='text-secondary'/>
+                        <IoLocationSharp className="text-secondary" />
                         <span className="pl-1">{`${asset.dms
                           .toString()
                           .slice(0, 12)}${asset.dms
@@ -602,7 +631,7 @@ const CollapsibleChild = ({
 
                   <div className="flex flex-row min-w-2/3 items-center">
                     <div className="flex flex-row items-center gap-1">
-                      <FaMountain className='text-secondary'/>
+                      <FaMountain className="text-secondary" />
                       {`El: ${asset.Elevation}`}
                     </div>
                     <div
@@ -617,8 +646,16 @@ const CollapsibleChild = ({
                           ? `bg-green/40 rounded-md border-none`
                           : ``
                       }
-                      ${asset.Status === 'RED' ? `bg-red/40 rounded-md border-none` : ``}
-                      ${asset.Status === 'N/A' ? `bg-gray/40 rounded-md border-none` : ``}
+                      ${
+                        asset.Status === 'RED'
+                          ? `bg-red/40 rounded-md border-none`
+                          : ``
+                      }
+                      ${
+                        asset.Status === 'N/A'
+                          ? `bg-gray/40 rounded-md border-none`
+                          : ``
+                      }
                     `}
                     >
                       <span className="font-medium pl-1 uppercase mr-4">{`${asset.ThreatType}`}</span>
