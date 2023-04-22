@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const globalNumUsers = 100;
 const globalNumAssets = 60;
-const globalNumReservations = 1000;
+const globalNumReservations = 2000;
 const globalDateRangeStart = '2023-01-01';
 const globalDateRangeEnd = '2023-05-01';
 
@@ -210,7 +210,8 @@ const generateReservations = (
     let startDate = new Date(
       generateFakeDate(globalDateRangeStart, globalDateRangeEnd)
     );
-    while (startDate.getDay() > 5 || startDate.getDay() < 1) {
+    // Get dates until you get one within a certain range 1 is Mon, 2 is Tues, ...
+    while (startDate.getDay() > 6 || startDate.getDay() < 1) {
       startDate = new Date(
         generateFakeDate(globalDateRangeStart, globalDateRangeEnd)
       );
