@@ -65,26 +65,26 @@ const AdminStats = () => {
               />
             </div>
           </div>
-          <div className="flex px-5">
-            <div className="w-1/3 bg-blue-darker rounded-lg px-4">
+          <div className="grid grid-cols-3 px-5 gap-4 mb-2">
+            <div className=" bg-blue-darker rounded-lg px-4">
               <EventLine dateRange={dateRange} reserveList={reserveList} />
             </div>
-            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+            <div className="bg-blue-darker rounded-lg mx-4">
               <ReservationSuccessPie
                 dateRange={dateRange}
                 reserveList={reserveList}
               />
             </div>
-            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+            <div className=" bg-blue-darker rounded-lg mx-4">
               <SquadronRadar dateRange={dateRange} reserveList={reserveList} />
             </div>
-            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+            <div className=" bg-blue-darker rounded-lg mx-4">
               <SquadronBubble reserveList={reserveList} dateRange={dateRange} />
             </div>
-            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+            <div className=" bg-blue-darker rounded-lg mx-4">
               <OperationalBar assetList={assetList} />
             </div>
-            <div className="w-1/3 bg-blue-darker rounded-lg mx-4">
+            <div className=" bg-blue-darker rounded-lg mx-4">
               <UserDoughnut userList={userList} />
             </div>
           </div>

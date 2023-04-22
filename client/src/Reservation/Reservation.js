@@ -120,8 +120,7 @@ const Reservation = () => {
               })
             );
           });
-      })
-      
+      });
   };
 
   return (
@@ -367,27 +366,27 @@ const Reservation = () => {
                                 })}
                             </tbody>
                           </table>
-                          </div>
-                          <div >
-                            {userData.IsSiteAdmin ? (
-                              <div className="flex flex-row justify-center gap-10 ">
-                                <button
-                                  className="border border-black rounded bg-bluer h-8 p-1"
-                                  onClick={() => updateReservations('Approved')}
-                                >
-                                  Approve
-                                </button>
-                                <button
-                                  className="border border-black rounded bg-bluer h-8 p-1"
-                                  onClick={() => updateReservations('Rejected')}
-                                >
-                                  Deny
-                                </button>
-                              </div>
-                            ) : (
-                              <></>
-                            )}
-                          </div>
+                        </div>
+                        <div>
+                          {userData.IsSiteAdmin ? (
+                            <div className="flex flex-row justify-center gap-10 mt-2 text-gray-light border-none  ">
+                              <button
+                                className=" rounded bg-purple h-8 p-1"
+                                onClick={() => updateReservations('Approved')}
+                              >
+                                Approve
+                              </button>
+                              <button
+                                className=" rounded bg-purple border-none  h-8 p-1"
+                                onClick={() => updateReservations('Rejected')}
+                              >
+                                Deny
+                              </button>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                       </div>
                     </div>
                     {/* {Object.keys(currRes).length > 0 ? (

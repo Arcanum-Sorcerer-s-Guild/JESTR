@@ -231,7 +231,7 @@ const AllReservations = () => {
                       {DateTime.fromISO(list.EventDate).toFormat(
                         'dd MMM yyyy @ hh:mm'
                       )}{' '}
-                      Z
+                      
                     </td>
                     <td
                       className="py-3 px-6 text-left whitespace-nowrap"
@@ -240,7 +240,7 @@ const AllReservations = () => {
                       {DateTime.fromISO(list.EndDate).toFormat(
                         'dd MMM yyyy  @ hh:mm'
                       )}{' '}
-                      Z
+                      
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
                       {userData.IsApprover === false ? (
