@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AppContext from '../../Context/AppContext.js'
+import AppContext from '../../Context/AppContext.js';
 
 //icons
 import { FiMenu, FiRadio } from 'react-icons/fi';
@@ -31,29 +31,32 @@ const NavBar = () => {
   ];
 
   const authenticatedAdminLinks = [
-    { to: '/Admin', text: 'Admin', icon: <RiAdminFill /> }
-  ]
+    { to: '/Admin', text: 'Admin', icon: <RiAdminFill /> },
+  ];
 
   const navLinks = () => {
     if (userData.Id) {
-      let navBar = userData.IsSiteAdmin ? [...authenticatedLinks, ...authenticatedAdminLinks] : authenticatedLinks;
+      let navBar = userData.IsSiteAdmin
+        ? [...authenticatedLinks, ...authenticatedAdminLinks]
+        : authenticatedLinks;
       return navBar;
     } else {
       return nonauthenticatedLinks;
     }
-  }
+  };
 
   const signOut = async () => {
-    await userSignOut(e => {
+    await userSignOut((e) => {
       setUserdata(e);
-    })
-  }
+    });
+  };
 
   let loggedIn = (
     <Link
       to="/"
-      className={`${!open ? 'hidden' : ''
-        } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
+      className={`${
+        !open ? 'hidden' : ''
+      } duration-300 flex md:inline-flex p-4 items-center bg-gunmetal hover:text-text text-blue`}
     >
       <FaUserCircle className="mr-2" />
       <span onClick={signOut}>Sign Out</span>
@@ -62,8 +65,9 @@ const NavBar = () => {
 
   let adminLink = (
     <Link
-      className={`flex ${userData.IsSiteAdmin === true ? '' : 'hidden'
-        } p-4 items-center hover:text-text`}
+      className={`flex ${
+        userData.IsSiteAdmin === true ? '' : 'hidden'
+      } p-4 items-center hover:text-text`}
       to="/Admin"
     >
       <RiAdminFill className="mr-2" /> <span className>Admin</span>
@@ -88,15 +92,13 @@ const NavBar = () => {
         </div>
         <div
           className={`md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full md:visible 
-        left-0 right-0 bg-gunmetal/75 md:bg-gunmetal text-pink text-sm ${!open ? 'hidden' : ''
-            } duration-300`}
+        left-0 right-0 bg-gunmetal/75 md:bg-gunmetal text-pink text-sm ${
+          !open ? 'hidden' : ''
+        } duration-300`}
         >
           {navLinks().map((link, i) => (
-            <NavBarLinksItem
-              key={i}
-              to={link.to}
-            >
-              < span className="mr-2">{link.icon}</span>
+            <NavBarLinksItem key={i} to={link.to}>
+              <span className="mr-2">{link.icon}</span>
               {link.text}
             </NavBarLinksItem>
           ))}

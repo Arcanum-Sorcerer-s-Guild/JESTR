@@ -22,21 +22,19 @@ function App() {
   }, []);
 
   useEffect(() => {
-    userDetailsFetch(e => setUserdata(e));
+    userDetailsFetch((e) => setUserdata(e));
   }, []);
-
 
   return (
     <AppWrapper>
       <AppContextProvider value={{ userData, setUserdata }}>
         <NavBar />
-        {localStorage.getItem('user') ? (<UserAuthRoutes />) : (<NoAuthRoutes />)}
+        {localStorage.getItem('user') ? <UserAuthRoutes /> : <NoAuthRoutes />}
         {/* <NoAuthRoutes /> */}
         {/* <UserAuthRoutes /> */}
         {/* <AdminAuthRoutes /> */}
       </AppContextProvider>
     </AppWrapper>
-
   );
 }
 export default App;

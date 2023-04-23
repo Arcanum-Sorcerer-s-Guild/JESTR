@@ -127,7 +127,6 @@ const Reserve = () => {
   }
 
   useEffect(() => {
-
     listFetch('Assets', (data) => {
       setRangeList([...new Set(data.d.results.map((a) => a.Range))]);
       setData(data.d.results);
@@ -140,8 +139,7 @@ const Reserve = () => {
           ),
         }))
       );
-    })
-
+    });
   }, []);
 
   const selectAll = (e) => {
@@ -260,13 +258,8 @@ const Reserve = () => {
 
   //TODO
   const sendForm = (payload) => {
-
-
     payload.map((x) => {
-
-      listFetchItemPOST('Reservations', [x], (data) => {
-
-      })
+      listFetchItemPOST('Reservations', [x], (data) => {});
 
       setShowModale(false);
       // setItemsToSubmit([]);
@@ -631,10 +624,10 @@ const CollapsibleChild = ({
                         <span className="pl-1">{`${asset.dms
                           .toString()
                           .slice(0, 12)}${asset.dms
-                            .toString()
-                            .slice(24, 41)}${asset.dms
-                              .toString()
-                              .slice(-3, 57)}`}</span>
+                          .toString()
+                          .slice(24, 41)}${asset.dms
+                          .toString()
+                          .slice(-3, 57)}`}</span>
                       </button>
                     </div>
                   </div>
@@ -646,22 +639,26 @@ const CollapsibleChild = ({
                     </div>
                     <div
                       className={`ml-2 flex min-w-[450px] overflow:hidden whitespace-nowrap text-center px-4
-                      ${asset.Status === 'AMBER'
+                      ${
+                        asset.Status === 'AMBER'
                           ? `bg-yellow/40 rounded-md border-none`
                           : ``
-                        }
-                      ${asset.Status === 'GREEN'
+                      }
+                      ${
+                        asset.Status === 'GREEN'
                           ? `bg-green/40 rounded-md border-none`
                           : ``
-                        }
-                      ${asset.Status === 'RED'
+                      }
+                      ${
+                        asset.Status === 'RED'
                           ? `bg-red/40 rounded-md border-none`
                           : ``
-                        }
-                      ${asset.Status === 'N/A'
+                      }
+                      ${
+                        asset.Status === 'N/A'
                           ? `bg-gray/40 rounded-md border-none`
                           : ``
-                        }
+                      }
                     `}
                     >
                       <span className="font-medium pl-1 uppercase mr-4">{`${asset.ThreatType}`}</span>

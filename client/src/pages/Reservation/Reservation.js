@@ -40,11 +40,10 @@ const Reservation = () => {
           };
         })
       );
-    })
-
+    });
   }, [toggle]);
 
-  useEffect(() => { }, [toggle]);
+  useEffect(() => {}, [toggle]);
 
   useEffect(() => {
     if (resArray.length > 0) {
@@ -88,19 +87,24 @@ const Reservation = () => {
   };
 
   const updateReservations = (newStatus) => {
-    listFetchItemPUT('Reservations', params.id, [{ Status: newStatus }], (data) => {
-      listFetch('Reservations', (data) => {
-        setResArray(
-          data.d.results.map((res) => {
-            return {
-              ...res,
-              start: DateTime.fromISO(res.EventDate).toLocal(),
-              end: DateTime.fromISO(res.EndDate).toLocal(),
-            };
-          })
-        );
-      })
-    })
+    listFetchItemPUT(
+      'Reservations',
+      params.id,
+      [{ Status: newStatus }],
+      (data) => {
+        listFetch('Reservations', (data) => {
+          setResArray(
+            data.d.results.map((res) => {
+              return {
+                ...res,
+                start: DateTime.fromISO(res.EventDate).toLocal(),
+                end: DateTime.fromISO(res.EndDate).toLocal(),
+              };
+            })
+          );
+        });
+      }
+    );
 
     // let reqOpts = {
     //   method: 'PUT',
@@ -266,7 +270,7 @@ const Reservation = () => {
                     <span className="absolute inset-x-0 bottom-0 h-2 bg-gray-light" />
 
                     {conflictArray.length > 0 &&
-                      JSON.stringify(currRes) !== '{}' ? (
+                    JSON.stringify(currRes) !== '{}' ? (
                       <>
                         <TimeLineChart
                           conflictArray={conflictArray}

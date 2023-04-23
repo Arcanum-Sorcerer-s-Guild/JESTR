@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import 'chartjs-adapter-luxon';
 import { Bar, getElementAtEvent } from 'react-chartjs-2';
 import { DateTime } from 'luxon';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,27 +21,31 @@ ChartJS.register(
   Legend
 );
 
-const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal, setToggle, toggle }) => {
+const TimeLineChart = ({
+  conflictArray,
+  currRes,
+  setAltRes,
+  setShowModal,
+  setToggle,
+  toggle,
+}) => {
   const chartRef = useRef();
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   // conflictArray.unshift(currRes)
 
   let labels = conflictArray.map(
     (conflict) => `${conflict.Squadron}: #${conflict.Id}`
   );
   let colorArray = conflictArray.map((conflict) => {
-    if (conflict.Status === 'Approved') return 'rgba(0,255,0)'
-    if (conflict.Status === 'Rejected') return 'rgba(255,0,0)'
-    if (conflict.Status === 'Pending') return 'rgba(244, 208, 63, 1)' 
-});
+    if (conflict.Status === 'Approved') return 'rgba(0,255,0)';
+    if (conflict.Status === 'Rejected') return 'rgba(255,0,0)';
+    if (conflict.Status === 'Pending') return 'rgba(244, 208, 63, 1)';
+  });
   let dataArray = conflictArray.map((conflict) => [
     conflict.start.toFormat('HH:mm'),
     conflict.end.toFormat('HH:mm'),
   ]);
-
-
-
 
   // if (conflictArray.includes(currRes) === false) conflictArray.unshift(currRes)
   labels.unshift(`Reservation #${currRes.Id}`);
@@ -55,10 +59,10 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal, setTog
     let element = getElementAtEvent(chartRef.current, event)[0];
 
     if (element !== undefined) {
-      if (element.index === 0) return
+      if (element.index === 0) return;
       else {
-        navigate(`/Reservation/${conflictArray[element.index-1].Id}`)
-        setToggle(!toggle)
+        navigate(`/Reservation/${conflictArray[element.index - 1].Id}`);
+        setToggle(!toggle);
       }
     }
   };
@@ -91,12 +95,13 @@ const TimeLineChart = ({ conflictArray, currRes, setAltRes, setShowModal, setTog
       title: {
         display: true,
         text: `Reservations on ${currRes.start.toFormat('dd MMM yyyy')}`,
-        color: 'white'
+        color: 'white',
       },
       datalabels: {
-        display: false
+        display: false,
+      },
     },
-  }}
+  };
 
   const data = {
     labels,

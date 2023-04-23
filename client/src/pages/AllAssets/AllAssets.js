@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import AddAsset from './AddAsset';
-import { listFetch } from '../../utils/api/endPoints.js'
+import { listFetch } from '../../utils/api/endPoints.js';
 // Provides functionality for all assets
 const AllAssets = () => {
   // Tracks user info, current total items, and displayed asset info
@@ -18,7 +18,6 @@ const AllAssets = () => {
   const [sortOrder, setSortOrder] = useState(true); // True = Ascending, False = Descending
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-
 
   // // Helper function to convert coordinates from the DD format to the DMS format
   // const convertDDtoDMS = (coord) => {
@@ -33,7 +32,7 @@ const AllAssets = () => {
     await listFetch('Assets', (data) => {
       setOriginalAssets(data.d.results);
       setCurrAssets([...data.d.results]);
-    })
+    });
   };
 
   // Updates the displayed inventory on initial page load and when the assets list is changed

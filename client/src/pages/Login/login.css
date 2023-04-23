@@ -1,14 +1,19 @@
 /* Gradient transparent - color - transparent */
 
 hr.style-one {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(234, 5, 238, 0.983), rgba(71, 73, 200, 0.796), rgba(234, 5, 238, 0.983));
-    /* background-image: linear-gradient(to right, rgba(234, 5, 238, 0.983), rgba(13, 15, 157, 0.796), rgba(234, 5, 238, 0.983)); */
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(234, 5, 238, 0.983),
+    rgba(71, 73, 200, 0.796),
+    rgba(234, 5, 238, 0.983)
+  );
+  /* background-image: linear-gradient(to right, rgba(234, 5, 238, 0.983), rgba(13, 15, 157, 0.796), rgba(234, 5, 238, 0.983)); */
 }
 
 .log_H3 {
-    background: -webkit-linear-gradient(#f071f2fb, #1d95e0db);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(#f071f2fb, #1d95e0db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

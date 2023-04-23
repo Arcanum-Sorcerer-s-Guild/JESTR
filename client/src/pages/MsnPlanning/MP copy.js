@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../../Context/AppContext.js';
-import {listFetch} from '../../utils/api/endPoints.js';
+import { listFetch } from '../../utils/api/endPoints.js';
 
 //icons
 import { FaSortUp, FaSortDown, FaSort } from 'react-icons/fa';
@@ -45,12 +45,10 @@ const MP = () => {
   };
 
   useEffect(() => {
-
-    listFetch('Reservations', data => {
+    listFetch('Reservations', (data) => {
       console.log(data.d.results);
       setListData(data.d.results);
-    })
-   
+    });
   }, []);
 
   return (

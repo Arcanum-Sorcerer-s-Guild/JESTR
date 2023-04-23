@@ -12,7 +12,6 @@ import SquadronBubble from './Charts/SquadronBubble.js';
 import { userListFetch } from '../../utils/api/endPoints.js';
 import { listFetch } from '../../utils/api/endPoints.js';
 
-
 const AdminStats = () => {
   const [reserveList, setReserveList] = useState([]);
   const [assetList, setAssetList] = useState([]);
@@ -24,29 +23,26 @@ const AdminStats = () => {
   });
 
   useEffect(() => {
-    userListFetch(e => setUserList(e));
+    userListFetch((e) => setUserList(e));
   }, []);
 
   useEffect(() => {
-
-    listFetch('Reservations', data => setReserveList(
-      data.d.results.map((reservation) => {
-        return {
-          date: DateTime.fromISO(reservation.EventDate).toLocal(),
-          status: reservation.Status,
-          squadron: reservation.Squadron,
-          range: reservation.Range,
-        };
-      })
-    ));
+    listFetch('Reservations', (data) =>
+      setReserveList(
+        data.d.results.map((reservation) => {
+          return {
+            date: DateTime.fromISO(reservation.EventDate).toLocal(),
+            status: reservation.Status,
+            squadron: reservation.Squadron,
+            range: reservation.Range,
+          };
+        })
+      )
+    );
   }, []);
 
   useEffect(() => {
-
-    listFetch('Assets', data => setAssetList(
-      data.d.results
-    ));
-
+    listFetch('Assets', (data) => setAssetList(data.d.results));
   }, []);
 
   return (

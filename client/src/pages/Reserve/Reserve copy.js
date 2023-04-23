@@ -123,8 +123,7 @@ const Reserve = () => {
   }
 
   useEffect(() => {
-
-    listFetch('Assets', data => {
+    listFetch('Assets', (data) => {
       setRangeList([...new Set(data.d.results.map((a) => a.Range))]);
       setData(data.d.results);
       setData(
@@ -136,7 +135,7 @@ const Reserve = () => {
           ),
         }))
       );
-    })
+    });
   }, []);
 
   const selectAll = (e) => {
@@ -256,15 +255,12 @@ const Reserve = () => {
   //TODO
   const sendForm = (payload) => {
     payload.map((x) => {
-
-      listFetchItemPOST('Reservations', [x], data => {
-      })
+      listFetchItemPOST('Reservations', [x], (data) => {});
       setShowModale(false);
       // setItemsToSubmit([]);
       // setTimeList([]);
       // alert('Reservation sent');
       // navigate(0)
-
     });
   };
 
@@ -560,10 +556,10 @@ const CollapsibleChild = ({
                         <span className="pl-1">{`${asset.dms
                           .toString()
                           .slice(0, 12)}${asset.dms
-                            .toString()
-                            .slice(24, 41)}${asset.dms
-                              .toString()
-                              .slice(-3, 57)}`}</span>
+                          .toString()
+                          .slice(24, 41)}${asset.dms
+                          .toString()
+                          .slice(-3, 57)}`}</span>
                       </button>
                     </div>
                   </div>
@@ -575,14 +571,16 @@ const CollapsibleChild = ({
                     </div>
                     <div
                       className={`ml-2 flex justify-between border-2 min-w-[450px] overflow:hidden whitespace-nowrap text-center
-                      ${asset.Status === 'AMBER'
+                      ${
+                        asset.Status === 'AMBER'
                           ? `border-yellow bg-yellow/40`
                           : ``
-                        }
-                      ${asset.Status === 'GREEN'
+                      }
+                      ${
+                        asset.Status === 'GREEN'
                           ? `border-green bg-green/40`
                           : ``
-                        }
+                      }
                       ${asset.Status === 'RED' ? `border-red bg-red/40` : ``}
                       ${asset.Status === 'N/A' ? `border-gray bg-gray/40` : ``}
                     `}

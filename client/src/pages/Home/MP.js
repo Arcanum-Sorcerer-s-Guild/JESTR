@@ -15,7 +15,7 @@ const MP = () => {
   ];
 
   useEffect(() => {
-    listFetch('Reservations', data => {
+    listFetch('Reservations', (data) => {
       console.log(data.d.results[0].AuthorId);
       setLists(data.d.results);
     });

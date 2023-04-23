@@ -30,7 +30,7 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(data));
         navigate('/');
       } else alert('Login failed. Please try again');
-    })
+    });
   };
 
   return (

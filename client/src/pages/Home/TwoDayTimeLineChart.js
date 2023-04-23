@@ -49,7 +49,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
   ];
 
   useEffect(() => {
-    listFetch('Reservations', data => {
+    listFetch('Reservations', (data) => {
       setReservations(
         data.d.results.map((res) => {
           return {
@@ -74,9 +74,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
           return { ...acc, [elem]: colors[index] };
         }, {})
       );
-    })
-
-    
+    });
   }, []);
 
   const handleSquadronClick = (squadron) => {

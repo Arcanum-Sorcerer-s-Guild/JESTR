@@ -1,10 +1,5 @@
-import React from "react";
-
+import React from 'react';
 
 export default function AppContentWrapper({ children }) {
-    return (
-        <div className="bg-gunmetal h-auto">
-            {children}
-        </div>
-    )
+  return <div className="bg-gunmetal h-auto">{children}</div>;
 }

@@ -1,8 +1,8 @@
 /* .ol-map {
   min-width: 600px;
   min-height: 400px; */
-  /* margin: 50px; */
-  /* height: 60vh;
+/* margin: 50px; */
+/* height: 60vh;
   width: 50vw; */
 /* } */
 
@@ -36,32 +36,30 @@
   margin-top: .5em
 } */
 
-.ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
-.ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
+.ol-zoom-in.ol-has-tooltip:hover [role='tooltip'],
+.ol-zoom-in.ol-has-tooltip:focus [role='tooltip'] {
   top: 3px;
 }
 
-.ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
-.ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
+.ol-zoom-out.ol-has-tooltip:hover [role='tooltip'],
+.ol-zoom-out.ol-has-tooltip:focus [role='tooltip'] {
   top: 232px;
 }
-
-
 
 .ol-zoomslider {
   top: 8px;
   left: 8px;
   right: auto;
-  background-color: rgba(255,69,0,0.2);
+  background-color: rgba(255, 69, 0, 0.2);
   width: 200px;
   height: 15px;
   padding: 0;
-  box-shadow: 0 0 5px rgb(255,69,0);
+  box-shadow: 0 0 5px rgb(255, 69, 0);
   border-radius: 7.5px;
 }
 
 .ol-zoomslider:hover {
-  background-color: rgba(255,69,0,0.3);
+  background-color: rgba(255, 69, 0, 0.3);
 }
 
 .ol-zoomslider-thumb {
@@ -69,10 +67,10 @@
   width: 15px;
   margin: 0;
   filter: none;
-  background-color: rgba(255,69,0,0.6);
+  background-color: rgba(255, 69, 0, 0.6);
   border-radius: 7.5px;
 }
 
 a.ol-zoomslider-handle:hover {
-  background-color: rgba(255,69,0,0.7);
+  background-color: rgba(255, 69, 0, 0.7);
 }

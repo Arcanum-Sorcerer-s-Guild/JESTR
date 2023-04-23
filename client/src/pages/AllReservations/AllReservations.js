@@ -28,8 +28,7 @@ const AllReservations = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    listFetch('Reservations', data => {
+    listFetch('Reservations', (data) => {
       setReservations(
         data.d.results.sort((a, b) => {
           const dateA = DateTime.fromISO(a.EventDate).toLocal();
@@ -44,8 +43,7 @@ const AllReservations = () => {
         })
       );
       setTemp(data.d.results);
-    })
-
+    });
   }, [render]);
 
   //This is for when an approver presses submit when changing the Reservation status
@@ -55,11 +53,10 @@ const AllReservations = () => {
     const formData = new FormData(form);
     const formJSON = Object.fromEntries(formData.entries());
 
-    listFetchItemPUT('Reservations', formJSON.Id, formJSON, userData => {
+    listFetchItemPUT('Reservations', formJSON.Id, formJSON, (userData) => {
       setShowModale(false);
       setRender(!render);
-    })
-
+    });
   };
 
   const changeStatus = (status) => {
@@ -219,7 +216,6 @@ const AllReservations = () => {
                       {DateTime.fromISO(list.EventDate).toFormat(
                         'dd MMM yyyy @ hh:mm'
                       )}{' '}
-
                     </td>
                     <td
                       className="py-3 px-6 text-left whitespace-nowrap"
@@ -228,19 +224,19 @@ const AllReservations = () => {
                       {DateTime.fromISO(list.EndDate).toFormat(
                         'dd MMM yyyy  @ hh:mm'
                       )}{' '}
-
                     </td>
                     <td className="py-3 px-6 text-left whitespace-nowrap">
                       {userData.IsApprover === false ? (
                         <div
-                          className={`text-center text-m ${list.Status === 'Approved'
+                          className={`text-center text-m ${
+                            list.Status === 'Approved'
                               ? 'text-green'
                               : list.Status === 'Pending'
-                                ? 'text-purple'
-                                : list.Status === 'Rejected'
-                                  ? 'text-pink'
-                                  : ''
-                            }`}
+                              ? 'text-purple'
+                              : list.Status === 'Rejected'
+                              ? 'text-pink'
+                              : ''
+                          }`}
                         >
                           {list.Status}
                         </div>

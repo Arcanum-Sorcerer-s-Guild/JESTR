@@ -11,13 +11,11 @@
 
 .glow {
   color: #fff;
-  text-shadow: 
-    0 0 0px #fff, 0 0 0px #fff, 0 0 0px #fff, 0 0 5px rgb(255, 73, 219),
-    0 0 1px #ff49db, 0 0 1px #ff49db, 0 0 1px #ff49db, 0 0 1px #ff49db;
+  text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 0px #fff,
+    0 0 5px rgb(255, 73, 219), 0 0 1px #ff49db, 0 0 1px #ff49db, 0 0 1px #ff49db,
+    0 0 1px #ff49db;
 }
 
 .glow-td {
-  text-shadow: 
-    0 0 0px #d999f2, 0 0 0px #c3cafc, 0 0 5px #228061
-
+  text-shadow: 0 0 0px #d999f2, 0 0 0px #c3cafc, 0 0 5px #228061;
 }

@@ -45,12 +45,10 @@ const QuickLook = () => {
   };
 
   useEffect(() => {
-
-    listFetch('Reservations', data => {
+    listFetch('Reservations', (data) => {
       console.log(data.d.results);
       setListData(data.d.results);
-    })
-
+    });
   }, []);
 
   return (

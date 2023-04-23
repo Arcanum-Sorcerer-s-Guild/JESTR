@@ -23,9 +23,7 @@ const MyBook = () => {
     return slicedArr;
   };
   useEffect(() => {
-
-    listFetch('Reservations', data => {
-
+    listFetch('Reservations', (data) => {
       const useMe = sliceData(
         data.d.results.filter((item) => {
           return (
@@ -62,7 +60,6 @@ const MyBook = () => {
       setLocalData(useMe);
       setLocalData2(noUseMe);
     });
-
   }, []);
   const headers = [
     { name: 'Site Location' },

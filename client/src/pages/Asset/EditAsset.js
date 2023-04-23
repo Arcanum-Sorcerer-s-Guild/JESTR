@@ -45,7 +45,6 @@ const EditAsset = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
     listFetchItemPUT('Assets', asset.Id, inputs, (data) => {
       let val = data.d;
       // setCurrAsset(undefined);
@@ -54,9 +53,8 @@ const EditAsset = ({
         Number(data.d.Longitude)
       );
       setCurrAsset(val);
-      setShowModal(false)
-    })
-
+      setShowModal(false);
+    });
   };
 
   useEffect(() => {

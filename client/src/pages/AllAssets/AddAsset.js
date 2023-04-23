@@ -6,7 +6,6 @@ import AppContext from '../../Context/AppContext.js';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
 const EditAsset = ({ showModal, setShowModal }) => {
-
   const [inputs, setInputs] = useState();
   const [isManned, setIsManned] = useState(false);
   const [schedulable, setSchedulable] = useState(false);

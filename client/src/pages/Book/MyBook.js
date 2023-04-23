@@ -33,8 +33,7 @@ const MyBook = () => {
     return slicedArr;
   };
   useEffect(() => {
-
-    listFetch('Reservations', data => {
+    listFetch('Reservations', (data) => {
       const useMe = sliceData(
         data.d.results.filter((item) => {
           return (
@@ -79,9 +78,7 @@ const MyBook = () => {
       setReservations(sliceData(data.d.results));
       setLocalData(useMe);
       setLocalData2(noUseMe);
-
-    })
-   
+    });
   }, []);
   const headers = [
     { name: 'Site Location' },
@@ -210,14 +207,15 @@ const MyBook = () => {
                                     L
                                   </td>
                                   <td
-                                    className={`glow-td text-center text-m ${list.Status === 'Approved'
+                                    className={`glow-td text-center text-m ${
+                                      list.Status === 'Approved'
                                         ? 'text-green/50'
                                         : list.Status === 'Pending'
-                                          ? 'text-purple/50'
-                                          : list.Status === 'Rejected'
-                                            ? 'text-pink/50'
-                                            : ''
-                                      }`}
+                                        ? 'text-purple/50'
+                                        : list.Status === 'Rejected'
+                                        ? 'text-pink/50'
+                                        : ''
+                                    }`}
                                   >
                                     {list.Status}
                                   </td>

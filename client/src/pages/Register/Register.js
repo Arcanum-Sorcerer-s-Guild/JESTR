@@ -36,8 +36,6 @@ const Register = () => {
       else if (data.message === 'LoginName already taken...')
         alert('Login name already taken');
     });
-
-
   };
   return (
     <div className="container mx-auto h-screen">

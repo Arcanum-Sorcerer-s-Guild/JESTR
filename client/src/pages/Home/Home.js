@@ -5,7 +5,6 @@ import TwoDayTimeLineChart from './TwoDayTimeLineChart.js';
 import { DateTime } from 'luxon';
 import { listFetch } from '../../utils/api/endPoints.js';
 
-
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Home = () => {
@@ -24,22 +23,13 @@ const Home = () => {
   //   );
   // })
 
-  return (<></>
-
-
-
-
+  return (
+    <></>
 
     // {selectedDate !== undefined ? <>
     // <TwoDayTimeLineChart resArray={resArray} selectedDate={selectedDate}/>
     // </>:<></>}
     //   </div>
-
-
-
-
-
-
   );
 };
 
