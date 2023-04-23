@@ -1,25 +1,17 @@
-import './App.css';
-import NavBar from './NavBar/NavBar.js';
-import Login from './Login/Login.js';
-// import Users from './Users/Users.js'
-import Register from './Register/Register.js';
-import Home from './Home/Home.js';
-import Reserve from './Reserve/Reserve.js';
-import Reservation from './Reservation/Reservation.js';
-import AllReservations from './AllReservations/AllReservations.js';
-import AllAssets from './AllAssets/AllAssets.js';
-import Asset from './Asset/Asset.js';
-import AdminStats from './AdminStats/AdminStats.js';
-import MyBook from './Book/MyBook';
-
-import { Routes, Route, UseNavigate, Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-export const Context = React.createContext();
+import UserAuthRoutes from './Routes/UserAuthRoutes';
+import AdminAuthRoutes from './Routes/AdminAuthRoutes';
+import NoAuthRoutes from './Routes/NoAuthRoutes';
+import { Routes, Route, UseNavigate, Navigate, json } from 'react-router-dom';
+import AppContextProvider from './Components/Wrappers/AppContextProvider.js';
+import AppContext from './Context/AppContext';
+import './App.css';
+import AppWrapper from './Components/Wrappers/AppWrapper.js';
+import NavBar from './Components/Wrappers/NavBar';
+import { userDetailsFetch } from './utils/api/endPoints.js';
 
 function App() {
   const [userData, setUserdata] = useState({});
-  const userUrl = 'http://localhost:3001/user';
-  const listUrl = 'http://localhost:3001/_api/web/lists';
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');
@@ -30,57 +22,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let reqOpts = {
-      method: 'GET',
-      'Access-Control-Allow-Origin': '*',
-      credentials: 'include',
-    };
-
-    fetch(`http://localhost:3001/user/details`, reqOpts)
-      .then((res) => {
-        if (!res.ok) throw new Error(res.statusText);
-        return res.json();
-      })
-      .then((data) => {
-        setUserdata(data);
-      })
-      .catch((err) => console.log(err));
+    userDetailsFetch(e => setUserdata(e));
   }, []);
 
+
   return (
-    <div className="bg-gunmetal h-screen">
-      <Context.Provider value={{ userData, setUserdata, userUrl, listUrl }}>
+    <AppWrapper>
+      <AppContextProvider value={{ userData, setUserdata }}>
         <NavBar />
-        <div className="bg-gunmetal h-auto">
-          {!localStorage.getItem('user') && (
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/Register" element={<Register />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          )}
-          {localStorage.getItem('user') && (
-            <Routes>
-              {/* <Route path = "/Users" element={<Users/>}/> */}
-              <Route path="/" element={<MyBook />} />
-              <Route path="/QuickLook" element={<MyBook />} />
-              <Route path="/Reserve" element={<Reserve />} />
-              <Route path="/AllReservations" element={<AllReservations />} />
-              <Route
-                path="/AllReservations/:page"
-                element={<AllReservations />}
-              />
-              <Route path="/Reservation/:id" element={<Reservation />} />
-              <Route path="/AllAssets" element={<AllAssets />} />
-              <Route path="/Asset/:id" element={<Asset />} />
-              <Route path="/Admin" element={<AdminStats />} />
-              <Route path="/Book" element={<MyBook />} />
-            </Routes>
-          )}
-        </div>
-      </Context.Provider>
-    </div>
+        {localStorage.getItem('user') ? (<UserAuthRoutes />) : (<NoAuthRoutes />)}
+        {/* <NoAuthRoutes /> */}
+        {/* <UserAuthRoutes /> */}
+        {/* <AdminAuthRoutes /> */}
+      </AppContextProvider>
+    </AppWrapper>
+
   );
 }
-
 export default App;
