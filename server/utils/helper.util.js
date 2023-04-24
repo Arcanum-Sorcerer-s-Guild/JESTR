@@ -63,9 +63,8 @@ const formatSharepointUser = (user) => {
 const checkPermissions = (
   req,
   permittedGroups = ['User'], // 'User', 'Author', 'Site Admin', and/or 'Approver'
-  requiredUserId,
+  requiredUserId
 ) => {
-
   const userGroups = [];
 
   if (!req.session.user) {
@@ -73,7 +72,7 @@ const checkPermissions = (
   } else {
     userGroups.push('User');
   }
-  
+
   if (requiredUserId && requiredUserId == req.session.user.Id) {
     userGroups.push('Author');
   }
@@ -83,7 +82,7 @@ const checkPermissions = (
   if (req.session.user.IsApprover) {
     userGroups.push('Approver');
   }
-  
+
   // Site Admin is always allowed
   const allowedGroups = new Set([...permittedGroups, 'Site Admin']);
   if (userGroups.some((userGroup) => allowedGroups.has(userGroup))) {
