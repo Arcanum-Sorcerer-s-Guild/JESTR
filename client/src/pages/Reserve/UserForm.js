@@ -2,9 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import UserDropDown from './UserDropDown';
 import AppContext from '../../Context/AppContext.js';
 import { DateTime } from 'luxon';
+import LabelText from '../../Components/Wrappers/LabelText';
+import ButtonOpen from './ButtonOpen';
+import InputLablel from '../../Components/Wrappers/InputLablel.js';
 
 const squadronDDOpts = ['Other', 'Demons', 'Falcons'];
-export default function UserForm({ setUserForm, setRequestedWeek }) {
+export default function UserForm({ setUserForm, setRequestedWeek, openform }) {
   const defaultWeek = DateTime.now()
     .startOf('week')
     .toISOWeekDate()
@@ -48,46 +51,46 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
     <>
       <div className="text-center">
         <div className="flex ">
-          <div className="p-1.5 w-full">
-            <label className="text-gray-light text-left block text-xs font-light mb-0.5 ml-1">
+          <LabelText>
+            <InputLablel className="text-gray-light text-left block text-xs font-light mb-0.5 ml-1">
               Squadron:
-            </label>
+            </InputLablel>
             <UserDropDown
               dropDownItems={squadronDDOpts}
               dropdown={squadronDD}
               setDropdown={setSquadronDD}
             />
-          </div>
+          </LabelText>
           {squadronDD === squadronDDOpts[0] ? (
-            <div className="p-1.5 w-full">
-              <label className="text-gray-light text-left block text-xs font-light ml-1">
+            <LabelText>
+              <InputLablel>
                 Squadron Name:
-              </label>
+              </InputLablel>
               <input
                 type="text"
                 placeholder="squadron name..."
                 className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md text-xs"
                 onChange={(e) => setSquadron(e.target.value)}
               />
-            </div>
+            </LabelText>
           ) : (
             <></>
           )}
-          <div className="p-1.5 w-full">
-            <label className="text-gray-light text-left block text-xs font-light ml-1">
+          <LabelText>
+            <InputLablel>
               POC:
-            </label>
+            </InputLablel>
             <input
               type="text"
               className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md    text-xs"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-          </div>
-          <div className="p-1.5 w-full">
-            <label className="text-gray-light text-left block text-xs font-light ml-1">
+          </LabelText>
+          <LabelText>
+            <InputLablel>
               DSN:
-            </label>
+            </InputLablel>
             <input
               type="tel"
               placeholder="xxx-xxx-xxxx"
@@ -98,19 +101,32 @@ export default function UserForm({ setUserForm, setRequestedWeek }) {
               className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 pr-10 text-left shadow-md text-xs"
               onChange={(e) => setDSN(e.target.value)}
             />
-          </div>
-          <div className="p-1.5 w-full">
-            <label className="text-gray-light text-left block text-xs font-light ml-1">
+          </LabelText>
+          <LabelText>
+            <InputLablel>
               Week:
-            </label>
-
+            </InputLablel>
             <input
               type="week"
               className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 text-left shadow-md text-xs"
               value={week}
               onChange={(e) => setWeek(e.target.value)}
             />
-          </div>
+          </LabelText>
+          <LabelText>
+            <InputLablel>
+              Click to Reserve
+            </InputLablel>
+            <div className="bg-secondary rounded-l">
+              <div className="text-center">
+                <ButtonOpen
+                  name={'Reserve'}
+                  // onClick={() => setShowModale(true)}
+                  onClick={openform}
+                />
+              </div>
+            </div>
+          </LabelText>
         </div>
       </div>
     </>

@@ -23,7 +23,7 @@ services:
 
   db:
     image: postgres
-    container_name: db
+    container_name: ${POSTGRES_HOST}
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment:
