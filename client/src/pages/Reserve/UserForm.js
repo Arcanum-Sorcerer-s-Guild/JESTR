@@ -106,6 +106,7 @@ export default function UserForm({ setUserForm, setRequestedWeek, openform }) {
             <InputLablel>
               Week:
             </InputLablel>
+
             <input
               type="week"
               className="form-input bg-gray-dark relative w-full cursor-default rounded-md border-none text-gray-light py-1 pl-3 text-left shadow-md text-xs"

@@ -390,7 +390,7 @@ const Reserve = () => {
                         <div>
                           <h1>User Data</h1>
                           <div className="flex">
-                            <label className="mr-2">POC: </label>
+                            <InputLablel className="mr-2">POC: </InputLablel>
 
                             {userForm.POC ? (
                               <div className="">{userForm.POC}</div>
@@ -401,7 +401,7 @@ const Reserve = () => {
                             )}
                           </div>
                           <div className="flex">
-                            <label className="mr-2">Contact DSN: </label>
+                            <InputLablel className="mr-2">Contact DSN: </InputLablel>
 
                             {userForm.ContactDSN ? (
                               <div className="">{userForm.ContactDSN}</div>
@@ -412,7 +412,7 @@ const Reserve = () => {
                             )}
                           </div>
                           <div className="flex">
-                            <label className="mr-2">Squadron: </label>
+                            <InputLablel className="mr-2">Squadron: </InputLablel>
                             {userForm.Squadron ? (
                               <div className="">{userForm.Squadron}</div>
                             ) : (

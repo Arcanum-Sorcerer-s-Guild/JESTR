@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CloseButton from './ButtonClose';
+import InputLablel from '../../Components/Wrappers/InputLablel';
 
 //icons
 import { CgRemove } from 'react-icons/cg';
@@ -48,7 +49,7 @@ function DualTimeSelector({ timeList, setTimeList }) {
     <div className="w-[600px]">
       <div className="flex justify-center">
         <div className="w-[125px] flex flex-col mx-3">
-          <label className="text-gray-light text-left px-2">Start Time:</label>
+          <InputLablel className="text-gray-light text-left px-2">Start Time:</InputLablel>
           <input
             type="time"
             className="form-input text-xs h-1/2 relative cursor-default rounded-md bg-gray-dark text-left text-gray-light shadow-md border-none mt-2"
@@ -58,7 +59,7 @@ function DualTimeSelector({ timeList, setTimeList }) {
         </div>
 
         <div className="w-[125px] flex flex-col mr-2">
-          <label className="text-gray-light text-left px-2">End Time:</label>
+          <InputLablel className="text-gray-light text-left px-2">End Time:</InputLablel>
           <input
             type="time"
             className="form-input text-xs h-1/2 relative cursor-default rounded-md bg-gray-dark text-left text-gray-light shadow-md border-none mt-2"

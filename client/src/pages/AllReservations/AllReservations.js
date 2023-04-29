@@ -10,6 +10,7 @@ import imgpl from './Yetti.png';
 import './allres.css';
 import { listFetchItemPUT } from '../../utils/api/endPoints.js';
 import { listFetch } from '../../utils/api/endPoints.js';
+import InputLablel from '../../Components/Wrappers/InputLablel.js';
 
 //icons
 import { GiTargetShot } from 'react-icons/gi';
@@ -322,15 +323,15 @@ const AllReservations = () => {
                             setModaleChildren(
                               <>
                                 <form onSubmit={handleLogin}>
-                                  <label htmlFor="Notes">Remarks</label>
+                                  <InputLablel htmlFor="Notes">Remarks</InputLablel>
                                   <input
                                     name="Notes"
                                     type="text"
                                     placeholder="Enter Remarks Here..."
                                   />
-                                  <label htmlFor="Status">
+                                  <InputLablel htmlFor="Status">
                                     Choose a Status
-                                  </label>
+                                  </InputLablel>
                                   <select name="Status" id="Status">
                                     <option
                                       value="Rejected"
@@ -373,15 +374,15 @@ const AllReservations = () => {
                             setModaleChildren(
                               <>
                                 <form onSubmit={handleLogin}>
-                                  <label htmlFor="Notes">Remarks</label>
+                                  <InputLablel htmlFor="Notes">Remarks</InputLablel>
                                   <input
                                     name="Notes"
                                     type="text"
                                     placeholder="Enter Remarks Here..."
                                   />
-                                  <label htmlFor="Status">
+                                  <InputLablel htmlFor="Status">
                                     Choose a Status
-                                  </label>
+                                  </InputLablel>
                                   <select name="Status" id="Status">
                                     <option
                                       value="Rejected"

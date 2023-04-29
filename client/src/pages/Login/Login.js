@@ -124,9 +124,9 @@ export default Login;
     <input type="hidden" name="remember" value="true" />
     <div className="-space-y-px rounded-md shadow-sm">
       <div>
-        <label for="email-address" className="sr-only">
+        <InputLablel for="email-address" className="sr-only">
           Email address
-        </label>
+        </InputLablel>
         <input
           type="email"
           id="email-address"
@@ -138,9 +138,9 @@ export default Login;
         />
       </div>
       <div>
-        <label for="password" className="sr-only">
+        <InputLablel for="password" className="sr-only">
           Password
-        </label>
+        </InputLablel>
         <input
           type="password"
           id="password"

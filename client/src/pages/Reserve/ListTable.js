@@ -63,7 +63,7 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
             onChange={toggleSelectAll}
             id="select-all-checkbox"
           />
-          <label htmlFor="select-all-checkbox" />
+          <InputLablel htmlFor="select-all-checkbox" />
         </div>
       ),
       id: 'selection',
@@ -77,7 +77,7 @@ function Table({ data, columns, selected, setSelected, SubRowComponent }) {
             onChange={() => toggleRowSelection(row)}
             id={`row-${row.original.serial}-checkbox`}
           />
-          <label htmlFor={`row-${row.original.serial}-checkbox`} />
+          <InputLablel htmlFor={`row-${row.original.serial}-checkbox`} />
         </div>
       ),
     }),
