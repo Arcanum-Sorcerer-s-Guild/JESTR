@@ -38,7 +38,7 @@ const Register = () => {
     });
   };
   return (
-    <div className="container mx-auto h-screen">
+    <div className="container mx-auto">
       <div className="flex justify-center px-6 my-12">
         <div className="w-full xl:w-3/4 lg:w-full flex shadow-2xl">
           {/* login section */}
@@ -180,7 +180,7 @@ export default Register;
 // <input type='password' onChange={(e) => setPassword1(e.target.value)} placeholder='password' /> <br />
 // <input type='password' onChange={(e) => setPassword2(e.target.value)} placeholder='password' /> <br />
 // <button type='submit' onClick={register}>submit</button> */}
-//   <div class="bg-grey-lighter min-h-screen flex flex-col">
+//   <div class="bg-grey-lighter flex flex-col">
 //     <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
 //       <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
 //         <h1 class="mb-8 text-3xl text-center">Sign up</h1>

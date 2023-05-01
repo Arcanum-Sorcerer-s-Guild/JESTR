@@ -215,6 +215,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
             <div className="bg-blue-darker mb-4 relative rounded overflow-hidden flex justify-center pb-2">
               <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green via-blue to-pink" />
               <div className="flex flex-row gap-5 items-center">
+                
                 <button
                   className="flex items-center gap-1  bg-purple text-gray-light text-xs my-4 px-4 rounded-md shadow-lg"
                   onClick={() =>
@@ -242,7 +243,6 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
                   onClick={() =>
                     setDateRange({
                       start: dateRange.start.plus({ Day: 1 }),
-                      // end: dateRange.end.plus({ Day: 1 }),
                     })
                   }
                 >
@@ -262,6 +262,15 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
           <div className="flex flex-col justify-center">
             <div className="flex flex-row justify-center flex-wrap ">
               <div className="flex flex-row flex-wrap w-5/6 gap-3 justify-center">
+              <button
+              className=" bg-bluer uppercase cursor-pointer rounded-lg w-40 mt-3 text-center font-xs "
+              onClick={() => {
+                handleSquadronClick('all');
+              }}
+            >
+              See All Squadrons
+            </button>
+               
                 {Object.keys(sqColors).length > 0 ? (
                   Object.entries(sqColors).map((sq) => (
                     <div
@@ -315,14 +324,7 @@ const TwoDayTimeLineChart = ({ resArray, selectedDate }) => {
                 )}
               </div>
             </div>
-            <button
-              className="rounded mb-3 bg-bluer text-gray-light uppercase "
-              onClick={() => {
-                handleSquadronClick('all');
-              }}
-            >
-              See All Squadrons
-            </button>
+ 
           </div>
         </div>
       </div>

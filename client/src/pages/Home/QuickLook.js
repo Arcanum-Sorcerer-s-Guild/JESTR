@@ -53,9 +53,6 @@ const QuickLook = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="mt-4 p-2 rounded-md shadow-md bg-purple text-text text-center">
-        <h3 className="font-semibold">MP board</h3>
-      </div>
       <div className>
         <div className="mt-2">
           <div className="mt-2 flex flex-col">

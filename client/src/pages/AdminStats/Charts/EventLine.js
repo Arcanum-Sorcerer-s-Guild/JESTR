@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'chart.js/auto';
 import { Info } from 'luxon';
 import { Line } from 'react-chartjs-2';
-
+import FlexCol from '../../../Components/Wrappers/FlexCol.js';
 const EventLine = ({ dateRange, reserveList }) => {
   const [eventLineData, setEventLineData] = useState();
   const [lineLabels, setLineLabels] = useState({
@@ -139,7 +139,7 @@ const EventLine = ({ dateRange, reserveList }) => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <FlexCol>
         <h3 className="flex justify-center text-2xl mb-2 text-text">{`Reservations by ${lineLabels.range}`}</h3>
         <div>
           {eventLineData ? (
@@ -171,7 +171,7 @@ const EventLine = ({ dateRange, reserveList }) => {
             <></>
           )}
         </div>
-      </div>
+      </FlexCol>
     </>
   );
 };

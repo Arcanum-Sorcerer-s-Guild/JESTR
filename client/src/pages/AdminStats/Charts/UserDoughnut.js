@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import FlexCol from '../../../Components/Wrappers/FlexCol.js';
 
 const UserDoughnut = ({ userList }) => {
   const userData = {
@@ -36,7 +37,7 @@ const UserDoughnut = ({ userList }) => {
     <>
       {userList.length > 0 ? (
         <>
-          <div className="flex flex-col justify-center">
+          <FlexCol>
             <h3 className="text-2xl mb-2 text-center text-text">{`Users by Type`}</h3>
             <div>
               <Doughnut
@@ -46,7 +47,7 @@ const UserDoughnut = ({ userList }) => {
                 options={options}
               />
             </div>
-          </div>
+          </FlexCol>
         </>
       ) : (
         <></>

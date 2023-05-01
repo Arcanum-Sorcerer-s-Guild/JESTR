@@ -11,6 +11,7 @@ import {
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import FlexCol from '../../../Components/Wrappers/FlexCol.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -81,7 +82,7 @@ const ReservationSuccessPie = ({ dateRange, reserveList }) => {
   return (
     <>
       {' '}
-      <div className="flex flex-col">
+      <FlexCol>
         <h3 className="flex justify-center text-2xl mb-2 text-text">
           Total Approved vs Denied Reservations
         </h3>
@@ -117,7 +118,7 @@ const ReservationSuccessPie = ({ dateRange, reserveList }) => {
             <></>
           )}
         </div>
-      </div>
+      </FlexCol>
     </>
   );
 };

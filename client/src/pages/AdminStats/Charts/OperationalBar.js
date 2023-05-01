@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
+import FlexCol from '../../../Components/Wrappers/FlexCol.js';
 
 const OperationalBar = ({ assetList }) => {
   const [operationalBarData, setOperationalBarData] = useState();
@@ -43,7 +44,7 @@ const OperationalBar = ({ assetList }) => {
   }, [assetList]);
   return (
     <>
-      <div className="flex flex-col ">
+      <FlexCol>
         <h3 className="flex text-2xl mb-2 justify-center text-text">
           Operational vs Non Operational Assets
         </h3>
@@ -77,7 +78,7 @@ const OperationalBar = ({ assetList }) => {
             <></>
           )}
         </div>
-      </div>
+      </FlexCol>
     </>
   );
 };

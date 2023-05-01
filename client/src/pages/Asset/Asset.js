@@ -115,7 +115,7 @@ const Asset = () => {
   return (
     <>
       {currAsset !== undefined ? (
-        <div className="w-[80%] container mx-auto h-screen mt-2">
+        <div className="w-[80%] container mx-auto mt-2">
           <div className="flex flex-col">
             <div className="timeline mb-2">
               {/* timeline-start */}

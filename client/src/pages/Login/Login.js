@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container mx-auto h-screen">
+    <div className="container mx-auto">
       <div className="flex justify-center px-6 my-12">
         <div className="w-full xl:w-3/4 lg:w-12/12 flex shadow-2xl">
           {/* image section */}

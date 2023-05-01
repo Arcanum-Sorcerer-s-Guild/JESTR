@@ -118,7 +118,7 @@ const Reservation = () => {
 
       {currRes !== undefined ? (
         <>
-          <div className="w-full h-screen block text shadow-lg p-2">
+          <div className="w-full block text shadow-lg p-2">
             <div className="flex flex-col h-full">
               <div className="flex flex-row w-full justify-center gap-6 mt-3">
                 <div className="mt-5">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Bubble } from 'react-chartjs-2';
+import FlexCol from '../../../Components/Wrappers/FlexCol.js';
 
 const SquadronBubble = ({ reserveList, dateRange }) => {
   reserveList.sort((a, b) => {
@@ -109,7 +110,7 @@ const SquadronBubble = ({ reserveList, dateRange }) => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <FlexCol>
         <h3 className=" flex justify-center text-2xl mb-2 text-text">{`Successful Reservations by Squadron`}</h3>
         <div>
           {bubbleSquadronData ? (
@@ -125,7 +126,7 @@ const SquadronBubble = ({ reserveList, dateRange }) => {
             <></>
           )}
         </div>
-      </div>
+      </FlexCol>
     </>
   );
 };

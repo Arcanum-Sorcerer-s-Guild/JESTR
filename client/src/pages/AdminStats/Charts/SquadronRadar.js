@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'chart.js/auto';
 import { Radar } from 'react-chartjs-2';
+import FlexCol from '../../../Components/Wrappers/FlexCol.js';
 
 const SquadronRadar = ({ dateRange, reserveList }) => {
   const [squadronRangeData, setSquadronRangeData] = useState([]);
@@ -52,7 +53,7 @@ const SquadronRadar = ({ dateRange, reserveList }) => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <FlexCol>
         <h3 className="flex justify-center text-2xl mb-2 text-text">
           Site Usage by Squadron
         </h3>
@@ -104,7 +105,7 @@ const SquadronRadar = ({ dateRange, reserveList }) => {
             <></>
           )}
         </div>
-      </div>
+      </FlexCol>
     </>
   );
 };
