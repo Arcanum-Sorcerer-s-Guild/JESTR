@@ -50,7 +50,7 @@ export default function UserForm({ setUserForm, setRequestedWeek, openform }) {
   return (
     <>
       <div className="text-center">
-        <div className="flex ">
+        <div className="flex">
           <LabelText>
             <InputLablel className="text-gray-light text-left block text-xs font-light mb-0.5 ml-1">
               Squadron:

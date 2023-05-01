@@ -106,36 +106,6 @@ const Reservation = () => {
       }
     );
 
-    // let reqOpts = {
-    //   method: 'PUT',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   credentials: 'include',
-    //   body: JSON.stringify([{ Status: newStatus }]),
-    // };
-    // //console.log(newStatus)
-    // fetch(
-    //   `http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items(${params.id})`,
-    //   reqOpts
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     fetch(
-    //       "http://localhost:3001/_api/web/lists/GetByTitle('Reservations')/items",
-    //       { credentials: 'include' }
-    //     )
-    //       .then((res) => res.json())
-    //       .then((data) => {
-    //         setResArray(
-    //           data.d.results.map((res) => {
-    //             return {
-    //               ...res,
-    //               start: DateTime.fromISO(res.EventDate).toLocal(),
-    //               end: DateTime.fromISO(res.EndDate).toLocal(),
-    //             };
-    //           })
-    //         );
-    //       });
-    //   });
   };
 
   return (

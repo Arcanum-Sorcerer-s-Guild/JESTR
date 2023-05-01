@@ -6,7 +6,7 @@ import { Routes, Route, UseNavigate, Navigate, json } from 'react-router-dom';
 import AppContextProvider from './Components/Wrappers/AppContextProvider.js';
 import AppContext from './Context/AppContext';
 import './App.css';
-import AppWrapper from './Components/Wrappers/AppWrapper.js';
+import AppBGWrapper from './Components/Wrappers/AppBGWrapper.js';
 import NavBar from './Components/Wrappers/NavBar';
 import { userDetailsFetch } from './utils/api/endPoints.js';
 
@@ -26,7 +26,6 @@ function App() {
   }, []);
 
   return (
-    <AppWrapper>
       <AppContextProvider value={{ userData, setUserdata }}>
         <NavBar />
         {localStorage.getItem('user') ? <UserAuthRoutes /> : <NoAuthRoutes />}
@@ -34,7 +33,6 @@ function App() {
         {/* <UserAuthRoutes /> */}
         {/* <AdminAuthRoutes /> */}
       </AppContextProvider>
-    </AppWrapper>
   );
 }
 export default App;

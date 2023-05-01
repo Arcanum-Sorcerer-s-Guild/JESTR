@@ -1,5 +1,6 @@
 import React from 'react';
 
-export default function AppWrapper({ children }) {
+//done
+export default function AppBGWrapper({ children }) {
   return <div className="bg-gunmetal h-screen">{children}</div>;
 }

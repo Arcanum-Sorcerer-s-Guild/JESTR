@@ -4,9 +4,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 
+import AppBGWrapper from './Components/Wrappers/AppBGWrapper.js';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Router>
-    <App />
-  </Router>
+  <AppBGWrapper>
+    <Router>
+      <App />
+    </Router>
+  </AppBGWrapper>
 );

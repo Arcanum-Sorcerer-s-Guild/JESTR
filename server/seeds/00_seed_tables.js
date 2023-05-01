@@ -5,7 +5,7 @@ const globalNumUsers = 100;
 const globalNumAssets = 60;
 const globalNumReservations = 2000;
 const globalDateRangeStart = '2023-01-01';
-const globalDateRangeEnd = '2023-05-01';
+const globalDateRangeEnd = '2023-07-01';
 
 function randomIncRange(min, max) {
   min = Math.ceil(min);
